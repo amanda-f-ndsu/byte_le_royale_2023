@@ -22,7 +22,5 @@ class GameObject:
         self.id = data['id']
         self.object_type = data['object_type']
 
-        return self
-
     def obfuscate(self):
         pass
