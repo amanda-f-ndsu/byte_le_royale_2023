@@ -7,7 +7,7 @@ class Tile(GameObject):
     def __init__(self, occupied_by: GameObject):
         super().__init__()
         self.object_type = ObjectType.tile
-        # only a station or dispensor can occupy a tile. 'None' means tile is empty.
+        # only a station, dispensor, or cook can occupy a tile. 'None' means tile is empty.
         self.occupied_by = occupied_by if isinstance(occupied_by, (Station, Dispenser, Cook)) else None
 
 
