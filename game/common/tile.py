@@ -4,28 +4,29 @@ from game.common.game_object import GameObject
 
 class Tile(GameObject):
 
-    def __init__(self, stored_object: GameObject):
+    def __init__(self, occupied_by: GameObject):
         super().__init__()
         self.object_type = ObjectType.tile
-        self.stored_object = stored_object if isinstance(Station) or isinstance(Dispenser) else None
+        # only a station or dispensor can occupy a tile. 'None' means tile is empty.
+        self.occupied_by = occupied_by if isinstance(Station) or isinstance(Dispenser) else None
 
 
 
     @property
-    def stored_object(self) -> GameObject:
-        return self.__stored_object
+    def occupied_by(self) -> GameObject:
+        return self.__occupied_by
 
-    @stored_object.setter
-    def stored_object(self, stored_object: GameObject):
-        self.__stored_object = stored_object if isinstance(Station) or isinstance(Dispenser) else None
+    @occupied_by.setter
+    def occupied_by(self, occupied_by: GameObject):
+        self.__occupied_by = occupied_by if isinstance(Station) or isinstance(Dispenser) else None
 
 
     def to_json(self):
         data = super().to_json()
-        data['stored_object'] = self.stored_object
+        data['occupied_by'] = self.occupied_by
         return data
 
     def from_json(self, data: dict) -> 'Tile':
         super().from_json(data)
-        self.stored_object = data['stored_object']
+        self.occupied_by = data['occupied_by']
         return self

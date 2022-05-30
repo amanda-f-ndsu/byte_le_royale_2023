@@ -9,4 +9,6 @@ class ObjectType:
     none = 0
     action = 1
     player = 2
+
+    
     tile = 5
