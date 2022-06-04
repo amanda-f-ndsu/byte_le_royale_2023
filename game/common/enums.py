@@ -9,6 +9,7 @@ class ObjectType:
     none = 0
     action = 1
     player = 2
+    item = 3
 
-    
     tile = 5
+

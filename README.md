@@ -3,11 +3,19 @@ Base game engine for use in NDACM Byte-le Royale games.
 
 ## How to run
 
+```bash
 .\build.bat - will build your code (compile, pretty much)
 
 python .\launcher.pyz g - will generate a map 
 
 python .\launcher.pyz r - will run the game
+```
+
+## Test Suite Commands:
+
+```bash
+python -m game.test_suite.runner
+```
 
 ## Manual
 
