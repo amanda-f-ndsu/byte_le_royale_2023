@@ -7,8 +7,8 @@ class Tile(GameObject):
     def __init__(self, occupied_by: GameObject):
         super().__init__()
         self.object_type = ObjectType.tile
-        # only a station, dispensor, or cook can occupy a tile. 'None' means tile is empty.
-        self.occupied_by = occupied_by if isinstance(occupied_by, (Station, Dispenser, Cook)) else None
+        # only a station, dispenser, or cook can occupy a tile. 'None' means tile is empty.
+        self.occupied_by = occupied_by 
 
 
 
@@ -18,7 +18,7 @@ class Tile(GameObject):
 
     @occupied_by.setter
     def occupied_by(self, occupied_by: GameObject):
-        self.__occupied_by = occupied_by if isinstance(Station) or isinstance(Dispenser) else None
+        self.occupied_by = occupied_by if isinstance(occupied_by, (Station, Dispenser, Cook)) else None
 
 
     def to_json(self):
