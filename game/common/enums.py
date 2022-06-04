@@ -9,5 +9,4 @@ class ObjectType:
     none = 0
     action = 1
     player = 2
-
-    dispenser = 4
+    item = 3
