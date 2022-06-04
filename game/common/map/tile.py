@@ -18,7 +18,7 @@ class Tile(GameObject):
 
     @occupied_by.setter
     def occupied_by(self, occupied_by: GameObject):
-        self.occupied_by = occupied_by if isinstance(occupied_by, (Station, Dispenser, Cook)) else None
+        self.__occupied_by = occupied_by if isinstance(occupied_by, (Station, Dispenser, Cook)) else None
 
 
     def to_json(self):
