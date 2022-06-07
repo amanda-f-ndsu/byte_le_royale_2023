@@ -6,7 +6,7 @@ class Dispenser(GameObject):
 
     def __init__(self):
         super().__init__()
-        self.object_type = ObjectType.dispenser
+        self.object_type: ObjectType = ObjectType.dispenser
         self.item_stored: GameObject = GameObject()
 
     @property

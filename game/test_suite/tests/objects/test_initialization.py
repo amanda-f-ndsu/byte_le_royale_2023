@@ -7,12 +7,10 @@ from game.common.dispenser import Dispenser
 class TestInitialization(unittest.TestCase):
     def setUp(self):
         self.item = Item(quality=4, value=20)
+        self.dispenser = Dispenser()
 
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
-
-    def dispenserSetUp(self):
-        self.dispenser = Dispenser()
 
     def testDispenserInit(self):
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
