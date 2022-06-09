@@ -10,3 +10,7 @@ class ObjectType:
     action = 1
     player = 2
     item = 3
+
+class ActionType:
+    none = 0
+    test = 1
