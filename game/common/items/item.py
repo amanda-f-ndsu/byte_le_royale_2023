@@ -7,13 +7,8 @@ class Item(GameObject):
     def __init__(self, worth: int, quality: float = 0):
         super().__init__()
         self.object_type = ObjectType.item
-        if quality > 1:
-            self.quality = 1
-        elif quality < 0:
-            self.quality = 0
-        else:
-            self.quality = quality
-        self.worth = worth if worth >= 1 else 0
+        self.worth = worth
+        self.quality = quality
 
     @property
     def quality(self) -> float:
@@ -31,6 +26,10 @@ class Item(GameObject):
             self.__quality = 0
         else:
             self.__quality = quality
+
+    @worth.setter
+    def worth(self, worth: int):
+        self.__worth = worth
 
     def to_json(self):
         data = super().to_json()
