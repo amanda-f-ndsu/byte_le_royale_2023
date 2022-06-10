@@ -10,6 +10,10 @@ class ObjectType:
     action = 1
     player = 2
     item = 3
+    
+
+
+    cook = 6
 
 class ActionType:
     none = 0

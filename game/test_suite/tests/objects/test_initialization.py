@@ -13,6 +13,7 @@ class TestInitialization(unittest.TestCase):
     
     def testCookInit(self):
         self.assertEqual(self.cook.chosen_action, ActionType.test)
+        self.assertEqual(self.cook.object_type, ObjectType.cook)
         self.assertEqual(self.cook.held_item, self.item)
 
 if __name__ == '__main__':
