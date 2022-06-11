@@ -1,18 +1,12 @@
-# This is a quick example test file to show you the basics.
-# Always remember to add the proper details to the __init__.py file in the 'tests' folder
-# to insure your tests are run.
 
+from game.common.items.item import Item
+from game.common.station import Station
 import unittest
 
-class TestExample(unittest.TestCase): # Your test class is a subclass of unittest.Testcase, this is important
+class StationTest(unittest.TestCase): 
 
-    def setUp(self): # This method is used to set up anything you wish to test prior to every test method below.
-        self.d = { # Here I'm just setting up a quick dictionary for example.
-            "string" : "Hello World!", # Any changes made to anything built in setUp DO NOT carry over to later test methods
-            "array" : [1, 2, 3, 4, 5],
-            "integer" : 42,
-            "bool" : False
-            }
+    def setUp(self): 
+        self.station = Station(item=Item(4,20), is_infested=False)
     
     def test_dict_array(self): # Test methods should always start with the word 'test'
         a = self.d["array"]

@@ -1,14 +1,14 @@
 from xmlrpc.client import Boolean
 from game.common.game_object import GameObject
 from game.common.enums import ObjectType
-
+from game.common.items.item import Item
 class Station(GameObject):
 
-    def __init__(self):
+    def __init__(self, item: Item, is_infested : Boolean):
         super().__init__()
         self.object_type = ObjectType.station
-        self.item: GameObject = None
-        self.is_infested: Boolean = False
+        self.item: Item = item
+        self.is_infested: Boolean = is_infested
 
     @property
     def item(self) -> GameObject:
