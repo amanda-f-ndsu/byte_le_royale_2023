@@ -12,19 +12,19 @@ class Station(GameObject):
 
     @property
     def item(self) -> GameObject:
-        return self.item
+        return self.__item
 
     @property
     def is_infested(self) -> Boolean:
-        return self.is_infested
+        return self.__is_infested
     
-    @property.setter
+    @item.setter
     def item(self, item: GameObject):
-        self.item = item
+        self.__item = item
 
-    @property.setter
+    @is_infested.setter
     def is_infested(self, bool: Boolean):
-        self.is_infested = bool
+        self.__is_infested = bool
 
 
     def to_json(self) -> dict:
