@@ -9,4 +9,4 @@ class ObjectType:
     none = 0
     action = 1
     player = 2
-    station = 3
+    item = 3
