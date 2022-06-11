@@ -10,4 +10,4 @@ class ObjectType:
     action = 1
     player = 2
     item = 3
-    station = 4
+    station = 5
