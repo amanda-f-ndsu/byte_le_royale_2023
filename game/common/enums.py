@@ -11,3 +11,7 @@ class ObjectType:
     player = 2
     item = 3
     dispenser = 4
+    station = 5
+
+
+
