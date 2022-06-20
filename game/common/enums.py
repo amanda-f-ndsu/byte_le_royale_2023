@@ -12,6 +12,8 @@ class ObjectType:
     item = 3
     dispenser = 4
     station = 5
+    cook = 6
 
-
-
+class ActionType:
+    none = 0
+    test = 1
