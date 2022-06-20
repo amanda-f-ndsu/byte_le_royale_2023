@@ -10,6 +10,11 @@ class ObjectType:
     action = 1
     player = 2
     item = 3
+    dispenser = 4
+    station = 5
+    cook = 6
+    tile = 7
 
-    tile = 5
-
+class ActionType:
+    none = 0
+    test = 1
