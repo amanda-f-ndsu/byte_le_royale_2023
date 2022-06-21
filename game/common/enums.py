@@ -11,6 +11,13 @@ class ObjectType:
     action = 1
     player = 2
     item = 3
+    dispenser = 4
+    station = 5
+    cook = 6
+    
+class ActionType:
+    none = 0
+    test = 1
 
 class ToppingType:
     none = (0, 0)
@@ -22,6 +29,3 @@ class ToppingType:
     chicken = (6, 40)
     olives = (7, 50)
     anchovies = (8, 50)
-
-
-
