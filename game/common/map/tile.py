@@ -1,5 +1,8 @@
+from game.common.cook import Cook
+from game.common.dispenser import Dispenser
 from game.common.enums import ObjectType
 from game.common.game_object import GameObject
+from game.common.station import Station
 
 
 class Tile(GameObject):
@@ -8,7 +11,7 @@ class Tile(GameObject):
         super().__init__()
         self.object_type = ObjectType.tile
         # only a station, dispenser, or cook can occupy a tile. 'None' means tile is empty.
-        self.__occupied_by = occupied_by 
+        self.occupied_by = occupied_by 
 
 
 
