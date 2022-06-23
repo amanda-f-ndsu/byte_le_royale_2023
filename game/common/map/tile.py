@@ -7,7 +7,7 @@ from game.common.station import Station
 
 class Tile(GameObject):
 
-    def __init__(self, occupied_by: GameObject):
+    def __init__(self, occupied_by: GameObject=None):
         super().__init__()
         self.object_type = ObjectType.tile
         # only a station, dispenser, or cook can occupy a tile. 'None' means tile is empty.
