@@ -18,3 +18,9 @@ class ObjectType:
 class ActionType:
     none = 0
     test = 1
+
+class PizzaState:
+    none = 0
+    rolled = 1
+    sauced = 2
+    baked = 3
