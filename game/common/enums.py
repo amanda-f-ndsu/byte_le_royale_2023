@@ -12,12 +12,9 @@ class ObjectType:
     item = 3
     dispenser = 4
     station = 5
-    pizza = 6
+    cook = 6
+    pizza = 7
 
-
-class PizzaState:
+class ActionType:
     none = 0
-    dough = 1
-    rolled = 2
-    sauced = 3
-    baked = 4
+    test = 1
