@@ -12,16 +12,18 @@ class ObjectType:
     player = 2
     item = 3
 
-class ToppingType:
-    none = (0, 0)
-    cheese = (1, 20)
-    pepperoni = (2, 40)
-    canadianham = (3, 40)
-    mushrooms = (4, 40)
-    peppers = (5, 50)
-    chicken = (6, 40)
-    olives = (7, 50)
-    anchovies = (8, 50)
+class ToppingType(int, Enum):
+    none = 0
+    dough = 1
+    cheese = 2
+    pepperoni = 3
+    sausage = 4
+    canadian_ham = 5
+    mushrooms = 6
+    peppers = 7
+    chicken = 8
+    olives = 9
+    anchovies = 10
 
 
 
