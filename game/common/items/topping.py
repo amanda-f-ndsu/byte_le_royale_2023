@@ -4,7 +4,8 @@ from game.common.enums import *
 class Topping(Item):
 
     def __init__(self, worth: int, quality: float = 0, topping_type: int = 0, is_cut: bool=False):
-        super().__init__(self, worth, quality)
+        super().__init__(worth, quality)
+        self.object_type = ObjectType.topping
         self.topping_type = topping_type
         self.is_cut = is_cut
 
