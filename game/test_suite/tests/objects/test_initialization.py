@@ -18,7 +18,7 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
         self.assertEqual(self.station.object_type, ObjectType.station)
-        self.assertEqual(self.topping.object_type, ObjectType.item)
+        self.assertEqual(self.topping.object_type, ObjectType.topping)
             
     def testCookInit(self):
         self.assertEqual(self.cook.chosen_action, ActionType.test)

@@ -14,6 +14,7 @@ class ObjectType:
     dispenser = 4
     station = 5
     cook = 6
+    topping = 7
     
 class ActionType:
     none = 0
