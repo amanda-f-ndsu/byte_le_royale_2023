@@ -5,9 +5,18 @@ from game.common.items.item import Item
 from game.common.dispenser import Dispenser
 from game.common.map.tile import Tile
 from game.common.station import Station
-
 class TestInitialization(unittest.TestCase):
     def setUp(self):
+        self.item = Item(quality=4, worth=20)
+        self.station = Station(item=Item(4,20), is_infested=False)
+        self.dispenser = Dispenser()
+
+    def testObjectInit(self):
+        self.assertEqual(self.item.object_type, ObjectType.item)
+        self.assertEqual(self.station.object_type, ObjectType.station)
+
+    def testDispenserInit(self):
+
         self.item = Item(quality=4, worth=20)
         self.cook = Cook(action=ActionType.test, item=self.item)
         self.dispenser = Dispenser()
@@ -16,6 +25,7 @@ class TestInitialization(unittest.TestCase):
       
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
+
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
         self.assertEqual(self.station.object_type, ObjectType.station)
         self.assertEqual(self.tile.object_type, ObjectType.tile)
@@ -33,7 +43,6 @@ class TestInitialization(unittest.TestCase):
         self.assertTrue(isinstance(self.tile.occupied_by, Station))
         self.tile.occupied_by = self.item
         self.assertIsNone(self.tile.occupied_by)
-
 
 if __name__ == '__main__':
     unittest.main()
