@@ -3,21 +3,13 @@ from game.common.cook import Cook
 from game.common.enums import ObjectType, ActionType
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
-
 from game.common.map.tile import Tile
-
 from game.common.station import Station
-
 class TestInitialization(unittest.TestCase):
     def setUp(self):
-
-
         self.item = Item(quality=4, worth=20)
         self.station = Station(item=Item(4,20), is_infested=False)
-
-    
         self.dispenser = Dispenser()
-
 
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
@@ -51,7 +43,6 @@ class TestInitialization(unittest.TestCase):
         self.assertTrue(isinstance(self.tile.occupied_by, Station))
         self.tile.occupied_by = self.item
         self.assertIsNone(self.tile.occupied_by)
-
 
 if __name__ == '__main__':
     unittest.main()
