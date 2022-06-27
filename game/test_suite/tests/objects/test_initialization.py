@@ -1,6 +1,6 @@
 import unittest
 from game.common.cook import Cook
-from game.common.enums import ObjectType, ActionType, ToppingType
+from game.common.enums import ObjectType, ActionType
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
 from game.common.station import Station
