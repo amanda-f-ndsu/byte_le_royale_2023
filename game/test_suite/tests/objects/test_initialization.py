@@ -1,15 +1,15 @@
 import unittest
 from game.common.cook import Cook
-from game.common.enums import ObjectType, ActionType, ToppingType
+from game.common.enums import ObjectType, ActionType
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
 from game.common.station import Station
-from game.common.topping import Topping
+from game.common.items.topping import Topping
 
 class TestInitialization(unittest.TestCase):
     def setUp(self):
         self.item = Item(quality=4, worth=20)
-        self.cook = Cook(team="ACM", action=ActionType.test, item=self.item)
+        self.cook = Cook(action=ActionType.test, item=self.item)
         self.dispenser = Dispenser()
         self.station = Station(item=Item(4,20), is_infested=False)
         self.topping = Topping(quality=4, worth=20, topping_type=0, is_cut=False)
