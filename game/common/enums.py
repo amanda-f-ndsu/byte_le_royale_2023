@@ -15,6 +15,7 @@ class ObjectType:
     station = 5
     cook = 6
     topping = 7
+    tile = 8
     
 class ActionType:
     none = 0
