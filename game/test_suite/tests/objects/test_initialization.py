@@ -1,6 +1,6 @@
 import unittest
 from game.common.cook import Cook
-from game.common.enums import ObjectType, ActionType, PizzaState
+from game.common.enums import *
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
 from game.common.station import Station
@@ -25,6 +25,9 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.cook.held_item, self.item)
 
     def testPizzaInit(self):
+        self.pizza.state = PizzaState.Sauced 
+        self.pizza.state = 
+        pass
 
 if __name__ == '__main__':
     unittest.main()
