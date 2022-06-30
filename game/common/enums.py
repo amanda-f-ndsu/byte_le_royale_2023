@@ -1,9 +1,10 @@
+from enum import Enum
+
 class DebugLevel:
     none = 0
     client = 1
     controller = 2
     engine = 3
-
 
 class ObjectType:
     none = 0
@@ -13,8 +14,10 @@ class ObjectType:
     dispenser = 4
     station = 5
     cook = 6
-    pizza = 7
-
+    topping = 7
+    tile = 8
+    pizza = 9
+    
 class ActionType:
     none = 0
     test = 1
@@ -24,3 +27,16 @@ class PizzaState:
     rolled = 1
     sauced = 2
     baked = 3
+    
+class ToppingType(int, Enum):
+    none = 0
+    dough = 1
+    cheese = 2
+    pepperoni = 3
+    sausage = 4
+    canadian_ham = 5
+    mushrooms = 6
+    peppers = 7
+    chicken = 8
+    olives = 9
+    anchovies = 10
