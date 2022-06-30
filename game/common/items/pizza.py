@@ -25,9 +25,9 @@ class Pizza(Item):
         return self.__toppings
 
 
-    """Not allowed for client use! Will be disqualified if called in contestant's code"""
+    
     def add_topping(self, topping: int):
-        if len(self.toppings) < 4 and isinstance(topping, int) and topping in ToppingType.__dict__.values():
+        if len(self.toppings) < 4 and isinstance(topping, int) and self.state == PizzaState.sauced and topping in ToppingType.__dict__.values():
             self.toppings.append(topping)
     
 
