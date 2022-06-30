@@ -16,6 +16,7 @@ class ObjectType:
     cook = 6
     topping = 7
     tile = 8
+    oven = 9
     
 class ActionType:
     none = 0

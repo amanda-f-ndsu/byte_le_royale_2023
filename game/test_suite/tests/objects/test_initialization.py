@@ -4,7 +4,7 @@ from game.common.enums import ObjectType, ActionType
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
 from game.common.map.tile import Tile
-from game.common.station import Station
+from game.common.stations.station import Station
 from game.common.items.topping import Topping
 
 class TestInitialization(unittest.TestCase):
