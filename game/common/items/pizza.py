@@ -5,7 +5,7 @@ import json
 
 class Pizza(Item):
 
-    def __init__(self, worth: int, quality: float = 0, state: int = PizzaState.rolled):
+    def __init__(self, worth: int = 0, quality: float = 0, state: int = PizzaState.rolled):
         super().__init__(worth, quality)
         self.object_type = ObjectType.pizza
         self.state = state
@@ -27,7 +27,7 @@ class Pizza(Item):
 
     
     def add_topping(self, topping: int):
-        if len(self.toppings) < 4 and isinstance(topping, int) and self.state == PizzaState.sauced and topping in ToppingType.__dict__.values():
+        if len(self.toppings) < 4 and self.state == PizzaState.sauced and topping in ToppingType.__dict__.values() and topping != ToppingType.dough:
             self.toppings.append(topping)
     
 

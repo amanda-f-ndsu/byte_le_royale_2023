@@ -32,10 +32,6 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.cook.object_type, ObjectType.cook)
         self.assertEqual(self.cook.held_item, self.item)
 
-    def testPizzaInit(self):
-        self.pizza.state = PizzaState.Sauced 
-        # need to add more tests
-
     def testTileInit(self):
         self.assertTrue(isinstance(self.tile.occupied_by, Dispenser))
         self.tile.occupied_by = self.cook
