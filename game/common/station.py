@@ -29,7 +29,7 @@ class Station(GameObject):
         self.__is_infested = infested
 
     @abstractmethod
-    def take_action(self, item_to_modify):
+    def take_action(self, item_to_modify: Item) -> Item:
         return item_to_modify
 
     def to_json(self) -> dict:
