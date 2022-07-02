@@ -17,7 +17,10 @@ class ObjectType:
     topping = 7
     tile = 8
     pizza = 9
-    
+    roller = 10
+    cutter = 11
+    combiner = 12
+
 class ActionType:
     none = 0
     test = 1

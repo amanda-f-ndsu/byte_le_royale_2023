@@ -7,11 +7,11 @@ import abc
 class Station(GameObject):
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, item: Item, is_infested : Boolean):
+    def __init__(self, item: Item, is_infested : bool = False):
         super().__init__()
         self.object_type = ObjectType.station
         self.item: Item = item
-        self.is_infested: Boolean = is_infested
+        self.is_infested: bool = is_infested
 
     @property
     def item(self) -> GameObject:

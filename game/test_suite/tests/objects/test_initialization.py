@@ -3,6 +3,7 @@ from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
+from game.common.combiner import Combiner
 from game.common.map.tile import Tile
 from game.common.station import Station
 from game.common.items.pizza import Pizza
@@ -11,12 +12,13 @@ from game.common.items.topping import Topping
 class TestInitialization(unittest.TestCase):
     def setUp(self):
         self.item = Item(quality=4, worth=20)
-        self.topping = Topping(quality=4, worth=20, topping_type=0, is_cut=False)
+        self.topping = Topping(quality=4, worth=20, topping_type=ToppingType.peppers, is_cut=False)
         self.station = Station(item=Item(4,20), is_infested=False)
-        self.pizza = Pizza(state=PizzaState.rolled)
+        self.pizza = Pizza(state=PizzaState.sauced)
         self.dispenser = Dispenser()
         self.cook = Cook(action=ActionType.test, item=self.item)
         self.tile = Tile(occupied_by= self.dispenser)
+        self.combiner = Combiner()
 
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
@@ -40,6 +42,21 @@ class TestInitialization(unittest.TestCase):
         self.assertTrue(isinstance(self.tile.occupied_by, Station))
         self.tile.occupied_by = self.item
         self.assertIsNone(self.tile.occupied_by)
+
+    def testCombiner(self):
+        #store pizza
+        test = self.combiner.take_action(self.pizza)
+        self.assertEqual(test, "stored")
+
+        #add topping
+        test = self.combiner.take_action(self.topping)
+        self.assertEqual(test, "added")
+
+        #take pizza from station
+        test = self.combiner.take_action(None)
+        self.assertEqual(len(test.toppings), 1)
+        self.assertEqual(self.combiner.stored_pizza, None)
+
 
 if __name__ == '__main__':
     unittest.main()
