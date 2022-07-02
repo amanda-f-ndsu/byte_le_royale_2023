@@ -47,11 +47,10 @@ class TestInitialization(unittest.TestCase):
         self.assertIsNone(self.tile.occupied_by)
 
     def testTakeAction(self):
-        #temp: Topping = Topping()
+        # temp: Topping = Topping()
         # cast(self.roller.take_action(self.topping),temp)
-        self.topping = self.roller.take_action(self.topping)
-        self.assertEqual(self.topping.topping_type, ToppingType.canadian_ham)
-        self.assertEqual(self.topping.is_cut, True)
+        temp: Pizza = self.roller.take_action(Topping(topping_type=ToppingType.dough))
+        self.assertEqual(temp.object_type, ObjectType.pizza)
 
 
 if __name__ == '__main__':
