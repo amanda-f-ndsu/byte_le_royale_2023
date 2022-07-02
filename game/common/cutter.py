@@ -5,7 +5,7 @@ from game.common.items.topping import Topping
 from game.utils.helpers import cast
 
 
-class Roller(Station):
+class Cutter(Station):
     def __init__(self, item: Item = Item.empty()):
         super().__init__(item)
         self.object_type = ObjectType.roller
@@ -17,8 +17,8 @@ class Roller(Station):
         # Downcast to topping
         # temp: Topping = Topping()
         # cast(item_to_modify, temp)
-        # Return item if dough
-        if item_to_modify == ToppingType.dough:
+        # Return item if dough or sauce
+        if item_to_modify.topping_type == ToppingType.dough:
             return item_to_modify
         # Downcast to topping and cut
         item_to_modify.is_cut = True

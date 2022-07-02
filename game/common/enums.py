@@ -18,6 +18,7 @@ class ObjectType:
     tile = 8
     pizza = 9
     roller = 10
+    cutter = 11
     
 class ActionType:
     none = 0

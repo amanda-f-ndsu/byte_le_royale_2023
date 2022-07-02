@@ -3,7 +3,7 @@ from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
-from game.common.roller import Roller
+from game.common.cutter import Cutter
 from game.common.map.tile import Tile
 from game.common.station import Station
 from game.common.items.pizza import Pizza
@@ -20,12 +20,12 @@ class TestInitialization(unittest.TestCase):
         self.dispenser = Dispenser()
         self.cook = Cook(action=ActionType.test, item=self.item)
         self.tile = Tile(occupied_by=self.dispenser)
-        self.roller = Roller(self.topping)
+        self.cutter = Cutter(self.topping)
 
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
-        self.assertEqual(self.roller.object_type, ObjectType.roller)
-        self.assertEqual(self.roller.item.object_type, ObjectType.topping)
+        self.assertEqual(self.cutter.object_type, ObjectType.roller)
+        self.assertEqual(self.cutter.item.object_type, ObjectType.topping)
         self.assertEqual(self.station.object_type, ObjectType.station)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
         self.assertEqual(self.station.object_type, ObjectType.station)
@@ -47,9 +47,7 @@ class TestInitialization(unittest.TestCase):
         self.assertIsNone(self.tile.occupied_by)
 
     def testTakeAction(self):
-        #temp: Topping = Topping()
-        # cast(self.roller.take_action(self.topping),temp)
-        self.topping = self.roller.take_action(self.topping)
+        self.topping = self.cutter.take_action(self.topping)
         self.assertEqual(self.topping.topping_type, ToppingType.canadian_ham)
         self.assertEqual(self.topping.is_cut, True)
 
