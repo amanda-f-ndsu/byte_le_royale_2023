@@ -8,7 +8,6 @@ from game.common.map.tile import Tile
 from game.common.station import Station
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
-from game.utils.helpers import cast
 
 
 class TestInitialization(unittest.TestCase):
@@ -49,7 +48,8 @@ class TestInitialization(unittest.TestCase):
     def testTakeAction(self):
         # temp: Topping = Topping()
         # cast(self.roller.take_action(self.topping),temp)
-        temp: Pizza = self.roller.take_action(Topping(topping_type=ToppingType.dough))
+        temp = self.roller.take_action(Topping(topping_type=ToppingType.dough))
+        isinstance(temp, Pizza)
         self.assertEqual(temp.object_type, ObjectType.pizza)
 
 
