@@ -22,7 +22,7 @@ class TestOven(unittest.TestCase):
         self.oven.item = self.pizza
         item = self.oven.take_action(item)
         self.assertIsNone(self.oven.item)
-        self.assertTrue(item, Pizza)
+        self.assertTrue(isinstance(item, Pizza))
     
     def take_pizza_false(self):
         # pizza state is not sauced
