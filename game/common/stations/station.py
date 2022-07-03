@@ -26,8 +26,8 @@ class Station(GameObject):
         self.__item = item
 
     @is_infested.setter
-    def is_infested(self, bool: Boolean):
-        self.__is_infested = bool
+    def is_infested(self, is_infested: Boolean):
+        self.__is_infested = is_infested
 
 
     @abc.abstractmethod

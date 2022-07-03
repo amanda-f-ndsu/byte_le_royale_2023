@@ -16,6 +16,11 @@ class ObjectType:
     cook = 6
     topping = 7
     tile = 8
+
+
+
+
+    bin = 13
     
 class ActionType:
     none = 0
