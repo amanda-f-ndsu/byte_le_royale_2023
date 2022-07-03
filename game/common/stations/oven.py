@@ -35,16 +35,17 @@ class Oven(Station):
 
     def take_action(self, item: Item):
         # if cook has pizza that has at least one topping, will be stored in oven
+        item_rtn = item
         if item is not None and isinstance(item,Pizza) and item.state == PizzaState.sauced and (len(item.toppings) > 0):
             self.item = item
-            return None
+            item_rtn = None
 
         if item is None and self.item is not None and (self.item.state == PizzaState.baked):
-            obj = self.item
+            item_rtn = self.item
             self.item = None
-            return obj
+            
 
-        return item
+        return item_rtn
 
 
     def to_json(self) -> dict:
