@@ -40,7 +40,7 @@ class Oven(Station):
             self.item = item
             item_rtn = None
 
-        if item is None and self.item and (self.item.state == PizzaState.baked):
+        if not item and self.item and (self.item.state == PizzaState.baked):
             item_rtn = self.item
             self.item = None
             
