@@ -1,4 +1,4 @@
-from game.common.station import Station
+from game.common.stations.station import Station
 from game.common.enums import ObjectType, PizzaState, ToppingType
 from game.common.items.item import Item
 from game.common.items.topping import Topping
@@ -25,8 +25,8 @@ class Combiner(Station):
             #Check if the item passed is a sauced pizza
             if(item.object_type == ObjectType.pizza and item.state == PizzaState.sauced):
                 self.stored_pizza = item
-                return "stored"
-            return "no pizza"
+                return None
+            return None
 
         #If no item is being passed, return the stored pizza and set stored pizza to None
         if(item==None):
@@ -35,9 +35,9 @@ class Combiner(Station):
             return pizza
 
         #Check if item is topping
-        if(item.object_type == ObjectType.topping):
+        if(item.object_type == ObjectType.topping and item.is_cut == True):
             self.stored_pizza.add_topping(item.topping_type)
-            return "added"
+            return None
 
     def to_json(self) -> dict:
         dict_data = super().to_json()

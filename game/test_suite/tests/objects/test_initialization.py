@@ -3,9 +3,9 @@ from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
-from game.common.combiner import Combiner
+from game.common.stations.combiner import Combiner
 from game.common.map.tile import Tile
-from game.common.station import Station
+from game.common.stations.station import Station
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 
@@ -42,21 +42,8 @@ class TestInitialization(unittest.TestCase):
         self.assertTrue(isinstance(self.tile.occupied_by, Station))
         self.tile.occupied_by = self.item
         self.assertIsNone(self.tile.occupied_by)
-
-    def testCombiner(self):
-        #store pizza
-        test = self.combiner.take_action(self.pizza)
-        self.assertEqual(test, "stored")
-
-        #add topping
-        test = self.combiner.take_action(self.topping)
-        self.assertEqual(test, "added")
-
-        #take pizza from station
-        test = self.combiner.take_action(None)
-        self.assertEqual(len(test.toppings), 1)
-        self.assertEqual(self.combiner.stored_pizza, None)
-
+        self.tile.occupied_by = self.combiner
+        self.assertTrue(isinstance(self.tile.occupied_by, Combiner))
 
 if __name__ == '__main__':
     unittest.main()

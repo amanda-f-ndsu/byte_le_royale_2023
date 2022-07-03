@@ -2,7 +2,7 @@ from game.common.cook import Cook
 from game.common.dispenser import Dispenser
 from game.common.enums import ObjectType
 from game.common.game_object import GameObject
-from game.common.station import Station
+from game.common.stations.station import Station
 
 
 class Tile(GameObject):
