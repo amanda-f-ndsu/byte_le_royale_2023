@@ -36,11 +36,11 @@ class Oven(Station):
     def take_action(self, item: Item):
         # if cook has pizza that has at least one topping, will be stored in oven
         item_rtn = item
-        if item is not None and isinstance(item,Pizza) and item.state == PizzaState.sauced and (len(item.toppings) > 0):
+        if item and isinstance(item,Pizza) and item.state == PizzaState.sauced and (len(item.toppings) > 0):
             self.item = item
             item_rtn = None
 
-        if item is None and self.item is not None and (self.item.state == PizzaState.baked):
+        if item is None and self.item and (self.item.state == PizzaState.baked):
             item_rtn = self.item
             self.item = None
             
