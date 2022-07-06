@@ -17,7 +17,8 @@ class ObjectType:
     topping = 7
     tile = 8
     pizza = 9
-    
+    oven = 10
+
 class ActionType:
     none = 0
     test = 1
