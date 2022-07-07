@@ -7,7 +7,7 @@ import abc
 class Station(GameObject):
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, item: Item, is_infested : Boolean):
+    def __init__(self, item: Item = None, is_infested : Boolean = False):
         super().__init__()
         self.object_type = ObjectType.station
         self.item: Item = item
@@ -23,7 +23,7 @@ class Station(GameObject):
     
     @item.setter
     def item(self, item: GameObject):
-        self.__item = item
+        self.__item = item if isinstance(item, Item) else None
 
     @is_infested.setter
     def is_infested(self, bool: Boolean):
@@ -31,7 +31,7 @@ class Station(GameObject):
 
 
     @abc.abstractmethod
-    def take_action(self):
+    def take_action(self, item: Item = None):
         return
 
     def to_json(self) -> dict:

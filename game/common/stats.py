@@ -15,3 +15,8 @@ class GameStats:
         ToppingType.olives: { 'score' : 50},
         ToppingType.anchovies: { 'score' : 50}
     }
+
+    oven_timer = {
+        'start': 50,
+        'baked': 20
+    }
