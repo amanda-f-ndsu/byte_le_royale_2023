@@ -37,6 +37,7 @@ class Oven(Station):
         # if cook has pizza that has at least one topping, will be stored in oven
         item_rtn = item
         if item and isinstance(item,Pizza) and item.state == PizzaState.sauced and (len(item.toppings) > 0):
+            self.is_active = True
             self.item = item
             item_rtn = None
 
