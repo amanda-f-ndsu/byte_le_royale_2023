@@ -20,13 +20,4 @@ class OvenController(Controller):
                     oven.item.state = PizzaState.baked
             
                 oven.timer = oven.timer - 1
-                   
-
-   
-
-
-        
-
-              
-
-
+                         
