@@ -21,10 +21,19 @@ class ObjectType:
     bin = 13
 
 
+    pizza = 9
+    oven = 10
+
 class ActionType:
     none = 0
     test = 1
 
+
+class PizzaState:
+    none = 0
+    rolled = 1
+    sauced = 2
+    baked = 3
 
 class ToppingType(int, Enum):
     none = 0
