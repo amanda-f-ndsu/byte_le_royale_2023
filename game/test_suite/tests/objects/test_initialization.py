@@ -10,6 +10,7 @@ from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 from game.common.stations.bin import Bin
 
+
 class TestInitialization(unittest.TestCase):
     def setUp(self):
         self.item = Item(quality=4, worth=20)
@@ -46,6 +47,7 @@ class TestInitialization(unittest.TestCase):
         self.assertTrue(isinstance(self.tile.occupied_by, Station))
         self.tile.occupied_by = self.item
         self.assertIsNone(self.tile.occupied_by)
+
 
 if __name__ == '__main__':
     unittest.main()
