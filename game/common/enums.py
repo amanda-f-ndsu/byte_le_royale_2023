@@ -22,7 +22,7 @@ class ObjectType:
     oven = 10
     bin = 13
 
-
+    
 class ActionType:
     none = 0
     test = 1
