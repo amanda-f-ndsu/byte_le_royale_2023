@@ -5,7 +5,7 @@ from game.common.items.item import Item
 from game.common.cook import Cook
 
 
-class MyTestCase(unittest.TestCase):
+class TestBin(unittest.TestCase):
 
     def setUp(self) -> None:
         self.bin = Bin()
