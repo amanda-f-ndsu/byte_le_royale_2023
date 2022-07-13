@@ -1,33 +1,37 @@
-from game.common.game_object import GameObject
-from game.common.enums import ObjectType
+import random
+from game.common.enums import *
+from game.common.items.item import Item
+from game.common.items.topping import Topping
+from game.common.stations.station import Station
 
 
-class Dispenser(GameObject):
+class Dispenser(Station):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, item: Item = None, is_infested : bool = False):
+        super().__init__(item,is_infested)
         self.object_type: ObjectType = ObjectType.dispenser
-        self.item_stored: GameObject = GameObject()
 
-    @property
-    def item_stored(self) -> GameObject:
-        return self.__item_stored
-
-    @item_stored.setter
-    def item_stored(self, item_stored: GameObject):
-        self.__item_stored = item_stored
+   
+    def take_action(self, item: Item):
+       rtn_item = item
+       if not item:
+            rtn_item = self.item
+            self.item = None
+       return rtn_item
+       
 
     def dispense(self):
-        pass
+        if not self.item:
+            rand_topping = random.randint(ToppingType.dough, ToppingType.anchovies)
+            self.item = Topping(topping_type=rand_topping)
 
     def to_json(self) -> dict:
         dict_data = super().to_json()
-        dict_data['item_stored'] = self.item_stored
         return dict_data
 
     def from_json(self, data: dict) -> None:
         super().from_json(data)
-        self.item_stored = data['item_stored']
+   
 
     def obfuscate(self) -> None:
         super().obfuscate()

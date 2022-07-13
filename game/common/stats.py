@@ -20,3 +20,8 @@ class GameStats:
         'start': 50,
         'baked': 20
     }
+
+    map_stats = {
+        'width' : 5,
+        'height' : 5
+    }
