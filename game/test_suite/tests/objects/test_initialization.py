@@ -19,13 +19,9 @@ class TestInitialization(unittest.TestCase):
         self.pizza = Pizza(state=PizzaState.rolled)
         self.dispenser = Dispenser()
         self.cook = Cook(action=ActionType.test, item=self.item)
-<<<<<<< HEAD
         self.tile = Tile(occupied_by=self.dispenser)
         self.roller = Roller(self.topping)
-=======
-        self.tile = Tile(occupied_by= self.dispenser)
         self.oven = Oven()
->>>>>>> 99ed78e7b57893e90b21b49ae399597f1cc5dcae
 
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
