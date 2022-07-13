@@ -1,33 +1,31 @@
-from xmlrpc.client import Boolean
 from game.common.game_object import GameObject
 from game.common.enums import ObjectType
 from game.common.items.item import Item
-
 import abc
-class Station(GameObject):
-    __metaclass__ = abc.ABCMeta
 
-    def __init__(self, item: Item = None, is_infested : Boolean = False):
+class Station(GameObject, metaclass=abc.ABCMeta):
+
+    def __init__(self, item: Item = None, is_infested : bool = False):
         super().__init__()
         self.object_type = ObjectType.station
         self.item: Item = item
-        self.is_infested: Boolean = is_infested
+        self.is_infested: bool = is_infested
 
     @property
     def item(self) -> GameObject:
         return self.__item
 
     @property
-    def is_infested(self) -> Boolean:
+    def is_infested(self) -> bool:
         return self.__is_infested
     
     @item.setter
-    def item(self, item: GameObject):
+    def item(self, item: Item):
         self.__item = item if isinstance(item, Item) else None
 
     @is_infested.setter
-    def is_infested(self, bool: Boolean):
-        self.__is_infested = bool
+    def is_infested(self, is_infested: bool):
+        self.__is_infested = is_infested
 
 
     @abc.abstractmethod
