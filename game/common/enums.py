@@ -18,6 +18,7 @@ class ObjectType:
     tile = 8
     pizza = 9
     oven = 10
+    storage = 11
 
 class ActionType:
     none = 0
