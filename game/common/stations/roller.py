@@ -1,4 +1,4 @@
-from game.common.station import Station
+from game.common.stations.station import Station
 from game.common.enums import ObjectType, ToppingType
 from game.common.items.item import Item
 from game.common.items.topping import Topping
