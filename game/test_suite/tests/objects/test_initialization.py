@@ -13,7 +13,6 @@ class TestInitialization(unittest.TestCase):
     def setUp(self):
         self.item = Item(quality=4, worth=20)
         self.topping = Topping(quality=4, worth=20, topping_type=0, is_cut=False)
-        self.station = Station(item=Item(4,20), is_infested=False)
         self.pizza = Pizza(state=PizzaState.rolled)
         self.dispenser = Dispenser()
         self.cook = Cook(action=ActionType.test, item=self.item)
@@ -23,9 +22,7 @@ class TestInitialization(unittest.TestCase):
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.item.object_type, ObjectType.item)
-        self.assertEqual(self.station.object_type, ObjectType.station)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
-        self.assertEqual(self.station.object_type, ObjectType.station)
         self.assertEqual(self.topping.object_type, ObjectType.topping)
         self.assertEqual(self.tile.object_type, ObjectType.tile)
         self.assertEqual(self.oven.object_type, ObjectType.oven)
@@ -39,8 +36,8 @@ class TestInitialization(unittest.TestCase):
         self.assertTrue(isinstance(self.tile.occupied_by, Dispenser))
         self.tile.occupied_by = self.cook
         self.assertTrue(isinstance(self.tile.occupied_by, Cook))
-        self.tile.occupied_by = self.station
-        self.assertTrue(isinstance(self.tile.occupied_by, Station))
+        self.tile.occupied_by = self.oven
+        self.assertTrue(isinstance(self.tile.occupied_by, Oven))
         self.tile.occupied_by = self.item
         self.assertIsNone(self.tile.occupied_by)
 
