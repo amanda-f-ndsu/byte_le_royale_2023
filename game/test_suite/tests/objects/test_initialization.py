@@ -3,6 +3,7 @@ from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
+from game.common.stations.Sauce import Sauce
 from game.common.map.tile import Tile
 from game.common.stations.oven import Oven
 from game.common.stations.station import Station
@@ -18,11 +19,13 @@ class TestInitialization(unittest.TestCase):
         self.dispenser = Dispenser()
         self.cook = Cook(action=ActionType.test, item=self.item)
         self.tile = Tile(occupied_by= self.dispenser)
+        self.sauce = Sauce(self.topping)
         self.oven = Oven()
 
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.item.object_type, ObjectType.item)
+        self.assertEqual(self.sauce.object_type, ObjectType.sauced)
         self.assertEqual(self.station.object_type, ObjectType.station)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
         self.assertEqual(self.station.object_type, ObjectType.station)
