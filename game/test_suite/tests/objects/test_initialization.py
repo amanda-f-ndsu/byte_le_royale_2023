@@ -21,7 +21,6 @@ class TestInitialization(unittest.TestCase):
 
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
-        self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
         self.assertEqual(self.topping.object_type, ObjectType.topping)
         self.assertEqual(self.tile.object_type, ObjectType.tile)
