@@ -1,5 +1,5 @@
 import unittest
-from game.common.cutter import Cutter
+from game.common.stations.cutter import Cutter
 from game.common.enums import *
 from game.common.items.topping import Topping
 
