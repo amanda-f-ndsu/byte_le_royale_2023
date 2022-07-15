@@ -1,4 +1,3 @@
-
 from game.common.enums import ObjectType
 from game.common.game_object import GameObject
 
