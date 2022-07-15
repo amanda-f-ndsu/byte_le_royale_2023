@@ -14,11 +14,19 @@ class Storage(Station):
 
 
     def take_action(self, item: Item):
-        # if cook has pizza that has at least one topping, will be stored in oven
-        item_rtn = item
-       
+        # if cook is calling this method with an item parameter
+        # this checks to make sure that there is nothing in the storage already
+        
+        if self.__item != None:
+            item_rtn = self.__item
+        
+        self.__item = item
+            
 
         return item_rtn
+
+    def take_action(self):
+        return self.__item
 
 
     def to_json(self) -> dict:
