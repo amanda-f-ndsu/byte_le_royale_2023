@@ -1,4 +1,3 @@
-
 from game.common.enums import ObjectType
 from game.common.game_object import GameObject
 
@@ -10,10 +9,6 @@ class Item(GameObject):
         self.object_type = ObjectType.item
         self.worth = worth
         self.quality = quality
-
-    @staticmethod
-    def empty() -> 'Item':
-        return Item(0, 0)
 
     @property
     def quality(self) -> float:

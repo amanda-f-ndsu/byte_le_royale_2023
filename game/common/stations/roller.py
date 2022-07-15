@@ -6,7 +6,7 @@ from game.common.items.pizza import Pizza
 
 
 class Roller(Station):
-    def __init__(self, item: Item = Item.empty()):
+    def __init__(self, item: Item = None):
         super().__init__(item)
         self.object_type = ObjectType.roller
 

@@ -25,8 +25,8 @@ class Station(GameObject):
         self.__item = item if isinstance(item, Item) else None
 
     @is_infested.setter
-    def is_infested(self, infested: bool):
-        self.__is_infested = infested
+    def is_infested(self, is_infested: bool):
+        self.__is_infested = is_infested
 
     @abstractmethod
     def take_action(self, item: Item = None):
