@@ -1,11 +1,11 @@
-from game.common.station import Station
+from game.common.stations.station import Station
 from game.common.enums import ObjectType, ToppingType
 from game.common.items.item import Item
 from game.common.items.topping import Topping
 
 
 class Cutter(Station):
-    def __init__(self, item: Item = Item.empty()):
+    def __init__(self, item: Item = None):
         super().__init__(item)
         self.object_type = ObjectType.roller
 
