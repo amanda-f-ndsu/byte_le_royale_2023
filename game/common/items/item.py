@@ -4,12 +4,12 @@ from game.common.game_object import GameObject
 
 class Item(GameObject):
 
-    def __init__(self, worth: int, quality: float = 0):
+    def __init__(self, worth: int, quality: float = 1):
         super().__init__()
         self.object_type = ObjectType.item
         self.worth = worth
         self.quality = quality
-
+        
     @property
     def quality(self) -> float:
         return self.__quality

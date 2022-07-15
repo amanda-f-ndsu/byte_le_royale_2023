@@ -3,9 +3,7 @@ from game.common.enums import ObjectType
 from game.common.items.item import Item
 import abc
 
-
-class Station(GameObject):
-    __metaclass__ = abc.ABCMeta
+class Station(GameObject, metaclass=abc.ABCMeta):
 
     def __init__(self, item: Item = None, is_infested : bool = False):
         super().__init__()
@@ -22,7 +20,7 @@ class Station(GameObject):
         return self.__is_infested
     
     @item.setter
-    def item(self, item: GameObject):
+    def item(self, item: Item):
         self.__item = item if isinstance(item, Item) else None
 
     @is_infested.setter
