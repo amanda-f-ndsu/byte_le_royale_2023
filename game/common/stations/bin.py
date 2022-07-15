@@ -10,7 +10,7 @@ class Bin(Station, ABC):
         super().__init__(None, None)
         self.object_type = ObjectType.bin
 
-    def take_action(self, item_to_delete: Item):
+    def take_action(self, item: Item):
         return None
 
     def to_json(self):
