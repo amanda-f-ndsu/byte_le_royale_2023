@@ -10,10 +10,10 @@ class Roller(Station):
         super().__init__(item)
         self.object_type = ObjectType.roller
 
-    def take_action(self, item_to_modify: Item) -> Item:
-        if not isinstance(item_to_modify, Topping) \
-                or item_to_modify.topping_type != ToppingType.dough:
-            return item_to_modify
+    def take_action(self, item: Item) -> Item:
+        if not isinstance(item, Topping) \
+                or item.topping_type != ToppingType.dough:
+            return item
         return Pizza()
 
     def to_json(self) -> dict:
