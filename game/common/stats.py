@@ -22,6 +22,6 @@ class GameStats:
     }
 
     map_stats = {
-        'width' : 5,
+        'width' : 10,
         'height' : 5
     }

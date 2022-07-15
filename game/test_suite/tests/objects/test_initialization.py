@@ -2,7 +2,7 @@ import unittest
 from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
-from game.common.dispenser import Dispenser
+from game.common.stations.dispenser import Dispenser
 from game.common.map.tile import Tile
 from game.common.stations.oven import Oven
 from game.common.stations.station import Station
