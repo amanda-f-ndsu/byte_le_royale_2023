@@ -1,10 +1,9 @@
 from game.common.game_object import GameObject
 from game.common.enums import ObjectType
 from game.common.items.item import Item
-from abc import abstractmethod
+from abc import abstractmethod, ABCMeta
 
-
-class Station(GameObject):
+class Station(GameObject, metaclass= ABCMeta):
 
     def __init__(self, item: Item = None, is_infested : bool = False):
         super().__init__()

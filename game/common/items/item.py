@@ -9,7 +9,7 @@ class Item(GameObject):
         self.object_type = ObjectType.item
         self.worth = worth
         self.quality = quality
-
+        
     @property
     def quality(self) -> float:
         return self.__quality
