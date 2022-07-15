@@ -9,13 +9,13 @@ class TestStorage(unittest.TestCase):
         self.pizza = Pizza(state=PizzaState.sauced)
         self.storage = Storage()
 
-    def test_take_pizza(self):
+    def test_take(self):
         self.pizza.add_topping(ToppingType.cheese)
         self.pizza = self.storage.take_action(self.pizza)
         self.assertIsNone(self.pizza)
         self.assertTrue(isinstance(self.storage.item, Pizza))
 
-    def test_return_pizza(self):
+    def test_return(self):
         item = None
         self.pizza.state = PizzaState.baked
         self.pizza.add_topping(ToppingType.cheese)
