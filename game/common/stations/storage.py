@@ -16,18 +16,18 @@ class Storage(Station):
         # if cook is calling this method with an item parameter
         # this checks to make sure that there is nothing in the storage already
         
-        if self.__item != None:
-            item_rtn = self.__item
+        if self.item != None:
+            item_rtn = self.item
         
-        self.__item = item
+        self.item = item
             
 
         return item_rtn
 
     def take_action(self):
         #overload method that takes item if the cook doesn't have anyhting in hand
-        item_rtn = self.__item
-        self.__item == None
+        item_rtn = self.item
+        self.item == None
         return item_rtn
 
 
