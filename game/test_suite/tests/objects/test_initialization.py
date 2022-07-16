@@ -30,6 +30,7 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.tile.object_type, ObjectType.tile)
         self.assertEqual(self.oven.object_type, ObjectType.oven)
         self.assertEqual(self.bin.object_type, ObjectType.bin)
+        self.assertEqual(self.combiner.object_type, ObjectType.combiner)
 
     def testCookInit(self):
         self.assertEqual(self.cook.chosen_action, ActionType.test)
@@ -44,9 +45,6 @@ class TestInitialization(unittest.TestCase):
         self.assertTrue(isinstance(self.tile.occupied_by, Oven))
         self.tile.occupied_by = self.item
         self.assertIsNone(self.tile.occupied_by)
-        self.tile.occupied_by = self.combiner
-        self.assertTrue(isinstance(self.tile.occupied_by, Combiner))
-
 
 if __name__ == '__main__':
     unittest.main()
