@@ -24,11 +24,6 @@ class TestStorage(unittest.TestCase):
         self.assertIsNone(self.storage.item)
         self.assertTrue(isinstance(item, Pizza))
     
-    
-    
-
-
-
 
 if __name__ == '__main__':
     unittest.main()
