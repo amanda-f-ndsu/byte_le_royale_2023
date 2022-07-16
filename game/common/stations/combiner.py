@@ -36,8 +36,13 @@ class Combiner(Station):
 
         #Check if item is topping
         if(item.object_type == ObjectType.topping and item.is_cut == True):
-            self.stored_pizza.add_topping(item.topping_type)
+            if(len(self.stored_pizza.toppings) == 0):
+                if(item.topping_type == ToppingType.cheese):
+                    self.stored_pizza.add_topping(item.topping_type)
+            else:
+                self.stored_pizza.add_topping(item.topping_type)
             return None
+
 
     def to_json(self) -> dict:
         dict_data = super().to_json()
