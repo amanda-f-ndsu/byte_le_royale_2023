@@ -20,21 +20,15 @@ class TestInitialization(unittest.TestCase):
         self.dispenser = Dispenser()
         self.cook = Cook(action=ActionType.test, item=self.item)
         self.tile = Tile(occupied_by= self.dispenser)
-<<<<<<< HEAD
         self.sauce = Sauce(self.topping)
-=======
         self.bin = Bin()
->>>>>>> de7987ce842b35c87087336a84508a3cda56c579
         self.oven = Oven()
 
     def testObjectInit(self):
         self.assertEqual(self.item.object_type, ObjectType.item)
-<<<<<<< HEAD
         self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.sauce.object_type, ObjectType.sauced)
         self.assertEqual(self.station.object_type, ObjectType.station)
-=======
->>>>>>> de7987ce842b35c87087336a84508a3cda56c579
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
         self.assertEqual(self.topping.object_type, ObjectType.topping)
         self.assertEqual(self.tile.object_type, ObjectType.tile)

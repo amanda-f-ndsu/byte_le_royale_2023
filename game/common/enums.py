@@ -19,16 +19,12 @@ class ObjectType:
     topping = 7
     tile = 8
     pizza = 9
-<<<<<<< HEAD
     roller = 10
     cutter = 11
     combiner = 12
     oven = 13
     sauced = 14
-=======
-    oven = 10
-    bin = 13
->>>>>>> de7987ce842b35c87087336a84508a3cda56c579
+    bin = 15
 
     
 class ActionType:
