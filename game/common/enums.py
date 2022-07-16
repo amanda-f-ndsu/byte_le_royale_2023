@@ -20,8 +20,10 @@ class ObjectType:
     tile = 8
     pizza = 9
     oven = 10
-    storage = 11
-    bin = 13
+    bin = 11
+    combiner = 12
+    storage = 13
+
 
 
     
