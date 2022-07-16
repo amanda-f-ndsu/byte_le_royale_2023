@@ -1,3 +1,4 @@
+from sre_parse import State
 import unittest
 from game.common.enums import *
 from game.common.items.item import Item
@@ -20,9 +21,15 @@ class TestStorage(unittest.TestCase):
         self.pizza.state = PizzaState.baked
         self.pizza.add_topping(ToppingType.cheese)
         self.storage.item = self.pizza
-        item = self.storage.take_action()
+        item = self.storage.take_action(item)
         self.assertIsNone(self.storage.item)
         self.assertTrue(isinstance(item, Pizza))
+    def test_swap(self):
+        self.storage.item = self.pizza
+        pizza2 = Pizza(state=PizzaState.baked)
+        pizza1 = self.storage.take_action(pizza2)
+        self.assertTrue(isinstance(self.storage.item, Pizza))
+        self.assertTrue(isinstance(pizza1, Pizza))
     
 
 if __name__ == '__main__':
