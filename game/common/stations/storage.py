@@ -4,7 +4,7 @@ from game.common.enums import *
 from game.common.items.item import Item
 from game.common.enums import ObjectType
 from game.common.stations.station import Station
-
+from typing import overload
 class Storage(Station):
 
     def __init__(self, item: Item = None, is_infested : bool = False):
@@ -12,24 +12,17 @@ class Storage(Station):
         self.object_type = ObjectType.storage
 
 
-    def take_action(self, item: Item):
-        # if cook is calling this method with an item parameter
-        # this checks to make sure that there is nothing in the storage already
+    def take_action(self, item=None):
+        # sets the item_rtn as the item in storage and if an item is passed in to the method, the item is stored.
         
-        if self.item != None:
-            item_rtn = self.item
-        
-        self.item = item
-            
-
-        return item_rtn
-
-    def take_action(self):
-        #overload method that takes item if the cook doesn't have anyhting in hand
         item_rtn = self.item
-        self.item == None
+        self.item = None
+        if isinstance(item, Item):
+            self.item = item
+        
         return item_rtn
 
+  
 
     def to_json(self) -> dict:
         data = super().to_json()
