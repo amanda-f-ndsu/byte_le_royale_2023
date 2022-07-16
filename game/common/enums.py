@@ -23,8 +23,8 @@ class ObjectType:
     cutter = 11
     oven = 12
     bin = 13
+    combiner = 14
 
-    
 class ActionType:
     none = 0
     test = 1
