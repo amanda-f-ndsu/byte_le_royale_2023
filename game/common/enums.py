@@ -20,7 +20,9 @@ class ObjectType:
     tile = 8
     pizza = 9
     oven = 10
-    bin = 13
+    bin = 11
+    combiner = 12
+
 
     
 class ActionType:
