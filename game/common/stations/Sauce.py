@@ -10,7 +10,7 @@ class Sauce(Station):
         self.object_type = ObjectType.sauce
 
     def take_action(self, item: Item) -> Item:
-        if item and isinstance(item, Pizza) and (item.state == PizzaState.sauced):
+        if item and isinstance(item, Pizza) and (item.state == PizzaState.rolled):
             item.state(PizzaState.sauced)
             return item
         return item

@@ -9,11 +9,13 @@ class TestSauce(unittest.TestCase):
         self.pizza = Pizza(state=PizzaState.rolled)
         self.sauced = Sauce()
 
-    def test_pizza_false(self):
+    def test_pizza_false_State(self):
         # pizza state is not rolled
-        self.pizza.state = PizzaState.none
+        self.pizza.state = PizzaState.baked
         self.pizza = self.sauced.take_action(self.pizza)
         self.assertIsNone(self.sauced.item)
+
+    def test_pizza_false_Item(self):
         # item is not pizza
         item = Item(quality=4, worth=20)
         self.pizza = self.oven.take_action(item)
