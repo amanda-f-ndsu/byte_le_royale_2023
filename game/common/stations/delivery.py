@@ -28,7 +28,8 @@ class Delivery(Station):
         score = GameStats.topping_stats[ToppingType.dough]
         for top in item.toppings:
             score += top.worth
-        return score * item.quality
+        score *= item.quality
+        return None
         
 
     def to_json(self) -> dict:
