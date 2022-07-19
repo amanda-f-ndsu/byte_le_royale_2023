@@ -25,7 +25,7 @@ class Delivery(Station):
 
         #Basic pizza, normal score calculation
         #Score = (base + sum of toppings) x (time left + quality)
-        score = GameStats.topping_stats[ToppingType.dough]
+        score = GameStats.topping_stats[ToppingType.dough]["score"]
         for top in item.toppings:
             score += top.worth
         score *= item.quality
