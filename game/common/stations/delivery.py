@@ -2,6 +2,7 @@ from game.common.enums import *
 from game.common.items.item import Item
 from game.common.items.pizza import Pizza
 from game.common.enums import ObjectType
+from game.common.items.topping import Topping
 from game.common.stations.station import Station
 from game.common.stats import GameStats
 
@@ -9,17 +10,26 @@ class Delivery(Station):
     def __init__(self, item: Item = None, is_infested : bool = False):
         super().__init__(item,is_infested)
         self.object_type = ObjectType.station #Does this need to be delivery?
-        self.stored_pizza:Pizza = None
 
-    @property
-    def stored_pizza(self) -> Pizza:
-        return self.__stored_pizza
+    def take_action(self, item):
+        #Is it a pizza
+        if(item.object_type != ObjectType.pizza):
+            return item
+        
+        #Is the pizza baked (if it is baked, then it also has cheese)
+        if(item.state != PizzaState.baked):
+            return item
 
-    @stored_pizza.setter
-    def stored_pizza(self, stored_pizza: Pizza):
-        self.__stored_pizza = stored_pizza
+        #Check if speical pizza
+        #NEED TO IMPLEMENT
 
-    
+        #Basic pizza, normal score calculation
+        #Score = (base + sum of toppings) x (time left + quality)
+        score = GameStats.topping_stats[ToppingType.dough]
+        for top in item.toppings:
+            score += top.worth
+        return score * item.quality
+        
 
     def to_json(self) -> dict:
         data = super().to_json()

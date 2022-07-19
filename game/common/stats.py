@@ -4,7 +4,8 @@ import math
 class GameStats:
     topping_stats = {
         ToppingType.none: { 'score': 0 },
-        ToppingType.dough: { 'score': 0 },
+        #Dough score used as base pizza score
+        ToppingType.dough: { 'score': 50 },
         ToppingType.cheese: { 'score': 20 },
         ToppingType.pepperoni: { 'score': 40 },
         ToppingType.sausage: { 'score': 40 },
