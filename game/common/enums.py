@@ -25,7 +25,7 @@ class ObjectType:
     bin = 13
     combiner = 14
     storage = 15
-
+    delivery = 16
 
 class ActionType:
     none = 0
