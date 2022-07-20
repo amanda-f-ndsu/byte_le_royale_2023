@@ -38,9 +38,9 @@ class Combiner(Station):
         if(item.object_type == ObjectType.topping and item.is_cut == True):
             if(len(self.stored_pizza.toppings) == 0):
                 if(item.topping_type == ToppingType.cheese):
-                    self.stored_pizza.add_topping(item.topping_type)
+                    self.stored_pizza.add_topping(item)
             else:
-                self.stored_pizza.add_topping(item.topping_type)
+                self.stored_pizza.add_topping(item)
             return None
 
 

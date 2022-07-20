@@ -1,5 +1,6 @@
 from game.common.enums import *
 from game.common.items.item import Item
+from game.common.items.topping import Topping
 import json
 
 
@@ -27,7 +28,7 @@ class Pizza(Item):
 
     
     def add_topping(self, topping: int):
-        if len(self.toppings) < 4 and self.state == PizzaState.sauced and topping in ToppingType.__dict__.values() and topping != ToppingType.dough:
+        if len(self.toppings) < 4 and self.state == PizzaState.sauced and isinstance(topping, Topping) and topping.topping_type != ToppingType.dough:
             self.toppings.append(topping)
     
 
