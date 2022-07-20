@@ -14,8 +14,8 @@ from game.common.stations.bin import Bin
 
 class TestInitialization(unittest.TestCase):
     def setUp(self):
-        self.item = Item(quality=4, worth=20)
-        self.topping = Topping(quality=4, worth=20, topping_type=ToppingType.canadian_ham, is_cut=False)
+        self.item = Item(quality=1, worth=20)
+        self.topping = Topping(quality=1, worth=20, topping_type=ToppingType.canadian_ham, is_cut=False)
         self.pizza = Pizza(state=PizzaState.rolled)
         self.dispenser = Dispenser()
         self.cook = Cook(action=ActionType.test, item=self.item)

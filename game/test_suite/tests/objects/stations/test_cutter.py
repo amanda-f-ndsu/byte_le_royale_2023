@@ -3,9 +3,9 @@ from game.common.stations.cutter import Cutter
 from game.common.enums import *
 from game.common.items.topping import Topping
 
-class TestOven(unittest.TestCase):
+class TestCutter(unittest.TestCase):
     def setUp(self):
-        self.topping = Topping(quality=4, worth=20, topping_type=ToppingType.canadian_ham, is_cut=False)
+        self.topping = Topping(quality=1, worth=20, topping_type=ToppingType.canadian_ham, is_cut=False)
         self.cutter = Cutter(self.topping)
 
 
