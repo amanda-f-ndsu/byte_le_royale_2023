@@ -3,6 +3,8 @@ from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
+from game.common.stations.Sauce import Sauce
+from game.common.stations.roller import Roller
 from game.common.stations.cutter import Cutter
 from game.common.stations.combiner import Combiner
 from game.common.map.tile import Tile
@@ -23,17 +25,25 @@ class TestInitialization(unittest.TestCase):
         self.pizza = Pizza(state=PizzaState.rolled)
         self.dispenser = Dispenser()
         self.cook = Cook(action=ActionType.test, item=self.item)
+        self.tile = Tile(occupied_by= self.dispenser)
+        self.sauce = Sauce(self.topping)
         self.tile = Tile(occupied_by=self.dispenser)
         self.cutter = Cutter(self.topping)
+        self.roller = Roller(self.topping)
         self.bin = Bin()
         self.oven = Oven()
         self.storage = Storage()
         self.combiner = Combiner()
         self.delivery = Delivery()
+        #self.station = Station() Can't instantiate abstract class
 
     def testObjectInit(self):
         self.assertEqual(self.cutter.object_type, ObjectType.cutter)
         self.assertEqual(self.item.object_type, ObjectType.item)
+        self.assertEqual(self.item.object_type, ObjectType.item)
+        self.assertEqual(self.sauce.object_type, ObjectType.sauce)
+        #self.assertEqual(self.station.object_type, ObjectType.station) Can't instantiate abstract class, manually checked
+        self.assertEqual(self.roller.object_type, ObjectType.roller)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
         self.assertEqual(self.topping.object_type, ObjectType.topping)
         self.assertEqual(self.tile.object_type, ObjectType.tile)
