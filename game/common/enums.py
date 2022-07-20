@@ -24,6 +24,8 @@ class ObjectType:
     oven = 12
     bin = 13
     combiner = 14
+    storage = 15
+
 
 class ActionType:
     none = 0

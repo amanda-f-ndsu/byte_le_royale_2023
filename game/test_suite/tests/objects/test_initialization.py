@@ -7,6 +7,8 @@ from game.common.stations.cutter import Cutter
 from game.common.stations.combiner import Combiner
 from game.common.map.tile import Tile
 from game.common.stations.oven import Oven
+from game.common.stations.station import Station
+from game.common.stations.storage import Storage
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 from game.common.stations.bin import Bin
@@ -24,6 +26,7 @@ class TestInitialization(unittest.TestCase):
         self.cutter = Cutter(self.topping)
         self.bin = Bin()
         self.oven = Oven()
+        self.storage = Storage()
         self.combiner = Combiner()
 
     def testObjectInit(self):
@@ -34,6 +37,7 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.topping.object_type, ObjectType.topping)
         self.assertEqual(self.tile.object_type, ObjectType.tile)
         self.assertEqual(self.oven.object_type, ObjectType.oven)
+        self.assertEqual(self.storage.object_type, ObjectType.storage)
         self.assertEqual(self.bin.object_type, ObjectType.bin)
         self.assertEqual(self.combiner.object_type, ObjectType.combiner)
 
@@ -51,6 +55,8 @@ class TestInitialization(unittest.TestCase):
         self.assertTrue(isinstance(self.tile.occupied_by, Oven))
         self.tile.occupied_by = self.item
         self.assertIsNone(self.tile.occupied_by)
+        self.tile.occupied_by = self.storage
+        self.assertTrue(isinstance(self.tile.occupied_by, Storage))
 
 if __name__ == '__main__':
     unittest.main()
