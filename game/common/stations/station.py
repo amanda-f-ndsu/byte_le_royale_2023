@@ -12,13 +12,13 @@ class Station(GameObject, metaclass=abc.ABCMeta):
         self.is_infested: bool = is_infested
 
     @property
-    def item(self) -> GameObject:
+    def item(self) -> Item:
         return self.__item
 
     @property
     def is_infested(self) -> bool:
         return self.__is_infested
-    
+
     @item.setter
     def item(self, item: Item):
         self.__item = item if isinstance(item, Item) else None
@@ -42,5 +42,4 @@ class Station(GameObject, metaclass=abc.ABCMeta):
         super().from_json(data)
         self.item = data['item']
         self.is_infested = data['is_infested']
-
-    
+        return self

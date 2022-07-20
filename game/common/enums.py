@@ -19,14 +19,14 @@ class ObjectType:
     topping = 7
     tile = 8
     pizza = 9
-    oven = 10
-    bin = 11
-    combiner = 12
-    storage = 13
+    roller = 10
+    cutter = 11
+    oven = 12
+    bin = 13
+    combiner = 14
+    storage = 15
 
 
-
-    
 class ActionType:
     none = 0
     test = 1

@@ -3,7 +3,7 @@ from game.common.game_object import GameObject
 from game.common.items.item import Item
 
 class Cook(GameObject):
-    def __init__(self, action:ActionType=ActionType.none, item:Item=None):
+    def __init__(self, action: ActionType = ActionType.none, item: Item = None):
         super().__init__()
         self.object_type = ObjectType.cook
         self.chosen_action = action
@@ -18,7 +18,7 @@ class Cook(GameObject):
         return self.__held_item
 
     @chosen_action.setter
-    def chosen_action(self, action:ActionType):
+    def chosen_action(self, action: ActionType):
         self.__chosen_action = action
 
     @held_item.setter
