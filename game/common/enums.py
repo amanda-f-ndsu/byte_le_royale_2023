@@ -1,10 +1,12 @@
 from enum import Enum
 
+
 class DebugLevel:
     none = 0
     client = 1
     controller = 2
     engine = 3
+
 
 class ObjectType:
     none = 0
@@ -18,18 +20,25 @@ class ObjectType:
     tile = 8
     pizza = 9
     oven = 10
-    storage = 11
+    bin = 11
+    combiner = 12
+    storage = 13
 
+
+
+    
 class ActionType:
     none = 0
     test = 1
+
 
 class PizzaState:
     none = 0
     rolled = 1
     sauced = 2
     baked = 3
-    
+
+
 class ToppingType(int, Enum):
     none = 0
     dough = 1

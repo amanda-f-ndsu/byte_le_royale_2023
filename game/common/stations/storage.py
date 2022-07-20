@@ -1,31 +1,26 @@
-from xmlrpc.client import Boolean
-from game.common.game_object import GameObject
 from game.common.enums import ObjectType
+from game.common.enums import *
 from game.common.items.item import Item
-import abc
+from game.common.enums import ObjectType
+from game.common.stations.station import Station
 class Storage(Station):
- 
 
     def __init__(self, item: Item = None, is_infested : bool = False):
         super().__init__(item,is_infested)
         self.object_type = ObjectType.storage
-        
-    
 
 
-    def take_action(self, item: Item):
-        # if cook is calling this method with an item parameter
-        # this checks to make sure that there is nothing in the storage already
+    def take_action(self, item):
+        # sets the item_rtn as the item in storage and if an item is passed in to the method, the item is stored.
         
-        #if self.__item != None:
-        item_rtn = self.__item
-        
-        self.__item = item
-            
+        item_rtn = self.item
+        self.item = None
+        if isinstance(item, Item):
+            self.item = item
         
         return item_rtn
 
-    
+  
 
     def to_json(self) -> dict:
         data = super().to_json()
