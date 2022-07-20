@@ -21,12 +21,13 @@ class ObjectType:
     pizza = 9
     roller = 10
     cutter = 11
-    combiner = 12
-    oven = 13
-    sauced = 14
-    bin = 15
+    oven = 12
+    bin = 13
+    combiner = 14
+    storage = 15
+    delivery = 16
+    sauced = 17
 
-    
 class ActionType:
     none = 0
     test = 1

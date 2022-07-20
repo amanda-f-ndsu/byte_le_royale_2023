@@ -2,6 +2,7 @@ import unittest
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.items.pizza import Pizza
+from game.common.items.topping import Topping
 from game.common.stations.oven import Oven
 
 class TestOven(unittest.TestCase):
@@ -10,7 +11,7 @@ class TestOven(unittest.TestCase):
         self.oven = Oven()
 
     def test_take_pizza(self):
-        self.pizza.add_topping(ToppingType.cheese)
+        self.pizza.add_topping(Topping(topping_type=ToppingType.cheese))
         self.pizza = self.oven.take_action(self.pizza)
         self.assertIsNone(self.pizza)
         self.assertTrue(isinstance(self.oven.item, Pizza))
