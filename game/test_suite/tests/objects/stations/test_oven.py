@@ -19,7 +19,7 @@ class TestOven(unittest.TestCase):
     def test_return_pizza(self):
         item = None
         self.pizza.state = PizzaState.baked
-        self.pizza.add_topping(ToppingType.cheese)
+        self.pizza.add_topping(Topping(topping_type=ToppingType.cheese))
         self.oven.item = self.pizza
         item = self.oven.take_action(item)
         self.assertIsNone(self.oven.item)
@@ -34,7 +34,7 @@ class TestOven(unittest.TestCase):
         self.pizza.state = PizzaState.sauced
         self.assertIsNone(self.oven.item)
         # item is not pizza
-        item = Item(quality=4, worth=20)
+        item = Item(quality=1, worth=20)
         self.pizza = self.oven.take_action(item)
         self.assertIsNone(self.oven.item)
 
