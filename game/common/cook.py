@@ -22,7 +22,7 @@ class Cook(GameObject):
         self.__chosen_action = action
 
     @held_item.setter
-    def held_item(self, item:Item):
+    def held_item(self, item: Item):
         self.__held_item = item
 
     def to_json(self):
