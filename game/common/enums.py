@@ -21,9 +21,12 @@ class ObjectType:
     pizza = 9
     oven = 10
     roller = 11
-    bin = 12
+    cutter = 12
+    bin = 13
+    combiner = 14
+    storage = 15
 
-    
+
 class ActionType:
     none = 0
     test = 1

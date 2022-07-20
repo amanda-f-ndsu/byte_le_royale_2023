@@ -8,6 +8,7 @@ class Item(GameObject):
         super().__init__()
         self.object_type = ObjectType.item
         self.worth = worth
+        # quality starts as 1; treated as percent where 1 = 100%
         self.quality = quality
         
     @property
