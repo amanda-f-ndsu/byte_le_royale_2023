@@ -23,5 +23,10 @@ class TestSauce(unittest.TestCase):
         self.pizza = self.oven.take_action(item)
         self.assertIsNone(self.sauced.item)
 
+    def test_if_pizza__sauced(self):
+        self.pizza.state = PizzaState.rolled
+        self.sauced.take_action(self.pizza)
+        self.assertEqual(self.pizza.state, PizzaState.sauced)
+
 if __name__ == 'main':
     unittest.main()
