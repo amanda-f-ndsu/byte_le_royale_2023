@@ -3,11 +3,13 @@ from game.common.enums import *
 from game.common.items.item import Item
 from game.common.items.pizza import Pizza
 from game.common.stations.Sauce import Sauce
+from game.common.stations.oven import Oven
 
 class TestSauce(unittest.TestCase):
     def setUp(self):
         self.pizza = Pizza(state=PizzaState.rolled)
         self.sauced = Sauce()
+        self.oven = Oven()
 
     def test_pizza_false_State(self):
         # pizza state is not rolled

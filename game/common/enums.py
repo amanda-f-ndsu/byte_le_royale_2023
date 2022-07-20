@@ -26,7 +26,7 @@ class ObjectType:
     combiner = 14
     storage = 15
     delivery = 16
-    sauced = 17
+    sauce = 17
 
 class ActionType:
     none = 0

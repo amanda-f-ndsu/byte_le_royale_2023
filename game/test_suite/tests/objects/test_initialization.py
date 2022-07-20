@@ -33,13 +33,14 @@ class TestInitialization(unittest.TestCase):
         self.oven = Oven()
         self.storage = Storage()
         self.combiner = Combiner()
+        #self.station = Station() Can't instantiate abstract class
 
     def testObjectInit(self):
         self.assertEqual(self.cutter.object_type, ObjectType.cutter)
         self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.item.object_type, ObjectType.item)
-        self.assertEqual(self.sauce.object_type, ObjectType.sauced)
-        self.assertEqual(self.station.object_type, ObjectType.station)
+        self.assertEqual(self.sauce.object_type, ObjectType.sauce)
+        #self.assertEqual(self.station.object_type, ObjectType.station) Can't instantiate abstract class, manually checked
         self.assertEqual(self.roller.object_type, ObjectType.roller)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
         self.assertEqual(self.topping.object_type, ObjectType.topping)
