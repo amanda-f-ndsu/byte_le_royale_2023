@@ -22,6 +22,8 @@ class ObjectType:
     oven = 10
     bin = 11
     combiner = 12
+    storage = 13
+
 
 
     
