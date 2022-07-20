@@ -1,4 +1,3 @@
-from sre_parse import State
 import unittest
 from game.common.enums import *
 from game.common.items.item import Item
