@@ -23,21 +23,31 @@ Can Pass
 
 class TestDelivery(unittest.TestCase):
     def setUp(self):
+        #Just dough
         self.dough = Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.dough]["score"], topping_type=ToppingType.dough)
+        #Just a rolled pizza
         self.rolled = Pizza(state=PizzaState.rolled)
+        #Just a sauced pizza
         self.sauced = Pizza(state=PizzaState.sauced)
-        self.baked = Pizza(quality=1.0, state=PizzaState.baked)
+        #Just a baked pizza
+        self.baked = Pizza(quality=1.0, state=PizzaState.sauced)
         self.baked.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.cheese]["score"], topping_type=ToppingType.cheese, is_cut=True))
-        self.multiple = Pizza(quality=1.0, state=PizzaState.baked)
-        self.baked.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.cheese]["score"], topping_type=ToppingType.cheese, is_cut=True))
+        self.baked.state = PizzaState.baked
+        #A baked pizza with multiple toppings
+        self.multiple = Pizza(quality=1.0, state=PizzaState.sauced)
+        self.multiple.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.cheese]["score"], topping_type=ToppingType.cheese, is_cut=True))
         self.multiple.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.sausage]["score"], topping_type=ToppingType.sausage, is_cut=True))
         self.multiple.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.mushrooms]["score"], topping_type=ToppingType.mushrooms, is_cut=True))
         self.multiple.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.olives]["score"], topping_type=ToppingType.olives, is_cut=True))
-        self.quality = Pizza(quality=1.0, state=PizzaState.baked)
-        self.baked.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.cheese]["score"], topping_type=ToppingType.cheese, is_cut=True))
+        self.multiple.state = PizzaState.baked
+        #A baked pizza with different quality toppings and pizza
+        self.quality = Pizza(quality=0.5, state=PizzaState.sauced)
+        self.quality.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.cheese]["score"], topping_type=ToppingType.cheese, is_cut=True))
         self.quality.add_topping(Topping(quality=0.5, worth=GameStats.topping_stats[ToppingType.sausage]["score"], topping_type=ToppingType.sausage, is_cut=True))
         self.quality.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.mushrooms]["score"], topping_type=ToppingType.mushrooms, is_cut=True))
         self.quality.add_topping(Topping(quality=1.0, worth=GameStats.topping_stats[ToppingType.olives]["score"], topping_type=ToppingType.olives, is_cut=True))
+        self.quality.state = PizzaState.baked
+
         self.delivery = Delivery()
 
     def testJustDough(self):
@@ -73,7 +83,7 @@ class TestDelivery(unittest.TestCase):
     def testScoreQuality(self):
         cook = Cook(item=self.quality)
         self.delivery.take_action(cook)
-        self.assertEqual(cook.score, GameStats.topping_stats[ToppingType.dough]["score"] + GameStats.topping_stats[ToppingType.cheese]["score"] + (int)(math.floor(GameStats.topping_stats[ToppingType.sausage]["score"] * 0.5)) + GameStats.topping_stats[ToppingType.mushrooms]["score"] + GameStats.topping_stats[ToppingType.olives]["score"])
+        self.assertEqual(cook.score, (int)(math.floor(GameStats.topping_stats[ToppingType.dough]["score"] + GameStats.topping_stats[ToppingType.cheese]["score"] + (int)(math.floor(GameStats.topping_stats[ToppingType.sausage]["score"] * 0.5)) + GameStats.topping_stats[ToppingType.mushrooms]["score"] + GameStats.topping_stats[ToppingType.olives]["score"]) * 0.5))
 
 
 if __name__ == '__main__':

@@ -25,11 +25,12 @@ class Delivery(Station):
         #NEED TO IMPLEMENT
 
         #Basic pizza, normal score calculation
-        #Score = (base + sum of toppings) x (time left + quality)
+        #Score = (base + sum of toppings) x (quality)
         score = GameStats.topping_stats[ToppingType.dough]["score"]
         for top in cook.held_item.toppings:
             score += (int)(math.floor((top.worth * top.quality)))
-        score *= (int)(math.floor(cook.held_item.quality))
+        score *= cook.held_item.quality
+        score = math.floor(score)
         #Add score to the cook
         cook.score += score
         #Return none to take the pizza from the cook
