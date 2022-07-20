@@ -34,18 +34,16 @@ class Cook(GameObject):
     def score(self, score:int):
         self.__score = score
 
-    @score.getter
-    def score(self) -> int:
-        return self.__score
-
     def to_json(self):
         data = super().to_json()
         data['chosen_action'] = self.chosen_action
         data['held_item'] = self.held_item
+        data['score'] = self.score
         return data
 
     def from_json(self, data: dict) -> 'Cook':
         super().from_json(data)
         self.chosen_action= data['chosen_action']
         self.held_item = data['held_item'] 
+        self.score = data['score']
         return self

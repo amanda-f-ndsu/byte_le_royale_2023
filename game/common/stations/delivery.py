@@ -21,11 +21,8 @@ class Delivery(Station):
         if(cook.held_item.state != PizzaState.baked):
             return cook.held_item
 
-        #Check if speical pizza
-        #NEED TO IMPLEMENT
-
         #Basic pizza, normal score calculation
-        #Score = (base + sum of toppings) x (quality)
+        #Score = (base + sum of toppings) x (quality of pizza)
         score = GameStats.topping_stats[ToppingType.dough]["score"]
         for top in cook.held_item.toppings:
             score += (int)(math.floor((top.worth * top.quality)))

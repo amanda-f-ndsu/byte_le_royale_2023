@@ -8,19 +8,6 @@ from game.common.stats import GameStats
 from game.common.cook import Cook
 import math
 
-"""
-Can't
--Dough
--Rolled
--Sauced
-
-Can Pass
--Baked
--Only cheese
--Multiple toppings
-"""
-
-
 class TestDelivery(unittest.TestCase):
     def setUp(self):
         #Just dough
