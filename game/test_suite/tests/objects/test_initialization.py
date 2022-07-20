@@ -30,7 +30,6 @@ class TestInitialization(unittest.TestCase):
         self.combiner = Combiner()
 
     def testObjectInit(self):
-        self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.cutter.object_type, ObjectType.cutter)
         self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
