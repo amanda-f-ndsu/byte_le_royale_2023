@@ -19,9 +19,9 @@ class ObjectType:
     topping = 7
     tile = 8
     pizza = 9
-    roller = 10
-    cutter = 11
-    oven = 12
+    oven = 10
+    roller = 11
+    cutter = 12
     bin = 13
     combiner = 14
     storage = 15
