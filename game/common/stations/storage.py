@@ -10,13 +10,13 @@ class Storage(Station):
         self.object_type = ObjectType.storage
 
 
-    def take_action(self, item):
+    def take_action(self, cook):
         # sets the item_rtn as the item in storage and if an item is passed in to the method, the item is stored.
         
         item_rtn = self.item
         self.item = None
-        if isinstance(item, Item):
-            self.item = item
+        if isinstance(cook.held_item, Item):
+            self.item = cook.held_item
         
         return item_rtn
 

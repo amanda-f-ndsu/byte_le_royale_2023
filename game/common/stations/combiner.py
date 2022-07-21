@@ -1,3 +1,4 @@
+from game.common.cook import Cook
 from game.common.stations.station import Station
 from game.common.enums import ObjectType, PizzaState, ToppingType
 from game.common.items.item import Item
@@ -19,28 +20,28 @@ class Combiner(Station):
     def stored_pizza(self, stored_pizza: Pizza):
         self.__stored_pizza = stored_pizza
 
-    def take_action(self, item):
+    def take_action(self, cook):
         #Check if a pizza is stored in station
         if(self.stored_pizza==None):
             #Check if the item passed is a sauced pizza
-            if(item.object_type == ObjectType.pizza and item.state == PizzaState.sauced):
-                self.stored_pizza = item
+            if(cook.held_item.object_type == ObjectType.pizza and cook.held_item.state == PizzaState.sauced):
+                self.stored_pizza = cook.held_item
                 return None
             return None
 
         #If no item is being passed, return the stored pizza and set stored pizza to None
-        if(item==None):
+        if(cook.held_item==None):
             pizza = self.stored_pizza
             self.stored_pizza = None
             return pizza
 
         #Check if item is topping
-        if(item.object_type == ObjectType.topping and item.is_cut == True):
+        if(cook.held_item.object_type == ObjectType.topping and cook.held_item.is_cut == True):
             if(len(self.stored_pizza.toppings) == 0):
-                if(item.topping_type == ToppingType.cheese):
-                    self.stored_pizza.add_topping(item)
+                if(cook.held_item.topping_type == ToppingType.cheese):
+                    self.stored_pizza.add_topping(cook.held_item)
             else:
-                self.stored_pizza.add_topping(item)
+                self.stored_pizza.add_topping(cook.held_item)
             return None
 
 
