@@ -14,6 +14,7 @@ from game.common.stations.storage import Storage
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 from game.common.stations.bin import Bin
+from game.common.stations.delivery import Delivery
 
 
 
@@ -33,6 +34,7 @@ class TestInitialization(unittest.TestCase):
         self.oven = Oven()
         self.storage = Storage()
         self.combiner = Combiner()
+        self.delivery = Delivery()
         #self.station = Station() Can't instantiate abstract class
 
     def testObjectInit(self):
@@ -49,6 +51,7 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.storage.object_type, ObjectType.storage)
         self.assertEqual(self.bin.object_type, ObjectType.bin)
         self.assertEqual(self.combiner.object_type, ObjectType.combiner)
+        self.assertEqual(self.delivery.object_type, ObjectType.delivery)
 
 
     def testCookInit(self):
