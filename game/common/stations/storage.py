@@ -1,3 +1,4 @@
+from game.common.cook import Cook
 from game.common.enums import ObjectType
 from game.common.enums import *
 from game.common.items.item import Item
@@ -10,7 +11,7 @@ class Storage(Station):
         self.object_type = ObjectType.storage
 
 
-    def take_action(self, cook):
+    def take_action(self, cook: Cook):
         # sets the item_rtn as the item in storage and if an item is passed in to the method, the item is stored.
         
         item_rtn = self.item

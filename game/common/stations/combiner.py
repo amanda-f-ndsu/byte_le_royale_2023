@@ -20,7 +20,7 @@ class Combiner(Station):
     def stored_pizza(self, stored_pizza: Pizza):
         self.__stored_pizza = stored_pizza
 
-    def take_action(self, cook):
+    def take_action(self, cook: Cook):
         #Check if a pizza is stored in station
         if(self.stored_pizza==None):
             #Check if the item passed is a sauced pizza
