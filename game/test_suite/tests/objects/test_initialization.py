@@ -25,7 +25,7 @@ class TestInitialization(unittest.TestCase):
         self.pizza = Pizza(state=PizzaState.rolled)
         self.dispenser = Dispenser()
         self.cook = Cook(action=ActionType.test, item=self.item)
-        self.tile = Tile(occupied_by= self.dispenser)
+        self.tile = Tile(occupied_by= self.dispenser, is_wet_tile=True)
         self.sauce = Sauce(self.topping)
         self.tile = Tile(occupied_by=self.dispenser)
         self.cutter = Cutter(self.topping)
@@ -69,6 +69,8 @@ class TestInitialization(unittest.TestCase):
         self.assertIsNone(self.tile.occupied_by)
         self.tile.occupied_by = self.storage
         self.assertTrue(isinstance(self.tile.occupied_by, Storage))
+        self.tile.is_wet_tile = False
+        self.assertFalse(self.tile.is_wet_tile)
 
 if __name__ == '__main__':
     unittest.main()
