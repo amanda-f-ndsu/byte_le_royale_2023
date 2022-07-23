@@ -2,6 +2,7 @@ from game.common.enums import ActionType, ObjectType
 from game.common.game_object import GameObject
 from game.common.items.item import Item
 
+
 class Cook(GameObject):
     def __init__(self, action: ActionType = ActionType.none, item: Item = None):
         super().__init__()

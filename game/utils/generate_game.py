@@ -1,8 +1,14 @@
 from game.config import *
 from game.utils.helpers import write_json_file
+from game.common.dispenser import Dispenser
+from game.common.cook import Cook
+from game.common.stations.bin import Bin
+from game.common.stations.combiner import Combiner
+from game.common.stations.oven import Oven
+from game.common.game_board import GameBoard
 
 
-def generate():
+def generate(seed: int = None):
     print('Generating game map...')
 
     data = dict()
@@ -14,5 +20,12 @@ def generate():
     if not os.path.exists(GAME_MAP_DIR):
         os.mkdir(GAME_MAP_DIR)
 
+    data['game_map'] = generate_map().to_json()
+    data['seed'] = seed
     # Write game map to file
     write_json_file(data, GAME_MAP_FILE)
+
+
+def generate_map():
+    game_board: GameBoard = GameBoard()
+    return game_board

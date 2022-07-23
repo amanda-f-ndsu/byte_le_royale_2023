@@ -43,4 +43,3 @@ class Item(GameObject):
         self.quality = data['quality']
         self.worth = data['worth']
         return self
-
