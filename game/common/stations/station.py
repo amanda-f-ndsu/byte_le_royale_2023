@@ -1,3 +1,4 @@
+from game.common.cook import Cook
 from game.common.game_object import GameObject
 from game.common.enums import ObjectType
 from game.common.items.item import Item
@@ -28,7 +29,7 @@ class Station(GameObject, metaclass= ABCMeta):
         self.__is_infested = is_infested
 
     @abstractmethod
-    def take_action(self, item: Item = None):
+    def take_action(self, cook: Cook = None):
         return
 
     def to_json(self) -> dict:

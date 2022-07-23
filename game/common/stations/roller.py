@@ -1,3 +1,4 @@
+from game.common.cook import Cook
 from game.common.stations.station import Station
 from game.common.enums import ObjectType, ToppingType
 from game.common.items.item import Item
@@ -10,10 +11,10 @@ class Roller(Station):
         super().__init__(item)
         self.object_type = ObjectType.roller
 
-    def take_action(self, item: Item) -> Item:
-        if not isinstance(item, Topping) \
-                or item.topping_type != ToppingType.dough:
-            return item
+    def take_action(self, cook: Cook) -> Item:
+        if not isinstance(cook.held_item, Topping) \
+                or cook.held_item.topping_type != ToppingType.dough:
+            return cook.held_item
         return Pizza()
 
     def to_json(self) -> dict:
