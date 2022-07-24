@@ -4,12 +4,13 @@ from game.common.game_object import GameObject
 
 class Item(GameObject):
 
-    def __init__(self, worth: int, quality: float = 0):
+    def __init__(self, worth: int, quality: float = 1):
         super().__init__()
         self.object_type = ObjectType.item
         self.worth = worth
+        # quality starts as 1; treated as percent where 1 = 100%
         self.quality = quality
-
+        
     @property
     def quality(self) -> float:
         return self.__quality

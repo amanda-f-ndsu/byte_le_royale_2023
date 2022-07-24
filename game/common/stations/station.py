@@ -1,31 +1,36 @@
-from xmlrpc.client import Boolean
+from game.common.cook import Cook
 from game.common.game_object import GameObject
 from game.common.enums import ObjectType
 from game.common.items.item import Item
-class Station(GameObject):
+from abc import abstractmethod, ABCMeta
 
-    def __init__(self, item: Item, is_infested : Boolean):
+class Station(GameObject, metaclass= ABCMeta):
+
+    def __init__(self, item: Item = None, is_infested : bool = False):
         super().__init__()
         self.object_type = ObjectType.station
         self.item: Item = item
-        self.is_infested: Boolean = is_infested
+        self.is_infested: bool = is_infested
 
     @property
-    def item(self) -> GameObject:
+    def item(self) -> Item:
         return self.__item
 
     @property
-    def is_infested(self) -> Boolean:
+    def is_infested(self) -> bool:
         return self.__is_infested
-    
+
     @item.setter
-    def item(self, item: GameObject):
-        self.__item = item
+    def item(self, item: Item):
+        self.__item = item if isinstance(item, Item) else None
 
     @is_infested.setter
-    def is_infested(self, bool: Boolean):
-        self.__is_infested = bool
+    def is_infested(self, is_infested: bool):
+        self.__is_infested = is_infested
 
+    @abstractmethod
+    def take_action(self, cook: Cook = None):
+        return
 
     def to_json(self) -> dict:
         dict_data = super().to_json()
@@ -37,5 +42,4 @@ class Station(GameObject):
         super().from_json(data)
         self.item = data['item']
         self.is_infested = data['is_infested']
-
-    
+        return self
