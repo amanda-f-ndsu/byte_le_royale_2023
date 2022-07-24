@@ -47,10 +47,18 @@ class Combiner(Station):
 
     def to_json(self) -> dict:
         dict_data = super().to_json()
+<<<<<<< HEAD
         dict_data['stored_pizza'] = self.stored_pizza if self.stored_pizza is not None else None
+=======
+        dict_data['stored_pizza'] = self.stored_pizza
+>>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
         return dict_data
 
     def from_json(self, data: dict) -> 'Combiner':
         super().from_json(data)
+<<<<<<< HEAD
         self.stored_pizza = data['stored_pizza'] if self.stored_pizza is not None else None
+=======
+        self.stored_pizza = data['stored_pizza']
+>>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
         return self

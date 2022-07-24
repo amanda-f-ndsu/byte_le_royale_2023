@@ -4,6 +4,7 @@ from game.common.enums import *
 from game.common.items.item import Item
 from game.common.dispenser import Dispenser
 <<<<<<< HEAD
+<<<<<<< HEAD
 from game.common.station import Station
 from game.common.items.topping import Topping
 
@@ -37,6 +38,29 @@ class TestInitialization(unittest.TestCase):
         self.topping = Topping(quality=1, worth=20, topping_type=ToppingType.canadian_ham, is_cut=False)
         self.pizza = Pizza(state=PizzaState.rolled)
         self.dispenser = Dispenser()
+=======
+from game.common.stations.Sauce import Sauce
+from game.common.stations.roller import Roller
+from game.common.stations.cutter import Cutter
+from game.common.stations.combiner import Combiner
+from game.common.map.tile import Tile
+from game.common.stations.oven import Oven
+from game.common.stations.station import Station
+from game.common.stations.storage import Storage
+from game.common.items.pizza import Pizza
+from game.common.items.topping import Topping
+from game.common.stations.bin import Bin
+from game.common.stations.delivery import Delivery
+
+
+
+class TestInitialization(unittest.TestCase):
+    def setUp(self):
+        self.item = Item(quality=1, worth=20)
+        self.topping = Topping(quality=1, worth=20, topping_type=ToppingType.canadian_ham, is_cut=False)
+        self.pizza = Pizza(state=PizzaState.rolled)
+        self.dispenser = Dispenser()
+>>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
         self.cook = Cook(action=ActionType.test, item=self.item)
         self.tile = Tile(occupied_by= self.dispenser, is_wet_tile=True)
         self.sauce = Sauce(self.topping)
@@ -50,6 +74,9 @@ class TestInitialization(unittest.TestCase):
         self.delivery = Delivery()
         #self.station = Station() Can't instantiate abstract class
 
+<<<<<<< HEAD
+>>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
+=======
 >>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
     def testObjectInit(self):
         self.assertEqual(self.cutter.object_type, ObjectType.cutter)
@@ -60,10 +87,13 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.roller.object_type, ObjectType.roller)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.assertEqual(self.station.object_type, ObjectType.station)
         self.assertEqual(self.topping.object_type, ObjectType.topping)
             
 =======
+=======
+>>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
         self.assertEqual(self.topping.object_type, ObjectType.topping)
         self.assertEqual(self.tile.object_type, ObjectType.tile)
         self.assertEqual(self.oven.object_type, ObjectType.oven)
@@ -73,6 +103,9 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.delivery.object_type, ObjectType.delivery)
 
 
+<<<<<<< HEAD
+>>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
+=======
 >>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
     def testCookInit(self):
         self.assertEqual(self.cook.chosen_action, ActionType.test)

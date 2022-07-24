@@ -1,5 +1,9 @@
 from enum import Enum
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
 class DebugLevel:
     none = 0
     client = 1
@@ -31,12 +35,20 @@ class ActionType:
     none = 0
     test = 1
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
 class PizzaState:
     none = 0
     rolled = 1
     sauced = 2
     baked = 3
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
 class ToppingType(int, Enum):
     none = 0
     dough = 1
