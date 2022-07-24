@@ -10,7 +10,7 @@ import math
 
 class Delivery(Station):
     def __init__(self, item: Item = None, is_infested : bool = False):
-        super().__init__(item,is_infested)
+        super().__init__(item, is_infested)
         self.object_type = ObjectType.delivery
 
     def take_action(self, cook: Cook):

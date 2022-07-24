@@ -8,10 +8,8 @@ from game.common.stats import GameStats
 
 
 class Oven(Station):
- 
-
     def __init__(self, item: Item = None, is_infested : bool = False, is_powered : bool = True, is_active: bool = False, timer : int = GameStats.oven_timer['start']):
-        super().__init__(item,is_infested)
+        super().__init__(item, is_infested)
         self.object_type = ObjectType.oven
         self.is_powered = is_powered
         self.is_active = is_active
@@ -62,6 +60,6 @@ class Oven(Station):
         self.is_powered = data['is_powered']
         self.is_active = data['is_active']
         self.timer = data['timer']
-  
+        return self
 
     
