@@ -33,7 +33,7 @@ class Tile(GameObject):
 
     def to_json(self):
         data = super().to_json()
-        data['occupied_by'] = self.occupied_by if self.occupied_by else None
+        data['occupied_by'] = self.occupied_by.to_json() if self.occupied_by else None
         data['is_wet_tile'] = self.is_wet_tile
         return data
 
