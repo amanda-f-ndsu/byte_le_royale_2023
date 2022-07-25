@@ -14,11 +14,7 @@ class Delivery(Station):
 
     def take_action(self, cook: Cook = None):
         # Is it a pizza
-        if not isinstance(cook.held_item, Pizza):
-            return cook.held_item
-        
-        # Is the pizza baked (if it is baked, then it also has cheese)
-        if cook.held_item.state != PizzaState.baked:
+        if not isinstance(cook.held_item, Pizza) or cook.held_item.state != PizzaState.baked:
             return cook.held_item
 
         # Basic pizza, normal score calculation

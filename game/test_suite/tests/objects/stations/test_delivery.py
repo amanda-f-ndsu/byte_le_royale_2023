@@ -69,7 +69,7 @@ class TestDelivery(unittest.TestCase):
     def testScoreQuality(self):
         cook = Cook(item=self.quality)
         self.delivery.take_action(cook)
-        self.assertEqual(cook.score, int(GameStats.topping_stats[ToppingType.dough]["score"] + GameStats.topping_stats[ToppingType.cheese]["score"] + GameStats.topping_stats[ToppingType.sausage]["score"] * 0.5 + GameStats.topping_stats[ToppingType.mushrooms]["score"] + GameStats.topping_stats[ToppingType.olives]["score"] * 0.5))
+        self.assertEqual(cook.score, int((GameStats.topping_stats[ToppingType.dough]["score"] + GameStats.topping_stats[ToppingType.cheese]["score"] + int(GameStats.topping_stats[ToppingType.sausage]["score"] * 0.5) + GameStats.topping_stats[ToppingType.mushrooms]["score"] + GameStats.topping_stats[ToppingType.olives]["score"])) * 0.5)
 
 
 if __name__ == '__main__':

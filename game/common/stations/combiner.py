@@ -22,7 +22,7 @@ class Combiner(Station):
                 cook.held_item = None
             return None
         # If no item is being passed, return the stored pizza and set stored pizza to None
-        if temp:
+        if not temp:
             pizza = self.item
             self.item = None
             return pizza

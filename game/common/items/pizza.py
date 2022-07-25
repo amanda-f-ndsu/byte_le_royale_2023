@@ -31,10 +31,10 @@ class Pizza(Item):
                 or topping.topping_type == ToppingType.dough:
             return topping
         if len(self.toppings) == 0 and topping.topping_type == ToppingType.cheese:
-            self.toppings.append(topping)
+            self.__toppings.append(topping)
             return None
-        elif len(self.toppings) < 4:
-            self.toppings.append(topping)
+        elif len(self.toppings) in range(1, 4):
+            self.__toppings.append(topping)
             return None
         else:
             return topping
