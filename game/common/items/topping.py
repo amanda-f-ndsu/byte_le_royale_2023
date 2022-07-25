@@ -3,17 +3,9 @@ from game.common.enums import *
 
 class Topping(Item):
 
-<<<<<<< HEAD
-
     def __init__(self, worth: int = 0, quality: float = 0, topping_type: ToppingType = ToppingType.none, is_cut: bool=False):
         super().__init__(worth, quality)
         self.object_type = ObjectType.topping
-
-=======
-    def __init__(self, worth: int = 0, quality: float = 0, topping_type: ToppingType = ToppingType.none, is_cut: bool=False):
-        super().__init__(worth, quality)
-        self.object_type = ObjectType.topping
->>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
         self.topping_type = topping_type
         self.is_cut = is_cut
 
@@ -26,10 +18,6 @@ class Topping(Item):
         return self.__is_cut
 
     @topping_type.setter
-<<<<<<< HEAD
-
-=======
->>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
     def topping_type(self, topping_type: ToppingType):
         self.__topping_type = topping_type
 

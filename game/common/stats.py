@@ -4,10 +4,6 @@ import math
 class GameStats:
     topping_stats = {
         ToppingType.none: { 'score': 0 },
-<<<<<<< HEAD
-
-=======
->>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
         #Dough score used as base pizza score
         ToppingType.dough: { 'score': 50 },
         ToppingType.cheese: { 'score': 20 },
@@ -19,17 +15,9 @@ class GameStats:
         ToppingType.chicken: { 'score' : 40},
         ToppingType.olives: { 'score' : 50},
         ToppingType.anchovies: { 'score' : 50}
-<<<<<<< HEAD
-
-=======
->>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
     }
 
     oven_timer = {
         'start': 50,
         'baked': 20
-<<<<<<< HEAD
-
-=======
->>>>>>> 9006bcee3c80c3538d3a07d1a854db357808081c
     }
