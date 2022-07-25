@@ -12,17 +12,13 @@ class Storage(Station):
         super().__init__(item, is_infested)
         self.object_type = ObjectType.storage
 
-
-    def take_action(self, cook: Cook):
+    def take_action(self, cook: Cook = None):
         # sets the item_rtn as the item in storage and if an item is passed in to the method, the item is stored.
-        
         item_rtn = self.item
         self.item = None
         if isinstance(cook.held_item, Item):
             self.item = cook.held_item
-        
         return item_rtn
-
 
     def to_json(self) -> dict:
         data = super().to_json()

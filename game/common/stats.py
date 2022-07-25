@@ -1,20 +1,20 @@
 from game.common.enums import *
-import math
+
 
 class GameStats:
     topping_stats = {
-        ToppingType.none: { 'score': 0 },
-        #Dough score used as base pizza score
-        ToppingType.dough: { 'score': 50 },
-        ToppingType.cheese: { 'score': 20 },
-        ToppingType.pepperoni: { 'score': 40 },
-        ToppingType.sausage: { 'score': 40 },
+        ToppingType.none: { 'score': 0},
+        # Dough score used as base pizza score
+        ToppingType.dough: { 'score': 50},
+        ToppingType.cheese: { 'score': 20},
+        ToppingType.pepperoni: { 'score': 40},
+        ToppingType.sausage: { 'score': 40},
         ToppingType.canadian_ham: { 'score': 40},
-        ToppingType.mushrooms: { 'score' : 40},
-        ToppingType.peppers: { 'score' : 50},
-        ToppingType.chicken: { 'score' : 40},
-        ToppingType.olives: { 'score' : 50},
-        ToppingType.anchovies: { 'score' : 50}
+        ToppingType.mushrooms: { 'score': 40},
+        ToppingType.peppers: { 'score': 50},
+        ToppingType.chicken: { 'score': 40},
+        ToppingType.olives: { 'score': 50},
+        ToppingType.anchovies: {'score': 50}
     }
 
     oven_timer = {

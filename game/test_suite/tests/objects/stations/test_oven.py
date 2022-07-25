@@ -6,6 +6,7 @@ from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 from game.common.stations.oven import Oven
 
+
 class TestOven(unittest.TestCase):
     def setUp(self):
         self.pizza = Pizza(state=PizzaState.sauced)
@@ -34,12 +35,9 @@ class TestOven(unittest.TestCase):
         self.pizza.state = PizzaState.sauced
         self.assertIsNone(self.oven.item)
         # item is not pizza
-        itemFalse = Item(quality=1, worth=20)
-        self.pizza = self.oven.take_action(Cook(item=itemFalse))
+        item_false = Item(quality=1, worth=20)
+        self.pizza = self.oven.take_action(Cook(item=item_false))
         self.assertIsNone(self.oven.item)
-
-
-
 
 
 if __name__ == '__main__':

@@ -3,7 +3,6 @@ from game.common.game_object import GameObject
 
 
 class Item(GameObject):
-
     def __init__(self, worth: int, quality: float = 1):
         super().__init__()
         self.object_type = ObjectType.item
@@ -43,4 +42,3 @@ class Item(GameObject):
         self.quality = data['quality']
         self.worth = data['worth']
         return self
-

@@ -6,9 +6,9 @@ from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 from abc import abstractmethod, ABCMeta
 
-class Station(GameObject, metaclass= ABCMeta):
 
-    def __init__(self, item: Item = None, is_infested : bool = False):
+class Station(GameObject, metaclass=ABCMeta):
+    def __init__(self, item: Item = None, is_infested: bool = False):
         super().__init__()
         self.object_type = ObjectType.station
         self.item: Item = item
@@ -44,7 +44,6 @@ class Station(GameObject, metaclass= ABCMeta):
     def from_json(self, data: dict) -> 'Station':
         super().from_json(data)
         self.is_infested = data['is_infested']
-
         if not data['item']:
             self.item = None
         if data['item'].object_type == ObjectType.pizza:

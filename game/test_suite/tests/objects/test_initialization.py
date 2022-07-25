@@ -9,13 +9,11 @@ from game.common.stations.cutter import Cutter
 from game.common.stations.combiner import Combiner
 from game.common.map.tile import Tile
 from game.common.stations.oven import Oven
-from game.common.stations.station import Station
 from game.common.stations.storage import Storage
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 from game.common.stations.bin import Bin
 from game.common.stations.delivery import Delivery
-
 
 
 class TestInitialization(unittest.TestCase):
@@ -35,14 +33,14 @@ class TestInitialization(unittest.TestCase):
         self.storage = Storage()
         self.combiner = Combiner()
         self.delivery = Delivery()
-        #self.station = Station() Can't instantiate abstract class
+        # self.station = Station() Can't instantiate abstract class
 
     def testObjectInit(self):
         self.assertEqual(self.cutter.object_type, ObjectType.cutter)
         self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.item.object_type, ObjectType.item)
         self.assertEqual(self.sauce.object_type, ObjectType.sauce)
-        #self.assertEqual(self.station.object_type, ObjectType.station) Can't instantiate abstract class, manually checked
+        # self.assertEqual(self.station.object_type, ObjectType.station) Can't instantiate abstract class, manually checked
         self.assertEqual(self.roller.object_type, ObjectType.roller)
         self.assertEqual(self.dispenser.object_type, ObjectType.dispenser)
         self.assertEqual(self.topping.object_type, ObjectType.topping)
@@ -52,7 +50,6 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.bin.object_type, ObjectType.bin)
         self.assertEqual(self.combiner.object_type, ObjectType.combiner)
         self.assertEqual(self.delivery.object_type, ObjectType.delivery)
-
 
     def testCookInit(self):
         self.assertEqual(self.cook.chosen_action, ActionType.test)
@@ -71,6 +68,7 @@ class TestInitialization(unittest.TestCase):
         self.assertTrue(isinstance(self.tile.occupied_by, Storage))
         self.tile.is_wet_tile = False
         self.assertFalse(self.tile.is_wet_tile)
+
 
 if __name__ == '__main__':
     unittest.main()

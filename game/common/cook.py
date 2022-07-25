@@ -4,6 +4,7 @@ from game.common.items.item import Item
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 
+
 class Cook(GameObject):
     def __init__(self, action: ActionType = ActionType.none, item: Item = None):
         super().__init__()
@@ -33,7 +34,7 @@ class Cook(GameObject):
         self.__held_item = item
 
     @score.setter
-    def score(self, score:int):
+    def score(self, score: int):
         self.__score = score
 
     def to_json(self):

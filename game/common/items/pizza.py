@@ -24,25 +24,29 @@ class Pizza(Item):
     @property
     def toppings(self):
         return self.__toppings
-
-
     
-    def add_topping(self, topping: int):
-        if len(self.toppings) < 4 and self.state == PizzaState.sauced and isinstance(topping, Topping) and topping.topping_type != ToppingType.dough:
+    def add_topping(self, topping: Topping):
+        if self.state != PizzaState.sauced \
+                or not isinstance(topping, Topping) \
+                or topping.topping_type == ToppingType.dough:
+            return topping
+        if len(self.toppings) == 0 and topping.topping_type == ToppingType.cheese:
             self.toppings.append(topping)
-    
+            return None
+        elif len(self.toppings) < 4:
+            self.toppings.append(topping)
+            return None
+        else:
+            return topping
 
     def to_json(self):
-      data = super().to_json()
-      data['state'] = self.state
-      data['toppings'] = json.dumps(self.__toppings)
-      return data
-        
+        data = super().to_json()
+        data['state'] = self.state
+        data['toppings'] = json.dumps(self.__toppings)
+        return data
 
     def from_json(self, data: dict) -> 'Pizza':
-      super().from_json(data)
-      self.state = data['state']
-      self.__toppings = json.loads(data['toppings'])
-      return self
-      
-
+        super().from_json(data)
+        self.state = data['state']
+        self.__toppings = json.loads(data['toppings'])
+        return self

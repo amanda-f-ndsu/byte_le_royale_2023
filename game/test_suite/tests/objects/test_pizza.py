@@ -3,10 +3,10 @@ from game.common.enums import *
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 
+
 class TestPizza(unittest.TestCase):
     def setUp(self):
         self.pizza = Pizza(state=PizzaState.none)
-
 
     def testPizzaStates(self):
         # test rolled
@@ -54,10 +54,6 @@ class TestPizza(unittest.TestCase):
         self.assertEqual(len(self.pizza.toppings), 4)
 
 
-
-       
-       
-  
-
 if __name__ == '__main__':
     unittest.main()
+    
