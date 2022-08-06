@@ -1,4 +1,5 @@
 import unittest
+from game.common.cook import Cook
 from game.common.stations.cutter import Cutter
 from game.common.enums import *
 from game.common.items.topping import Topping
@@ -10,19 +11,19 @@ class TestCutter(unittest.TestCase):
 
 
     def testTakeAction(self):
-        self.topping = self.cutter.take_action(self.topping)
+        self.topping = self.cutter.take_action(Cook(item=self.topping))
         self.assertEqual(self.topping.topping_type, ToppingType.canadian_ham)
         self.assertEqual(self.topping.is_cut, True)
 
     def testTakeAction_nocut(self):
         self.topping.topping_type = ToppingType.dough
-        self.topping = self.cutter.take_action(self.topping)
+        self.topping = self.cutter.take_action(Cook(item=self.topping))
         self.assertEqual(self.topping.topping_type, ToppingType.dough)
         self.assertEqual(self.topping.is_cut, False)
 
     def testTakeAction_none(self):
         self.topping = None
-        self.topping = self.cutter.take_action(self.topping)
+        self.topping = self.cutter.take_action(Cook(item=self.topping))
         self.assertIsNone(self.topping)
 
 

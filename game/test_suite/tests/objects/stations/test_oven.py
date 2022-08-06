@@ -1,4 +1,5 @@
 import unittest
+from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.items.pizza import Pizza
@@ -12,30 +13,29 @@ class TestOven(unittest.TestCase):
 
     def test_take_pizza(self):
         self.pizza.add_topping(Topping(topping_type=ToppingType.cheese))
-        self.pizza = self.oven.take_action(self.pizza)
+        self.pizza = self.oven.take_action(Cook(item=self.pizza))
         self.assertIsNone(self.pizza)
         self.assertTrue(isinstance(self.oven.item, Pizza))
 
     def test_return_pizza(self):
-        item = None
         self.pizza.state = PizzaState.baked
         self.pizza.add_topping(Topping(topping_type=ToppingType.cheese))
         self.oven.item = self.pizza
-        item = self.oven.take_action(item)
+        item = self.oven.take_action(Cook(item=None))
         self.assertIsNone(self.oven.item)
         self.assertTrue(isinstance(item, Pizza))
     
     def take_pizza_false(self):
         # pizza state is not sauced
         self.pizza.state = PizzaState.rolled
-        self.pizza = self.oven.take_action(self.pizza)
+        self.pizza = self.oven.take_action(Cook(item=self.pizza))
         self.assertIsNone(self.oven.item)
         # pizza has no toppings
         self.pizza.state = PizzaState.sauced
         self.assertIsNone(self.oven.item)
         # item is not pizza
-        item = Item(quality=1, worth=20)
-        self.pizza = self.oven.take_action(item)
+        itemFalse = Item(quality=1, worth=20)
+        self.pizza = self.oven.take_action(Cook(item=itemFalse))
         self.assertIsNone(self.oven.item)
 
 

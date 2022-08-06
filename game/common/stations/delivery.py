@@ -1,3 +1,4 @@
+from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.items.pizza import Pizza
@@ -12,7 +13,7 @@ class Delivery(Station):
         super().__init__(item,is_infested)
         self.object_type = ObjectType.delivery
 
-    def take_action(self, cook):
+    def take_action(self, cook: Cook):
         #Is it a pizza
         if(cook.held_item.object_type != ObjectType.pizza):
             return cook.held_item

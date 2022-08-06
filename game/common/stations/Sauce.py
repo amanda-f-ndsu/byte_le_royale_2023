@@ -1,3 +1,4 @@
+from game.common.cook import Cook
 from game.common.stations.station import Station
 from game.common.enums import *
 from game.common.items.item import Item
@@ -9,11 +10,11 @@ class Sauce(Station):
         super().__init__(item)
         self.object_type = ObjectType.sauce
 
-    def take_action(self, item: Item) -> Item:
-        if item and isinstance(item, Pizza) and (item.state == PizzaState.rolled):
-            item.state = PizzaState.sauced
-            return item
-        return item
+    def take_action(self, cook: Cook) -> Item:
+        if cook.held_item and isinstance(cook.held_item, Pizza) and (cook.held_item.state == PizzaState.rolled):
+            cook.held_item.state = PizzaState.sauced
+            return cook.held_item
+        return cook.held_item
 
 
     def to_json(self) -> dict:

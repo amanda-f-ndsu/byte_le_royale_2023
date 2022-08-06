@@ -14,7 +14,7 @@ class TestBin(unittest.TestCase):
 
     def test_bin_deletion(self):
         self.assertIsNotNone(self.cook.held_item)
-        self.cook.held_item = self.bin.take_action(self.cook.held_item)
+        self.cook.held_item = self.bin.take_action(self.cook)
         self.assertIsNone(self.cook.held_item)
 
 
