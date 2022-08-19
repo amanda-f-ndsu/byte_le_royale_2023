@@ -18,11 +18,6 @@ class TestCombiner(unittest.TestCase):
         test = self.combiner.take_action(Cook(item=self.pizza))
         self.assertIsNone(test)
 
-    def testCheese(self):
-        self.combiner.take_action(Cook(item=self.pizza))
-        self.combiner.take_action(Cook(item=self.cheese))
-        self.assertEqual(len(self.combiner.item.toppings), 1)
-
     def testAddTopping(self):
         self.combiner.take_action(Cook(item=self.pizza))
 
