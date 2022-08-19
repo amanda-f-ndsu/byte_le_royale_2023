@@ -1,10 +1,9 @@
 from game.common.cook import Cook
 from game.common.stations.station import Station
-from game.common.enums import ObjectType, PizzaState
+from game.common.enums import *
 from game.common.items.item import Item
 from game.common.items.topping import Topping
 from game.common.items.pizza import Pizza
-
 
 class Combiner(Station):
     def __init__(self):
@@ -19,8 +18,8 @@ class Combiner(Station):
             # Check if the item passed is a sauced pizza
             if isinstance(temp, Pizza) and temp.state == PizzaState.sauced:
                 self.item = cook.held_item
-                cook.held_item = None
-            return None
+                return None
+            return temp
         # If no item is being passed, return the stored pizza and set stored pizza to None
         if not temp:
             pizza = self.item
@@ -37,3 +36,4 @@ class Combiner(Station):
     def from_json(self, data: dict) -> 'Combiner':
         super().from_json(data)
         return self
+
