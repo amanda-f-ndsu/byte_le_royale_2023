@@ -11,7 +11,6 @@ class Dispenser(Station):
     def __init__(self, item: Item = None, is_infested : bool = False):
         super().__init__(item,is_infested)
         self.object_type: ObjectType = ObjectType.dispenser
-
    
     def take_action(self, item: Item):
        rtn_item = item
