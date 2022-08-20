@@ -2,16 +2,14 @@ from abc import ABC
 from game.common.cook import Cook
 from game.common.enums import *
 from game.common.stations.station import Station
-from game.common.items.item import Item
 
 
 class Bin(Station, ABC):
-
     def __init__(self):
-        super().__init__(None, None)
+        super().__init__(None, False)
         self.object_type = ObjectType.bin
 
-    def take_action(self, cook: Cook):
+    def take_action(self, cook: Cook = None):
         return None
 
     def to_json(self):

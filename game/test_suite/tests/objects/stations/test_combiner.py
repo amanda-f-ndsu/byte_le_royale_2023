@@ -14,19 +14,14 @@ class TestCombiner(unittest.TestCase):
         self.combiner = Combiner()
 
     def testStorePizza(self):
-        #store pizza
+        # store pizza
         test = self.combiner.take_action(Cook(item=self.pizza))
         self.assertIsNone(test)
-
-    def testCheese(self):
-        self.combiner.take_action(Cook(item=self.pizza))
-        self.combiner.take_action(Cook(item=self.cheese))
-        self.assertEqual(len(self.combiner.item.toppings), 1)
 
     def testAddTopping(self):
         self.combiner.take_action(Cook(item=self.pizza))
 
-        #add topping
+        # add topping
         self.combiner.take_action(Cook(item=self.topping))
         self.assertEqual(len(self.combiner.item.toppings), 0)
 
@@ -41,7 +36,7 @@ class TestCombiner(unittest.TestCase):
         test = self.combiner.take_action(Cook(item=self.topping))
         self.assertIsNone(test)
 
-        #take pizza from station
+        # take pizza from station
         test = self.combiner.take_action(Cook(item=None))
         self.assertEqual(len(test.toppings), 2)
         self.assertIsNone(self.combiner.item)

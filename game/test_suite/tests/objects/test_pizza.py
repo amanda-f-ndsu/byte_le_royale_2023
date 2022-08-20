@@ -3,10 +3,10 @@ from game.common.enums import *
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 
+
 class TestPizza(unittest.TestCase):
     def setUp(self):
         self.pizza = Pizza(state=PizzaState.none)
-
 
     def testPizzaStates(self):
         # test rolled
@@ -33,6 +33,10 @@ class TestPizza(unittest.TestCase):
 
     # test cases where toppings can't be added
     def testPizzaToppingsFalse(self):
+        # test to make sure cheese is added first; will reject other toppings
+        self.pizza.state = PizzaState.sauced
+        self.pizza.add_topping(Topping(topping_type=ToppingType.chicken))
+        self.assertEqual(len(self.pizza.toppings), 0)
         # test adding topping to pizza that isn't sauced
         self.pizza.state = PizzaState.rolled
         self.pizza.add_topping(Topping(topping_type=ToppingType.cheese))
@@ -53,11 +57,6 @@ class TestPizza(unittest.TestCase):
         self.pizza.add_topping(Topping(topping_type=ToppingType.mushrooms))
         self.assertEqual(len(self.pizza.toppings), 4)
 
-
-
-       
-       
-  
 
 if __name__ == '__main__':
     unittest.main()

@@ -4,11 +4,11 @@ from game.common.stations.cutter import Cutter
 from game.common.enums import *
 from game.common.items.topping import Topping
 
+
 class TestCutter(unittest.TestCase):
     def setUp(self):
         self.topping = Topping(quality=1, worth=20, topping_type=ToppingType.canadian_ham, is_cut=False)
         self.cutter = Cutter(self.topping)
-
 
     def testTakeAction(self):
         self.topping = self.cutter.take_action(Cook(item=self.topping))
@@ -25,9 +25,6 @@ class TestCutter(unittest.TestCase):
         self.topping = None
         self.topping = self.cutter.take_action(Cook(item=self.topping))
         self.assertIsNone(self.topping)
-
-
-
 
 
 if __name__ == '__main__':

@@ -28,6 +28,7 @@ class ObjectType:
     delivery = 16
     sauce = 17
 
+
 class ActionType:
     none = 0
     test = 1
