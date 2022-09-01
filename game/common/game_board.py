@@ -25,7 +25,7 @@ class GameBoard(GameObject):
             Combiner(),
             Oven(),
             Oven(),
-            Cutter,
+            Cutter(),
             Roller(),
             Sauce()
         ]
