@@ -1,6 +1,6 @@
 import random
 
-from game.common.dispenser import Dispenser
+from game.common.stations.dispenser import Dispenser
 from game.common.cook import Cook
 from game.common.stations.bin import Bin
 from game.common.stations.combiner import Combiner
@@ -8,6 +8,7 @@ from game.common.stations.oven import Oven
 from game.common.stations.cutter import Cutter
 from game.common.stations.roller import Roller
 from game.common.stations.Sauce import Sauce
+from game.common.stations.storage import Storage
 from game.common.game_object import GameObject
 from game.common.map.tile import Tile
 from game.common.map.counter import Counter
@@ -53,7 +54,7 @@ class GameBoard(GameObject):
                 Counter()
             ],
             [
-                GameObject(),
+                Storage(),
                 None,
                 None,
                 None,
@@ -65,10 +66,10 @@ class GameBoard(GameObject):
                 None,
                 None,
                 None,
-                GameObject(),
+                Storage(),
             ],
             [
-                GameObject(),
+                Storage(),
                 None,
                 None,
                 None,
@@ -80,25 +81,25 @@ class GameBoard(GameObject):
                 None,
                 None,
                 None,
-                GameObject(),
+                Storage(),
             ],
             [
                 Bin(),
+                None,
+                None,
                 Cook(),
-                None,
-                None,
                 None,
                 None,
                 GameObject(),
                 None,
                 None,
-                None,
-                None,
                 Cook(),
+                None,
+                None,
                 Bin(),
             ],
             [
-                GameObject(),
+                Storage(),
                 None,
                 None,
                 None,
@@ -110,10 +111,10 @@ class GameBoard(GameObject):
                 None,
                 None,
                 None,
-                GameObject(),
+                Storage(),
             ],
             [
-                GameObject(),
+                Storage(),
                 None,
                 None,
                 None,
@@ -125,7 +126,7 @@ class GameBoard(GameObject):
                 None,
                 None,
                 None,
-                GameObject(),
+                Storage(),
             ],
             [
                 Counter(),
