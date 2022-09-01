@@ -156,7 +156,7 @@ class GameBoard(GameObject):
         return to_return
 
     def to_json(self):
-        data = super(GameBoard, self).to_json()
+        data = super(self).to_json()
         temp = map(lambda tile: tile.to_json(), self.game_map)
         data["game_map"] = temp
 
