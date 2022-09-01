@@ -2,11 +2,13 @@ from game.common.cook import Cook
 from game.common.game_object import GameObject
 from game.common.enums import ObjectType
 from game.common.items.item import Item
+from game.common.items.pizza import Pizza
+from game.common.items.topping import Topping
 from abc import abstractmethod, ABCMeta
 
-class Station(GameObject, metaclass= ABCMeta):
 
-    def __init__(self, item: Item = None, is_infested : bool = False):
+class Station(GameObject, metaclass=ABCMeta):
+    def __init__(self, item: Item = None, is_infested: bool = False):
         super().__init__()
         self.object_type = ObjectType.station
         self.item: Item = item
@@ -34,12 +36,19 @@ class Station(GameObject, metaclass= ABCMeta):
 
     def to_json(self) -> dict:
         dict_data = super().to_json()
-        dict_data['item'] = self.item
         dict_data['is_infested'] = self.is_infested
+        dict_data['item'] = self.item.to_json() if self.item else None
+
         return dict_data
 
     def from_json(self, data: dict) -> 'Station':
         super().from_json(data)
-        self.item = data['item']
         self.is_infested = data['is_infested']
+        if not data['item']:
+            self.item = None
+        if data['item'].object_type == ObjectType.pizza:
+            self.item = Pizza().from_json(data['item'])
+        elif data['item'].object_type == ObjectType.topping:
+            self.item = Topping().from_json(data['item'])
+
         return self

@@ -1,9 +1,9 @@
 import unittest
 from game.common.cook import Cook
 from game.common.enums import *
-from game.common.items.item import Item
 from game.common.items.pizza import Pizza
 from game.common.stations.storage import Storage
+
 
 class TestStorage(unittest.TestCase):
     def setUp(self):
@@ -20,9 +20,9 @@ class TestStorage(unittest.TestCase):
         self.pizza.state = PizzaState.baked
         self.pizza.add_topping(ToppingType.cheese)
         self.storage.item = self.pizza
-        itemRtn = self.storage.take_action(Cook(item=None))
+        item_rtn = self.storage.take_action(Cook(item=None))
         self.assertIsNone(self.storage.item)
-        self.assertTrue(isinstance(itemRtn, Pizza))
+        self.assertTrue(isinstance(item_rtn, Pizza))
 
     def test_swap(self):
         self.storage.item = self.pizza

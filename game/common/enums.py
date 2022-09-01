@@ -31,6 +31,7 @@ class ObjectType:
     sauce = 19
 
 
+
 class ActionType:
     none = 0
     test = 1

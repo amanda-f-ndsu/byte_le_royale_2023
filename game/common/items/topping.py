@@ -1,9 +1,12 @@
 from game.common.items.item import Item
 from game.common.enums import *
 
-class Topping(Item):
 
-    def __init__(self, worth: int = 0, quality: float = 0, topping_type: ToppingType = ToppingType.none, is_cut: bool=False):
+class Topping(Item):
+    def __init__(self, worth: int = 0,
+                 quality: float = 0,
+                 topping_type: ToppingType = ToppingType.none,
+                 is_cut: bool = False):
         super().__init__(worth, quality)
         self.object_type = ObjectType.topping
         self.topping_type = topping_type
@@ -35,3 +38,4 @@ class Topping(Item):
         super().from_json(data)
         self.topping_type = data['topping_type']
         self.is_cut = data['is_cut']
+        return self

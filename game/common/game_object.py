@@ -1,5 +1,4 @@
 import uuid
-
 from game.common.enums import ObjectType
 
 

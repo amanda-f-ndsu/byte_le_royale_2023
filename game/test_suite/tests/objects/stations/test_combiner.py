@@ -14,21 +14,16 @@ class TestCombiner(unittest.TestCase):
         self.combiner = Combiner()
 
     def testStorePizza(self):
-        #store pizza
+        # store pizza
         test = self.combiner.take_action(Cook(item=self.pizza))
         self.assertIsNone(test)
-
-    def testCheese(self):
-        self.combiner.take_action(Cook(item=self.pizza))
-        self.combiner.take_action(Cook(item=self.cheese))
-        self.assertEqual(len(self.combiner.stored_pizza.toppings), 1)
 
     def testAddTopping(self):
         self.combiner.take_action(Cook(item=self.pizza))
 
-        #add topping
+        # add topping
         self.combiner.take_action(Cook(item=self.topping))
-        self.assertEqual(len(self.combiner.stored_pizza.toppings), 0)
+        self.assertEqual(len(self.combiner.item.toppings), 0)
 
     def testTakePizza(self):
         test = self.combiner.take_action(Cook(item=self.pizza))
@@ -36,15 +31,15 @@ class TestCombiner(unittest.TestCase):
 
         test = self.combiner.take_action(Cook(item=self.cheese))
         self.assertIsNone(test)
-        self.assertEqual(len(self.combiner.stored_pizza.toppings), 1)
+        self.assertEqual(len(self.combiner.item.toppings), 1)
 
         test = self.combiner.take_action(Cook(item=self.topping))
         self.assertIsNone(test)
 
-        #take pizza from station
+        # take pizza from station
         test = self.combiner.take_action(Cook(item=None))
         self.assertEqual(len(test.toppings), 2)
-        self.assertIsNone(self.combiner.stored_pizza)
+        self.assertIsNone(self.combiner.item)
 
 
 if __name__ == '__main__':

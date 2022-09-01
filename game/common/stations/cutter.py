@@ -10,7 +10,7 @@ class Cutter(Station):
         super().__init__(item)
         self.object_type = ObjectType.cutter
 
-    def take_action(self, cook: Cook) -> Item:
+    def take_action(self, cook: Cook = None) -> Item:
         if not isinstance(cook.held_item, Topping) \
                 or cook.held_item.topping_type == ToppingType.dough:
             return cook.held_item
