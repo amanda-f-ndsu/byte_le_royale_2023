@@ -5,6 +5,7 @@ from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 
 
+
 class Cook(GameObject):
     def __init__(self, action: ActionType = ActionType.none, item: Item = None):
         super().__init__()

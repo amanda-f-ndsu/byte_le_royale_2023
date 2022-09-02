@@ -10,23 +10,26 @@ class DebugLevel:
 
 class ObjectType:
     none = 0
-    action = 1
-    player = 2
-    item = 3
-    dispenser = 4
-    station = 5
-    cook = 6
-    topping = 7
-    tile = 8
-    pizza = 9
-    roller = 10
-    cutter = 11
-    oven = 12
-    bin = 13
-    combiner = 14
-    storage = 15
-    delivery = 16
-    sauce = 17
+    game_board = 1
+    counter = 2
+    action = 3
+    player = 4
+    item = 5
+    dispenser = 6
+    station = 7
+    cook = 8
+    topping = 9
+    tile = 10
+    pizza = 11
+    roller = 12
+    cutter = 13
+    oven = 14
+    bin = 15
+    combiner = 16
+    storage = 17
+    delivery = 18
+    sauce = 19
+
 
 
 class ActionType:

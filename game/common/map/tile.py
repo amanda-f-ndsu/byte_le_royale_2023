@@ -1,4 +1,5 @@
 from game.common.cook import Cook
+from game.common.map.counter import Counter
 from game.common.enums import ObjectType
 from game.common.game_object import GameObject
 from game.common.stations.station import Station
@@ -26,7 +27,7 @@ class Tile(GameObject):
 
     @occupied_by.setter
     def occupied_by(self, occupied_by: GameObject):
-        self.__occupied_by = occupied_by if occupied_by is None or isinstance(occupied_by, (Station, Cook)) else None
+        self.__occupied_by = occupied_by if occupied_by is None or isinstance(occupied_by, (Station, Counter, Cook)) else None
 
     def to_json(self):
         data = super().to_json()
