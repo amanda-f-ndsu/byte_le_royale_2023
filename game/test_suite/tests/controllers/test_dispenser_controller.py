@@ -3,19 +3,24 @@ from game.common.enums import *
 from game.common.map.tile import Tile
 from game.common.stations.dispenser import Dispenser
 from game.controllers.dispenser_controller import DispenserController
+from game.utils.generate_game import generate_map
 
 
-class TestOvenController(unittest.TestCase):
+class TestDispenserController(unittest.TestCase):
     def setUp(self):
         self.dispenserController = DispenserController()
-        self.world = [[Tile()]*5,[Tile()]*5,[Tile()]*5,[Tile()]*5,[Tile(occupied_by=Dispenser())]*5,
-        [[Tile()]*5],[Tile()]*5,[Tile()]*5,[Tile()]*5,[Tile()]*5]
+        board = generate_map(5)
+        self.world = board.game_map
+        # [[Tile()]*5,[Tile()]*5,[Tile()]*5,[Tile()]*5,[Tile(occupied_by=Dispenser())]*5,
+        # [[Tile()]*5],[Tile()]*5,[Tile()]*5,[Tile()]*5,[Tile()]*5]
     
     def testTakeAction(self):
-        for dispenser in self.world[4]:
-            self.assertIsNone(dispenser.occupied_by.item)
+        for item in self.world:
+            if(isinstance(item[6].occupied_by,Dispenser)):
+                self.assertIsNone(item[6].occupied_by.item)
         self.dispenserController.handle_actions(self.world)
-        for dispenser in self.world[4]:
-            self.assertIsNotNone(dispenser.occupied_by.item)
+        for item in self.world:
+            if(isinstance(item[6].occupied_by,Dispenser)):
+                self.assertIsNotNone(item[6].occupied_by.item)
     
    

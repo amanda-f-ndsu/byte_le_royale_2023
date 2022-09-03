@@ -9,7 +9,7 @@ class DispenserController(Controller):
        super().__init__()
      
     def handle_actions(self, world):
-        for tile in world[int((GameStats.map_stats['width']/2)-1)]:
-            if isinstance(tile.occupied_by,Dispenser):
-                tile.occupied_by.dispense()
+        for tile in world:
+            if isinstance(tile[6].occupied_by,Dispenser):
+                tile[6].occupied_by.dispense()
                          
