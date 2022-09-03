@@ -3,6 +3,8 @@ from game.common.enums import *
 from game.common.items.item import Item
 from game.common.items.topping import Topping
 from game.common.stations.station import Station
+from game.common.stats import GameStats
+
 
 
 class Dispenser(Station):
@@ -23,7 +25,7 @@ class Dispenser(Station):
     def dispense(self):
         if not self.item:
             rand_topping = random.randint(ToppingType.dough, ToppingType.anchovies)
-            self.item = Topping(topping_type=rand_topping)
+            self.item = Topping(topping_type=rand_topping, worth=GameStats.topping_stats[rand_topping]["score"], quality=1)
 
     def to_json(self) -> dict:
         dict_data = super().to_json()
@@ -36,3 +38,4 @@ class Dispenser(Station):
     def obfuscate(self) -> None:
         super().obfuscate()
         pass
+
