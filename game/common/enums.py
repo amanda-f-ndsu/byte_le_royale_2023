@@ -34,6 +34,7 @@ class ObjectType:
 
 class ActionType:
     none = 0
+    test = 1
     class Move:
         none = 0.5
         up = 1.5

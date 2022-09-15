@@ -21,7 +21,7 @@ class MovementController(Controller):
                new_position = (client.cook.position[0]-1,client.cook.position[1])
         if client.cook.chosen_action == ActionType.Move.right:
             if not world.game_map[client.cook.position[0]+1][client.cook.position[1]].occupied_by:
-               new_position = (client.cook.position[0]+1,client.cook.position[1]-1)
+               new_position = (client.cook.position[0]+1,client.cook.position[1])
         if new_position:
             world.game_map[client.cook.position[0]][client.cook.position[1]].occupied_by = None
             client.cook.position = new_position

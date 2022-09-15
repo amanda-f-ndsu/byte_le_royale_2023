@@ -87,13 +87,13 @@ class GameBoard(GameObject):
                 Bin(),
                 None,
                 None,
-                Cook(),
+                Cook(position = (3,3)),
                 None,
                 None,
                 GameObject(),
                 None,
                 None,
-                Cook(),
+                Cook(position = (3,9)),
                 None,
                 None,
                 Bin(),
@@ -153,6 +153,12 @@ class GameBoard(GameObject):
         to_return: set = set()
         to_return.add(i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven))
         to_return.add(i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven))
+        return to_return
+    
+    def cooks(self):
+        to_return: list = list()
+        to_return.append(self.game_map[3][3].occupied_by)
+        to_return.append(self.game_map[3][9].occupied_by)
         return to_return
 
     def to_json(self):

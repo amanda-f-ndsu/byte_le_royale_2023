@@ -7,7 +7,7 @@ from game.common.items.topping import Topping
 
 
 class Cook(GameObject):
-    def __init__(self, action: ActionType = ActionType.none, item: Item = None, position: tuple = (0,0)):
+    def __init__(self, action: ActionType = ActionType.none, item: Item = None, position = None):
         super().__init__()
         self.object_type = ObjectType.cook
         self.chosen_action = action
@@ -44,20 +44,22 @@ class Cook(GameObject):
         self.__score = score
 
     @position.setter
-    def score(self, position: tuple):
+    def position(self, position: tuple):
         self.__position = position
 
     def to_json(self):
         data = super().to_json()
         data['chosen_action'] = self.chosen_action
-        data['held_item'] = self.held_item.to_json() if self.held_item is not None else None
+        data['held_item'] = self.held_item.to_json() if self.held_item else None
         data['score'] = self.score
+        data['position'] = self.position
         return data
 
     def from_json(self, data: dict) -> 'Cook':
         super().from_json(data)
         self.chosen_action = data['chosen_action']
         self.score = data['score']
+        self.position = data['position']
         temp: Item = data['held_item']
         if temp is None:
             self.held_item = None
