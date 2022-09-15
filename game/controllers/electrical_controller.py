@@ -7,5 +7,7 @@ class ElectricalEvent(Controller):
 
     def __init__(self):
        super().__init__()
-     
+    
+    def handle_actions(self):
+        print("hello")
     
