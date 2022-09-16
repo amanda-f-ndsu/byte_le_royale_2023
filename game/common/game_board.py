@@ -146,13 +146,13 @@ class GameBoard(GameObject):
         ]
         for y in range(7):
             for x in range(13):
-                assert(isinstance(self.game_map[y][x], Tile), True)
-                self.game_map[y][x].occupied_by = temp_pop_data[y][x]
+                if isinstance(self.game_map[y][x], Tile):
+                    self.game_map[y][x].occupied_by = temp_pop_data[y][x]
 
     def ovens(self):
-        to_return: set = set()
-        to_return.add(i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven))
-        to_return.add(i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven))
+        to_return: list = list()
+        to_return.extend(i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven))
+        to_return.extend(i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven))
         return to_return
     
     def cooks(self):
