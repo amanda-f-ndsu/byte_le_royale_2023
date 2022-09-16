@@ -6,7 +6,6 @@ from game.common.stations.station import Station
 
 
 class Tile(GameObject):
-
     def __init__(self, occupied_by: GameObject = None, is_wet_tile=False):
         super().__init__()
         self.object_type = ObjectType.tile
@@ -32,12 +31,17 @@ class Tile(GameObject):
 
     def to_json(self):
         data = super().to_json()
-        data['occupied_by'] = self.occupied_by
+        data['occupied_by'] = self.occupied_by.to_json() if self.occupied_by else None
         data['is_wet_tile'] = self.is_wet_tile
         return data
 
     def from_json(self, data: dict) -> 'Tile':
         super().from_json(data)
-        self.occupied_by = data['occupied_by']
         self.is_wet_tile = data['is_wet_tile']
+        if not data['occupied_by']:
+            self.occupied_by = data['occupied_by']
+        elif data['occupied_by'] == ObjectType.station:
+            self.occupied_by = Station().from_json(data['occupied_by'])
+        elif data['occupied_by'] == ObjectType.cook:
+            self.occupied_by = Cook().from_json(data['occupied_by'])
         return self

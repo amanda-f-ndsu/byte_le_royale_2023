@@ -1,5 +1,3 @@
-import uuid
-
 from game.common.action import Action
 from game.common.game_object import GameObject
 from game.common.enums import *

@@ -20,12 +20,12 @@ def generate(seed: int = None):
     if not os.path.exists(GAME_MAP_DIR):
         os.mkdir(GAME_MAP_DIR)
 
-    data['game_map'] = generate_map().to_json()
+    data['game_map'] = generate_map(seed).to_json()
     data['seed'] = seed
     # Write game map to file
     write_json_file(data, GAME_MAP_FILE)
 
 
-def generate_map():
-    game_board: GameBoard = GameBoard()
+def generate_map(seed: int = None):
+    game_board: GameBoard = GameBoard(seed)
     return game_board

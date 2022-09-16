@@ -6,7 +6,6 @@ from game.common.cook import Cook
 
 
 class TestBin(unittest.TestCase):
-
     def setUp(self) -> None:
         self.bin = Bin()
         self.item = Item(worth=2, quality=1)

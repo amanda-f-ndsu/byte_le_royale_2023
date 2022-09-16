@@ -11,9 +11,10 @@ class Roller(Station):
         super().__init__(item)
         self.object_type = ObjectType.roller
 
-    def take_action(self, cook: Cook) -> Item:
-        if not isinstance(cook.held_item, Topping) \
-                or cook.held_item.topping_type != ToppingType.dough:
+    def take_action(self, cook: Cook = None) -> Item:
+        temp = cook.held_item
+        if not isinstance(temp, Topping) \
+                or temp.topping_type != ToppingType.dough:
             return cook.held_item
         return Pizza()
 
