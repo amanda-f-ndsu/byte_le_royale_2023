@@ -11,8 +11,6 @@ class TestDispenserController(unittest.TestCase):
         self.dispenserController = DispenserController()
         board = generate_map(5)
         self.world = board.game_map
-        # [[Tile()]*5,[Tile()]*5,[Tile()]*5,[Tile()]*5,[Tile(occupied_by=Dispenser())]*5,
-        # [[Tile()]*5],[Tile()]*5,[Tile()]*5,[Tile()]*5,[Tile()]*5]
     
     def testTakeAction(self):
         for item in self.world:
