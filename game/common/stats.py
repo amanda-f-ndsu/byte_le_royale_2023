@@ -22,9 +22,3 @@ class GameStats:
         'baked': 20
     }
 
-
-    map_stats = {
-        'width' : 10,
-        'height' : 5
-    }
-
