@@ -28,6 +28,7 @@ class Cook(GameObject):
         return self.__score
 
     @property
+    # return format for tuple (x-position, y-position), assumes (0,0) is top left
     def position(self) -> tuple:
         return self.__position
 
