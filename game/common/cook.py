@@ -13,6 +13,7 @@ class Cook(GameObject):
         self.chosen_action = action
         self.held_item = item
         self.score = 0
+        self.position = tuple(3,3)
 
     @property
     def chosen_action(self) -> ActionType:
