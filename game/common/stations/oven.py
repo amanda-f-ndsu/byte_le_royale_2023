@@ -64,4 +64,8 @@ class Oven(Station):
         self.timer = data['timer']
         return self
 
-    
+    def power_outage(self):
+        self.is_powered(self, False)
+
+    def power_reset(self):
+        self.is_powered(self, True)
