@@ -21,3 +21,4 @@ class GameStats:
         'start': 50,
         'baked': 20
     }
+
