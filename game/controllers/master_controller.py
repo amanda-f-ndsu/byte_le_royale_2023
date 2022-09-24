@@ -5,17 +5,21 @@ from game.common.enums import *
 from game.common.player import Player
 import game.config as config
 from game.utils.thread import CommunicationThread
-
+from game.controllers.movement_controller import MovementController
 from game.controllers.controller import Controller
-
+from game.controllers.dispenser_controller import DispenserController
+from game.controllers.oven_controller import OvenController
 
 class MasterController(Controller):
     def __init__(self):
         super().__init__()
         self.game_over = False
-
         self.turn = None
         self.current_world_data = None
+        self.movement_controller = MovementController()
+        self.dispenser_controller = DispenserController()
+        self.oven_controller = OvenController()
+
 
     # Receives all clients for the purpose of giving them the objects they will control
     def give_clients_objects(self, clients):
@@ -50,7 +54,8 @@ class MasterController(Controller):
 
     # Perform the main logic that happens per turn
     def turn_logic(self, clients, turn):
-        pass
+        self.oven_controller.handle_actions()
+        
 
     # Return serialized version of game
     def create_turn_log(self, clients, turn):
