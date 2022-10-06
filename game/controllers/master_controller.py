@@ -39,18 +39,13 @@ class MasterController(Controller):
         # Basic loop from 1 to max turns
         while True:
             #logic for electrical event
-            isPowerOut = False
-            if self.event_active == EventType.eletrical:
-                listOfOvens =  self.current_world_data["game_map"].ovens() 
+            listOfOvens =  self.current_world_data["game_map"].ovens() 
+            if self.event_active == EventType.eletrical and listOfOvens[0].is_powered:
                 for oven in listOfOvens:
-                    oven.power_outage()
-                    isPowerOut = True
-            else:
-                if not isPowerOut:
-                    listOfOvens =  self.current_world_data["game_map"].ovens() 
+                    oven.is_powered = False
+            if self.event_active != EventType.eletrical and not listOfOvens[0].is_powered:
                 for oven in listOfOvens:
-                    oven.power_reset()
-                    isPowerOut = False
+                    oven.is_powered = True
 
             # Wait until the next call to give the number
             yield str(self.turn)
