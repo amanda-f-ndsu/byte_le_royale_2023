@@ -22,3 +22,5 @@ class GameStats:
         'baked': 20
     }
 
+    event_timer = 50
+

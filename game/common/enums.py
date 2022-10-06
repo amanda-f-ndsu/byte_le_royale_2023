@@ -47,6 +47,13 @@ class PizzaState:
     sauced = 2
     baked = 3
 
+class eventType:
+    none = 0
+    eletrical = 1
+    infestation = 2
+    wet_tile = 3
+
+
 class ToppingType(int, Enum):
     none = 0
     dough = 1
