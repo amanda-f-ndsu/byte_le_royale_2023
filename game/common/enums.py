@@ -27,7 +27,7 @@ class ObjectType:
     storage = 17
     delivery = 18
     sauce = 19
-
+    move = 20
 
 
 class ActionType:
