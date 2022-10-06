@@ -21,3 +21,6 @@ class GameStats:
         'start': 50,
         'baked': 20
     }
+
+    event_timer = 50
+

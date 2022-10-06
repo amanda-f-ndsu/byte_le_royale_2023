@@ -35,13 +35,24 @@ class ObjectType:
 class ActionType:
     none = 0
     test = 1
-
+    class Move:
+        none = 0.5
+        up = 1.5
+        down = 2.5
+        left = 3.5
+        right = 4.5
 
 class PizzaState:
     none = 0
     rolled = 1
     sauced = 2
     baked = 3
+
+class eventType:
+    none = 0
+    eletrical = 1
+    infestation = 2
+    wet_tile = 3
 
 
 class ToppingType(int, Enum):
