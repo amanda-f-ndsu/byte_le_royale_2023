@@ -1,4 +1,5 @@
 from copy import deepcopy
+from tkinter import EventType
 
 from game.common.action import Action
 from game.common.enums import *
@@ -37,10 +38,25 @@ class MasterController(Controller):
 
         # Basic loop from 1 to max turns
         while True:
+            #logic for electrical event
+            isPowerOut = False
+            if self.event_active == EventType.eletrical:
+                listOfOvens =  self.current_world_data["game_map"].ovens() 
+                for oven in listOfOvens:
+                    oven.power_outage()
+                    isPowerOut = True
+            else:
+                if not isPowerOut:
+                    listOfOvens =  self.current_world_data["game_map"].ovens() 
+                for oven in listOfOvens:
+                    oven.power_reset()
+                    isPowerOut = False
+
             # Wait until the next call to give the number
             yield str(self.turn)
             # Increment the turn counter by 1
             self.turn += 1
+
 
     # Receives world data from the generated game log and is responsible for interpreting it
     def interpret_current_turn_data(self, clients, world, turn):
@@ -63,6 +79,7 @@ class MasterController(Controller):
         if(self.turn == self.event_times[0] or self.event_times[1]):
             pass
         self.oven_controller.handle_actions(self.current_world_data["game_map"].ovens())
+        
         for client in clients:
             self.movement_controller(self.current_world_data["game_map"], client)
         self.dispenser_controller.handle_actions()
