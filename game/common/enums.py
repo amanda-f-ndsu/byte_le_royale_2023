@@ -47,7 +47,6 @@ class PizzaState:
     sauced = 2
     baked = 3
 
-
 class ToppingType(int, Enum):
     none = 0
     dough = 1

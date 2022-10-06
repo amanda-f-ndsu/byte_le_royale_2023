@@ -3,7 +3,7 @@ from game.common.stations.storage import Storage
 from game.common.stats import GameStats
 from game.controllers.controller import Controller
 
-class DecayControll(Controller):
+class DecayController(Controller):
     def __init__(self):
         super().__init__()
     
@@ -11,6 +11,7 @@ class DecayControll(Controller):
         #Check for items in combiners and storage
         #Also check for items held by the player
         #Then decay them by the decay rate
+        #THe infestation speeds up decay on everything BUT what the cook is holding
         for station in stationList:
             if isinstance(station, Storage) or isinstance(station, Combiner) and station.item:
                 if station.is_infested:
