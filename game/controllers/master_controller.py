@@ -3,23 +3,32 @@ from copy import deepcopy
 from game.common.action import Action
 from game.common.enums import *
 from game.common.player import Player
+from game.common.stats import GameStats
 import game.config as config
 from game.utils.thread import CommunicationThread
-
+from game.controllers.movement_controller import MovementController
 from game.controllers.controller import Controller
-
+from game.controllers.dispenser_controller import DispenserController
+from game.controllers.oven_controller import OvenController
 
 class MasterController(Controller):
     def __init__(self):
         super().__init__()
         self.game_over = False
-
+        self.event_active = None
+        self.event_timer = GameStats.event_timer
+        self.event_times = None
         self.turn = None
         self.current_world_data = None
+        self.movement_controller = MovementController()
+        self.dispenser_controller = DispenserController()
+        self.oven_controller = OvenController()
+
 
     # Receives all clients for the purpose of giving them the objects they will control
     def give_clients_objects(self, clients):
-        pass
+        for index, client in enumerate (clients):
+            pass
 
     # Generator function. Given a key:value pair where the key is the identifier for the current world and the value is
     # the state of the world, returns the key that will give the appropriate world information
@@ -50,7 +59,20 @@ class MasterController(Controller):
 
     # Perform the main logic that happens per turn
     def turn_logic(self, clients, turn):
-        pass
+        # event logic 
+        if(self.turn == self.event_times[0] or self.event_times[1]):
+            pass
+        self.oven_controller.handle_actions(self.current_world_data["game_map"].ovens())
+        for client in clients:
+            self.movement_controller(self.current_world_data["game_map"], client)
+        self.dispenser_controller.handle_actions()
+        
+        if(self.event_timer == 0):
+            self.event_active = None
+            self.event_timer = GameStats.event_timer
+        else:
+            self.event_timer = self.event_timer -1
+        
 
     # Return serialized version of game
     def create_turn_log(self, clients, turn):
