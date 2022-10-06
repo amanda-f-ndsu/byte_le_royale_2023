@@ -22,5 +22,8 @@ class GameStats:
         'baked': 20
     }
 
+<<<<<<< HEAD
     decay_rate = 0.02
     infested_decay_rate = 0.05
+=======
+>>>>>>> master

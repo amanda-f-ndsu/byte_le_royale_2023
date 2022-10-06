@@ -10,7 +10,7 @@ class Tile(GameObject):
         super().__init__()
         self.object_type = ObjectType.tile
         self.is_wet_tile = is_wet_tile
-        # only a station, dispenser, or cook can occupy a tile. 'None' means tile is empty.
+        # only a station, counter, or cook can occupy a tile. 'None' means tile is empty.
         self.occupied_by = occupied_by
 
     @property
