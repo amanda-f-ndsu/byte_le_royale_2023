@@ -1,5 +1,7 @@
 import unittest
-from game.common.enum import EventType
+from game.controllers.decay_controller import DecayController
+from game.common.enums import EventType
+from game.common.enums import PizzaState
 from game.common.stations.combiner import Combiner
 from game.common.stations.storage import Storage
 from game.common.stations.oven import Oven
@@ -15,24 +17,24 @@ class TestDecayController(unittest.TestCase):
         self.playerList = []
         self.eventType = EventType.none
         # Create stations
-        self.combiner = new Combiner()
-        self.combiner.item = new Pizza(0, 100, PizzaState.rolled)
-        self.storage = new Storage()
-        self.storage.item = new Pizz(0, 100, PizzaState.rolled)
-        self.ovenOff = new Oven()
-        self.ovenOff.item = new Pizza(0, 100, PizzaState.sauced)
-        self.ovenOn = new Oven()
-        self.ovenOn.is_active = true
-        self.ovenOn.item = new Pizza(0, 100, PizzaState.sauced)
+        self.combiner =  Combiner()
+        self.combiner.item =  Pizza(0, 100, PizzaState.rolled)
+        self.storage =  Storage()
+        self.storage.item =  Pizza(0, 100, PizzaState.rolled)
+        self.ovenOff =  Oven()
+        self.ovenOff.item =  Pizza(0, 100, PizzaState.sauced)
+        self.ovenOn =  Oven()
+        self.ovenOn.is_active = True
+        self.ovenOn.item =  Pizza(0, 100, PizzaState.sauced)
         # Create player
-        self.player = new Cook()
-        self.player.held_item = new Pizz(0, 100, PizzaState.rolled)
+        self.player =  Cook()
+        self.player.held_item =  Pizza(0, 100, PizzaState.rolled)
         # Add to lists
-        self.stationList.append(combiner)
-        self.stationList.append(storage)
-        self.stationList.append(ovenOff)
-        self.stationList.append(ovenOn)
-        self.playerList.append(player)
+        self.stationList.append(self.combiner)
+        self.stationList.append(self.storage)
+        self.stationList.append(self.ovenOff)
+        self.stationList.append(self.ovenOn)
+        self.playerList.append(self.player)
 
     
     def testStationsAndCooks(self):

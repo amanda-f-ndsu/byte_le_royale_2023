@@ -19,7 +19,7 @@ class DecayController(Controller):
             if (isinstance(station, Storage) or isinstance(station, Combiner) or isinstance(station, Oven)) and station.item: #Currently, only storage, combiners and ovens actually hold items
                 if isinstance(station, Oven) and station.is_active:
                     continue #Skip ovens that are currently cooking
-                if eventType = EventType.infestation:
+                if eventType == EventType.infestation:
                     station.item.quality = max(station.item.quality - GameStats.infested_decay_rate, 0)
                 else:
                     station.item.quality = max(station.item.quality - GameStats.decay_rate, 0)
