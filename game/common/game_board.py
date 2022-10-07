@@ -144,7 +144,11 @@ class GameBoard(GameObject):
                 Counter()
             ]
         ]
+
+        # i = row index, y is row in 2d array
         for i, y in enumerate(temp_pop_data):
+            # j = column index, x is item in 2d array
+            # set item to game_map[y][x].occupied_by
             for j, x in enumerate(y):
                 self.game_map[i][j].occupied_by = x
 
@@ -155,7 +159,7 @@ class GameBoard(GameObject):
         return to_return
     
     def cooks(self):
-        to_return: list = list(filter(lambda x: len(x) > 0, [[j.occupied_by for j in i if isinstance(j.occupied_by, Cook)] for i in self.game_map]))
+        to_return: list = list(filter(lambda row: len(row) > 0, [[tile.occupied_by for tile in row if isinstance(tile.occupied_by, Cook)] for row in self.game_map]))
         return to_return[0] if len(to_return) == 1 else (to_return[0][0], to_return[1][0])
 
     def to_json(self):
