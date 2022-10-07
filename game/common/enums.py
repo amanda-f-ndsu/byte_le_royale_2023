@@ -32,7 +32,7 @@ class ObjectType:
 class ActionType:
     none = 0
     test = 1
-    move = 2
+    Move = 2
 
 class Move:
     none = 0.5
