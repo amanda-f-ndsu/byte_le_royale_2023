@@ -27,12 +27,12 @@ class ObjectType:
     storage = 17
     delivery = 18
     sauce = 19
-    move = 20
 
 
 class ActionType:
     none = 0
     test = 1
+    move = 2
 
 class Move:
     none = 0.5
