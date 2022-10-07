@@ -159,11 +159,13 @@ class GameBoard(GameObject):
         return to_return[0] if len(to_return) == 1 else (to_return[0][0], to_return[1][0])
 
     def to_json(self):
-        data = super(self).to_json()
-        temp = [map(lambda tile: tile.to_json(), self.game_map)]
+        data = super().to_json()
+        temp = list([list(map(lambda tile: tile.to_json(), y)) for y in self.game_map])
         data["game_map"] = temp
+        return data
 
     def from_json(self, data):
         super().from_json(data)
         temp = data["game_map"]
-        self.game_map = [map(lambda tile: Tile().from_json(tile), temp)]
+        self.game_map = list([list(map(lambda tile: Tile().from_json(tile), y)) for y in temp])
+        return self
