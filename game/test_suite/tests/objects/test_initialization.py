@@ -183,10 +183,10 @@ class TestInitialization(unittest.TestCase):
         ]
         temp = [list(zip(map(lambda x: x.occupied_by, self.game_board.game_map[i]), temp[i])) for i in range(7)]
         for y in temp:
-            for a, b in y:
-                if not a and not b:
+            for game_board_tile_occupied_by, temp_item in y:
+                if not game_board_tile_occupied_by and not temp_item:
                     continue
-                assert(isinstance(a, b.__class__))
+                assert(isinstance(game_board_tile_occupied_by, temp_item.__class__))
 
         for i in self.game_board.cooks():
             assert (isinstance(i, Cook))
