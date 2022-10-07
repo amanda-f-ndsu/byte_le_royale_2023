@@ -18,17 +18,17 @@ class TestDecayController(unittest.TestCase):
         self.eventType = EventType.none
         # Create stations
         self.combiner =  Combiner()
-        self.combiner.item =  Pizza(0, 100, PizzaState.rolled)
+        self.combiner.item =  Pizza(0, 1, PizzaState.rolled)
         self.storage =  Storage()
-        self.storage.item =  Pizza(0, 100, PizzaState.rolled)
+        self.storage.item =  Pizza(0, 1, PizzaState.rolled)
         self.ovenOff =  Oven()
-        self.ovenOff.item =  Pizza(0, 100, PizzaState.sauced)
+        self.ovenOff.item =  Pizza(0, 1, PizzaState.sauced)
         self.ovenOn =  Oven()
         self.ovenOn.is_active = True
-        self.ovenOn.item =  Pizza(0, 100, PizzaState.sauced)
+        self.ovenOn.item =  Pizza(0, 1, PizzaState.sauced)
         # Create player
         self.player =  Cook()
-        self.player.held_item =  Pizza(0, 100, PizzaState.rolled)
+        self.player.held_item =  Pizza(0, 1, PizzaState.rolled)
         # Add to lists
         self.stationList.append(self.combiner)
         self.stationList.append(self.storage)
@@ -39,28 +39,28 @@ class TestDecayController(unittest.TestCase):
     
     def testStationsAndCooks(self):
         # Test an oven, combiner, storage, and cook
-        targetNum = 100 - GameStats.decay_rate
+        targetNum = 1 - GameStats.decay_rate
         self.decayController.handle_actions(self.eventType, self.stationList, self.playerList)
         # Stations
         self.assertEqual(self.combiner.item.quality, targetNum)
         self.assertEqual(self.storage.item.quality, targetNum)
         self.assertEqual(self.ovenOff.item.quality, targetNum)
-        self.assertEqual(self.ovenOn.item.quality, 100)
+        self.assertEqual(self.ovenOn.item.quality, 1)
         # Player
-        self.assertEqual(self.player.helf_item.quality, targetNum)
+        self.assertEqual(self.player.held_item.quality, targetNum)
     
     def testStationsAndCooksInfested(self):
         # Test an oven, combiner, storage, and cook while infested
-        decayNum = 100 - GameStats.decay_rate
-        infestedDecayNum = 100 - GameStats.infested_decay_rate
+        decayNum = 1 - GameStats.decay_rate
+        infestedDecayNum = 1 - GameStats.infested_decay_rate
         self.eventType = EventType.infestation
         self.decayController.handle_actions(self.eventType, self.stationList, self.playerList)
         # Stations
         self.assertEqual(self.combiner.item.quality, infestedDecayNum)
         self.assertEqual(self.storage.item.quality, infestedDecayNum)
         self.assertEqual(self.ovenOff.item.quality, infestedDecayNum)
-        self.assertEqual(self.ovenOn.item.quality, 100)
+        self.assertEqual(self.ovenOn.item.quality, 1)
         # Player
-        self.assertEqual(self.player.helf_item.quality, decayNum)
+        self.assertEqual(self.player.held_item.quality, decayNum)
     
    
