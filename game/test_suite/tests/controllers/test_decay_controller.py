@@ -13,7 +13,7 @@ class TestDecayController(unittest.TestCase):
 
     def setUp(self):
         self.decayController = DecayController()
-        self.stationList = []
+        self.stationList = [[]]
         self.playerList = []
         self.eventType = EventType.none
         # Create stations
@@ -30,10 +30,10 @@ class TestDecayController(unittest.TestCase):
         self.player =  Cook()
         self.player.held_item =  Pizza(0, 1, PizzaState.rolled)
         # Add to lists
-        self.stationList.append(self.combiner)
-        self.stationList.append(self.storage)
-        self.stationList.append(self.ovenOff)
-        self.stationList.append(self.ovenOn)
+        self.stationList[0].append(self.combiner)
+        self.stationList[0].append(self.storage)
+        self.stationList[0].append(self.ovenOff)
+        self.stationList[0].append(self.ovenOn)
         self.playerList.append(self.player)
 
     
