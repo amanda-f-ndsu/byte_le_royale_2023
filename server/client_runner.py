@@ -72,6 +72,7 @@ class client_runner:
                 self.external_runner()
                 self.read_best_logs_and_insert()
                 self.delete_runner_temp()
+                self.update_group_run_finished()
                 logging.warning(
                     f"Sleeping for {self.SLEEP_TIME_SECONDS_BETWEEN_RUNS} seconds")
                 self.group_id = -1
@@ -333,6 +334,16 @@ class client_runner:
             if game[0]["submission_id"] == one_id or game[1]["submission_id"] == one_id:
                 count += 1
         self.total_number_of_games_for_one_client = count
+
+    def update_group_run_finished(self):
+        '''
+        inserts the seed file into the database.
+        Returns it's seed_id
+        '''
+        cur = self.conn.cursor(cursor_factory=RealDictCursor)
+        cur.execute("SELECT update_group_run_to_finished(%s)",
+                    (self.group_id))
+        self.conn.commit()
 
 
 if __name__ == "__main__":
