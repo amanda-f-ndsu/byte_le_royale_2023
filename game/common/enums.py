@@ -31,7 +31,6 @@ class ObjectType:
     sauce = 19
 
 
-
 class ActionType:
     none = 0
     test = 1
@@ -48,7 +47,7 @@ class PizzaState:
     sauced = 2
     baked = 3
 
-class eventType:
+class EventType:
     none = 0
     eletrical = 1
     infestation = 2
