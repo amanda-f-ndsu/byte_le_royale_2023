@@ -1,5 +1,5 @@
 import random
-from game.utils.generate_game import generate
+from game.utils.generate_game import generate_map
 from typing import List
 from game.controllers.controller import Controller
 from game.common.game_board import GameBoard
@@ -13,7 +13,7 @@ class WetTilesController(Controller):
         self.wet_options = self.create_wet_options()
 
     # Assumed cook[0] is left cook[1] is right side of board
-    def handle_actions(self, game_board, cooks: List[Cook]):
+    def handle_actions(self, game_board, cooks):
         cook1_pos = cooks[0].position
         cook2_pos = cooks[1].position
         # Find distance to middle, then subtract that from middle to get position
@@ -24,8 +24,8 @@ class WetTilesController(Controller):
         cook2_calc_pos = cook2_superimposed[0] + cook2_superimposed[1] * 10
 
         chosen_board = False
-        while not chosen_board:
-            trial_map = self.wet_options.pop(random.randint(0, len(self.wet_options)))
+        while not chosen_board and len(self.wet_options) != 0:
+            trial_map = self.wet_options.pop(random.randint(0, len(self.wet_options) - 1))
             chosen_board = self.determine_game_board(trial_map, cook1_calc_pos, cook2_calc_pos)
 
         # Case no wet_tile map was chosen, don't do anything.
@@ -36,7 +36,7 @@ class WetTilesController(Controller):
         for y in range(7):
             for x in range(13):
                 if chosen_board.game_map[y][x].is_wet_tile:
-                    game_board[y][x].is_wet_tile = True
+                    game_board.game_map[y][x].is_wet_tile = True
 
 
     def determine_game_board(self, trial_map: GameBoard, cook1_calc_pos: int, cook2_calc_pos: int):
@@ -51,8 +51,8 @@ class WetTilesController(Controller):
 
     def create_wet_options(self):
         wet_option_list = []
-        breakpoint()
-        four_corners = generate(1)
+
+        four_corners = generate_map(5)
         four_corners.game_map[1][1].is_wet_tile = True
         four_corners.game_map[1][5].is_wet_tile = True
         four_corners.game_map[5][1].is_wet_tile = True
@@ -63,7 +63,7 @@ class WetTilesController(Controller):
         four_corners.game_map[5][11].is_wet_tile = True
         four_corners.game_map[5][7].is_wet_tile = True
         wet_option_list.append(four_corners)
-        breakpoint()
+
         rotting = generate_map(1)
         rotting.game_map[2][2].is_wet_tile = True
         rotting.game_map[3][1].is_wet_tile = True
