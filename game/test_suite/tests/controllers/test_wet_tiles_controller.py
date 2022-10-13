@@ -60,7 +60,7 @@ class TestWetTilesController(unittest.TestCase):
         # Positions should be the same
         right_map_tile_pos = [(6 - (tile_pos[1] - 6), tile_pos[0]) for tile_pos in self.right_map.keys()]
         left_map_tile_pos = [(tile_pos[1], tile_pos[0]) for tile_pos in self.left_map.keys()]
-        self.assertEqual(right_map_tile_pos, left_map_tile_pos)
+        self.assertCountEqual(right_map_tile_pos, left_map_tile_pos)
 
 
 if __name__ == '__main__':
