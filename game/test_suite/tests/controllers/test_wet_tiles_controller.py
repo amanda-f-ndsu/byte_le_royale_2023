@@ -1,3 +1,4 @@
+import random
 import unittest
 from game.controllers.wet_tiles_controller import WetTilesController
 from game.utils.generate_game import generate_map
@@ -16,8 +17,29 @@ class TestWetTilesController(unittest.TestCase):
             for y in range(1, 6):
                 self.cooks.append(Cook(position=(x, y)))
 
+    # Generates wet-tile map without any cooks on it
     def test_create_wet_no_cook(self):
         self.WTC.handle_actions(self.game_board, self.off_board_cooks)
+        self.determine_left_right_equality(self.game_board)
+
+    # Test cooks at all tiles
+    def test_wet_all_tile_cooks(self):
+        while len(self.cooks) >= 2:
+            two_cooks = [self.cooks.pop(random.randint(0, len(self.cooks) - 1)),
+                         self.cooks.pop(random.randint(0, len(self.cooks) - 1))]
+            self.WTC.handle_actions(self.game_board, two_cooks)
+            self.determine_left_right_equality(self.game_board)
+
+    # Possible wet-tile configurations generation on controller instantiation
+    # Well less than 30 possible configuration, make sure no errors happen when none to choose
+    def test_no_more_boards(self):
+        two_cooks = [self.cooks.pop(random.randint(0, len(self.cooks) - 1)),
+                     self.cooks.pop(random.randint(0, len(self.cooks) - 1))]
+        for i in range(30):
+            self.WTC.handle_actions(self.game_board, two_cooks)
+            self.determine_left_right_equality(self.game_board)
+
+    def determine_left_right_equality(self, game_map):
         self.left_map = {}
         # Get wet tiles on left hand map
         for x in range(6):
@@ -39,11 +61,6 @@ class TestWetTilesController(unittest.TestCase):
         right_map_tile_pos = [(6 - (tile_pos[1] - 6), tile_pos[0]) for tile_pos in self.right_map.keys()]
         left_map_tile_pos = [(tile_pos[1], tile_pos[0]) for tile_pos in self.left_map.keys()]
         self.assertEqual(right_map_tile_pos, left_map_tile_pos)
-       # for right_map_tile_pos in self.right_map.keys():
-        #    self.assertIn((6 - (right_map_tile_pos[1] - 6), right_map_tile_pos[0]), self.left_map.keys())
-
-    def test_wet_all_tile_cooks(self):
-        self.WTC.handle_actions(self.game_board, self.cooks)
 
 
 if __name__ == '__main__':

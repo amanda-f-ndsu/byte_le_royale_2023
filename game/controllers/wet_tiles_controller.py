@@ -23,6 +23,7 @@ class WetTilesController(Controller):
         cook1_calc_pos = cook1_pos[0] + cook1_pos[1] * 10
         cook2_calc_pos = cook2_superimposed[0] + cook2_superimposed[1] * 10
 
+        # Determine which of the wet_tile boards to choose
         chosen_board = False
         while not chosen_board and len(self.wet_options) != 0:
             trial_map = self.wet_options.pop(random.randint(0, len(self.wet_options) - 1))

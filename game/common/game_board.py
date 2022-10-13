@@ -35,7 +35,7 @@ class GameBoard(GameObject):
         # populate map
         temp_hold = []
         while len(station_hold) > 0:
-            station_hold_len = len(station_hold)
+            station_hold_len = len(station_hold) - 1
             temp_hold.append(station_hold.pop(random.randint(0, station_hold_len)))
 
         temp_pop_data = [
