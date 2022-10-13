@@ -1,5 +1,4 @@
 from copy import deepcopy
-from tkinter import EventType
 
 from game.common.action import Action
 from game.common.enums import *
@@ -75,10 +74,10 @@ class MasterController(Controller):
 
         # logic for electrical event
         listOfOvens =  self.current_world_data["game_map"].ovens() 
-        if self.event_active == EventType.eletrical and listOfOvens[0].is_powered:
+        if self.event_active == EventType.electrical and listOfOvens[0].is_powered:
                 for oven in listOfOvens:
                     oven.is_powered = False
-        if self.event_active != EventType.eletrical and not listOfOvens[0].is_powered:
+        if self.event_active != EventType.electrical and not listOfOvens[0].is_powered:
                 for oven in listOfOvens:
                     oven.is_powered = True
         
