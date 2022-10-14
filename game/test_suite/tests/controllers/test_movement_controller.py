@@ -1,10 +1,11 @@
 import unittest
+
+from game.common.cook import Cook
+from game.common.enums import *
 from game.common.map.counter import Counter
 from game.common.player import Player
-from game.utils.generate_game import generate_map
-from game.common.cook import Cook
 from game.controllers.movement_controller import MovementController
-from game.common.enums import *
+from game.utils.generate_game import generate_map
 
 
 class TestMovementController(unittest.TestCase):

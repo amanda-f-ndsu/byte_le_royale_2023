@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class DebugLevel:
     none = 0
     client = 1

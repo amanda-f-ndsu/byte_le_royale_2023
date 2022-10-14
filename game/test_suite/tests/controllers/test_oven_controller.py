@@ -1,10 +1,11 @@
 import unittest
+
+from game.common.enums import *
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 from game.common.stations.oven import Oven
 from game.common.stats import GameStats
 from game.controllers.oven_controller import OvenController
-from game.common.enums import *
 
 
 class TestOvenController(unittest.TestCase):
