@@ -5,7 +5,7 @@
 -- Dumped from database version 12.12 (Ubuntu 12.12-0ubuntu0.20.04.1)
 -- Dumped by pg_dump version 14.1 (Ubuntu 14.1-2.pgdg20.04+1)
 
--- Started on 2022-10-15 15:30:55 CDT
+-- Started on 2022-10-15 16:20:05 CDT
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -138,7 +138,7 @@ $$;
 ALTER FUNCTION public.get_file_from_submission(teamid uuid, submissionid integer) OWNER TO postgres;
 
 --
--- TOC entry 248 (class 1255 OID 33555)
+-- TOC entry 249 (class 1255 OID 33555)
 -- Name: get_group_run_details(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -148,11 +148,11 @@ CREATE FUNCTION public.get_group_run_details(groupid integer) RETURNS TABLE(grou
 DECLARE grpId int := groupid;
 BEGIN
 -- Created by: Sean Hagen
--- Written on: 11/1/2021
+-- Written on: 11/1/2021 (Updated 10/15/2022)
 -- Select the latest submission_id, group_run_id for a team as well as the runs_per_team for that group run
 
 IF grpId = -1 THEN
-	SELECT group_run.group_run_id INTO grpId FROM group_run ORDER BY group_run.group_run_id DESC LIMIT 1;
+	SELECT group_run.group_run_id INTO grpId FROM group_run where is_finished = true ORDER BY group_run.group_run_id DESC LIMIT 1;
 END IF;
 
 RETURN QUERY
@@ -171,7 +171,7 @@ $$;
 ALTER FUNCTION public.get_group_run_details(groupid integer) OWNER TO postgres;
 
 --
--- TOC entry 249 (class 1255 OID 33556)
+-- TOC entry 248 (class 1255 OID 33556)
 -- Name: get_group_runs(uuid); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1548,7 +1548,7 @@ ALTER TABLE ONLY public.run
     ADD CONSTRAINT winner_fk FOREIGN KEY (winner) REFERENCES public.submission(submission_id) ON DELETE CASCADE;
 
 
--- Completed on 2022-10-15 15:30:55 CDT
+-- Completed on 2022-10-15 16:20:05 CDT
 
 --
 -- PostgreSQL database dump complete
