@@ -49,7 +49,7 @@ class PizzaState:
 
 class EventType:
     none = 0
-    eletrical = 1
+    electrical = 1
     infestation = 2
     wet_tile = 3
 

@@ -63,5 +63,3 @@ class Oven(Station):
         self.is_active = data['is_active']
         self.timer = data['timer']
         return self
-
-    
