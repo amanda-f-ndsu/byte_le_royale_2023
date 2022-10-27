@@ -42,6 +42,7 @@ class MasterController(Controller):
             # Increment the turn counter by 1
             self.turn += 1
 
+
     # Receives world data from the generated game log and is responsible for interpreting it
     def interpret_current_turn_data(self, clients, world, turn):
         self.current_world_data = world
@@ -59,13 +60,26 @@ class MasterController(Controller):
 
     # Perform the main logic that happens per turn
     def turn_logic(self, clients, turn):
-        # event logic 
-        if(self.turn == self.event_times[0] or self.event_times[1]):
-            pass
-        self.oven_controller.handle_actions(self.current_world_data["game_map"].ovens())
         for client in clients:
             self.movement_controller(self.current_world_data["game_map"], client)
         self.dispenser_controller.handle_actions()
+        # checks event logic at the end of round
+        self.handle_events(clients,turn)
+        
+       
+    def handle_events(self, clients, turn):
+        if(self.turn == self.event_times[0] or self.event_times[1]):
+            # need to write code for determining event
+            pass
+
+        # logic for electrical event
+        listOfOvens =  self.current_world_data["game_map"].ovens() 
+        if self.event_active == EventType.electrical and listOfOvens[0].is_powered:
+                for oven in listOfOvens:
+                    oven.is_powered = False
+        if self.event_active != EventType.electrical and not listOfOvens[0].is_powered:
+                for oven in listOfOvens:
+                    oven.is_powered = True
         
         if(self.event_timer == 0):
             self.event_active = None
@@ -73,6 +87,8 @@ class MasterController(Controller):
         else:
             self.event_timer = self.event_timer -1
         
+        
+
 
     # Return serialized version of game
     def create_turn_log(self, clients, turn):

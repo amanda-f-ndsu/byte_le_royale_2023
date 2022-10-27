@@ -6,6 +6,7 @@ from game.common.items.topping import Topping
 
 
 
+
 class Cook(GameObject):
     def __init__(self, action: ActionType = ActionType.none, item: Item = None, position = None):
         super().__init__()
@@ -29,7 +30,7 @@ class Cook(GameObject):
         return self.__score
 
     @property
-    # return format for tuple (x-position, y-position), assumes (0,0) is top left
+    # return format for tuple (x-position, y-position), assumes (0,0) is top left of the game board
     def position(self) -> tuple:
         return self.__position
 
