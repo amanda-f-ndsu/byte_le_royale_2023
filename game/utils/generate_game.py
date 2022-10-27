@@ -22,5 +22,5 @@ def generate(seed: int = None):
 
 
 def generate_map(seed: int = None):
-    game_board: GameBoard = GameBoard(seed)
-    return game_board
+    return GameBoard(seed)
+
