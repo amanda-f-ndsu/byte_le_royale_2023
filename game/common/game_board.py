@@ -1,5 +1,4 @@
 import random
-
 from game.common.stations.dispenser import Dispenser
 from game.common.cook import Cook
 from game.common.stations.bin import Bin
@@ -13,6 +12,7 @@ from game.common.game_object import GameObject
 from game.common.map.tile import Tile
 from game.common.map.counter import Counter
 from game.common.enums import ObjectType
+from game.common.stations.delivery import Delivery
 
 
 class GameBoard(GameObject):
@@ -35,8 +35,7 @@ class GameBoard(GameObject):
         # populate map
         temp_hold = []
         while len(station_hold) > 0:
-            station_hold_len = len(station_hold) - 1
-            temp_hold.append(station_hold.pop(random.randint(0, station_hold_len)))
+            temp_hold.append(station_hold.pop(random.randint(0, len(station_hold)-1)))
 
         temp_pop_data = [
             [
@@ -88,13 +87,13 @@ class GameBoard(GameObject):
                 Bin(),
                 None,
                 None,
-                Cook(position = (3,3)),
+                Cook(position=(3, 3)),
                 None,
                 None,
-                GameObject(),
+                Delivery(),
                 None,
                 None,
-                Cook(position = (3,9)),
+                Cook(position=(9, 3)),
                 None,
                 None,
                 Bin(),
@@ -145,29 +144,32 @@ class GameBoard(GameObject):
                 Counter()
             ]
         ]
-        for y in range(7):
-            for x in range(13):
-                if isinstance(self.game_map[y][x], Tile):
-                    self.game_map[y][x].occupied_by = temp_pop_data[y][x]
+
+        # i = row index, y is row in 2d array
+        for i, y in enumerate(temp_pop_data):
+            # j = column index, x is item in 2d array
+            # set item to game_map[y][x].occupied_by
+            for j, x in enumerate(y):
+                self.game_map[i][j].occupied_by = x
 
     def ovens(self):
         to_return: list = list()
-        to_return.extend(i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven))
-        to_return.extend(i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven))
+        to_return.extend([i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven)])
+        to_return.extend([i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven)])
         return to_return
     
     def cooks(self):
-        to_return: list = list()
-        to_return.append(self.game_map[3][3].occupied_by)
-        to_return.append(self.game_map[3][9].occupied_by)
-        return to_return
+        to_return: list = list(filter(lambda row: len(row) > 0, [[tile.occupied_by for tile in row if isinstance(tile.occupied_by, Cook)] for row in self.game_map]))
+        return to_return[0] if len(to_return) == 1 else (to_return[0][0], to_return[1][0])
 
     def to_json(self):
-        data = super(self).to_json()
-        temp = map(lambda tile: tile.to_json(), self.game_map)
+        data = super().to_json()
+        temp = list([list(map(lambda tile: tile.to_json(), y)) for y in self.game_map])
         data["game_map"] = temp
+        return data
 
     def from_json(self, data):
         super().from_json(data)
         temp = data["game_map"]
-        self.game_map = map(lambda tile: Tile().from_json(tile), temp)
+        self.game_map = list([list(map(lambda tile: Tile().from_json(tile), y)) for y in temp])
+        return self
