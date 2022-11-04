@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import traceback
+from game.common.game_board import GameBoard
 
 from game.common.player import Player
 from game.config import *
@@ -129,10 +130,10 @@ class Engine:
                     except Exception as e:
                         player.functional = False
                         player.error = str(e)
-            except Exception:
-                print(f"Bad client for {filename}")
-
-        self.clients.sort(key=lambda clnt: clnt.team_name, reverse=True)
+            except Exception as e:
+                print(f"Bad client for {filename}: exception: {e}")
+                player.functional = False
+        
         # Verify correct number of clients have connected to start
         func_clients = [client for client in self.clients if client.functional]
         client_num_correct = verify_num_clients(func_clients,
@@ -142,13 +143,14 @@ class Engine:
 
         if client_num_correct is not None:
             self.shutdown(source='Client_error')
-
-        # Finally, request master controller to establish clients with basic
-        # objects
-        if SET_NUMBER_OF_CLIENTS_START == 1:
-            self.master_controller.give_clients_objects(self.clients[0])
         else:
-            self.master_controller.give_clients_objects(self.clients)
+            # Finally, request master controller to establish clients with basic
+            # objects
+            self.clients.sort(key=lambda clnt: clnt.team_name, reverse=True)
+            if SET_NUMBER_OF_CLIENTS_START == 1:
+                self.master_controller.give_clients_objects(self.clients[0])
+            else:
+                self.master_controller.give_clients_objects(self.clients)
 
     # Loads in the world
     def load(self):

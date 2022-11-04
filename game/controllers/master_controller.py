@@ -62,7 +62,7 @@ class MasterController(Controller):
     # Perform the main logic that happens per turn
     def turn_logic(self, clients, turn):
         for client in clients:
-            self.movement_controller(self.current_world_data["game_map"], client)
+            self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
 
         self.dispenser_controller.handle_actions()
         # checks event logic at the end of round
