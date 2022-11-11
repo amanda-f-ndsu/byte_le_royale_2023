@@ -5,7 +5,7 @@
 -- Dumped from database version 12.12 (Ubuntu 12.12-0ubuntu0.20.04.1)
 -- Dumped by pg_dump version 14.1 (Ubuntu 14.1-2.pgdg20.04+1)
 
--- Started on 2022-10-15 16:20:05 CDT
+-- Started on 2022-11-10 18:49:36 CST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -27,7 +27,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 
 
 --
--- TOC entry 3114 (class 0 OID 0)
+-- TOC entry 3098 (class 0 OID 0)
 -- Dependencies: 2
 -- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
 --
@@ -261,7 +261,7 @@ CREATE FUNCTION public.get_leaderboard(include_inelligible boolean, grouprun int
     AS $$
 BEGIN
 -- Created by: Sean Hagen
--- Written on: 11/1/2021
+-- Written on: 11/1/2021 (Updated 11/10/2022)
 -- include_inelligible: if true, return inelligible teams in the results
 -- group_run: if -1 then return most recent group_run, else return results for the specified group run
 RETURN QUERY
@@ -274,10 +274,11 @@ FROM (
             university.uni_name,
             COALESCE(cnts.total_wins, 0) as total_wins
         FROM (
-                SELECT MAX(submission_id) as submission_id, team_id
-                FROM submission
-                GROUP BY team_id
-                ORDER BY submission_id, team_id
+				-- Should not matter if joined on player_1 or player_2
+                SELECT MAX(submission.submission_id), team_id FROM submission
+				JOIN run ON run.player_1=submission.submission_id
+				WHERE run.group_run_id=grouprun
+				GROUP BY submission.team_id
             ) as sub_ids
             LEFT JOIN (
                 SELECT winner,
@@ -886,7 +887,7 @@ CREATE SEQUENCE public.group_run_group_run_id_seq
 ALTER TABLE public.group_run_group_run_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3115 (class 0 OID 0)
+-- TOC entry 3099 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: group_run_group_run_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -943,7 +944,7 @@ CREATE SEQUENCE public.run_runid_seq
 ALTER TABLE public.run_runid_seq OWNER TO postgres;
 
 --
--- TOC entry 3116 (class 0 OID 0)
+-- TOC entry 3100 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: run_runid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -982,7 +983,7 @@ CREATE SEQUENCE public.seed_seed_id_seq
 ALTER TABLE public.seed_seed_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3117 (class 0 OID 0)
+-- TOC entry 3101 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: seed_seed_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1021,7 +1022,7 @@ CREATE SEQUENCE public.submission_submissionid_seq
 ALTER TABLE public.submission_submissionid_seq OWNER TO postgres;
 
 --
--- TOC entry 3118 (class 0 OID 0)
+-- TOC entry 3102 (class 0 OID 0)
 -- Dependencies: 213
 -- Name: submission_submissionid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1077,7 +1078,7 @@ CREATE SEQUENCE public.teamtype_teamtypeid_seq
 ALTER TABLE public.teamtype_teamtypeid_seq OWNER TO postgres;
 
 --
--- TOC entry 3119 (class 0 OID 0)
+-- TOC entry 3103 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: teamtype_teamtypeid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1116,7 +1117,7 @@ CREATE SEQUENCE public.university_uniid_seq
 ALTER TABLE public.university_uniid_seq OWNER TO postgres;
 
 --
--- TOC entry 3120 (class 0 OID 0)
+-- TOC entry 3104 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: university_uniid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1170,168 +1171,6 @@ ALTER TABLE ONLY public.team_type ALTER COLUMN team_type_id SET DEFAULT nextval(
 --
 
 ALTER TABLE ONLY public.university ALTER COLUMN uni_id SET DEFAULT nextval('public.university_uniid_seq'::regclass);
-
-
---
--- TOC entry 3093 (class 0 OID 33580)
--- Dependencies: 203
--- Data for Name: code_file; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.code_file (submission_id, file_text) FROM stdin;
-\.
-
-
---
--- TOC entry 3094 (class 0 OID 33586)
--- Dependencies: 204
--- Data for Name: errors; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.errors (run_id, error_text, submission_id) FROM stdin;
-\.
-
-
---
--- TOC entry 3095 (class 0 OID 33592)
--- Dependencies: 205
--- Data for Name: group_run; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.group_run (group_run_id, start_run, launcher_version, runs_per_client, is_finished) FROM stdin;
-\.
-
-
---
--- TOC entry 3097 (class 0 OID 33598)
--- Dependencies: 207
--- Data for Name: logs; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.logs (run_id, log_text, group_run_id) FROM stdin;
-\.
-
-
---
--- TOC entry 3098 (class 0 OID 33604)
--- Dependencies: 208
--- Data for Name: run; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.run (run_id, group_run_id, run_time, seed_id, winner, player_1, player_2) FROM stdin;
-\.
-
-
---
--- TOC entry 3100 (class 0 OID 33610)
--- Dependencies: 210
--- Data for Name: seed; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.seed (seed_id, seed, group_run_id) FROM stdin;
-\.
-
-
---
--- TOC entry 3102 (class 0 OID 33618)
--- Dependencies: 212
--- Data for Name: submission; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.submission (team_id, submission_id, submit_time) FROM stdin;
-\.
-
-
---
--- TOC entry 3104 (class 0 OID 33624)
--- Dependencies: 214
--- Data for Name: team; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.team (team_id, uni_id, team_type_id, team_name) FROM stdin;
-\.
-
-
---
--- TOC entry 3105 (class 0 OID 33629)
--- Dependencies: 215
--- Data for Name: team_type; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.team_type (team_type_id, team_type_name, eligible) FROM stdin;
-1	Undergrad	t
-2	Graduate	f
-3	Alumni	f
-4	Other	f
-\.
-
-
---
--- TOC entry 3107 (class 0 OID 33635)
--- Dependencies: 217
--- Data for Name: university; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.university (uni_id, uni_name) FROM stdin;
-1	NDSU
-2	MSUM
-3	UND
-4	Other
-\.
-
-
---
--- TOC entry 3121 (class 0 OID 0)
--- Dependencies: 206
--- Name: group_run_group_run_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.group_run_group_run_id_seq', 1, false);
-
-
---
--- TOC entry 3122 (class 0 OID 0)
--- Dependencies: 209
--- Name: run_runid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.run_runid_seq', 1, false);
-
-
---
--- TOC entry 3123 (class 0 OID 0)
--- Dependencies: 211
--- Name: seed_seed_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.seed_seed_id_seq', 1, false);
-
-
---
--- TOC entry 3124 (class 0 OID 0)
--- Dependencies: 213
--- Name: submission_submissionid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.submission_submissionid_seq', 1, false);
-
-
---
--- TOC entry 3125 (class 0 OID 0)
--- Dependencies: 216
--- Name: teamtype_teamtypeid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.teamtype_teamtypeid_seq', 4, true);
-
-
---
--- TOC entry 3126 (class 0 OID 0)
--- Dependencies: 218
--- Name: university_uniid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.university_uniid_seq', 4, true);
 
 
 --
@@ -1548,7 +1387,7 @@ ALTER TABLE ONLY public.run
     ADD CONSTRAINT winner_fk FOREIGN KEY (winner) REFERENCES public.submission(submission_id) ON DELETE CASCADE;
 
 
--- Completed on 2022-10-15 16:20:05 CDT
+-- Completed on 2022-11-10 18:49:37 CST
 
 --
 -- PostgreSQL database dump complete
