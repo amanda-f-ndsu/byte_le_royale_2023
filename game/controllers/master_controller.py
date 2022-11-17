@@ -70,7 +70,8 @@ class MasterController(Controller):
         
        
     def handle_events(self, clients, turn):
-        if(self.turn == self.event_times[0] or self.turn == self.event_times[1]):
+        if(self.turn == self.event_times[0] or self.event_times[1]):
+
             self.event_active = randint(EventType.electrical,EventType.wet_tile)
 
         if(self.event_active):
