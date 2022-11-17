@@ -22,7 +22,6 @@ class TestMasterController(unittest.TestCase):
         self.masterController.current_world_data = self.world
         self.masterController.handle_events(listofPlayers, 7)
         listOfOvens = self.masterController.current_world_data["game_map"].ovens() 
-        print(listOfOvens[0].is_powered)
         self.assertFalse(listOfOvens[0].is_powered)
 
     
