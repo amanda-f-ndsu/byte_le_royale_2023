@@ -31,7 +31,7 @@ class TestDispenser(unittest.TestCase):
     def testCookHandsEmpty(self):
         self.dispenser.item = Topping(topping_type=ToppingType.chicken, quality=1, worth=GameStats.topping_stats[ToppingType.chicken]["score"])
         stored_item = self.dispenser.item # actual item stored in dispenser
-        self.cook.held_item = self.dispenser.take_action(self.cook.held_item)
+        self.cook.held_item = self.dispenser.take_action(self.cook)
         self.assertTrue(stored_item is self.cook.held_item)
         self.assertIsNone(self.dispenser.item)
 
@@ -41,7 +41,7 @@ class TestDispenser(unittest.TestCase):
         self.cook.held_item = Topping(topping_type=ToppingType.cheese, quality=1, worth=GameStats.topping_stats[ToppingType.cheese]["score"])
         stored_item = self.dispenser.item # actual item stored in dispenser
         cook_item = self.cook.held_item
-        self.cook.held_item = self.dispenser.take_action(self.cook.held_item)
+        self.cook.held_item = self.dispenser.take_action(self.cook)
         self.assertTrue(cook_item is self.cook.held_item)
         self.assertTrue(stored_item is self.dispenser.item)
     

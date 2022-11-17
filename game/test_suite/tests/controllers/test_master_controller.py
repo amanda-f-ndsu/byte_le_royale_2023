@@ -3,22 +3,27 @@ from game.common.enums import *
 from game.common.player import Player
 from game.common.stations.dispenser import Dispenser
 from game.controllers.master_controller import MasterController
+from game.utils import generate_game
 from game.utils.generate_game import generate_map
 
 
-class TestDispenserController(unittest.TestCase):
+class TestMasterController(unittest.TestCase):
     def setUp(self):
         self.masterController = MasterController()
+        temp = generate_game.generate_map()
+        self.world = {
+            "game_map": temp
+        }
         
     
     def testElectrical(self):
         listofPlayers = { Player(),  Player()}
-
-        self.masterController.event_active = EventType.electrical
-        self.masterController.handle_events(listofPlayers, None)
-
+        self.masterController.event_active = EventType.electrical 
+        self.masterController.current_world_data = self.world
+        self.masterController.handle_events(listofPlayers, 7)
         listOfOvens = self.masterController.current_world_data["game_map"].ovens() 
-        self.assertTrue(listOfOvens[0].is_powered, False)
+        print(listOfOvens[0].is_powered)
+        self.assertFalse(listOfOvens[0].is_powered)
 
     
    
