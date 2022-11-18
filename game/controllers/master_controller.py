@@ -5,6 +5,7 @@ from game.common.action import Action
 from game.common.enums import *
 from game.common.player import Player
 from game.common.stats import GameStats
+from game.common.cook import Cook
 import game.config as config
 from game.utils.thread import CommunicationThread
 from game.controllers.movement_controller import MovementController
@@ -12,13 +13,14 @@ from game.controllers.controller import Controller
 from game.controllers.dispenser_controller import DispenserController
 from game.controllers.oven_controller import OvenController
 
+
 class MasterController(Controller):
     def __init__(self):
         super().__init__()
         self.game_over = False
         self.event_active = None
         self.event_timer = GameStats.event_timer
-        self.event_times = (5,100)
+        self.event_times = GameStats.event_tick_start_times
         self.turn = None
         self.current_world_data = None
         self.movement_controller = MovementController()
@@ -29,7 +31,7 @@ class MasterController(Controller):
     # Receives all clients for the purpose of giving them the objects they will control
     def give_clients_objects(self, clients):
         for index, client in enumerate (clients):
-            pass
+            client.cook = Cook(position=GameStats.start_positions[index])
 
     # Generator function. Given a key:value pair where the key is the identifier for the current world and the value is
     # the state of the world, returns the key that will give the appropriate world information
@@ -63,33 +65,31 @@ class MasterController(Controller):
     def turn_logic(self, clients, turn):
         for client in clients:
             self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
-
-        self.dispenser_controller.handle_actions()
+        self.dispenser_controller.handle_actions(self.current_world_data["game_map"])
         # checks event logic at the end of round
-        self.handle_events(clients,turn)
+        self.handle_events(clients, turn)
         
        
     def handle_events(self, clients, turn):
-        if(self.turn == self.event_times[0] or self.event_times[1]):
-
+        if(self.turn == self.event_times[0] or self.turn == self.event_times[1]):
             self.event_active = randint(EventType.electrical,EventType.wet_tile)
 
         if(self.event_active):
             # logic for electrical event
-            listOfOvens = self.current_world_data["game_map"].ovens() 
+            listOfOvens = self.current_world_data["game_map"].ovens()
             if self.event_active == EventType.electrical and listOfOvens[0].is_powered:
-                    for oven in listOfOvens:
-                        oven.is_powered = False
+                for oven in listOfOvens:
+                    oven.is_powered = False
             if self.event_active != EventType.electrical and not listOfOvens[0].is_powered:
-                    for oven in listOfOvens:
-                        oven.is_powered = True
-            
+                for oven in listOfOvens:
+                    oven.is_powered = True
+
             if(self.event_timer == 0):
                 self.event_active = None
                 self.event_timer = GameStats.event_timer
             else:
                 self.event_timer = self.event_timer -1
-            
+
         
 
 

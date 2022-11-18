@@ -7,6 +7,8 @@ import traceback
 from game.common.game_board import GameBoard
 
 from game.common.player import Player
+from game.common.stats import GameStats
+from game.common.game_board import GameBoard
 from game.config import *
 from game.controllers.master_controller import MasterController
 from game.utils.helpers import write_json_file
@@ -133,7 +135,7 @@ class Engine:
             except Exception as e:
                 print(f"Bad client for {filename}: exception: {e}")
                 player.functional = False
-        
+
         # Verify correct number of clients have connected to start
         func_clients = [client for client in self.clients if client.functional]
         client_num_correct = verify_num_clients(func_clients,
@@ -169,27 +171,38 @@ class Engine:
         world = None
         with open(GAME_MAP_FILE) as json_file:
             world = json.load(json_file)
-            # Yes, this is a bit ugly. Load game map json to game map object
-            gameBoard = GameBoard()
-            game_map = gameBoard.from_json(world['game_map'])
+        self.world = world
+
+        # Yes, this is a bit ugly. Load game map json to game map object
+        gameBoard = GameBoard(self.world['seed'])
+        game_map = gameBoard.from_json(world['game_map'])
 
         # add game map object to dictionary
-            world.pop("game_map", None)
-            self.world["game_map"] = game_map
-            self.world['seed'] = world['seed']
+        world.pop("game_map", None)
+        self.world["game_map"] = game_map
+        self.world['seed'] = world['seed']
+
+        for client in self.clients:
+            self.world["game_map"].add_cook(client.cook.position)
+
     # Sits on top of all actions that need to happen before the player takes their turn
     def pre_tick(self):
         # Increment the tick
         self.tick_number += 1
 
+        # game map isn't tick based, only need the previous game map to persist
         # Retrieve current world info
-        
+        # if self.current_world_key not in self.world:
+        #     raise KeyError('Given generated world key does not exist inside the world.')
+        # current_world = self.world['game_map']
 
         # Send current world information to master controller for purposes
         if SET_NUMBER_OF_CLIENTS_START == 1:
-            self.master_controller.interpret_current_turn_data(self.clients[0], self.world, self.tick_number)
+            self.master_controller.interpret_current_turn_data(
+                self.clients[0], self.world, self.tick_number)
         else:
-            self.master_controller.interpret_current_turn_data(self.clients, self.world, self.tick_number)
+            self.master_controller.interpret_current_turn_data(
+                self.clients, self.world, self.tick_number)
 
     # Does actions like lets the player take their turn and asks master controller to perform game logic
     def tick(self):
@@ -239,7 +252,7 @@ class Engine:
             # Also check to see if the client had created an error and save it
             if thr.error is not None:
                 client.functional = False
-                client.error = str(thr.error)
+                client.error = thr.error
                 print(thr.error)
 
         # Verify there are enough clients to continue the game

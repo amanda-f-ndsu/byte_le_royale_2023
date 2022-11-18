@@ -26,3 +26,7 @@ class GameStats:
     infested_decay_rate = 0.05
     event_timer = 50
 
+    start_positions = [(3, 3), (9, 3)]
+
+    event_tick_start_times = [100, 200]
+

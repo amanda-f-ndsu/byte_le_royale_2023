@@ -86,13 +86,13 @@ class GameBoard(GameObject):
                 Bin(),
                 None,
                 None,
-                Cook(position=(3, 3)),
+                None, # left side cook spot
                 None,
                 None,
                 Delivery(),
                 None,
                 None,
-                Cook(position=(9, 3)),
+                None, # right side cook spot
                 None,
                 None,
                 Bin(),
@@ -155,8 +155,13 @@ class GameBoard(GameObject):
         to_return: list = list()
         to_return.extend([i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven)])
         to_return.extend([i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven)])
+        #breakpoint()
         return to_return
-    
+
+    def add_cook(self, cook_pos):
+        # game map (y, x) while cook is (x, y)
+        self.game_map[cook_pos[1]][cook_pos[0]] = Cook(position=cook_pos)
+
     def cooks(self):
         to_return: list = list(filter(lambda row: len(row) > 0, [[tile.occupied_by for tile in row if isinstance(tile.occupied_by, Cook)] for row in self.game_map]))
         return to_return[0] if len(to_return) == 1 else (to_return[0][0], to_return[1][0])
