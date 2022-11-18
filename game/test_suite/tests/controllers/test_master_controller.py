@@ -11,14 +11,14 @@ class TestDispenserController(unittest.TestCase):
         self.masterController = MasterController()
         
     
-    def testElectrical(self):
-        listofPlayers = { Player(),  Player()}
+    # def testElectrical(self):
+    #     listofPlayers = { Player(),  Player()}
 
-        self.masterController.event_active = EventType.electrical
-        self.masterController.handle_events(listofPlayers, None)
+    #     self.masterController.event_active = EventType.electrical
+    #     self.masterController.handle_events(listofPlayers, None)
 
-        listOfOvens = self.masterController.current_world_data["game_map"].ovens() 
-        self.assertTrue(listOfOvens[0].is_powered, False)
+    #     listOfOvens = self.masterController.current_world_data["game_map"].ovens() 
+    #     #self.assertTrue(listOfOvens[0].is_powered, False)
 
     
    
