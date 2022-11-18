@@ -1,4 +1,5 @@
 import random
+from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.items.topping import Topping
@@ -14,12 +15,13 @@ class Dispenser(Station):
         self.object_type: ObjectType = ObjectType.dispenser
 
    
-    def take_action(self, item: Item):
-       rtn_item = item
-       if not item:
-            rtn_item = self.item
-            self.item = None
+    def take_action(self, cook: Cook):
+       rtn_item = cook.held_item
+       if not rtn_item and self.item:
+          rtn_item = self.item
+          self.item = None
        return rtn_item
+        
        
 
     def dispense(self):

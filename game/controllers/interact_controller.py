@@ -52,7 +52,7 @@ class InteractController(Controller):
             #elif(isinstance(world.game_map[x][y].occupied_by, Sauce)):
             #    stat = world.game_map[x][y].occupied_by
             #    return stat.take_action(cook)
-            breakpoint()
+            #breakpoint()
             if(isinstance(world.game_map[x][y].occupied_by, Dispenser)):
                stat : Dispenser = world.game_map[x][y].occupied_by
                return stat.take_action(cook.held_item)

@@ -18,7 +18,7 @@ class MasterController(Controller):
         self.game_over = False
         self.event_active = None
         self.event_timer = GameStats.event_timer
-        self.event_times = None
+        self.event_times = (5,100)
         self.turn = None
         self.current_world_data = None
         self.movement_controller = MovementController()
@@ -71,6 +71,7 @@ class MasterController(Controller):
        
     def handle_events(self, clients, turn):
         if(self.turn == self.event_times[0] or self.event_times[1]):
+
             self.event_active = randint(EventType.electrical,EventType.wet_tile)
 
         if(self.event_active):

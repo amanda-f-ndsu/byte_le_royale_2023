@@ -29,7 +29,6 @@ class GameBoard(GameObject):
             Roller(),
             Sauce()
         ]
-
         # generate map
         self.game_map = [[Tile() for x in range(13)] for y in range(7)]
         # populate map
