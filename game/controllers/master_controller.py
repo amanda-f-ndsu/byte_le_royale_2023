@@ -1,4 +1,5 @@
 from copy import deepcopy
+from random import randint
 
 from game.common.action import Action
 from game.common.enums import *
@@ -61,7 +62,8 @@ class MasterController(Controller):
     # Perform the main logic that happens per turn
     def turn_logic(self, clients, turn):
         for client in clients:
-            self.movement_controller(self.current_world_data["game_map"], client)
+            self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
+
         self.dispenser_controller.handle_actions()
         # checks event logic at the end of round
         self.handle_events(clients,turn)
@@ -69,33 +71,34 @@ class MasterController(Controller):
        
     def handle_events(self, clients, turn):
         if(self.turn == self.event_times[0] or self.event_times[1]):
-            # need to write code for determining event
-            pass
+            self.event_active = randint(EventType.electrical,EventType.wet_tile)
 
-        # logic for electrical event
-        listOfOvens =  self.current_world_data["game_map"].ovens() 
-        if self.event_active == EventType.electrical and listOfOvens[0].is_powered:
-                for oven in listOfOvens:
-                    oven.is_powered = False
-        if self.event_active != EventType.electrical and not listOfOvens[0].is_powered:
-                for oven in listOfOvens:
-                    oven.is_powered = True
-        
-        if(self.event_timer == 0):
-            self.event_active = None
-            self.event_timer = GameStats.event_timer
-        else:
-            self.event_timer = self.event_timer -1
-        
+        if(self.event_active):
+            # logic for electrical event
+            listOfOvens = self.current_world_data["game_map"].ovens() 
+            if self.event_active == EventType.electrical and listOfOvens[0].is_powered:
+                    for oven in listOfOvens:
+                        oven.is_powered = False
+            if self.event_active != EventType.electrical and not listOfOvens[0].is_powered:
+                    for oven in listOfOvens:
+                        oven.is_powered = True
+            
+            if(self.event_timer == 0):
+                self.event_active = None
+                self.event_timer = GameStats.event_timer
+            else:
+                self.event_timer = self.event_timer -1
+            
         
 
 
     # Return serialized version of game
     def create_turn_log(self, clients, turn):
         data = dict()
-
+        data['tick'] = turn
+        data['clients'] = [client.to_json() for client in clients]
         # Add things that should be thrown into the turn logs here
-        data['temp'] = None
+        data['game_map'] = self.current_world_data["game_map"].to_json()
 
         return data
 

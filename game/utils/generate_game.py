@@ -8,8 +8,8 @@ def generate(seed: int = None):
 
     data = dict()
 
-    for x in range(1, MAX_TICKS + 1):
-        data[x] = 'data'
+    # for x in range(1, MAX_TICKS + 1):
+    #     data[x] = 'data'
 
     # Verify logs location exists
     if not os.path.exists(GAME_MAP_DIR):
