@@ -57,24 +57,24 @@ class TestInteractController(unittest.TestCase):
         self.assertEqual(temp, None)
         
 
-    def test_interact_oven(self):
-        self.player.cook.chosen_action = ActionType.Move.left
-        self.movementController.handle_actions(self.world,self.player)
-        self.player.cook.chosen_action = ActionType.Move.left
-        self.movementController.handle_actions(self.world,self.player)
-        self.player.cook.held_item = Pizza(PizzaState.sauced)
-        self.player.cook.held_item.add_topping(Topping(topping_type=ToppingType.cheese))
-        self.player.cook.held_item = self.interactController.handle_actions(self.player.cook, self.world)
-        self.assertIsNotNone(self.player.cook.held_item.state, Pizza(PizzaState.sauced))
+    #def test_interact_oven(self):
+    #    self.player.cook.chosen_action = ActionType.Move.left
+    #    self.movementController.handle_actions(self.world,self.player)
+    #    self.player.cook.chosen_action = ActionType.Move.left
+    #    self.movementController.handle_actions(self.world,self.player)
+    #    self.player.cook.held_item = Pizza(PizzaState.sauced)
+    #    self.player.cook.held_item.add_topping(Topping(topping_type=ToppingType.cheese))
+    #    self.player.cook.held_item = self.interactController.handle_actions(self.player.cook, self.world)
+    #    self.assertIsNotNone(self.player.cook.held_item.state, Pizza(PizzaState.sauced))
     
-    def test_interact_combiner(self):
-        self.player.cook.chosen_action = ActionType.Move.right
-        self.movementController.handle_actions(self.world,self.player)
-        self.player.cook.chosen_action = ActionType.Move.right
-        self.movementController.handle_actions(self.world,self.player)
-        self.player.cook.held_item = Pizza(PizzaState.sauced)
-        self.player.cook.held_item = self.interactController.handle_actions(self.player.cook, self.world)
-        self.assertIsInstance(self.player.cook.held_item, Pizza)
+    #def test_interact_combiner(self):
+    #    self.player.cook.chosen_action = ActionType.Move.right
+    #    self.movementController.handle_actions(self.world,self.player)
+    #    self.player.cook.chosen_action = ActionType.Move.right
+    #    self.movementController.handle_actions(self.world,self.player)
+    #    self.player.cook.held_item = Pizza(PizzaState.sauced)
+    #    self.player.cook.held_item = self.interactController.handle_actions(self.player.cook, self.world)
+    #    self.assertIsInstance(self.player.cook.held_item, Pizza)
 
     #def test_interact_down_delivery(self):
         #self.player.cook.chosen_action = ActionType.Move.down

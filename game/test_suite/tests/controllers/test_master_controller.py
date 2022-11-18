@@ -16,16 +16,6 @@ class TestMasterController(unittest.TestCase):
         }
         
     
-<<<<<<< HEAD
-    # def testElectrical(self):
-    #     listofPlayers = { Player(),  Player()}
-
-    #     self.masterController.event_active = EventType.electrical
-    #     self.masterController.handle_events(listofPlayers, None)
-
-    #     listOfOvens = self.masterController.current_world_data["game_map"].ovens() 
-    #     #self.assertTrue(listOfOvens[0].is_powered, False)
-=======
     def testElectrical(self):
         listofPlayers = { Player(),  Player()}
         self.masterController.event_active = EventType.electrical 
@@ -33,7 +23,6 @@ class TestMasterController(unittest.TestCase):
         self.masterController.handle_events(listofPlayers, 7)
         listOfOvens = self.masterController.current_world_data["game_map"].ovens() 
         self.assertFalse(listOfOvens[0].is_powered)
->>>>>>> 444cca45bebcd2b04a7d3a4013264f7aebd6a633
 
     
    

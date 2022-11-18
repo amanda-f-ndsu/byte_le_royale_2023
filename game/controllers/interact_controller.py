@@ -33,29 +33,6 @@ class InteractController(Controller):
             x = cook.position[0] + 1
             y = cook.position[1]
         if(x != 0 or y != 0):
-            #if(isinstance(world.game_map[x][y].occupied_by, Oven)):
-            #    stat = world.game_map[x][y].occupied_by
-            #    cook.held_item = stat.take_action(cook)
-            #elif(isinstance(world.game_map[x][y].occupied_by, Roller)):
-            #    stat = world.game_map[x][y].occupied_by
-            #    cook.held_item = stat.take_action(cook)                
-            #elif(isinstance(world.game_map[x][y].occupied_by, Cutter)):
-            #    stat = world.game_map[x][y].occupied_by
-            #    cook.held_item = stat.take_action(cook)
-            #    print(cook.held_item)
-            #elif(isinstance(world.game_map[x][y].occupied_by, Storage)):
-            #    stat = world.game_map[x][y].occupied_by
-            #    cook.held_item = stat.take_action(cook)
-            #elif(isinstance(world.game_map[x][y].occupied_by, Dispenser)):
-            #   stat = world.game_map[x][y].occupied_by
-            #    cook.held_item = stat.take_action(cook.held_item)
-            #elif(isinstance(world.game_map[x][y].occupied_by, Sauce)):
-            #    stat = world.game_map[x][y].occupied_by
-            #    return stat.take_action(cook)
             #breakpoint()
-            if(isinstance(world.game_map[x][y].occupied_by, Dispenser)):
-               stat : Dispenser = world.game_map[x][y].occupied_by
-               return stat.take_action(cook.held_item)
-            else:
-                stat = world.game_map[x][y].occupied_by
-                return stat.take_action(cook)
+            stat = world.game_map[x][y].occupied_by
+            return stat.take_action(cook)
