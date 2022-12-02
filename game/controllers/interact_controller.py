@@ -34,5 +34,5 @@ class InteractController(Controller):
             y = cook.position[1]
         if(x != 0 or y != 0):
             #breakpoint()
-            stat = world.game_map[x][y].occupied_by
+            stat = world.game_map[y][x].occupied_by
             return stat.take_action(cook)
