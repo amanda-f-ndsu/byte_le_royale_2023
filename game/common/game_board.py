@@ -152,6 +152,13 @@ class GameBoard(GameObject):
                 self.game_map[i][j].occupied_by = x
 
     def ovens(self):
+        # to_return = []
+        # for row in self.game_map:
+        #     for tile in row:
+        #         if isinstance(tile.occupied_by, Oven):
+        #             to_return.append(tile.occupied_by)
+        # #breakpoint()
+        # return to_return
         to_return: list = list()
         to_return.extend([i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven)])
         to_return.extend([i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven)])
@@ -160,9 +167,17 @@ class GameBoard(GameObject):
 
     def add_cook(self, cook_pos):
         # game map (y, x) while cook is (x, y)
-        self.game_map[cook_pos[1]][cook_pos[0]] = Cook(position=cook_pos)
+        #breakpoint()
+        self.game_map[cook_pos[1]][cook_pos[0]].occupied_by = Cook(position=cook_pos)
 
     def cooks(self):
+        # return_list = []
+        # for row in self.game_map:
+        #     for tile in row:
+        #         if isinstance(tile.occupied_by, Cook):
+        #             return_list.append(tile.occupied_by)
+        # #breakpoint()
+        # return return_list
         to_return: list = list(filter(lambda row: len(row) > 0, [[tile.occupied_by for tile in row if isinstance(tile.occupied_by, Cook)] for row in self.game_map]))
         return to_return[0] if len(to_return) == 1 else (to_return[0][0], to_return[1][0])
 
@@ -170,6 +185,7 @@ class GameBoard(GameObject):
         data = super().to_json()
         temp = list([list(map(lambda tile: tile.to_json(), y)) for y in self.game_map])
         data["game_map"] = temp
+        #breakpoint()
         return data
 
     def from_json(self, data):

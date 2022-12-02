@@ -2,7 +2,16 @@ from game.common.cook import Cook
 from game.common.map.counter import Counter
 from game.common.enums import ObjectType
 from game.common.game_object import GameObject
+from game.common.stations.Sauce import Sauce
+from game.common.stations.bin import Bin
+from game.common.stations.combiner import Combiner
+from game.common.stations.cutter import Cutter
+from game.common.stations.delivery import Delivery
+from game.common.stations.dispenser import Dispenser
+from game.common.stations.oven import Oven
+from game.common.stations.roller import Roller
 from game.common.stations.station import Station
+from game.common.stations.storage import Storage
 
 
 class Tile(GameObject):
@@ -40,8 +49,35 @@ class Tile(GameObject):
         self.is_wet_tile = data['is_wet_tile']
         if not data['occupied_by']:
             self.occupied_by = data['occupied_by']
-        elif data['occupied_by'] == ObjectType.station:
+        elif data['occupied_by']['object_type'] == ObjectType.station:
             self.occupied_by = Station().from_json(data['occupied_by'])
-        elif data['occupied_by'] == ObjectType.cook:
+        elif data['occupied_by']['object_type'] == ObjectType.bin:
+            self.occupied_by = Bin().from_json(data['occupied_by'])
+        elif data['occupied_by']['object_type'] == ObjectType.combiner:
+            self.occupied_by = Combiner().from_json(data['occupied_by'])
+        elif data['occupied_by']['object_type'] == ObjectType.cutter:
+            #breakpoint()
+            self.occupied_by = Cutter().from_json(data['occupied_by'])
+        elif data['occupied_by']['object_type'] == ObjectType.delivery:
+            self.occupied_by = Delivery().from_json(data['occupied_by'])
+        elif data['occupied_by']['object_type'] == ObjectType.dispenser:
+            self.occupied_by = Dispenser().from_json(data['occupied_by'])
+        elif data['occupied_by']['object_type'] == ObjectType.oven:
+            self.occupied_by = Oven().from_json(data['occupied_by'])
+        elif data['occupied_by']['object_type'] == ObjectType.roller:
+            self.occupied_by = Roller().from_json(data['occupied_by'])
+        elif data['occupied_by']['object_type'] == ObjectType.sauce:
+            self.occupied_by = Sauce().from_json(data['occupied_by'])
+        elif data['occupied_by']['object_type'] == ObjectType.storage:
+            self.occupied_by = Storage().from_json(data['occupied_by'])
+
+
+
+
+
+
+        elif data['occupied_by']['object_type'] == ObjectType.cook:
             self.occupied_by = Cook().from_json(data['occupied_by'])
+        elif data['occupied_by']['object_type'] == ObjectType.counter:
+            self.occupied_by = Counter().from_json(data['occupied_by'])
         return self

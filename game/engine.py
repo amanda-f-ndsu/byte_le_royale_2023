@@ -174,16 +174,20 @@ class Engine:
         self.world = world
 
         # Yes, this is a bit ugly. Load game map json to game map object
+        #breakpoint()
         gameBoard = GameBoard(self.world['seed'])
-        game_map = gameBoard.from_json(world['game_map'])
+        game_map = gameBoard.from_json(self.world["game_map"])
+        for client in self.clients:
+            #breakpoint()
+            game_map.add_cook(client.cook.position)
 
         # add game map object to dictionary
-        world.pop("game_map", None)
-        self.world["game_map"] = game_map
-        self.world['seed'] = world['seed']
+        #world.pop("game_map", None)
+        self.world["game_map"] = game_map.to_json()
+        #self.world['seed'] = world['seed']
+       # breakpoint()
 
-        for client in self.clients:
-            self.world["game_map"].add_cook(client.cook.position)
+
 
     # Sits on top of all actions that need to happen before the player takes their turn
     def pre_tick(self):

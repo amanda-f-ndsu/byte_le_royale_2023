@@ -3,6 +3,7 @@ from random import randint
 
 from game.common.action import Action
 from game.common.enums import *
+from game.common.game_board import GameBoard
 from game.common.player import Player
 from game.common.stats import GameStats
 from game.common.cook import Cook
@@ -26,6 +27,7 @@ class MasterController(Controller):
         self.movement_controller = MovementController()
         self.dispenser_controller = DispenserController()
         self.oven_controller = OvenController()
+        self.game_board = None
 
 
     # Receives all clients for the purpose of giving them the objects they will control
@@ -48,8 +50,11 @@ class MasterController(Controller):
 
     # Receives world data from the generated game log and is responsible for interpreting it
     def interpret_current_turn_data(self, clients, world, turn):
-        self.current_world_data = world
 
+        self.current_world_data = world
+        self.game_board = GameBoard().from_json(self.current_world_data["game_map"])
+
+        #breakpoint()
     # Receive a specific client and send them what they get per turn. Also obfuscates necessary objects.
     def client_turn_arguments(self, client, turn):
         actions = Action()
@@ -64,8 +69,9 @@ class MasterController(Controller):
     # Perform the main logic that happens per turn
     def turn_logic(self, clients, turn):
         for client in clients:
-            self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
-        self.dispenser_controller.handle_actions(self.current_world_data["game_map"])
+           # breakpoint()
+            self.movement_controller.handle_actions(self.game_board, client)
+        self.dispenser_controller.handle_actions(self.game_board)
         # checks event logic at the end of round
         self.handle_events(clients, turn)
         
@@ -76,7 +82,7 @@ class MasterController(Controller):
 
         if(self.event_active):
             # logic for electrical event
-            listOfOvens = self.current_world_data["game_map"].ovens()
+            listOfOvens = self.game_board.ovens()
             if self.event_active == EventType.electrical and listOfOvens[0].is_powered:
                 for oven in listOfOvens:
                     oven.is_powered = False
@@ -99,7 +105,8 @@ class MasterController(Controller):
         data['tick'] = turn
         data['clients'] = [client.to_json() for client in clients]
         # Add things that should be thrown into the turn logs here
-        data['game_map'] = self.current_world_data["game_map"].to_json()
+        #breakpoint()
+        data['game_map'] = self.game_board.to_json()
 
         return data
 

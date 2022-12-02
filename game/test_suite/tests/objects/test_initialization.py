@@ -74,6 +74,8 @@ class TestInitialization(unittest.TestCase):
 
     def testGameBoard(self):
         self.game_board = GameBoard(seed=1)
+        self.game_board.game_map[3][3].occupied_by = Cook(position=(3, 3))
+        self.game_board.game_map[3][9].occupied_by = Cook(position=(3, 9))
         temp = [
             [
                 Counter(),
@@ -124,13 +126,13 @@ class TestInitialization(unittest.TestCase):
                 Bin(),
                 None,
                 None,
-                Cook(position=(3, 3)),
+                None,
                 None,
                 None,
                 Delivery(),
                 None,
                 None,
-                Cook(position=(9, 3)),
+                None,
                 None,
                 None,
                 Bin(),
@@ -181,6 +183,8 @@ class TestInitialization(unittest.TestCase):
                 Counter()
             ]
         ]
+        temp[3][3] = Cook(position=(3, 3))
+        temp[3][9] = Cook(position=(3, 9))
         temp = [list(zip(map(lambda x: x.occupied_by, self.game_board.game_map[i]), temp[i])) for i in range(7)]
         for y in temp:
             for game_board_tile_occupied_by, temp_item in y:

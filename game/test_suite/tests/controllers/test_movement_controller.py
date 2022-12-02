@@ -12,6 +12,8 @@ class TestMovementController(unittest.TestCase):
     def setUp(self):
         self.movementController = MovementController()
         board = generate_map(5)
+        board.game_map[3][3].occupied_by = Cook(position=(3, 3))
+        board.game_map[3][9].occupied_by = Cook(position=(3, 9))
         self.player = Player() # initial position is (3,3)
         cooks = board.cooks()
         self.player.cook = cooks[0]

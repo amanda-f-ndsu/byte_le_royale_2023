@@ -46,9 +46,9 @@ class Station(GameObject, metaclass=ABCMeta):
         self.is_infested = data['is_infested']
         if not data['item']:
             self.item = None
-        if data['item'].object_type == ObjectType.pizza:
+        elif data['item']['object_type'] == ObjectType.pizza:
             self.item = Pizza().from_json(data['item'])
-        elif data['item'].object_type == ObjectType.topping:
+        elif data['item']['object_type'] == ObjectType.topping:
             self.item = Topping().from_json(data['item'])
 
         return self
