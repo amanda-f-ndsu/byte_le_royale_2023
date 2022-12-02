@@ -1,0 +1,10 @@
+{
+    "fps": 12,
+    "tile_size": [8, 8],
+    "tile_spacing": [1, 1],
+    "border_spacing": [0, 0],
+    "screen_width": 1366,
+    "screen_height": 768,
+    "tile_map": "./tilemap.png",
+    "scale": 4
+}
