@@ -46,3 +46,25 @@
         "right_wall": [3, 0]
     }
 }
+
+## Logs
+- JSON array of commands
+- Each command consists of
+    - turn: int
+        - Used to track which turn this command is executed as the commands are stored in an array
+        - All setup commands would be turn 0 for instance
+    - command: string
+    - value
+
+## Commands
+### add_layer
+Adds a layer with the name and z_index, layers are drawn in the order of low to high z_index
+"command": "add_layer"
+"value": ["name", z_index]
+### set_layer
+Will completly write over the layer with new values
+"command": "set_layer"
+"value": ["name", [
+    [-1, -1, default_key],
+    [x, y, key]
+]]

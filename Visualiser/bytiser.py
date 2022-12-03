@@ -12,6 +12,13 @@ class BSprite(pygame.sprite.Sprite):
         # Rescale
         self.surf = pygame.transform.scale(self.surf, (size[0] * scale, size[1] * scale))
 
+class BLayer():
+    def __init__(self, name, z_index):
+        self.name = name
+        self.z_index = z_index
+        self.tiles = [] 
+
+
 
 class Bytiser():
     # Colors
@@ -32,6 +39,8 @@ class Bytiser():
         self.screen = pygame.display.set_mode((self.config["screen_width"], self.config["screen_height"]))
         # Clock for frames per second
         self.clock = pygame.time.Clock()
+        # Init layer model
+        self.layers = []
 
     def load_sprite(self, xIndex, yIndex):
         x = (xIndex * self.config["tile_size"][0]) + (xIndex * self.config["tile_spacing"][0]) + self.config["border_spacing"][0]
@@ -51,8 +60,16 @@ class Bytiser():
     def run_log(self, log_path):
         self.game_run = True
 
-        # Try creating a sprite from the tilemap
-        guy = self.get_sprite("asdawda")
+        # Testing setup
+        floorSprite = self.get_sprite("floor")
+        leftSprite = self.get_sprite("left_wall")
+        rightSprite = self.get_sprite("right_wall")
+        testLayer = BLayer("map", 0)
+        testLayer.tiles = [
+            [floorSprite, floorSprite, floorSprite],
+            [leftSprite, floorSprite, rightSprite],
+            [floorSprite, floorSprite, floorSprite]
+        ]
 
         while self.game_run:
             # Clear screen
@@ -68,13 +85,25 @@ class Bytiser():
                 elif event.type == QUIT:
                     self.game_run = False
             
-            self.screen.blit(guy.surf, (100, 100))
-            self.screen.blit(self.tilemap, (500,500))
+            # Run current turn commands
+
+            # Display layers
+            self.draw_layer(testLayer)
 
             # Update display and wait for frames per second calc
             pygame.display.flip()
             self.clock.tick(self.config["fps"])
 
+    # Parse a command item
+    def parse_command(self, command):
+        print(command)
+
+    def draw_layer(self, layer: BLayer):
+        print(layer.tiles)
+        for y, y_item in enumerate(layer.tiles):
+            print(y_item)
+            for x, x_item in enumerate(y_item):
+                self.screen.blit(x_item.surf, (x*self.config["scale"], y*self.config["scale"]))
 
     def update(self):
         pass
