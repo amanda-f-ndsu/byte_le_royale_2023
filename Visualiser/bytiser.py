@@ -20,10 +20,10 @@ class Bytiser():
 
     # Init object with a config path
     # Will set up pygame and check config
-    def __init__(self, configPath):
+    def __init__(self, config_path):
         # Load config
-        configFile = open(configPath)
-        self.config = json.loads(configFile.read())
+        config_file = open(config_path)
+        self.config = json.loads(config_file.read())
         # Load tilemap
         self.tilemap = pygame.image.load(self.config["tile_map"])
         
@@ -33,19 +33,28 @@ class Bytiser():
         # Clock for frames per second
         self.clock = pygame.time.Clock()
 
-    def get_sprite(self, xIndex, yIndex):
+    def load_sprite(self, xIndex, yIndex):
         x = (xIndex * self.config["tile_size"][0]) + (xIndex * self.config["tile_spacing"][0]) + self.config["border_spacing"][0]
         y = (yIndex * self.config["tile_size"][1]) + (yIndex * self.config["tile_spacing"][1]) + self.config["border_spacing"][1]
         return BSprite(self.config["tile_size"], (x, y), self.tilemap, self.config["scale"])
 
+    def get_sprite(self, key):
+        # Check if valid key, if not, return the fallback sprite
+        if key in self.config["keys"]:
+            return self.load_sprite(self.config["keys"][key][0], self.config["keys"][key][1])
+        else:
+            return self.load_sprite(self.config["fallback"][0], self.config["fallback"][1])
+        
+
+
     # Will visualize a log file
-    def run_log(self, logPath):
-        self.gameRun = True
+    def run_log(self, log_path):
+        self.game_run = True
 
         # Try creating a sprite from the tilemap
-        guy = self.get_sprite(4, 0)
+        guy = self.get_sprite("asdawda")
 
-        while self.gameRun:
+        while self.game_run:
             # Clear screen
             self.screen.fill(self.black)
             # Check the event queue
@@ -54,10 +63,10 @@ class Bytiser():
                 if event.type == KEYDOWN:
                     # Check for exit key
                     if event.key == K_BACKSPACE:
-                        self.gameRun = False
+                        self.game_run = False
                 # Check for app quit
                 elif event.type == QUIT:
-                    self.gameRun = False
+                    self.game_run = False
             
             self.screen.blit(guy.surf, (100, 100))
             self.screen.blit(self.tilemap, (500,500))
