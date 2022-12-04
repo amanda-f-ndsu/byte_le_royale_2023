@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import json
 
+# Sprite Class that will load a sprite from a tilemap passed as an image
 class BSprite(pygame.sprite.Sprite):
     def __init__(self, size, pos, image, scale):
         super(BSprite, self).__init__()
@@ -12,14 +13,22 @@ class BSprite(pygame.sprite.Sprite):
         # Rescale
         self.surf = pygame.transform.scale(self.surf, (size[0] * scale, size[1] * scale))
 
+# Layer Structure with name, width, and height
+# Layers are drawn based on their z_index, low to high
 class BLayer():
-    def __init__(self, name, z_index):
+    def __init__(self, name, z_index, width, height):
         self.name = name
         self.z_index = z_index
-        self.tiles = [] 
+        self.width = width
+        self.height = height
+        self.tiles = []
+        for y in range(height):
+            self.tiles.append([])
+            for x in range(width):
+                self.tiles[y].append(None)
 
-
-
+# Main Logic class
+# Initalize with a config file then use run_log with a log file to visualise
 class Bytiser():
     # Colors
     black = (0,0,0)
@@ -42,11 +51,16 @@ class Bytiser():
         # Init layer model
         self.layers = []
 
+    # Load a sprite from the tilemap
     def load_sprite(self, xIndex, yIndex):
+        # Get the x and y pixel position of the sprite
         x = (xIndex * self.config["tile_size"][0]) + (xIndex * self.config["tile_spacing"][0]) + self.config["border_spacing"][0]
         y = (yIndex * self.config["tile_size"][1]) + (yIndex * self.config["tile_spacing"][1]) + self.config["border_spacing"][1]
+        # Use the BSprite class to load from the tilemap and scale it
         return BSprite(self.config["tile_size"], (x, y), self.tilemap, self.config["scale"])
 
+    # Use a sprite key to find the relative position and then use load_sprite to get the BSprite
+    # Will use a fallback sprite if the sprite key is invalid
     def get_sprite(self, key):
         # Check if valid key, if not, return the fallback sprite
         if key in self.config["keys"]:
@@ -58,20 +72,15 @@ class Bytiser():
 
     # Will visualize a log file
     def run_log(self, log_path):
-        self.game_run = True
+        # Load the commands from the log file
+        commands = json.loads(open(log_path).read())["log"]
 
-        # Testing setup
-        floorSprite = self.get_sprite("floor")
-        leftSprite = self.get_sprite("left_wall")
-        rightSprite = self.get_sprite("right_wall")
-        testLayer = BLayer("map", 0)
-        testLayer.tiles = [
-            [floorSprite, floorSprite, floorSprite],
-            [leftSprite, floorSprite, rightSprite],
-            [floorSprite, floorSprite, floorSprite]
-        ]
-
-        while self.game_run:
+        # Init function scope variables to track log progress
+        game_run = True
+        turn = 0
+        index = 0
+        # While game_run ie display should be running
+        while game_run:
             # Clear screen
             self.screen.fill(self.black)
             # Check the event queue
@@ -80,34 +89,76 @@ class Bytiser():
                 if event.type == KEYDOWN:
                     # Check for exit key
                     if event.key == K_BACKSPACE:
-                        self.game_run = False
+                        game_run = False
                 # Check for app quit
                 elif event.type == QUIT:
-                    self.game_run = False
+                    game_run = False
             
-            # Run current turn commands
+            # Run current turn commands and increment the index
+            # Pass the current command and parameters to parse_command
+            # If we have reached the end of the file, stop incrementing and just skip to drawing layers
+            while index < len(commands) and commands[index]["turn"] <= turn:
+                self.parse_command(commands[index]["command"], commands[index]["value"])
+                index += 1
 
-            # Display layers
-            self.draw_layer(testLayer)
+            # Draw the layers in order of their z_index
+            self.draw_layers()
 
             # Update display and wait for frames per second calc
             pygame.display.flip()
             self.clock.tick(self.config["fps"])
+            # Make sure we are not going past the amount of turns in the log file
+            if index < len(commands):
+                turn += 1
 
-    # Parse a command item
-    def parse_command(self, command):
-        print(command)
+    # Parse a command and its parameters
+    def parse_command(self, command, value):
+        print(str(command) + ": " + str(value))
+        # Add a new layer and check the z_index ordering
+        if command == "add_layer":
+            new_layer = BLayer(value[0], value[1], value[2], value[3])
+            self.layers.append(new_layer)
+            # self.reorder_layers() update layers based on z index               TO DO TO DO TO DO TO DO TO DO TO DO
+        # Pass the name and tiles to set_layer
+        if command == "set_layer":
+            self.set_layer(value[0], value[1])
 
+    # Use the name and tiles to update a layer
+    def set_layer(self, name, sets):
+        # Check all layers for a name match
+        for layer in self.layers:
+            # Found a name match!
+            if layer.name == name:
+                default_tile = None # Default to None so it will be transparent
+                for tile in sets:
+                    # Check if making default tile
+                    if(tile[0] == None and tile[1] == None):
+                        default_tile = self.get_sprite(tile[2])
+                    else:
+                        # Get the BSprite based on the key and update the layer tile location
+                        layer.tiles[tile[1]][tile[0]] =  self.get_sprite(tile[2])
+                # If there is a default tile, update all None spots with the default tile
+                if default_tile != None:
+                    for y in range(layer.height):
+                        for x in range(layer.width):
+                            if layer.tiles[y][x] == None:
+                                layer.tiles[y][x] = default_tile
+
+    # Draw one layer's tiles onto the screen surface
     def draw_layer(self, layer: BLayer):
-        print(layer.tiles)
-        for y, y_item in enumerate(layer.tiles):
-            print(y_item)
-            for x, x_item in enumerate(y_item):
-                self.screen.blit(x_item.surf, (x*self.config["scale"] * self.config["tile_size"][0], y*self.config["scale"] * self.config["tile_size"][1]))
-
-    def update(self):
-        pass
+        for y in range(layer.height):
+            for x in range(layer.width):
+                # Leave transparent if None
+                if layer.tiles[y][x] is not None:
+                    # Blit the sprite at the position ajusted by tile size and scale
+                    self.screen.blit(layer.tiles[y][x].surf, (x*self.config["scale"] * self.config["tile_size"][0], y*self.config["scale"] * self.config["tile_size"][1]))
+    
+    # Draw all layers by assuming the layers are ordered by their z_index low to high
+    # Everytime a layer is added or deleted, the layer list is reordered so we can assume the layers are ordered correctly
+    def draw_layers(self):
+        for layer in self.layers:
+            self.draw_layer(layer)
 
 if(__name__ == "__main__"):
     bytiser = Bytiser("./config.json")
-    bytiser.run_log("doesn't matter yet")
+    bytiser.run_log("./test_log.json")

@@ -1,19 +1,25 @@
 {
-    "logs": [
+    "log": [
         {
             "turn": 0,
             "command": "add_layer",
-            "value": ["map", 0]
+            "value": ["map", 0, 10, 10]
         },
         {
             "turn": 0,
             "command": "set_layer",
-            "value": [
-                [null, null, "floor"],
-                [0, 0, "top_left_corner"],
-                [2, 0, "top_right_corner"],
-                [0, 1, "left_wall"],
-                [2, 1, "right_wall"]
+            "value": [ "map", [
+                    [null, null, "floor"],
+                    [0, 0, "top_left_corner"],
+                    [1, 0, "top_wall"],
+                    [2, 0, "top_right_corner"],
+                    [0, 1, "left_wall"],
+                    [2, 1, "right_wall"],
+                    [0, 2, "left_wall"],
+                    [2, 2, "right_wall"],
+                    [0, 3, "bottom_left_corner"],
+                    [2, 3, "bottom_right_corner"]
+                ]
             ]
         }
     ]

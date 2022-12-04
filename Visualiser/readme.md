@@ -58,13 +58,14 @@
 
 ## Commands
 ### add_layer
-Adds a layer with the name and z_index, layers are drawn in the order of low to high z_index
+Adds a layer with the name and z_index, layers are drawn in the order of low to high z_index, width and height are in number of tiles
 "command": "add_layer"
-"value": ["name", z_index]
+"value": ["name", z_index, width, height]
 ### set_layer
-Will completly write over the layer with new values
+Will write over the layer with new values, a [null, null] can be optionally included as a default sprite, otherwise will be transparent
+Only one default sprite can be included in each set_layer command
 "command": "set_layer"
 "value": ["name", [
-    [-1, -1, default_key],
+    [null, null, default_key],
     [x, y, key]
 ]]
