@@ -17,7 +17,7 @@
         "top_right_corner": [3, 0],
         "bottom_left_corner": [0, 2],
         "bottom_right_corner": [3, 2],
-        "left wall": [0, 1],
-        "right_wall": [3, 0]
+        "left_wall": [0, 1],
+        "right_wall": [3, 1]
     }
 }

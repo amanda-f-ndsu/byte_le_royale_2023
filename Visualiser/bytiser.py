@@ -103,7 +103,7 @@ class Bytiser():
         for y, y_item in enumerate(layer.tiles):
             print(y_item)
             for x, x_item in enumerate(y_item):
-                self.screen.blit(x_item.surf, (x*self.config["scale"], y*self.config["scale"]))
+                self.screen.blit(x_item.surf, (x*self.config["scale"] * self.config["tile_size"][0], y*self.config["scale"] * self.config["tile_size"][1]))
 
     def update(self):
         pass
