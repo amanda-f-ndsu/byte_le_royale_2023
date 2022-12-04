@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import json
 
-# Sprite Class that will load a sprite from a tilemap passed as an image
+# Sprite Class that will load a sprite from a tile map passed as an image
 class BSprite(pygame.sprite.Sprite):
     def __init__(self, size, pos, image, scale):
         super(BSprite, self).__init__()
@@ -22,13 +22,17 @@ class BLayer():
         self.width = width
         self.height = height
         self.tiles = []
-        for y in range(height):
+        self.clear()
+
+    def clear(self):
+        self.tiles = []
+        for y in range(self.height):
             self.tiles.append([])
-            for x in range(width):
+            for x in range(self.width):
                 self.tiles[y].append(None)
 
 # Main Logic class
-# Initalize with a config file then use run_log with a log file to visualise
+# Init with a config file then use run_log with a log file to visualize
 class Bytiser():
     # Colors
     black = (0,0,0)
@@ -51,12 +55,12 @@ class Bytiser():
         # Init layer model
         self.layers = []
 
-    # Load a sprite from the tilemap
+    # Load a sprite from the tile map
     def load_sprite(self, xIndex, yIndex):
         # Get the x and y pixel position of the sprite
         x = (xIndex * self.config["tile_size"][0]) + (xIndex * self.config["tile_spacing"][0]) + self.config["border_spacing"][0]
         y = (yIndex * self.config["tile_size"][1]) + (yIndex * self.config["tile_spacing"][1]) + self.config["border_spacing"][1]
-        # Use the BSprite class to load from the tilemap and scale it
+        # Use the BSprite class to load from the tile map and scale it
         return BSprite(self.config["tile_size"], (x, y), self.tilemap, self.config["scale"])
 
     # Use a sprite key to find the relative position and then use load_sprite to get the BSprite
@@ -118,13 +122,35 @@ class Bytiser():
         if command == "add_layer":
             new_layer = BLayer(value[0], value[1], value[2], value[3])
             self.layers.append(new_layer)
-            # self.reorder_layers() update layers based on z index               TO DO TO DO TO DO TO DO TO DO TO DO
-        # Pass the name and tiles to set_layer
+            self.reorder_layers()
+        # Clear the layer and then update layer with tiles
         if command == "set_layer":
-            self.set_layer(value[0], value[1])
+            for layer in self.layers:
+                if layer.name == value[0]:
+                    layer.clear()
+            self.update_layer(value[0], value[1])
+        # Update layer with tiles
+        if command == "update_layer":
+            self.update_layer(value[0], value[1])
+
+    def reorder_layers(self):
+        temp_list = []
+
+        # Get lowest z index
+        while len(self.layers) > 0:
+            low = None
+            for layer in self.layers:
+                if low == None or low.z_index > layer.z_index:
+                    low = layer
+            temp_list.append(low)
+            self.layers.remove(low)
+
+        # All layers are now ordered in temp_list in correct z_order
+        self.layers = temp_list
+
 
     # Use the name and tiles to update a layer
-    def set_layer(self, name, sets):
+    def update_layer(self, name, sets):
         # Check all layers for a name match
         for layer in self.layers:
             # Found a name match!
@@ -150,11 +176,11 @@ class Bytiser():
             for x in range(layer.width):
                 # Leave transparent if None
                 if layer.tiles[y][x] is not None:
-                    # Blit the sprite at the position ajusted by tile size and scale
+                    # Blit the sprite at the position adjusted by tile size and scale
                     self.screen.blit(layer.tiles[y][x].surf, (x*self.config["scale"] * self.config["tile_size"][0], y*self.config["scale"] * self.config["tile_size"][1]))
     
     # Draw all layers by assuming the layers are ordered by their z_index low to high
-    # Everytime a layer is added or deleted, the layer list is reordered so we can assume the layers are ordered correctly
+    # Every time a layer is added or deleted, the layer list is reordered so we can assume the layers are ordered correctly
     def draw_layers(self):
         for layer in self.layers:
             self.draw_layer(layer)

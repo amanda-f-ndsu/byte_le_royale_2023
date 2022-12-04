@@ -62,9 +62,16 @@ Adds a layer with the name and z_index, layers are drawn in the order of low to 
 "command": "add_layer"
 "value": ["name", z_index, width, height]
 ### set_layer
-Will write over the layer with new values, a [null, null] can be optionally included as a default sprite, otherwise will be transparent
+Will clear and then write over the layer with new values, a [null, null] can be optionally included as a default sprite, otherwise will be transparent
 Only one default sprite can be included in each set_layer command
 "command": "set_layer"
+"value": ["name", [
+    [null, null, default_key],
+    [x, y, key]
+]]
+### update_layer
+Same as set_layer command but does not clear the layer before drawing
+"command": "update_layer"
 "value": ["name", [
     [null, null, default_key],
     [x, y, key]

@@ -21,6 +21,39 @@
                     [2, 3, "bottom_right_corner"]
                 ]
             ]
+        },
+        {
+            "turn": 0,
+            "command": "add_layer",
+            "value": ["player", 1, 10, 10]
+        },
+        {
+            "turn": 0,
+            "command": "set_layer",
+            "value": ["player", [
+                [1, 1, "player"]
+            ]]
+        },
+        {
+            "turn": 1,
+            "command": "set_layer",
+            "value": ["player", [
+                [1, 2, "player"]
+            ]]
+        },
+        {
+            "turn": 2,
+            "command": "set_layer",
+            "value": ["player", [
+                [1, 3, "player"]
+            ]]
+        },
+        {
+            "turn": 3,
+            "command": "set_layer",
+            "value": ["player", [
+                [1, 4, "player"]
+            ]]
         }
     ]
 }
