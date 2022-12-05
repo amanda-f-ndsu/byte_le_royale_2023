@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import json
+import sys
 
 # Sprite Class that will load a sprite from a tile map passed as an image
 class BSprite(pygame.sprite.Sprite):
@@ -235,6 +236,21 @@ class Bytiser():
         for layer in self.layers:
             self.draw_layer(layer)
 
+# Run file as a command
+def help():
+    print("COMMAND USAGE")
+    print("bytiser.py configFile logFile")
+    print("Zero arguments will default to ./config.json and ./log.json")
+
 if(__name__ == "__main__"):
-    bytiser = Bytiser("./config.json")
-    bytiser.run_log("./test_log.json")
+    if(len(sys.argv) == 1):
+        bytiser = Bytiser("./config.json")
+        bytiser.run_log("./log.json")
+    elif (len(sys.argv) == 3):
+        bytiser = Bytiser(sys.argv[1])
+        bytiser.run_log(sys.argv[2])
+    elif (len(sys.argv) == 2 and sys.argv[1] == "--help"):
+        help()
+    else:
+        help()
+    
