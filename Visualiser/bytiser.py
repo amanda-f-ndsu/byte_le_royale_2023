@@ -71,18 +71,18 @@ class Bytiser():
             return self.load_sprite(self.config["keys"][key][0], self.config["keys"][key][1])
         else:
             return self.load_sprite(self.config["fallback"][0], self.config["fallback"][1])
-        
-
 
     # Will visualize a log file
     def run_log(self, log_path):
         # Load the commands from the log file
-        commands = json.loads(open(log_path).read())["log"]
+        self.commands = json.loads(open(log_path).read())["log"]
 
         # Init function scope variables to track log progress
         game_run = True
-        turn = 0
-        index = 0
+        paused = True
+        speed = 0
+        self.turn = 0
+        self.index = 0
         # While game_run ie display should be running
         while game_run:
             # Clear screen
@@ -94,30 +94,77 @@ class Bytiser():
                     # Check for exit key
                     if event.key == K_BACKSPACE:
                         game_run = False
+                    # Check for forward turn
+                    elif event.key == K_RIGHT:
+                        self.next_turn()
+                    # Check for backward turn
+                    # Also make sure the current turn is not 0
+                    elif event.key == K_LEFT and self.turn > 1:
+                        # If not at the end, sub 2 because self.turn is actually the number of the next turn to display
+                        if self.index < len(self.commands):
+                            self.turn -= 2
+                        # If we are at the end, then self.turn is capped at the end turn so only sub 1
+                        else:
+                            self.turn -= 1
+                        self.go_to_turn(self.turn)
+                    elif event.key == K_SPACE:
+                        paused = not paused
+                    if event.key == K_UP:
+                        speed += 1
+                    elif event.key == K_DOWN:
+                        speed -= 1
+                elif event.type == KEYUP:
+                    if event.key == K_UP:
+                        speed -= 1
+                    elif event.key == K_DOWN:
+                        speed += 1
                 # Check for app quit
                 elif event.type == QUIT:
                     game_run = False
-            
-            # Run current turn commands and increment the index
-            # Pass the current command and parameters to parse_command
-            # If we have reached the end of the file, stop incrementing and just skip to drawing layers
-            while index < len(commands) and commands[index]["turn"] <= turn:
-                self.parse_command(commands[index]["command"], commands[index]["value"])
-                index += 1
+            # If not paused, default to going to the next turn
+            if not paused:
+                self.next_turn()
+            # Check if at end of commands, if so then pause
+            if self.index >= len(self.commands):
+                paused = True
 
-            # Draw the layers in order of their z_index
-            self.draw_layers()
+            # Frames per second based on up and down arrows
+            if speed == 1:
+                self.clock.tick(self.config["fps"] * 2)
+            elif speed == -1:
+                self.clock.tick(self.config["fps"] / 2)
+            else:
+                self.clock.tick(self.config["fps"])
 
-            # Update display and wait for frames per second calc
-            pygame.display.flip()
-            self.clock.tick(self.config["fps"])
-            # Make sure we are not going past the amount of turns in the log file
-            if index < len(commands):
-                turn += 1
+    def next_turn(self):
+        # Run current turn commands and increment the index
+        # Pass the current command and parameters to parse_command
+        # If we have reached the end of the file, stop incrementing and just skip to drawing layers
+        while self.index < len(self.commands) and self.commands[self.index]["turn"] <= self.turn:
+            self.parse_command(self.commands[self.index]["command"], self.commands[self.index]["value"])
+            self.index += 1
+
+        # Draw the layers in order of their z_index
+        self.draw_layers()
+
+        # Update display and wait for frames per second calc
+        pygame.display.flip()
+        # Make sure we are not going past the amount of turns in the log file
+        if self.index < len(self.commands):
+            self.turn += 1
+
+    # Loop through all turns to get to the specific turn number
+    def go_to_turn(self, num):
+        self.turn = 0
+        self.index = 0
+        self.layers = []
+
+        # self.turn is supposed to be the number of the NEXT turn so use less than or equal
+        while self.turn <= num:
+            self.next_turn()
 
     # Parse a command and its parameters
     def parse_command(self, command, value):
-        print(str(command) + ": " + str(value))
         # Add a new layer and check the z_index ordering
         if command == "add_layer":
             new_layer = BLayer(value[0], value[1], value[2], value[3])
@@ -133,6 +180,7 @@ class Bytiser():
         if command == "update_layer":
             self.update_layer(value[0], value[1])
 
+    # Reorder the layers by their z_index, from low to high
     def reorder_layers(self):
         temp_list = []
 
