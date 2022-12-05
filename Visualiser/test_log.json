@@ -35,6 +35,19 @@
             ]]
         },
         {
+            "turn": 0,
+            "command": "add_layer",
+            "value": ["enemy", 2, 10, 10]
+        },
+        {
+            "turn": 0,
+            "command": "set_layer",
+            "value": ["enemy", [
+                [1, 5, "enemy"],
+                [2, 5, "enemy"]
+            ]]
+        },
+        {
             "turn": 1,
             "command": "set_layer",
             "value": ["player", [
@@ -53,6 +66,13 @@
             "command": "set_layer",
             "value": ["player", [
                 [1, 4, "player"]
+            ]]
+        },
+        {
+            "turn": 3,
+            "command": "update_layer",
+            "value": ["enemy", [
+                [1, 5, null]
             ]]
         }
     ]

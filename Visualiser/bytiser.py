@@ -67,6 +67,8 @@ class Bytiser():
     # Will use a fallback sprite if the sprite key is invalid
     def get_sprite(self, key):
         # Check if valid key, if not, return the fallback sprite
+        if key == None:
+            return None
         if key in self.config["keys"]:
             return self.load_sprite(self.config["keys"][key][0], self.config["keys"][key][1])
         else:
