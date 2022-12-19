@@ -153,8 +153,10 @@ class GameBoard(GameObject):
 
     def ovens(self):
         to_return: list = list()
-        to_return.extend([i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven)])
-        to_return.extend([i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven)])
+        for row in self.game_map:
+            for col in row:
+                if isinstance(col.occupied_by, Oven):
+                    to_return.append(col)
         return to_return
     
     def cooks(self):

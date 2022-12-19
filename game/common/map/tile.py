@@ -27,7 +27,10 @@ class Tile(GameObject):
 
     @occupied_by.setter
     def occupied_by(self, occupied_by: GameObject):
-        self.__occupied_by = occupied_by if occupied_by is None or isinstance(occupied_by, (Station, Counter, Cook)) else None
+        if isinstance(occupied_by, (Station, Counter, Cook)):
+            self.__occupied_by = occupied_by  
+        else:
+            self.__occupied_by = None 
 
     def to_json(self):
         data = super().to_json()
@@ -40,8 +43,10 @@ class Tile(GameObject):
         self.is_wet_tile = data['is_wet_tile']
         if not data['occupied_by']:
             self.occupied_by = data['occupied_by']
-        elif data['occupied_by'] == ObjectType.station:
-            self.occupied_by = Station().from_json(data['occupied_by'])
-        elif data['occupied_by'] == ObjectType.cook:
+        elif data['occupied_by']["object_type"] in [ObjectType.bin, ObjectType.combiner, ObjectType.cutter, ObjectType.delivery, ObjectType.dispenser, ObjectType.oven, ObjectType.roller, ObjectType.sauce, ObjectType.storage]:
+            station = Station()
+            self.occupied_by = station.from_json(data['occupied_by'])
+        elif data['occupied_by']["object_type"] == ObjectType.cook:
+            breakpoint()
             self.occupied_by = Cook().from_json(data['occupied_by'])
         return self

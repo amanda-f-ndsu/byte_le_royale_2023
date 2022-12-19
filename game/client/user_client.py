@@ -1,12 +1,23 @@
+from game.common.action import Action
 from game.common.enums import *
 from game.config import Debug
 
 
 class UserClient:
-    def __init__(self):
+    def __init__(self, action : Action = Action()):
         self.debug_level = DebugLevel.client
         self.debug = True
+        self.action = action
 
+    @property
+    def action(self) -> Action:
+        return self.__action
+
+    @action.setter
+    def action(self, action: Action):
+        if isinstance(action, Action):
+            self.__action = action
+        
     def print(self, *args):
         if self.debug and Debug.level >= self.debug_level:
             print(f'{self.__class__.__name__}: ', end='')

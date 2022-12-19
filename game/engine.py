@@ -51,7 +51,8 @@ class Engine:
                 if self.tick_number >= MAX_TICKS:
                     break
         except Exception as e:
-            print("Exception raised during runtime: " + str(e))
+            print(f"Exception raised during runtime: {str(e)}")
+            print(f"{traceback.print_exc()}")
         finally:
             self.shutdown()
 
@@ -129,9 +130,10 @@ class Engine:
                             player.team_name = thr.retrieve_value()
                     except Exception as e:
                         player.functional = False
-                        player.error = str(e)
+                        player.error = f"{str(e)}\n{traceback.print_exc()}"
             except Exception as e:
                 print(f"Bad client for {filename}: exception: {e}")
+                print(f"{traceback.print_exc()}")
                 player.functional = False
         
         # Verify correct number of clients have connected to start
