@@ -10,20 +10,22 @@ class MovementController(Controller):
      
     def handle_actions(self, world, client):
         new_position = None
+        cook_x = client.cook.position[1]
+        cook_y = client.cook.position[0]
         if client.action.chosen_action == ActionType.Move.up:
-            if not world.game_map[client.cook.position[1]-1][client.cook.position[0]].occupied_by:
-               new_position = (client.cook.position[1]-1,client.cook.position[0])
+            if cook_x - 1 >= 0 and not world.game_map[cook_x - 1][cook_y].occupied_by:
+               new_position = (cook_x-1,cook_y)
         if client.action.chosen_action == ActionType.Move.down:
-            if not world.game_map[client.cook.position[1]+1][client.cook.position[0]].occupied_by:
-               new_position = (client.cook.position[1]+1,client.cook.position[0])
+            if cook_x + 1 <= len(world.game_map) and not world.game_map[cook_x+1][cook_y].occupied_by:
+               new_position = (cook_x+1,cook_y)
         if client.action.chosen_action == ActionType.Move.left:
-            if not world.game_map[client.cook.position[1]][client.cook.position[0]-1].occupied_by:
-               new_position = (client.cook.position[1],client.cook.position[0]-1)
+            if cook_y - 1 >= 0 and not world.game_map[cook_x][cook_y-1].occupied_by:
+               new_position = (cook_x,cook_y-1)
         if client.action.chosen_action == ActionType.Move.right:
-            if not world.game_map[client.cook.position[1]][client.cook.position[0]+1].occupied_by:
-               new_position = (client.cook.position[1],client.cook.position[0]+1)
+            if cook_y + 1 <= len(world.game_map[cook_x]) and not world.game_map[cook_x][cook_y+1].occupied_by:
+               new_position = (cook_x,cook_y+1)
         if new_position:
-            world.game_map[client.cook.position[1]][client.cook.position[0]].occupied_by = None
+            world.game_map[cook_x][cook_y].occupied_by = None
             client.cook.position = (new_position[1],new_position[0])
             world.game_map[new_position[0]][new_position[1]].occupied_by = client.cook
 

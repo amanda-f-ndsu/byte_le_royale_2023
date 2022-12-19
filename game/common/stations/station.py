@@ -4,16 +4,6 @@ from game.common.enums import ObjectType
 from game.common.items.item import Item
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
-from abc import abstractmethod, ABCMeta
-from game.common.stations.bin import Bin
-from game.common.stations.combiner import Combiner
-from game.common.stations.cutter import Cutter
-from game.common.stations.delivery import Delivery
-from game.common.stations.dispenser import Dispenser
-from game.common.stations.oven import Oven
-from game.common.stations.roller import Roller
-from game.common.stations.Sauce import Sauce
-from game.common.stations.storage import Storage
 
 
 class Station(GameObject):
@@ -39,7 +29,6 @@ class Station(GameObject):
     def is_infested(self, is_infested: bool):
         self.__is_infested = is_infested
 
-    @abstractmethod
     def take_action(self, cook: Cook = None):
         return
 
@@ -50,20 +39,14 @@ class Station(GameObject):
 
         return dict_data
 
-    def from_json(data: dict) -> 'Station':
+    def from_json(self, data: dict) -> 'Station':
         super().from_json(data)
-        sub_station_type = None
-        if data["object_type"] == ObjectType.bin:
-            sub_station_type = Bin()
-        elif data["object_type"] == ObjectType.combiner:
-            sub_station_type = Combiner()
-        if sub_station_type:
-            sub_station_type = data['is_infested']
-            if not data['item']:
-                sub_station_type.item = None
-            if data['item'].object_type == ObjectType.pizza:
-                sub_station_type.item = Pizza().from_json(data['item'])
-            elif data['item'].object_type == ObjectType.topping:
-                sub_station_type.item = Topping().from_json(data['item'])
+        self.is_infested = data['is_infested']
+        if not data['item']:
+            self.item = None
+        elif data['item']["object_type"] == ObjectType.pizza:
+            self.item = Pizza().from_json(data['item'])
+        elif data['item']["object_type"] == ObjectType.topping:
+            self.item = Topping().from_json(data['item'])
 
-            return sub_station_type
+        return self

@@ -10,14 +10,14 @@ class TestDispenserController(unittest.TestCase):
     def setUp(self):
         self.dispenserController = DispenserController()
         board = generate_map(5)
-        self.world = board.game_map
+        self.world = board
     
     def testTakeAction(self):
-        for item in self.world:
+        for item in self.world.game_map:
             if(isinstance(item[6].occupied_by,Dispenser)):
                 self.assertIsNone(item[6].occupied_by.item)
         self.dispenserController.handle_actions(self.world)
-        for item in self.world:
+        for item in self.world.game_map:
             if(isinstance(item[6].occupied_by,Dispenser)):
                 self.assertIsNotNone(item[6].occupied_by.item)
     

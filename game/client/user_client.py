@@ -7,16 +7,6 @@ class UserClient:
     def __init__(self, action : Action = Action()):
         self.debug_level = DebugLevel.client
         self.debug = True
-        self.action = action
-
-    @property
-    def action(self) -> Action:
-        return self.__action
-
-    @action.setter
-    def action(self, action: Action):
-        if isinstance(action, Action):
-            self.__action = action
         
     def print(self, *args):
         if self.debug and Debug.level >= self.debug_level:

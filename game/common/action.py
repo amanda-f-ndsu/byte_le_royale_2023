@@ -2,9 +2,9 @@ from game.common.enums import *
 
 
 class Action:
-    def __init__(self):
+    def __init__(self, chosen_action = ActionType.none):
         self.object_type = ObjectType.action
-        self.chosen_action = None
+        self.chosen_action = chosen_action
 
     @property
     def chosen_action(self) -> int:
