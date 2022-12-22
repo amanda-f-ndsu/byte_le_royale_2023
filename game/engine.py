@@ -172,20 +172,16 @@ class Engine:
         with open(GAME_MAP_FILE) as json_file:
             world = json.load(json_file)
         self.world = world
-
-        # Yes, this is a bit ugly. Load game map json to game map object
-        #breakpoint()
+        # Get gameboard/gamemap from world and add cooks to it
         gameBoard = GameBoard(self.world['seed'])
         game_map = gameBoard.from_json(self.world["game_map"])
         for client in self.clients:
-            #breakpoint()
             game_map.add_cook(client.cook.position)
 
         # add game map object to dictionary
         #world.pop("game_map", None)
         self.world["game_map"] = game_map.to_json()
-        #self.world['seed'] = world['seed']
-       # breakpoint()
+
 
 
 
@@ -284,6 +280,9 @@ class Engine:
             data = self.master_controller.create_turn_log(self.clients, self.tick_number)
 
         self.game_logs[self.tick_number] = data
+
+        with open(os.path.join(LOGS_DIR + "/turn_logs", f"turn_{self.tick_number:04d}.json"), 'w+') as f:
+            json.dump(data, f)
 
         # Perform a game over check
         if self.master_controller.game_over:
