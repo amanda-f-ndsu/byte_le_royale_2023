@@ -54,9 +54,10 @@ class MasterController(Controller):
         client.action = actions
 
         # Create deep copies of all objects sent to the player
+        current_world = deepcopy(self.current_world_data["game_map"])
         # Obfuscate data in objects that that player should not be able to see
-
-        args = (self.turn, actions, self.current_world_data)
+        # Currently world data isn't obfuscated at all
+        args = (self.turn, actions, current_world)
         return args
 
     # Perform the main logic that happens per turn
