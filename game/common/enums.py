@@ -7,7 +7,6 @@ class DebugLevel:
     controller = 2
     engine = 3
 
-
 class ObjectType:
     none = 0
     game_board = 1

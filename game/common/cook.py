@@ -16,6 +16,7 @@ class Cook(GameObject):
         self.score = 0
         self.position = position
 
+
     @property
     def chosen_action(self) -> ActionType:
         return self.__chosen_action
