@@ -6,11 +6,14 @@ from game.common.enums import *
 from game.common.player import Player
 from game.common.stats import GameStats
 import game.config as config
+from game.controllers.decay_controller import DecayController
+from game.controllers.wet_tiles_controller import WetTilesController
 from game.utils.thread import CommunicationThread
 from game.controllers.movement_controller import MovementController
 from game.controllers.controller import Controller
 from game.controllers.dispenser_controller import DispenserController
 from game.controllers.oven_controller import OvenController
+from game.controllers.interact_controller import InteractController
 
 class MasterController(Controller):
     def __init__(self):
@@ -24,6 +27,9 @@ class MasterController(Controller):
         self.movement_controller = MovementController()
         self.dispenser_controller = DispenserController()
         self.oven_controller = OvenController()
+        self.interact_controller = InteractController()
+        self.decay_controller = DecayController()
+        self.wet_tiles_controller = WetTilesController()
 
 
     # Receives all clients for the purpose of giving them the objects they will control
@@ -63,17 +69,18 @@ class MasterController(Controller):
     def turn_logic(self, clients, turn):
         for client in clients:
             self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
+            self.interact_controller.handle_actions(client.cook,self.current_world_data["game_map"])
 
         self.dispenser_controller.handle_actions()
         # checks event logic at the end of round
-        self.handle_events(clients,turn)
+        self.handle_events(clients)
         
        
-    def handle_events(self, clients, turn):
+    def handle_events(self, clients):
         if(self.turn == self.event_times[0] or self.turn == self.event_times[1]):
             self.event_active = randint(EventType.electrical,EventType.wet_tile)
 
-        if(self.event_active):
+        if(self.event_active != EventType.none):
             # logic for electrical event
             listOfOvens = self.current_world_data["game_map"].ovens() 
             if self.event_active == EventType.electrical and listOfOvens[0].is_powered:
@@ -84,10 +91,12 @@ class MasterController(Controller):
                         oven.is_powered = True
             
             if(self.event_timer == 0):
-                self.event_active = None
+                self.event_active = EventType.none
                 self.event_timer = GameStats.event_timer
             else:
                 self.event_timer = self.event_timer -1
+        #Decay always occurs end of turn
+        self.decay_controller.handle_actions(self.event_active,self.current_world_data["game_map"],clients)
             
         
 
