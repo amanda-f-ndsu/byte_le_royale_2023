@@ -14,6 +14,7 @@ class Cook(GameObject):
         self.score = 0
         self.position = position
 
+
     @property
     def held_item(self) -> Item:
         return self.__held_item

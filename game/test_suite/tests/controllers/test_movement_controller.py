@@ -1,11 +1,12 @@
 import unittest
 from game.common.action import Action
+
+from game.common.cook import Cook
+from game.common.enums import *
 from game.common.map.counter import Counter
 from game.common.player import Player
-from game.utils.generate_game import generate_map
-from game.common.cook import Cook
 from game.controllers.movement_controller import MovementController
-from game.common.enums import *
+from game.utils.generate_game import generate_map
 
 
 class TestMovementController(unittest.TestCase):
@@ -75,5 +76,3 @@ class TestMovementController(unittest.TestCase):
         self.world.game_map[3][4].occupied_by = Counter()
         self.movementController.handle_actions(self.world,self.player)
         self.assertTrue(self.player.cook.position == (3,3))
-
-
