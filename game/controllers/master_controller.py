@@ -2,6 +2,7 @@ from copy import deepcopy
 from random import randint
 
 from game.common.action import Action
+from game.common.cook import Cook
 from game.common.enums import *
 from game.common.player import Player
 from game.common.stats import GameStats
@@ -28,8 +29,9 @@ class MasterController(Controller):
 
     # Receives all clients for the purpose of giving them the objects they will control
     def give_clients_objects(self, clients):
+        starting_positions = [[3,3],[9, 3]]
         for index, client in enumerate (clients):
-            pass
+            client.cook = Cook(position=starting_positions[index])
 
     # Generator function. Given a key:value pair where the key is the identifier for the current world and the value is
     # the state of the world, returns the key that will give the appropriate world information
@@ -50,14 +52,14 @@ class MasterController(Controller):
 
     # Receive a specific client and send them what they get per turn. Also obfuscates necessary objects.
     def client_turn_arguments(self, client, turn):
-        actions = Action()
-        client.action = actions
+        turn_action = Action()
+        client.action = turn_action
 
         # Create deep copies of all objects sent to the player
         current_world = deepcopy(self.current_world_data["game_map"])
         # Obfuscate data in objects that that player should not be able to see
         # Currently world data isn't obfuscated at all
-        args = (self.turn, actions, current_world)
+        args = (self.turn, turn_action, current_world)
         return args
 
     # Perform the main logic that happens per turn
@@ -65,7 +67,7 @@ class MasterController(Controller):
         for client in clients:
             self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
 
-        self.dispenser_controller.handle_actions()
+        self.dispenser_controller.handle_actions(self.current_world_data["game_map"])
         # checks event logic at the end of round
         self.handle_events(clients,turn)
         

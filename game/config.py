@@ -21,7 +21,10 @@ MAX_CLIENTS_CONTINUE = None                         # maximum number of clients 
 SET_NUMBER_OF_CLIENTS_CONTINUE = 2                  # required number of clients to continue running the game; should be None when MIN_CLIENTS or MAX_CLIENTS are used
 
 ALLOWED_MODULES = ["game.client.user_client",       # modules that clients are specifically allowed to access
-                   "game.common.enums"]
+                   "game.common.enums",
+                   "game.common.action",
+                   "game.common.game_board"
+                   ]
 
 RESULTS_FILE_NAME = "results.json"                                  # Name and extension of results file
 RESULTS_DIR = os.path.join(os.getcwd(), "logs")                     # Location of the results file

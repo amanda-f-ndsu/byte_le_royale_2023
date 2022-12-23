@@ -51,7 +51,8 @@ class Engine:
                 if self.tick_number >= MAX_TICKS:
                     break
         except Exception as e:
-            print("Exception raised during runtime: " + str(e))
+            print(f"Exception raised during runtime: {str(e)}")
+            print(f"{traceback.print_exc()}")
         finally:
             self.shutdown()
 
@@ -129,9 +130,10 @@ class Engine:
                             player.team_name = thr.retrieve_value()
                     except Exception as e:
                         player.functional = False
-                        player.error = str(e)
+                        player.error = f"{str(e)}\n{traceback.print_exc()}"
             except Exception as e:
                 print(f"Bad client for {filename}: exception: {e}")
+                print(f"{traceback.print_exc()}")
                 player.functional = False
         
         # Verify correct number of clients have connected to start
@@ -266,7 +268,10 @@ class Engine:
         else:
             data = self.master_controller.create_turn_log(self.clients, self.tick_number)
 
-        self.game_logs[self.tick_number] = data
+        #self.game_logs[self.tick_number] = data
+        
+        with open(os.path.join(LOGS_DIR, f"turn_{self.tick_number:04d}.json"), 'w+') as f:
+            json.dump(data, f)
 
         # Perform a game over check
         if self.master_controller.game_over:
@@ -275,7 +280,7 @@ class Engine:
     # Attempts to safely handle an engine shutdown given any game state
     def shutdown(self, source=None):
         # Write log files
-        write_json_file(self.game_logs, LOGS_FILE)
+        #write_json_file(self.game_logs, LOGS_FILE)
 
         # Retrieve and write results information
         results_information = None
