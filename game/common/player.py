@@ -22,7 +22,7 @@ class Player(GameObject):
 
     @action.setter
     def action(self, action: Action):
-        if isinstance(action, Action):
+        if isinstance(action, Action) or action is None:
             self.__action = action
 
     def to_json(self):
