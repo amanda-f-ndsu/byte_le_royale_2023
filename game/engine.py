@@ -268,7 +268,10 @@ class Engine:
         else:
             data = self.master_controller.create_turn_log(self.clients, self.tick_number)
 
-        self.game_logs[self.tick_number] = data
+        #self.game_logs[self.tick_number] = data
+        
+        with open(os.path.join(LOGS_DIR, f"turn_{self.tick_number:04d}.json"), 'w+') as f:
+            json.dump(data, f)
 
         # Perform a game over check
         if self.master_controller.game_over:
@@ -277,7 +280,7 @@ class Engine:
     # Attempts to safely handle an engine shutdown given any game state
     def shutdown(self, source=None):
         # Write log files
-        write_json_file(self.game_logs, LOGS_FILE)
+        #write_json_file(self.game_logs, LOGS_FILE)
 
         # Retrieve and write results information
         results_information = None
