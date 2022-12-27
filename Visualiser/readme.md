@@ -86,9 +86,9 @@ Same as set_layer command but does not clear the layer before drawing
     - Add Score
     - Set Score
 - Game End Screen
-    - End game command with uses scores
+    - End game command that uses scores
 ## Visualiser Polish
-- File chooses
+- File chooser
 - Main menu
 - Buttons for pause, play, exit
 - Slider for faster, slower
