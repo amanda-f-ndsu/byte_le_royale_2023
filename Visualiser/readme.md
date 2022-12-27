@@ -88,10 +88,10 @@ Same as set_layer command but does not clear the layer before drawing
 - Game End Screen
     - End game command with uses scores
 ## Visualiser Polish
-    - File chooses
-    - Main menu
-    - Buttons for pause, play, exit
-    - Slider for faster, slower
+- File chooses
+- Main menu
+- Buttons for pause, play, exit
+- Slider for faster, slower
 ## Adapter
 - Now that the visualiser is mostly done and gamelogs have been generated for us, we can work on a adapter
 - The adapter uses a game log and turns it into a log of graphical commands 
