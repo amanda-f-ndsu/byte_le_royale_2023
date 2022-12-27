@@ -77,24 +77,31 @@ class MasterController(Controller):
         
        
     def handle_events(self, clients):
+        # If it is time to run an event, master controller picks an event to run
         if(self.turn == self.event_times[0] or self.turn == self.event_times[1]):
             self.event_active = randint(EventType.electrical,EventType.wet_tile)
-
-        if(self.event_active != EventType.none):
-            # logic for electrical event
-            listOfOvens = self.current_world_data["game_map"].ovens() 
-            if self.event_active == EventType.electrical and listOfOvens[0].is_powered:
-                    for oven in listOfOvens:
-                        oven.is_powered = False
-            if self.event_active != EventType.electrical and not listOfOvens[0].is_powered:
+        # Check if electrical event is triggered 
+        listOfOvens = self.current_world_data["game_map"].ovens() 
+        if self.event_active == EventType.electrical and self.event_timer == GameStats.event_timer:
+                for oven in listOfOvens:
+                    oven.is_powered = False
+        # Check if wet tiles event is triggered
+        if self.event_active == EventType.wet_tile and self.event_timer == GameStats.event_timer:
+            self.wet_tiles_controller.handle_actions(self.current_world_data["game_map"],self.current_world_data["game_map"].cooks()) 
+        # Event stops running once timer hits zero, timer is reset
+        if self.event_timer == 0:
+            if self.event_active == EventType.electrical:
                     for oven in listOfOvens:
                         oven.is_powered = True
-            
-            if(self.event_timer == 0):
-                self.event_active = EventType.none
-                self.event_timer = GameStats.event_timer
-            else:
-                self.event_timer = self.event_timer -1
+            if self.event_active == EventType.wet_tile:
+                for y in range(7):
+                    for x in range(13):
+                        self.current_world_data["game_map"].game_map[y][x].is_wet_tile = False 
+            self.event_active = EventType.none
+            self.event_timer = GameStats.event_timer
+        # timer counts down when event is running
+        if self.event_active != EventType.none:
+            self.event_timer = self.event_timer -1
         #Decay always occurs end of turn
         self.decay_controller.handle_actions(self.event_active,self.current_world_data["game_map"],clients)
             
