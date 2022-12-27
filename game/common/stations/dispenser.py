@@ -35,6 +35,7 @@ class Dispenser(Station):
 
     def from_json(self, data: dict) -> None:
         super().from_json(data)
+        return self
    
 
     def obfuscate(self) -> None:
