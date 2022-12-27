@@ -76,3 +76,23 @@ Same as set_layer command but does not clear the layer before drawing
     [null, null, default_key],
     [x, y, key]
 ]]
+
+# To Do
+## Visualiser Features
+- Ability to use multiple tilesets
+    - Array of tilesets
+    - Sprite keys have extra parameter that is index of tileset, then the x and y
+- Score text on screen
+    - Add Score
+    - Set Score
+- Game End Screen
+    - End game command with uses scores
+## Visualiser Polish
+    - File chooses
+    - Main menu
+    - Buttons for pause, play, exit
+    - Slider for faster, slower
+## Adapter
+- Now that the visualiser is mostly done and gamelogs have been generated for us, we can work on a adapter
+- The adapter uses a game log and turns it into a log of graphical commands 
+- The visualiser uses the graphical commands which means only the adapter needs to be rewrote every year
