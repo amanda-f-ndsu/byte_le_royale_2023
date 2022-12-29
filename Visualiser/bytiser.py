@@ -39,6 +39,7 @@ class Bytiser():
     black = (0,0,0)
     white = (255, 255, 255)
     clear = (0, 0, 0, 0)
+    red = (255, 0, 0)
 
     # Init object with a config path
     # Will set up pygame and check config
@@ -62,7 +63,6 @@ class Bytiser():
         # Init score dict
         self.scores = {}
         self.text_layer = pygame.Surface((self.config["screen_width"], self.config["screen_height"]), pygame.SRCALPHA)
-        self.text_layer.fill(self.clear)
 
     # Load a sprite from the tile map
     def load_sprite(self, xIndex, yIndex):
@@ -94,10 +94,10 @@ class Bytiser():
         speed = 0
         self.turn = 0
         self.index = 0
+        # Clear screen
+        self.screen.fill(self.black)
         # While game_run ie display should be running
         while game_run:
-            # Clear screen
-            self.screen.fill(self.black)
             # Check the event queue
             for event in pygame.event.get():
                 # Check if a key was pressed
@@ -145,9 +145,11 @@ class Bytiser():
             elif speed == -1:
                 self.clock.tick(self.config["fps"] / 2)
             else:
-                self.clock.tick(self.config["fps"])
+                self.clock.tick(self.config["fps"])      
 
     def next_turn(self):
+        # Clear the screen
+        self.screen.fill(self.black)
         # Run current turn commands and increment the index
         # Pass the current command and parameters to parse_command
         # If we have reached the end of the file, stop incrementing and just skip to drawing layers
@@ -264,15 +266,14 @@ class Bytiser():
     
     # Draw all the score texts on top of the screen
     def draw_scores(self):
-        self.text_layer = pygame.Surface((self.config["screen_width"], self.config["screen_height"]), pygame.SRCALPHA)
-        self.text_layer.fill(self.black)
+        # Clear text layer
         self.text_layer.fill(self.clear)
-        print("----------")
+        # For each score, add it as text to the text_layer Surface
         for score in self.scores:
-            print(self.scores[score])
             score = self.scores[score]
             text = self.font.render(score[0] + str(score[1]), True, (self.config["font_color"][0], self.config["font_color"][1], self.config["font_color"][2]))
             self.text_layer.blit(text, (score[2][0], score[2][1]))
+        # Add the text layer to the screen
         self.screen.blit(self.text_layer, (0, 0))
             
 
