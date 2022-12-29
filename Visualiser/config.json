@@ -1,5 +1,8 @@
 {
     "fps": 12,
+    "font": "arial",
+    "font_size": 20,
+    "font_color": [0, 255, 0],
     "tile_size": [8, 8],
     "tile_spacing": [1, 1],
     "border_spacing": [0, 0],

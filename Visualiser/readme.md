@@ -13,6 +13,12 @@
     // ALL VALUES ARE REQUIRED
     // frames per second
     "fps": 12,
+    // use byteiser.py --fonts to list system fonts
+    "font": "arial",
+    // font size for score display
+    "font_size": 20,
+    // font color for score display in rgb
+    "font_color": [0, 255, 0],
     // tile size of each sprite in pixels
     "tile_size": [8, 8],
     // spacing between each sprite in pixels
@@ -76,6 +82,21 @@ Same as set_layer command but does not clear the layer before drawing
     [null, null, default_key],
     [x, y, key]
 ]]
+### add_score
+Will add a score object, give it an id, text, and pixel x and y position
+Same as set_layer command but does not clear the layer before drawing
+"command": "add_score"
+"value": [num_id, "Display Text", inital_value_number, [x, y]]
+### set_score
+Will set a scores properties, anything left as null will not be changed
+If the id is null then all score objects will update
+"command": "set_score"
+"value": [num_id, "Display Text", [x, y]]
+### remove_score
+Will remove a score object and clear it from the screen
+If the id is null then all score objects will update
+"command": "set_score"
+"value": [num_id, "Display Text", [x, y]]
 
 # To Do
 ## Visualiser Features

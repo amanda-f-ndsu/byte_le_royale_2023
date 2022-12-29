@@ -38,6 +38,7 @@ class Bytiser():
     # Colors
     black = (0,0,0)
     white = (255, 255, 255)
+    clear = (0, 0, 0, 0)
 
     # Init object with a config path
     # Will set up pygame and check config
@@ -50,11 +51,18 @@ class Bytiser():
         
         # Init pygame
         pygame.init()
+        pygame.font.init()
         self.screen = pygame.display.set_mode((self.config["screen_width"], self.config["screen_height"]))
         # Clock for frames per second
         self.clock = pygame.time.Clock()
         # Init layer model
         self.layers = []
+        # Load font
+        self.font = pygame.font.SysFont(self.config["font"], self.config["font_size"])
+        # Init score dict
+        self.scores = {}
+        self.text_layer = pygame.Surface((self.config["screen_width"], self.config["screen_height"]), pygame.SRCALPHA)
+        self.text_layer.fill(self.clear)
 
     # Load a sprite from the tile map
     def load_sprite(self, xIndex, yIndex):
@@ -150,6 +158,9 @@ class Bytiser():
         # Draw the layers in order of their z_index
         self.draw_layers()
 
+        # Draw the scores
+        self.draw_scores()
+
         # Update display and wait for frames per second calc
         pygame.display.flip()
         # Make sure we are not going past the amount of turns in the log file
@@ -161,6 +172,7 @@ class Bytiser():
         self.turn = 0
         self.index = 0
         self.layers = []
+        self.scores = {}
 
         # self.turn is supposed to be the number of the NEXT turn so use less than or equal
         while self.turn <= num:
@@ -182,6 +194,21 @@ class Bytiser():
         # Update layer with tiles
         if command == "update_layer":
             self.update_layer(value[0], value[1])
+        # Add score
+        if command == "add_score":
+            self.add_score(value[0], value[1], value[2], value[3])
+        # Set score 
+        if command == "set_score":
+            # If the id is null, loop through all scores and set values
+            if value[0] is None:
+                for score in self.scores:
+                    self.set_score(score, value[1], value[2], value[3])
+            else:
+                self.set_score(value[0], value[1], value[2], value[3])
+            
+        # Remove score
+        if command == "remove_score":
+            self.remove_score(value[0])
 
     # Reorder the layers by their z_index, from low to high
     def reorder_layers(self):
@@ -198,7 +225,6 @@ class Bytiser():
 
         # All layers are now ordered in temp_list in correct z_order
         self.layers = temp_list
-
 
     # Use the name and tiles to update a layer
     def update_layer(self, name, sets):
@@ -235,13 +261,57 @@ class Bytiser():
     def draw_layers(self):
         for layer in self.layers:
             self.draw_layer(layer)
+    
+    # Draw all the score texts on top of the screen
+    def draw_scores(self):
+        self.text_layer = pygame.Surface((self.config["screen_width"], self.config["screen_height"]), pygame.SRCALPHA)
+        self.text_layer.fill(self.black)
+        self.text_layer.fill(self.clear)
+        print("----------")
+        for score in self.scores:
+            print(self.scores[score])
+            score = self.scores[score]
+            text = self.font.render(score[0] + str(score[1]), True, (self.config["font_color"][0], self.config["font_color"][1], self.config["font_color"][2]))
+            self.text_layer.blit(text, (score[2][0], score[2][1]))
+        self.screen.blit(self.text_layer, (0, 0))
+            
+
+    # Add a score to the scores dictionary
+    def add_score(self, id, text, value, pos):
+        self.scores[id] = [text, value, pos]
+    
+    # Update a score from the scores dictionary
+    # Null values keep the previous value
+    def set_score(self, id, text, value, pos):
+        # If the id doesn't exist, error and don't try and set
+        if id not in self.scores:
+            print("ERROR: Cannot set score where Score Id " + id + " doesn't exist!")
+            return
+        # Check for null overrides
+        if text is None:
+            text = self.scores[id][0]
+        if value is None:
+            value = self.scores[id][1]
+        if pos is None:
+            pos = self.scores[id][2]
+        # Set full updated score
+        self.scores[id] = [text, value, pos]
+
+    # Remove a score from the scores dictionary based on id
+    def remove_score(self, id):
+        # Make sure the id is in the dictionary 
+        if id not in self.scores:
+            print("ERROR: Cannot remove score where Score Id " + id + " doesn't exist!")
+        else:
+            self.scores.pop(id)
 
 # Run file as a command
 def help():
-    print("COMMAND USAGE")
-    print("bytiser.py configFile logFile")
+    print("COMMAND USAGE for PYTHON 3")
+    print("python ./bytiser.py configFile logFile")
+    print("python ./bytiser.py --fonts <-- Will display list of system fonts available to pygame")
     print("Zero arguments will default to ./config.json and ./log.json")
-
+    
 if(__name__ == "__main__"):
     if(len(sys.argv) == 1):
         bytiser = Bytiser("./config.json")
@@ -251,6 +321,8 @@ if(__name__ == "__main__"):
         bytiser.run_log(sys.argv[2])
     elif (len(sys.argv) == 2 and sys.argv[1] == "--help"):
         help()
+    elif (len(sys.argv) == 2 and sys.argv[1] == "--fonts"):
+        print(pygame.font.get_fonts())
     else:
         help()
     

@@ -2,6 +2,16 @@
     "log": [
         {
             "turn": 0,
+            "command": "add_score",
+            "value": [1, "Player: ", 0, [400, 10]]
+        },
+        {
+            "turn": 0,
+            "command": "add_score",
+            "value": [2, "Enemy: ", 0, [400, 30]]
+        },
+        {
+            "turn": 0,
             "command": "add_layer",
             "value": ["map", 0, 10, 10]
         },
@@ -49,6 +59,11 @@
         },
         {
             "turn": 1,
+            "command": "set_score",
+            "value": [null, "Text Update: ", null, null]
+        },
+        {
+            "turn": 1,
             "command": "set_layer",
             "value": ["player", [
                 [1, 2, "player"]
@@ -74,6 +89,11 @@
             "value": ["enemy", [
                 [1, 5, null]
             ]]
+        },
+        {
+            "turn": 3,
+            "command": "set_score",
+            "value": [1, null, 10, null]
         }
     ]
 }
