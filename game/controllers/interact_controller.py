@@ -8,7 +8,7 @@ from game.common.stations.cutter import Cutter
 from game.common.stations.storage import Storage
 from game.common.stations.dispenser import Dispenser
 from game.controllers.controller import Controller
-from game.common.stations.sauce import Sauce
+from game.common.stations.Sauce import Sauce
 
 
 class InteractController(Controller):
