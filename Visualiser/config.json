@@ -8,19 +8,21 @@
     "border_spacing": [0, 0],
     "screen_width": 1366,
     "screen_height": 768,
-    "tile_map": "./tilemap.png",
+    "tile_map": "./tilemapletters.png",
     "scale": 4,
     "fallback": [0, 6],
     "keys": {
-        "player": [4, 0],
-        "enemy": [11, 0],
+        "cook": [4, 0],
         "floor": [1, 1],
-        "top_wall": [1, 0],
-        "top_left_corner": [0, 0],
-        "top_right_corner": [3, 0],
-        "bottom_left_corner": [0, 2],
-        "bottom_right_corner": [3, 2],
-        "left_wall": [0, 1],
-        "right_wall": [3, 1]
+        "counter": [0, 0],
+        "dispenser": [0, 1],
+        "roller": [0, 2],
+        "cutter": [3, 0],
+        "oven": [0, 1],
+        "bin": [2, 2],
+        "combiner": [2, 1],
+        "storage": [3, 1],
+        "delivery": [0, 2],
+        "sauce": [1, 2]
     }
 }
