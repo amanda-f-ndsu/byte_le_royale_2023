@@ -7,15 +7,36 @@ class UnderCookedAdapter():
         self.output = []
 
     def test(self, output_path):
+        # Setup
         self.setup_scores()
         self.setup_gamemap()
+        # Test some turns
+        for i in range(1, 100):
+            self.process_turn(i)
+        # Save output
         output_file = open(output_path, 'w')
         output_file.write(json.dumps({"log": self.output}))
 
+    def process_turn(self, turn_num):
+        turn = open(self.log_path + "/turn_{:0>4}.json".format(turn_num))
+        print(self.log_path + "/turn_{:0>4}.json".format(turn_num))
+        turn = json.loads(turn.read())
+        # First check game map for items
+
+        # Next update position of cooks
+        cooks = []
+        clients = turn["clients"]
+        cooks.append([clients[0]["cook"]["position"][0], clients[0]["cook"]["position"][1], "cook"])
+        cooks.append([clients[1]["cook"]["position"][0], clients[1]["cook"]["position"][1], "cook"])
+        self.command(turn_num, "set_layer", ["cooks", cooks])
+
+
     def setup_scores(self):
-        pass
-        #self.command(1, "add_score", [1, self.logs["1"]["clients"][0]["team_name"], 0, [400, 10]])
-        #self.command(1, "add_score", [2, self.logs["1"]["clients"][1]["team_name"], 0, [400, 30]])
+        clients = open(self.log_path + "/turn_0001.json")
+        clients = json.loads(clients.read())
+        clients = clients["clients"]
+        self.command(0, "add_score", [0, clients[0]["team_name"] + ": ", 0, [500, 10]])
+        self.command(0, "add_score", [1, clients[1]["team_name"] + ": ", 0, [500, 30]])
 
     def setup_gamemap(self):
         # Load just the gamemap from game_map.json
@@ -26,23 +47,31 @@ class UnderCookedAdapter():
         height = len(game_map)
         width = len(game_map[0])
         # Add and setup the floor layer
-        self.command(1, "add_layer", ["floor", 0, width, height])
-        self.command(1, "set_layer", ["floor", [[None, None, "floor"]]])
+        self.command(0, "add_layer", ["floor", 0, width, height])
+        self.command(0, "set_layer", ["floor", [[None, None, "floor"]]])
         # Add and setup the station layer
-        self.command(1, "add_layer", ["stations", 1, width, height])
+        self.command(0, "add_layer", ["stations", 1, width, height])
         stations = []
+        cooks = [] # Used to keep track of cooks when scanning all station tiles for later
         # Create the list of x,y,key for the set_layer command
         for y, row in enumerate(game_map):
             for x, tile in enumerate(row):
                 if tile["occupied_by"] is not None:
                     key = self.tile_key(tile["occupied_by"]["object_type"])
+                    # The only non station on the game_map at the start is the two cooks
+                    # Keep track of where the cooks are so we can initalize their position later
                     if key != "cook":
                         stations.append([x, y, key])
+                    else:
+                        cooks.append([x, y, key])
         # Update the station layer with the list of station positions
-        self.command(1, "set_layer", ["stations", stations])
+        self.command(0, "set_layer", ["stations", stations])
+        # Add the items layer
+        self.command(0, "add_layer", ["items0", 2, width, height])
+        # Add the cook layer and set inital cook positions found during station setup
+        self.command(0, "add_layer", ["cooks", 10, width, height])
+        self.command(0, "set_layer", ["cooks", cooks])
 
-        
-        
     def command(self, turn, command, value):
         self.output.append(self.create_command(turn, command, value))
 
