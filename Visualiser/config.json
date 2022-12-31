@@ -20,12 +20,18 @@
             "tile_size": [8, 8],
             "tile_spacing": [1, 1],
             "border_spacing": [0, 0]
+        },
+        "2by2": {
+            "source": "./tilemaptwobytwo.png",
+            "tile_size": [2, 2],
+            "tile_spacing": [1, 1],
+            "border_spacing": [1, 1]
         }
     },
     "keys": {
         "cook": ["letters", 4, 0],
         "floor": ["original", 1, 1],
-        "counter": ["letters", 0, 0],
+        "counter": ["2by2", 0, 0],
         "dispenser": ["letters", 0, 1],
         "roller": ["letters", 0, 2],
         "cutter": ["letters", 3, 0],
@@ -34,6 +40,7 @@
         "combiner": ["letters", 2, 1],
         "storage": ["letters", 3, 1],
         "delivery": ["letters", 0, 2],
-        "sauce": ["letters", 1, 2]
+        "sauce": ["letters", 1, 2],
+        "water": ["2by2", 0, 2]
     }
 }
