@@ -7,8 +7,11 @@ import sys
 class BSprite(pygame.sprite.Sprite):
     def __init__(self, size, pos, image, scale):
         super(BSprite, self).__init__()
-        self.surf = pygame.Surface((size[0], size[1]))
-        self.surf.fill((0, 200, 255))
+        # Create a new surface with the ability to have an alpha channel
+        self.surf = pygame.Surface((size[0], size[1]), pygame.SRCALPHA)
+        # Clear the surface, make it fully transparent
+        self.surf.fill((0, 0, 0, 0))
+        # Blit a crop of our loaded image onto our sprite
         self.surf.blit(image, (0,0), (pos[0], pos[1], image.get_height(), image.get_width()))
         self.rect = self.surf.get_rect()
         # Rescale
@@ -47,15 +50,15 @@ class Bytiser():
         # Load config
         config_file = open(config_path)
         self.config = json.loads(config_file.read())
-        # Load tile map images
-        self.tile_maps = {}
-        for key in self.config["tile_maps"]:
-            self.tile_maps[key] = pygame.image.load(self.config["tile_maps"][key]["source"])
-        
         # Init pygame
         pygame.init()
         pygame.font.init()
         self.screen = pygame.display.set_mode((self.config["screen_width"], self.config["screen_height"]))
+        # Load tile map images
+        self.tile_maps = {}
+        for key in self.config["tile_maps"]:
+            self.tile_maps[key] = pygame.image.load(self.config["tile_maps"][key]["source"])
+            self.tile_maps[key] = self.tile_maps[key].convert_alpha()
         # Clock for frames per second
         self.clock = pygame.time.Clock()
         # Init layer model

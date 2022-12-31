@@ -41,6 +41,6 @@
         "storage": ["letters", 3, 1],
         "delivery": ["letters", 0, 2],
         "sauce": ["letters", 1, 2],
-        "water": ["2by2", 0, 2]
+        "water": ["2by2", 2, 0]
     }
 }

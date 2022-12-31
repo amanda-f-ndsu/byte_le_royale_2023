@@ -1,1 +1,2208 @@
-{"log": [{"turn": 1, "command": "add_layer", "value": ["floor", 0, 13, 7]}, {"turn": 1, "command": "set_layer", "value": ["floor", [[null, null, "floor"]]]}, {"turn": 1, "command": "add_layer", "value": ["stations", 1, 13, 7]}, {"turn": 1, "command": "set_layer", "value": ["stations", [[0, 0, "counter"], [1, 0, "counter"], [2, 0, "oven"], [3, 0, "oven"], [4, 0, "combiner"], [5, 0, "counter"], [6, 0, "counter"], [7, 0, "counter"], [8, 0, "combiner"], [9, 0, "oven"], [10, 0, "oven"], [11, 0, "counter"], [12, 0, "counter"], [0, 1, "storage"], [6, 1, "dispenser"], [12, 1, "storage"], [0, 2, "storage"], [6, 2, "dispenser"], [12, 2, "storage"], [0, 3, "bin"], [6, 3, "delivery"], [12, 3, "bin"], [0, 4, "storage"], [6, 4, "dispenser"], [12, 4, "storage"], [0, 5, "storage"], [6, 5, "dispenser"], [12, 5, "storage"], [0, 6, "counter"], [1, 6, "counter"], [2, 6, "roller"], [3, 6, "cutter"], [4, 6, "sauce"], [5, 6, "counter"], [6, 6, "counter"], [7, 6, "counter"], [8, 6, "sauce"], [9, 6, "cutter"], [10, 6, "roller"], [11, 6, "counter"], [12, 6, "counter"]]]}]}
+{
+  "log": [
+    {
+        "turn": 0,
+        "command": "add_layer",
+        "value": ["water", 20, 13, 7]
+    },
+    {
+        "turn": 0,
+        "command": "set_layer",
+        "value": ["water", [[0, 1, "water"]]]
+    },
+    {
+      "turn": 0,
+      "command": "add_score",
+      "value": [
+        0,
+        "Team Name: ",
+        0,
+        [
+          500,
+          10
+        ]
+      ]
+    },
+    {
+      "turn": 0,
+      "command": "add_score",
+      "value": [
+        1,
+        "Sean's client: ",
+        0,
+        [
+          500,
+          30
+        ]
+      ]
+    },
+    {
+      "turn": 0,
+      "command": "add_layer",
+      "value": [
+        "floor",
+        0,
+        13,
+        7
+      ]
+    },
+    {
+      "turn": 0,
+      "command": "set_layer",
+      "value": [
+        "floor",
+        [
+          [
+            null,
+            null,
+            "floor"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 0,
+      "command": "add_layer",
+      "value": [
+        "stations",
+        1,
+        13,
+        7
+      ]
+    },
+    {
+      "turn": 0,
+      "command": "set_layer",
+      "value": [
+        "stations",
+        [
+          [
+            0,
+            0,
+            "counter"
+          ],
+          [
+            1,
+            0,
+            "counter"
+          ],
+          [
+            2,
+            0,
+            "oven"
+          ],
+          [
+            3,
+            0,
+            "oven"
+          ],
+          [
+            4,
+            0,
+            "combiner"
+          ],
+          [
+            5,
+            0,
+            "counter"
+          ],
+          [
+            6,
+            0,
+            "counter"
+          ],
+          [
+            7,
+            0,
+            "counter"
+          ],
+          [
+            8,
+            0,
+            "combiner"
+          ],
+          [
+            9,
+            0,
+            "oven"
+          ],
+          [
+            10,
+            0,
+            "oven"
+          ],
+          [
+            11,
+            0,
+            "counter"
+          ],
+          [
+            12,
+            0,
+            "counter"
+          ],
+          [
+            0,
+            1,
+            "storage"
+          ],
+          [
+            6,
+            1,
+            "dispenser"
+          ],
+          [
+            12,
+            1,
+            "storage"
+          ],
+          [
+            0,
+            2,
+            "storage"
+          ],
+          [
+            6,
+            2,
+            "dispenser"
+          ],
+          [
+            12,
+            2,
+            "storage"
+          ],
+          [
+            0,
+            3,
+            "bin"
+          ],
+          [
+            6,
+            3,
+            "delivery"
+          ],
+          [
+            12,
+            3,
+            "bin"
+          ],
+          [
+            0,
+            4,
+            "storage"
+          ],
+          [
+            6,
+            4,
+            "dispenser"
+          ],
+          [
+            12,
+            4,
+            "storage"
+          ],
+          [
+            0,
+            5,
+            "storage"
+          ],
+          [
+            6,
+            5,
+            "dispenser"
+          ],
+          [
+            12,
+            5,
+            "storage"
+          ],
+          [
+            0,
+            6,
+            "counter"
+          ],
+          [
+            1,
+            6,
+            "counter"
+          ],
+          [
+            2,
+            6,
+            "roller"
+          ],
+          [
+            3,
+            6,
+            "cutter"
+          ],
+          [
+            4,
+            6,
+            "sauce"
+          ],
+          [
+            5,
+            6,
+            "counter"
+          ],
+          [
+            6,
+            6,
+            "counter"
+          ],
+          [
+            7,
+            6,
+            "counter"
+          ],
+          [
+            8,
+            6,
+            "sauce"
+          ],
+          [
+            9,
+            6,
+            "cutter"
+          ],
+          [
+            10,
+            6,
+            "roller"
+          ],
+          [
+            11,
+            6,
+            "counter"
+          ],
+          [
+            12,
+            6,
+            "counter"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 0,
+      "command": "add_layer",
+      "value": [
+        "items0",
+        2,
+        13,
+        7
+      ]
+    },
+    {
+      "turn": 0,
+      "command": "add_layer",
+      "value": [
+        "cooks",
+        10,
+        13,
+        7
+      ]
+    },
+    {
+      "turn": 0,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            3,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 1,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            2,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 2,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 3,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 4,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 5,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 6,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 7,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 8,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 9,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 10,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 11,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 12,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 13,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 14,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 15,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 16,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 17,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 18,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 19,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 20,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 21,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 22,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 23,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 24,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 25,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 26,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 27,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 28,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 29,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 30,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 31,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 32,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 33,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 34,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 35,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 36,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 37,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 38,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 39,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 40,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 41,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 42,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 43,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 44,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 45,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 46,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 47,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 48,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 49,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 50,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 51,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 52,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 53,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 54,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 55,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 56,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 57,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 58,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 59,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 60,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 61,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 62,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 63,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 64,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 65,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 66,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 67,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 68,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 69,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 70,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 71,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 72,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 73,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 74,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 75,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 76,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 77,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 78,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 79,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 80,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 81,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 82,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 83,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 84,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 85,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 86,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 87,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 88,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 89,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 90,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 91,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 92,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 93,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 94,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 95,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 96,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 97,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 98,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    },
+    {
+      "turn": 99,
+      "command": "set_layer",
+      "value": [
+        "cooks",
+        [
+          [
+            3,
+            1,
+            "cook"
+          ],
+          [
+            9,
+            3,
+            "cook"
+          ]
+        ]
+      ]
+    }
+  ]
+}
