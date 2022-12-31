@@ -3,26 +3,37 @@
     "font": "arial",
     "font_size": 20,
     "font_color": [0, 255, 0],
-    "tile_size": [8, 8],
-    "tile_spacing": [1, 1],
-    "border_spacing": [0, 0],
     "screen_width": 1366,
     "screen_height": 768,
-    "tile_map": "./tilemapletters.png",
+    "global_tile_size": [8, 8],
     "scale": 4,
-    "fallback": [0, 6],
+    "fallback": ["original", 0, 6],
+    "tile_maps": {
+        "original": {
+            "source": "./tilemap.png",
+            "tile_size": [8, 8],
+            "tile_spacing": [1, 1],
+            "border_spacing": [0, 0]
+        },
+        "letters": {
+            "source": "./tilemapletters.png",
+            "tile_size": [8, 8],
+            "tile_spacing": [1, 1],
+            "border_spacing": [0, 0]
+        }
+    },
     "keys": {
-        "cook": [4, 0],
-        "floor": [1, 1],
-        "counter": [0, 0],
-        "dispenser": [0, 1],
-        "roller": [0, 2],
-        "cutter": [3, 0],
-        "oven": [0, 1],
-        "bin": [2, 2],
-        "combiner": [2, 1],
-        "storage": [3, 1],
-        "delivery": [0, 2],
-        "sauce": [1, 2]
+        "cook": ["letters", 4, 0],
+        "floor": ["original", 1, 1],
+        "counter": ["letters", 0, 0],
+        "dispenser": ["letters", 0, 1],
+        "roller": ["letters", 0, 2],
+        "cutter": ["letters", 3, 0],
+        "oven": ["letters", 0, 1],
+        "bin": ["letters", 2, 2],
+        "combiner": ["letters", 2, 1],
+        "storage": ["letters", 3, 1],
+        "delivery": ["letters", 0, 2],
+        "sauce": ["letters", 1, 2]
     }
 }

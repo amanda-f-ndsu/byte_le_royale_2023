@@ -47,8 +47,10 @@ class Bytiser():
         # Load config
         config_file = open(config_path)
         self.config = json.loads(config_file.read())
-        # Load tilemap
-        self.tilemap = pygame.image.load(self.config["tile_map"])
+        # Load tile map images
+        self.tile_maps = {}
+        for key in self.config["tile_maps"]:
+            self.tile_maps[key] = pygame.image.load(self.config["tile_maps"][key]["source"])
         
         # Init pygame
         pygame.init()
@@ -65,12 +67,14 @@ class Bytiser():
         self.text_layer = pygame.Surface((self.config["screen_width"], self.config["screen_height"]), pygame.SRCALPHA)
 
     # Load a sprite from the tile map
-    def load_sprite(self, xIndex, yIndex):
+    def load_sprite(self, tile_map_key, xIndex, yIndex):
         # Get the x and y pixel position of the sprite
-        x = (xIndex * self.config["tile_size"][0]) + (xIndex * self.config["tile_spacing"][0]) + self.config["border_spacing"][0]
-        y = (yIndex * self.config["tile_size"][1]) + (yIndex * self.config["tile_spacing"][1]) + self.config["border_spacing"][1]
-        # Use the BSprite class to load from the tile map and scale it
-        return BSprite(self.config["tile_size"], (x, y), self.tilemap, self.config["scale"])
+        x = (xIndex * self.config["tile_maps"][tile_map_key]["tile_size"][0]) + (xIndex * self.config["tile_maps"][tile_map_key]["tile_spacing"][0]) + self.config["tile_maps"][tile_map_key]["border_spacing"][0]
+        y = (yIndex * self.config["tile_maps"][tile_map_key]["tile_size"][1]) + (yIndex * self.config["tile_maps"][tile_map_key]["tile_spacing"][1]) + self.config["tile_maps"][tile_map_key]["border_spacing"][1]
+        # Find the adjustment scale to make the tile load to the same tile size as global config
+        adjustment = self.config["global_tile_size"][0] / self.config["tile_maps"][tile_map_key]["tile_size"][0]
+        # Use the BSprite class to load from the tile map
+        return BSprite(self.config["tile_maps"][tile_map_key]["tile_size"], (x, y), self.tile_maps[tile_map_key], self.config["scale"] * adjustment)
 
     # Use a sprite key to find the relative position and then use load_sprite to get the BSprite
     # Will use a fallback sprite if the sprite key is invalid
@@ -79,9 +83,9 @@ class Bytiser():
         if key == None:
             return None
         if key in self.config["keys"]:
-            return self.load_sprite(self.config["keys"][key][0], self.config["keys"][key][1])
+            return self.load_sprite(self.config["keys"][key][0], self.config["keys"][key][1], self.config["keys"][key][2])
         else:
-            return self.load_sprite(self.config["fallback"][0], self.config["fallback"][1])
+            return self.load_sprite(self.config["fallback"][0], self.config["fallback"][1], self.config["fallback"][2])
 
     # Will visualize a log file
     def run_log(self, log_path):
@@ -256,7 +260,7 @@ class Bytiser():
                 # Leave transparent if None
                 if layer.tiles[y][x] is not None:
                     # Blit the sprite at the position adjusted by tile size and scale
-                    self.screen.blit(layer.tiles[y][x].surf, (x*self.config["scale"] * self.config["tile_size"][0], y*self.config["scale"] * self.config["tile_size"][1]))
+                    self.screen.blit(layer.tiles[y][x].surf, (x*self.config["scale"] * self.config["global_tile_size"][0], y*self.config["scale"] * self.config["global_tile_size"][1]))
     
     # Draw all layers by assuming the layers are ordered by their z_index low to high
     # Every time a layer is added or deleted, the layer list is reordered so we can assume the layers are ordered correctly

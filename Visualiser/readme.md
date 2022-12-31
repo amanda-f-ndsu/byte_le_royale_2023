@@ -38,7 +38,7 @@
     // Dictionary of keys to define where each sprite is (empty dictionary is required even if no keys)
     "keys": {
         // NOT REQUIRED
-        // Dictionary can be empty, examples given [x, y] (0 indexed)
+        // Dictionary can be empty, examples given [tilemap, x, y] (0 indexed)
         // The first sprite would be 0,0 and then the second to the right would be 1,0 etc
         "player": [4, 0],
         "enemy": [11, 0],
