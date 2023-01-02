@@ -38,11 +38,13 @@ class BLayer():
 # Main Logic class
 # Init with a config file then use run_log with a log file to visualize
 class Bytiser():
-    # Colors
+    # Quick Colors
     black = (0,0,0)
     white = (255, 255, 255)
     clear = (0, 0, 0, 0)
     red = (255, 0, 0)
+    blue = (0, 0, 255)
+    debug_color = blue # Color of debug text if shown
 
     # Init object with a config path
     # Will set up pygame and check config
@@ -67,6 +69,7 @@ class Bytiser():
         self.font = pygame.font.SysFont(self.config["font"], self.config["font_size"])
         # Init score dict
         self.scores = {}
+        self.debug = False
         self.text_layer = pygame.Surface((self.config["screen_width"], self.config["screen_height"]), pygame.SRCALPHA)
 
     # Load a sprite from the tile map
@@ -97,8 +100,8 @@ class Bytiser():
 
         # Init function scope variables to track log progress
         game_run = True
-        paused = True
-        speed = 0
+        self.paused = True
+        self.speed = 0
         self.turn = 0
         self.index = 0
         # Clear screen
@@ -126,30 +129,43 @@ class Bytiser():
                             self.turn -= 1
                         self.go_to_turn(self.turn)
                     elif event.key == K_SPACE:
-                        paused = not paused
-                    if event.key == K_UP:
-                        speed += 1
+                        self.paused = not self.paused
+                    elif event.key == K_UP:
+                        self.speed += 1
                     elif event.key == K_DOWN:
-                        speed -= 1
+                        self.speed -= 1
+                    elif event.key == K_d:
+                        # Show debug info on d press
+                        self.debug = not self.debug
+                    elif event.key == K_r:
+                        # Restart log on r press
+                        self.paused = True
+                        self.speed = 0
+                        self.turn = 0
+                        self.index = 0
+                        # Clear screen
+                        self.screen.fill(self.black)
+                        # Go to next turn to make sure screen is updated
+                        self.next_turn()
                 elif event.type == KEYUP:
                     if event.key == K_UP:
-                        speed -= 1
+                        self.speed -= 1
                     elif event.key == K_DOWN:
-                        speed += 1
+                        self.speed += 1
                 # Check for app quit
                 elif event.type == QUIT:
                     game_run = False
             # If not paused, default to going to the next turn
-            if not paused:
+            if not self.paused:
                 self.next_turn()
             # Check if at end of commands, if so then pause
             if self.index >= len(self.commands):
-                paused = True
+                self.paused = True
 
             # Frames per second based on up and down arrows
-            if speed == 1:
+            if self.speed == 1:
                 self.clock.tick(self.config["fps"] * 2)
-            elif speed == -1:
+            elif self.speed == -1:
                 self.clock.tick(self.config["fps"] / 2)
             else:
                 self.clock.tick(self.config["fps"])      
@@ -280,6 +296,21 @@ class Bytiser():
             score = self.scores[score]
             text = self.font.render(score[0] + str(score[1]), True, (self.config["font_color"][0], self.config["font_color"][1], self.config["font_color"][2]))
             self.text_layer.blit(text, (score[2][0], score[2][1]))
+        # Check if we also want debug information to be added to the text layer
+        if self.debug:
+            output = "Turn: " + str(self.turn)
+            if self.paused:
+                output += " || Paused"
+            else:
+                output += " || Playing"
+            if self.speed == 0:
+                output += " || x1"
+            elif self.speed == 1:
+                output += " || x2"
+            elif self.speed == -1:
+                output += " || x0.5"
+            text = self.font.render(output, True, self.debug_color)
+            self.text_layer.blit(text, (10,10))
         # Add the text layer to the screen
         self.screen.blit(self.text_layer, (0, 0))
             
