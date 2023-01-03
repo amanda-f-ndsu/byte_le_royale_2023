@@ -106,7 +106,7 @@ class MasterController(Controller):
         if self.event_active != EventType.none:
             self.event_timer = self.event_timer -1
         #Decay always occurs end of turn
-        self.decay_controller.handle_actions(self.event_active,self.current_world_data["game_map"],clients)
+        self.decay_controller.handle_actions(self.event_active,self.current_world_data["game_map"].game_map,self.current_world_data["game_map"].cooks())
             
         
 
