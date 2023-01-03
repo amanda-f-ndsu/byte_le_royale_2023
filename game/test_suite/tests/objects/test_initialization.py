@@ -3,7 +3,7 @@ from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.stations.dispenser import Dispenser
-from game.common.stations.Sauce import Sauce
+from game.common.stations.sauce import Sauce
 from game.common.stations.roller import Roller
 from game.common.stations.cutter import Cutter
 from game.common.stations.combiner import Combiner
@@ -25,7 +25,7 @@ class TestInitialization(unittest.TestCase):
         self.topping = Topping(quality=1, worth=20, topping_type=ToppingType.canadian_ham, is_cut=False)
         self.pizza = Pizza(state=PizzaState.rolled)
         self.dispenser = Dispenser()
-        self.cook = Cook(action=ActionType.test, item=self.item)
+        self.cook = Cook(item=self.item)
         self.tile = Tile(occupied_by= self.dispenser, is_wet_tile=True)
         self.sauce = Sauce(self.topping)
         self.tile = Tile(occupied_by=self.dispenser)
@@ -55,7 +55,6 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.delivery.object_type, ObjectType.delivery)
 
     def testCookInit(self):
-        self.assertEqual(self.cook.chosen_action, ActionType.test)
         self.assertEqual(self.cook.object_type, ObjectType.cook)
         self.assertEqual(self.cook.held_item, self.item)
 

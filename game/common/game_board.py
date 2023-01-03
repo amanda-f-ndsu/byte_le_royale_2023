@@ -6,7 +6,7 @@ from game.common.stations.combiner import Combiner
 from game.common.stations.oven import Oven
 from game.common.stations.cutter import Cutter
 from game.common.stations.roller import Roller
-from game.common.stations.Sauce import Sauce
+from game.common.stations.sauce import Sauce
 from game.common.stations.storage import Storage
 from game.common.game_object import GameObject
 from game.common.map.tile import Tile
@@ -153,13 +153,19 @@ class GameBoard(GameObject):
 
     def ovens(self):
         to_return: list = list()
-        to_return.extend([i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven)])
-        to_return.extend([i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven)])
+        for row in self.game_map:
+            for col in row:
+                if isinstance(col.occupied_by, Oven):
+                    to_return.append(col.occupied_by)
         return to_return
     
     def cooks(self):
-        to_return: list = list(filter(lambda row: len(row) > 0, [[tile.occupied_by for tile in row if isinstance(tile.occupied_by, Cook)] for row in self.game_map]))
-        return to_return[0] if len(to_return) == 1 else (to_return[0][0], to_return[1][0])
+        to_return: list = list()
+        for row in self.game_map:
+            for col in row:
+                if isinstance(col.occupied_by, Cook):
+                    to_return.append(col.occupied_by)
+        return to_return
 
     def to_json(self):
         data = super().to_json()
