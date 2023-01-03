@@ -126,16 +126,13 @@ If the id is null then all score objects will update
 "value": [num_id, "Display Text", [x, y]]
 
 # To Do
-## Visualiser Features
-- Game End Screen
-    - End game command that uses scores
-- Debug display
-    - Turn number, is paused, is sped up
 ## Visualiser Polish
 - File chooser
 - Main menu
 - Buttons for pause, play, exit
 - Slider for faster, slower
+- Game End Screen
+    - End game command that uses scores
 ## Adapter
 - Now that the visualiser is mostly done and gamelogs have been generated for us, we can work on a adapter
 - The adapter uses a game log and turns it into a log of graphical commands 

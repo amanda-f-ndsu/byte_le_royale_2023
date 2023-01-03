@@ -31,7 +31,7 @@
     "keys": {
         "cook": ["letters", 4, 0],
         "floor": ["original", 1, 1],
-        "counter": ["2by2", 0, 0],
+        "counter": ["letters", 0, 0],
         "dispenser": ["letters", 0, 1],
         "roller": ["letters", 0, 2],
         "cutter": ["letters", 3, 0],
