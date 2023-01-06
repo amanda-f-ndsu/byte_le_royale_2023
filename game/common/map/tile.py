@@ -53,7 +53,7 @@ class Tile(GameObject):
         occupied_by = data['occupied_by']
         if not occupied_by:
             self.occupied_by = data['occupied_by']
-        elif occupied_by["object_type"] in [ObjectType.bin, ObjectType.combiner, ObjectType.cutter, ObjectType.delivery, ObjectType.dispenser, ObjectType.oven, ObjectType.roller, ObjectType.sauce, ObjectType.storage]:
+        elif occupied_by["object_type"] in [ObjectType.bin, ObjectType.combiner, ObjectType.cutter, ObjectType.delivery, ObjectType.dispenser, ObjectType.oven, ObjectType.roller, ObjectType.sauce, ObjectType.storage, ObjectType.counter]:
             match occupied_by["object_type"]:
                 case ObjectType.bin:
                     self.occupied_by = Bin().from_json(occupied_by)
@@ -73,6 +73,8 @@ class Tile(GameObject):
                     self.occupied_by = Sauce().from_json(occupied_by)
                 case ObjectType.storage:
                     self.occupied_by = Storage().from_json(occupied_by)
+                case ObjectType.counter:
+                    self.occupied_by = Counter()
             
         elif data['occupied_by']["object_type"] == ObjectType.cook:
             self.occupied_by = Cook().from_json(data['occupied_by'])
