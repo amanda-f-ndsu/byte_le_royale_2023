@@ -18,8 +18,8 @@ class InteractController(Controller):
 
     def handle_actions(self, cook, world):
         stat = None
-        x = 0
-        y = 0
+        x = None
+        y = None
         if isinstance(world.game_map[cook.position[1] - 1][cook.position[0]].occupied_by, Station):
             x = cook.position[0]
             y = cook.position[1] - 1
@@ -32,6 +32,6 @@ class InteractController(Controller):
         elif isinstance(world.game_map[cook.position[1]][cook.position[0] + 1].occupied_by, Station):
             x = cook.position[0] + 1
             y = cook.position[1]
-        if(x != 0 or y != 0):
-            stat = world.game_map[x][y].occupied_by
+        if(x != None and y != None):
+            stat = world.game_map[y][x].occupied_by
             return stat.take_action(cook)
