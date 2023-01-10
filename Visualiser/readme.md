@@ -118,7 +118,7 @@ Same as set_layer command but does not clear the layer before drawing
 Will set a scores properties, anything left as null will not be changed
 If the id is null then all score objects will update
 "command": "set_score"
-"value": [num_id, "Display Text", [x, y]]
+"value": [num_id, "Display Text", [x, y]] 
 ### remove_score
 Will remove a score object and clear it from the screen
 If the id is null then all score objects will update
