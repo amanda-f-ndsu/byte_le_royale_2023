@@ -12,5 +12,6 @@ class DispenserController(Controller):
     def handle_actions(self, world : GameBoard):
         for row in world.game_map:
             if isinstance(row[6].occupied_by,Dispenser):
+                breakpoint()
                 row[6].occupied_by.dispense()
                          
