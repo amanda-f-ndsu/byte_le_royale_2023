@@ -63,16 +63,19 @@ class MasterController(Controller):
 
         # Create deep copies of all objects sent to the player
         current_world = deepcopy(self.current_world_data["game_map"])
+        copy_cook = deepcopy(client.cook)
         # Obfuscate data in objects that that player should not be able to see
         # Currently world data isn't obfuscated at all
-        args = (self.turn, turn_action, current_world)
+        args = (self.turn, turn_action, current_world, copy_cook)
         return args
 
     # Perform the main logic that happens per turn
     def turn_logic(self, clients, turn):
         for client in clients:
-            self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
-            self.interact_controller.handle_actions(client,self.current_world_data["game_map"])
+            if client.action.chosen_action in [ActionType.Move.up, ActionType.Move.down, ActionType.Move.left, ActionType.Move.right]:
+                self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
+            elif client.action.chosen_action == ActionType.interact:
+                self.interact_controller.handle_actions(client,self.current_world_data["game_map"])
 
         if turn % GameStats.turns_per_item_turnover_event == 0:
             self.dispenser_controller.handle_actions(self.current_world_data["game_map"])
