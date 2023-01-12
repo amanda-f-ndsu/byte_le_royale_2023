@@ -3,7 +3,7 @@ from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.items.pizza import Pizza
-from game.common.stations.Sauce import Sauce
+from game.common.stations.sauce import Sauce
 
 
 class TestSauce(unittest.TestCase):

@@ -1,3 +1,4 @@
+from game.common.action import Action
 from game.common.enums import ActionType, ObjectType
 from game.common.game_object import GameObject
 from game.common.items.item import Item
@@ -5,21 +6,21 @@ from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 
 
-
-
 class Cook(GameObject):
-    def __init__(self, action: ActionType = ActionType.none, item: Item = None, position = None):
+    def __init__(self, item: Item = None, position=None):
         super().__init__()
         self.object_type = ObjectType.cook
-        self.chosen_action = action
         self.held_item = item
         self.score = 0
         self.position = position
 
+<<<<<<< HEAD
 
     @property
     def chosen_action(self) -> ActionType:
         return self.__chosen_action
+=======
+>>>>>>> 178d08184c392d29cef9e67c56c5ba54d608436b
 
     @property
     def held_item(self) -> Item:
@@ -34,13 +35,10 @@ class Cook(GameObject):
     def position(self) -> tuple:
         return self.__position
 
-    @chosen_action.setter
-    def chosen_action(self, action: ActionType):
-        self.__chosen_action = action
-
     @held_item.setter
     def held_item(self, item: Item):
-        self.__held_item = item
+        if isinstance(item, Item) or item is None:
+            self.__held_item = item
 
     @score.setter
     def score(self, score: int):
@@ -52,7 +50,6 @@ class Cook(GameObject):
 
     def to_json(self):
         data = super().to_json()
-        data['chosen_action'] = self.chosen_action
         data['held_item'] = self.held_item.to_json() if self.held_item else None
         data['score'] = self.score
         data['position'] = self.position
@@ -60,7 +57,6 @@ class Cook(GameObject):
 
     def from_json(self, data: dict) -> 'Cook':
         super().from_json(data)
-        self.chosen_action = data['chosen_action']
         self.score = data['score']
         self.position = data['position']
         temp: Item = data['held_item']

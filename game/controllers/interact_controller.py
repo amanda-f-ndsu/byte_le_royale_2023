@@ -8,7 +8,11 @@ from game.common.stations.cutter import Cutter
 from game.common.stations.storage import Storage
 from game.common.stations.dispenser import Dispenser
 from game.controllers.controller import Controller
+<<<<<<< HEAD
 from game.common.stations.Sauce import Sauce
+=======
+from game.common.stations.sauce import Sauce
+>>>>>>> 178d08184c392d29cef9e67c56c5ba54d608436b
 
 
 class InteractController(Controller):
@@ -33,6 +37,10 @@ class InteractController(Controller):
             x = cook.position[0] + 1
             y = cook.position[1]
         if(x != 0 or y != 0):
+<<<<<<< HEAD
             #breakpoint()
             stat = world.game_map[y][x].occupied_by
+=======
+            stat = world.game_map[x][y].occupied_by
+>>>>>>> 178d08184c392d29cef9e67c56c5ba54d608436b
             return stat.take_action(cook)
