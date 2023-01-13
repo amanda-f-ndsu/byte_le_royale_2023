@@ -74,8 +74,8 @@ class MasterController(Controller):
             self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
             self.interact_controller.handle_actions(client,self.current_world_data["game_map"])
 
-        if turn % GameStats.turns_per_item_turnover_event == 0:
-            self.dispenser_controller.handle_actions(self.current_world_data["game_map"])
+        
+        self.dispenser_controller.handle_actions(self.current_world_data["game_map"],turn)
         # checks event logic at the end of round
         self.handle_events(clients)
         
