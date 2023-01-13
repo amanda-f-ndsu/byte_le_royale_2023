@@ -17,9 +17,15 @@ class TestDispenserController(unittest.TestCase):
         for item in self.world.game_map:
             if(isinstance(item[6].occupied_by,Dispenser)):
                 self.assertIsNone(item[6].occupied_by.item)
-        self.dispenserController.handle_actions(self.world)
+        self.dispenserController.handle_actions(self.world,1)
         for item in self.world.game_map:
             if(isinstance(item[6].occupied_by,Dispenser)):
                 self.assertIsNotNone(item[6].occupied_by.item)
+    
+    # def testingItems(self):
+    #     self.dispenserController.handle_actions(self.world,1)
+    #     for item in self.world.game_map:
+    #         if(isinstance(item[6].occupied_by,Dispenser)):
+    #             print(item[6].occupied_by.item.topping_type)
     
    
