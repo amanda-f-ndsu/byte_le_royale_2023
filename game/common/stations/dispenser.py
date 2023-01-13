@@ -33,7 +33,7 @@ class Dispenser(Station):
         dict_data = super().to_json()
         return dict_data
 
-    def from_json(self, data: dict) -> None:
+    def from_json(self, data: dict) -> 'Dispenser':
         super().from_json(data)
         return self
    
