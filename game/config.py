@@ -23,7 +23,8 @@ SET_NUMBER_OF_CLIENTS_CONTINUE = 2                  # required number of clients
 ALLOWED_MODULES = ["game.client.user_client",       # modules that clients are specifically allowed to access
                    "game.common.enums",
                    "game.common.action",
-                   "game.common.game_board"
+                   "game.common.game_board",
+                   "game.common.cook"
                    ]
 
 RESULTS_FILE_NAME = "results.json"                                  # Name and extension of results file

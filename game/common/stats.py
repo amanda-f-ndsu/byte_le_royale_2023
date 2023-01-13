@@ -25,4 +25,5 @@ class GameStats:
     decay_rate = 0.02
     infested_decay_rate = 0.05
     event_timer = 50
+    turns_per_item_turnover_event = 5
 
