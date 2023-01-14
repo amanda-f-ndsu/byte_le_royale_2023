@@ -3,7 +3,7 @@ from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.stations.dispenser import Dispenser
-from game.common.stations.sauce import Sauce
+from game.common.stations.Sauce import Sauce
 from game.common.stations.roller import Roller
 from game.common.stations.cutter import Cutter
 from game.common.stations.combiner import Combiner
