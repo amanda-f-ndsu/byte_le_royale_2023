@@ -13,7 +13,7 @@ Instance variables for the Pizza object
  Name              Type                        Description
 ================  =========================== ===================
  state              PizzaState enums            An enum that describes what type of state the pizza is in
- __topping          PizzaState enums            An enum that describes the topping on the pizza there can only be a maximum of 3 topping per pizza with the first topping is cheese and it required.
+ __topping          ToppingType enums           An enum that describes the topping on the pizza there can only be a maximum of 3 topping per pizza with the first topping is cheese and it required.
 ================  =========================== ===================
 
 Pizza State enum
