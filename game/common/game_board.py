@@ -6,7 +6,7 @@ from game.common.stations.combiner import Combiner
 from game.common.stations.oven import Oven
 from game.common.stations.cutter import Cutter
 from game.common.stations.roller import Roller
-from game.common.stations.Sauce import Sauce
+from game.common.stations.sauce import Sauce
 from game.common.stations.storage import Storage
 from game.common.game_object import GameObject
 from game.common.map.tile import Tile
