@@ -13,6 +13,12 @@ class Client(UserClient):
     def __init__(self):
         super().__init__()
         self.state = None
+        self.half = None
+        self.x_min = None
+        self.y_min = 1
+        self.x_max = None
+        self.y_max = 5
+        self.combiner_location = None
 
     def team_name(self):
         """
@@ -29,6 +35,15 @@ class Client(UserClient):
         :param actions:     This is the actions object that you will add effort allocations or decrees to.
         :param world:       Generic world information
         """
+        if self.half == None:
+            self.half = 0
+            self.x_min = 1
+            self.x_max = 5
+            if cook.position[1] >= 6:
+                self.half = 6
+                self.x_min = 7
+                self.x_max = 12
+
         match(self.state):
             case None:
                 dough_location = self.scan_board(
@@ -49,33 +64,84 @@ class Client(UserClient):
                     action.chosen_action = direction_to_move
                 else:
                     action.chosen_action = ActionType.interact
-                    self.state = "Roller_fetch"
-            case "Roller_fetch":
+                    self.state = "Pizza_bare"
+            case "Pizza_bare":
+                sauce_location = self.scan_board(
+                    world, ObjectType.sauce)
+                if sauce_location and self.manhattan_distance(cook.position, sauce_location) > 1:
+                    dist_tup = self.tuple_difference(cook.position, sauce_location)
+                    direction_to_move = self.decide_move(dist_tup)
+                    action.chosen_action = direction_to_move
+                else:
+                    action.chosen_action = ActionType.interact
+                    self.state = "Sauced"
+            case "Sauced":
+                combiner_location = self.scan_board(
+                    world, ObjectType.combiner)
+                if combiner_location and self.manhattan_distance(cook.position, combiner_location) > 1:
+                    dist_tup = self.tuple_difference(cook.position, combiner_location)
+                    direction_to_move = self.decide_move(dist_tup)
+                    action.chosen_action = direction_to_move
+                else:
+                    action.chosen_action = ActionType.interact
+                    self.state = "combiner_pizza"
+                    self.combiner_location = combiner_location
+            case "combiner_pizza":
+                cheese_location = self.scan_board(
+                    world, ObjectType.dispenser, ToppingType.cheese)
+                if cheese_location and self.manhattan_distance(cook.position, cheese_location) > 1:
+                    dist_tup = self.tuple_difference(cook.position, cheese_location)
+                    direction_to_move = self.decide_move(dist_tup)
+                    action.chosen_action = direction_to_move
+                elif cheese_location and self.manhattan_distance(cook.position, cheese_location) == 1:
+                    action.chosen_action = ActionType.interact
+                    self.state = "combiner_needs_cheese"
+            case "combiner_needs_cheese":
+                if  self.combiner_location and self.manhattan_distance(cook.position, self.combiner_location) > 1:
+                    dist_tup = self.tuple_difference(cook.position,  self.combiner_location)
+                    direction_to_move = self.decide_move(dist_tup)
+                    action.chosen_action = direction_to_move
+                else:
+                    action.chosen_action = ActionType.interact
+                    self.state = "combiner_has_cheese"
+            case "combiner_has_cheese":
                 action.chosen_action = ActionType.interact
-                self.state = "Roller_fetch"
-
+                self.state = "finished_pizza"
+                self.combiner_location = None
+            case "finished_pizza":
+                delivery_location = self.scan_board(
+                    world, ObjectType.delivery)
+                if delivery_location and self.manhattan_distance(cook.position, delivery_location) > 1:
+                    dist_tup = self.tuple_difference(cook.position, delivery_location)
+                    direction_to_move = self.decide_move(dist_tup)
+                    action.chosen_action = direction_to_move
+                else:
+                    action.chosen_action = ActionType.interact
+                    self.state = None
         pass
 
     def scan_board(self, world: GameBoard, object_type: ObjectType, topping_type: ToppingType = None) -> Tuple[int, int]:
-        for x in range(0, len(world.game_map)):
-            for y in range(0, len(world.game_map[x])):
-                if world.game_map[x][y].occupied_by != None and world.game_map[x][y].occupied_by.object_type == object_type:
-                    if ToppingType is None or (world.game_map[x][y].occupied_by.item != None and world.game_map[x][y].occupied_by.item.topping_type == topping_type):
-                        return (x, y)
+        for y in range(0, len(world.game_map)):
+            for x in range(self.half, len(world.game_map[y])):
+                if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
+                    if topping_type is None or (world.game_map[y][x].occupied_by.item != None and world.game_map[y][x].occupied_by.item.topping_type == topping_type):
+                        return (y, x)
         return None
 
     def manhattan_distance(self, int_tuple_one: Tuple[int, int], int_tuple_two : Tuple[int, int]) -> int:
         return abs(int_tuple_one[0] - int_tuple_two[0]) + abs(int_tuple_one[1] - int_tuple_two[1])
 
     def tuple_difference(self, int_tuple_one: Tuple[int, int], int_tuple_two : Tuple[int, int]) -> int:
-        return ((int_tuple_one[0] - int_tuple_two[0]) , (int_tuple_one[1] - int_tuple_two[1]))
+        y_diff = (int_tuple_one[0] - max(min(int_tuple_two[0], self.y_max), self.y_min))
+        x_diff = (int_tuple_one[1] - max(min(int_tuple_two[1], self.x_max), self.x_min))
+        return (y_diff, x_diff)
 
     def decide_move(self, int_tuple : Tuple[int, int]) -> ActionType.Move:
-        if int_tuple[1] > 1:
+        if int_tuple[1] > 0:
             return ActionType.Move.left
-        elif int_tuple[1] < -1:
+        elif int_tuple[1] < 0:
             return ActionType.Move.right
-        elif int_tuple[0] >= 1:
+        elif int_tuple[0] > 0:
             return ActionType.Move.up
-        elif int_tuple[0] <= -1: 
+        elif int_tuple[0] < 0: 
             return ActionType.Move.down
