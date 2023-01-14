@@ -22,7 +22,7 @@ class Client(UserClient):
         return 'Sean\'s client'
 
     # This is where your AI will decide what to do
-    def take_turn(self, turn: int, action: Action, world: GameBoard, cook: Cook):
+    def take_turn(self, turn : int, action : Action, world : GameBoard, cook : Cook):
         """
         This is where your AI will decide what to do.
         :param turn:        The current turn of the game.
