@@ -21,18 +21,18 @@ class InteractController(Controller):
             stat = None
             x = None
             y = None
-            if isinstance(world.game_map[client.cook.position[1] - 1][client.cook.position[0]].occupied_by, Station):
-                x = client.cook.position[0]
-                y = client.cook.position[1] - 1
-            elif isinstance(world.game_map[client.cook.position[1] + 1][client.cook.position[0]].occupied_by, Station):
-                x = client.cook.position[0]
-                y = client.cook.position[1] + 1
-            elif isinstance(world.game_map[client.cook.position[1]][client.cook.position[0] - 1].occupied_by, Station):
-                x = client.cook.position[0] - 1
-                y = client.cook.position[1]
-            elif isinstance(world.game_map[client.cook.position[1]][client.cook.position[0] + 1].occupied_by, Station):
-                x = client.cook.position[0] + 1
-                y = client.cook.position[1]
+            if isinstance(world.game_map[client.cook.position[0] - 1][client.cook.position[1]].occupied_by, Station):
+                x = client.cook.position[1]
+                y = client.cook.position[0] - 1
+            elif isinstance(world.game_map[client.cook.position[0] + 1][client.cook.position[1]].occupied_by, Station):
+                x = client.cook.position[1]
+                y = client.cook.position[0] + 1
+            elif isinstance(world.game_map[client.cook.position[0]][client.cook.position[1] - 1].occupied_by, Station):
+                x = client.cook.position[1] - 1
+                y = client.cook.position[0]
+            elif isinstance(world.game_map[client.cook.position[0]][client.cook.position[1] + 1].occupied_by, Station):
+                x = client.cook.position[1] + 1
+                y = client.cook.position[0]
             if(x != None and y != None):
                 stat = world.game_map[y][x].occupied_by
                 return stat.take_action(client.cook)
