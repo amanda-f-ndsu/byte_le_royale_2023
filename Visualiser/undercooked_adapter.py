@@ -11,7 +11,7 @@ class UnderCookedAdapter():
         self.setup_scores()
         self.setup_gamemap()
         # Test some turns
-        for i in range(1, 100):
+        for i in range(1, 501):
             self.process_turn(i)
         # Save output
         output_file = open(output_path, 'w')
@@ -19,15 +19,22 @@ class UnderCookedAdapter():
 
     def process_turn(self, turn_num):
         turn = open(self.log_path + "/turn_{:0>4}.json".format(turn_num))
-        print(self.log_path + "/turn_{:0>4}.json".format(turn_num))
         turn = json.loads(turn.read())
-        # First check game map for items
+        game_map = turn["game_map"]["game_map"]
+        dispensers, ovens, items = self.find_items_and_states(game_map)
+        # Update dispensers with items
+        self.command(turn_num, "update_layer", ["stations", dispensers])
+        # Update ovens with state
 
-        # Next update position of cooks
+        # Update items on map
+
+        # Update ingredients on map 
+
+        # Update position and icon of cooks
         cooks = []
         clients = turn["clients"]
-        cooks.append([clients[0]["cook"]["position"][0], clients[0]["cook"]["position"][1], "cook"])
-        cooks.append([clients[1]["cook"]["position"][0], clients[1]["cook"]["position"][1], "cook"])
+        cooks.append([clients[0]["cook"]["position"][1], clients[0]["cook"]["position"][0], "white_cook"])
+        cooks.append([clients[1]["cook"]["position"][1], clients[1]["cook"]["position"][0], "white_cook"])
         self.command(turn_num, "set_layer", ["cooks", cooks])
 
 
@@ -61,9 +68,12 @@ class UnderCookedAdapter():
                     # The only non station on the game_map at the start is the two cooks
                     # Keep track of where the cooks are so we can initalize their position later
                     if key != "cook":
-                        stations.append([x, y, key])
+                        if key == "oven":
+                            stations.append([x, y, "oven_empty"])
+                        else:
+                            stations.append([x, y, key])
                     else:
-                        cooks.append([x, y, key])
+                        cooks.append([x, y, "white_cook"])
         # Update the station layer with the list of station positions
         self.command(0, "set_layer", ["stations", stations])
         # Add the items layer
@@ -71,6 +81,21 @@ class UnderCookedAdapter():
         # Add the cook layer and set inital cook positions found during station setup
         self.command(0, "add_layer", ["cooks", 10, width, height])
         self.command(0, "set_layer", ["cooks", cooks])
+
+    def find_items_and_states(self, game_map):
+        dispensers = []
+        ovens = []
+        items = []
+        for y, row in enumerate(game_map):
+            for x, tile in enumerate(row):
+                if tile["occupied_by"] is not None:
+                    key = self.tile_key(tile["occupied_by"]["object_type"])
+                    if key == "dispenser":
+                        dispensers.append([x, y, self.dispenser_key(tile["occupied_by"])])
+        
+        return (dispensers, ovens, items)
+
+
 
     def command(self, turn, command, value):
         self.output.append(self.create_command(turn, command, value))
@@ -88,14 +113,45 @@ class UnderCookedAdapter():
         if num == 6: return "dispenser"
         if num == 8: return "cook"
         if num == 12: return "roller"
-        if num == 13: return "cutter"
+        if num == 13: return "slicer"
         if num == 14: return "oven"
         if num == 15: return "bin"
         if num == 16: return "combiner"
         if num == 17: return "storage"
         if num == 18: return "delivery"
-        if num == 19: return "sauce"
+        if num == 19: return "saucer"
         return "NoAdapterTileKeyError"
+    
+    def item_key(self, item):
+        pass
+
+    def dispenser_key(self, dispenser):
+        if dispenser["item"] == None:
+            return "dispenser"
+        else:
+            num = dispenser["item"]["topping_type"]
+            if num == 0:
+                return "dispenser"
+            elif num == 1:
+                return "dispenser_dough"
+            elif num == 2:
+                return "dispenser_cheese"
+            elif num == 3:
+                return "dispenser_pepperoni"
+            elif num == 4:
+                return "dispenser_sausage"
+            elif num == 5:
+                return "dispenser_ham"
+            elif num == 6:
+                return "dispenser_mushroom"
+            elif num == 7:
+                return "dispenser_pepper"
+            elif num == 8:
+                return "dispenser_chicken"
+            elif num == 9:
+                return "dispenser_olive"
+            elif num == 10:
+                return "dispenser_anchovy"
 
 
 
@@ -104,7 +160,7 @@ def help():
     print("COMMAND USAGE for PYTHON 3")
     print("python ./adapter.py turnLogsFile outputFile")
     print("python ./adapter.py --help")
-    print("Zero arguments will default to ./turn_logs.json")
+    print("Zero arguments will default to using ./logs/ and outputing to ./graphical.json")
 
 if(__name__ == "__main__"):
     if(len(sys.argv) == 1):
@@ -112,6 +168,7 @@ if(__name__ == "__main__"):
         adapter.test("graphical.json")
     elif (len(sys.argv) == 3):
         adapter = UnderCookedAdapter(sys.argv[1])
+        adapter.test(sys.argv[2])
     elif (len(sys.argv) == 2 and sys.argv[1] == "--help"):
         help()
     else:

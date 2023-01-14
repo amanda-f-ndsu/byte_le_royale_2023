@@ -265,7 +265,8 @@ class Bytiser():
                     else:
                         # Get the BSprite based on the key and update the layer tile location
                         layer.tiles[tile[1]][tile[0]] =  self.get_sprite(tile[2])
-                # If there is a default tile, update all None spots with the default tile
+
+                # If there is a default tiles, update all None spots with the default tile
                 if default_tile != None:
                     for y in range(layer.height):
                         for x in range(layer.width):
@@ -349,12 +350,12 @@ def help():
     print("COMMAND USAGE for PYTHON 3")
     print("python ./bytiser.py configFile logFile")
     print("python ./bytiser.py --fonts <-- Will display list of system fonts available to pygame")
-    print("Zero arguments will default to ./config.json and ./log.json")
+    print("Zero arguments will default to ./config.json and ./graphical.json")
     
 if(__name__ == "__main__"):
     if(len(sys.argv) == 1):
         bytiser = Bytiser("./config.json")
-        bytiser.run_log("./log.json")
+        bytiser.run_log("./graphical.json")
     elif (len(sys.argv) == 3):
         bytiser = Bytiser(sys.argv[1])
         bytiser.run_log(sys.argv[2])
