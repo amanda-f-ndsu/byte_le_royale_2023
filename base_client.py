@@ -71,12 +71,11 @@ class Client(UserClient):
         return ((int_tuple_one[0] - int_tuple_two[0]) , (int_tuple_one[1] - int_tuple_two[1]))
 
     def decide_move(self, int_tuple : Tuple[int, int]) -> ActionType.Move:
-        dir_pinned = min(max(int_tuple, (-1,-1)), (1,1))
-        if dir_pinned[0] == 1:
+        if int_tuple[1] > 1:
             return ActionType.Move.left
-        elif dir_pinned[0] == -1: 
+        elif int_tuple[1] < -1:
             return ActionType.Move.right
-        elif dir_pinned[1] == 1:
-            return ActionType.Move.down
-        elif dir_pinned[1] == -1:
+        elif int_tuple[0] >= 1:
             return ActionType.Move.up
+        elif int_tuple[0] <= -1: 
+            return ActionType.Move.down
