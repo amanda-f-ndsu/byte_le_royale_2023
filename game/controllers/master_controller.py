@@ -35,7 +35,7 @@ class MasterController(Controller):
 
     # Receives all clients for the purpose of giving them the objects they will control
     def give_clients_objects(self, clients):
-        starting_positions = [[3,3],[9, 3]]
+        starting_positions = [[3,3],[3, 9]]
         for index, client in enumerate (clients):
             client.cook = Cook(position=starting_positions[index])
 
