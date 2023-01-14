@@ -19,6 +19,8 @@ class Client(UserClient):
         self.x_max = None
         self.y_max = 5
         self.combiner_location = None
+        self.tick = None
+        self.oven = None
 
     def team_name(self):
         """
@@ -95,6 +97,16 @@ class Client(UserClient):
                     action.chosen_action = direction_to_move
                 elif cheese_location and self.manhattan_distance(cook.position, cheese_location) == 1:
                     action.chosen_action = ActionType.interact
+                    self.state = "cut"
+            case "cut":
+                cutter = self.scan_board(
+                    world, ObjectType.cutter)
+                if cutter and self.manhattan_distance(cook.position, cutter) > 1:
+                    dist_tup = self.tuple_difference(cook.position, cutter)
+                    direction_to_move = self.decide_move(dist_tup)
+                    action.chosen_action = direction_to_move
+                elif cutter and self.manhattan_distance(cook.position, cutter) == 1:
+                    action.chosen_action = ActionType.interact
                     self.state = "combiner_needs_cheese"
             case "combiner_needs_cheese":
                 if  self.combiner_location and self.manhattan_distance(cook.position, self.combiner_location) > 1:
@@ -106,8 +118,23 @@ class Client(UserClient):
                     self.state = "combiner_has_cheese"
             case "combiner_has_cheese":
                 action.chosen_action = ActionType.interact
-                self.state = "finished_pizza"
+                self.state = "uncooked"
                 self.combiner_location = None
+            case "uncooked":
+                oven = self.scan_board(
+                    world, ObjectType.oven)
+                if oven and self.manhattan_distance(cook.position, oven) > 1:
+                    dist_tup = self.tuple_difference(cook.position, oven)
+                    direction_to_move = self.decide_move(dist_tup)
+                    action.chosen_action = direction_to_move
+                else:
+                    action.chosen_action = ActionType.interact
+                    self.oven = oven
+                    self.state = "wait"
+            case "wait":
+                if world.game_map[self.oven[0]][self.oven[1]].occupied_by.item.state == PizzaState.baked:
+                    action.chosen_action = ActionType.interact
+                    self.state = "finished_pizza"
             case "finished_pizza":
                 delivery_location = self.scan_board(
                     world, ObjectType.delivery)
