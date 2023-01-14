@@ -1,4 +1,6 @@
+from typing import Tuple
 from game.client.user_client import UserClient
+from game.common.cook import Cook
 from game.common.game_board import GameBoard
 from game.common.action import Action
 from game.common.cook import Cook
