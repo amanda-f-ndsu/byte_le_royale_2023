@@ -16,22 +16,23 @@ class InteractController(Controller):
     def __init__(self):
         super().__init__()
 
-    def handle_actions(self, cook, world):
-        stat = None
-        x = 0
-        y = 0
-        if isinstance(world.game_map[cook.position[1] - 1][cook.position[0]].occupied_by, Station):
-            x = cook.position[0]
-            y = cook.position[1] - 1
-        elif isinstance(world.game_map[cook.position[1] + 1][cook.position[0]].occupied_by, Station):
-            x = cook.position[0]
-            y = cook.position[1] + 1
-        elif isinstance(world.game_map[cook.position[1]][cook.position[0] - 1].occupied_by, Station):
-            x = cook.position[0] - 1
-            y = cook.position[1]
-        elif isinstance(world.game_map[cook.position[1]][cook.position[0] + 1].occupied_by, Station):
-            x = cook.position[0] + 1
-            y = cook.position[1]
-        if(x != 0 or y != 0):
-            stat = world.game_map[x][y].occupied_by
-            return stat.take_action(cook)
+    def handle_actions(self, client, world):
+        if client.action.chosen_action is ActionType.interact:
+            stat = None
+            x = None
+            y = None
+            if isinstance(world.game_map[client.cook.position[1] - 1][client.cook.position[0]].occupied_by, Station):
+                x = client.cook.position[0]
+                y = client.cook.position[1] - 1
+            elif isinstance(world.game_map[client.cook.position[1] + 1][client.cook.position[0]].occupied_by, Station):
+                x = client.cook.position[0]
+                y = client.cook.position[1] + 1
+            elif isinstance(world.game_map[client.cook.position[1]][client.cook.position[0] - 1].occupied_by, Station):
+                x = client.cook.position[0] - 1
+                y = client.cook.position[1]
+            elif isinstance(world.game_map[client.cook.position[1]][client.cook.position[0] + 1].occupied_by, Station):
+                x = client.cook.position[0] + 1
+                y = client.cook.position[1]
+            if(x != None and y != None):
+                stat = world.game_map[y][x].occupied_by
+                return stat.take_action(client.cook)

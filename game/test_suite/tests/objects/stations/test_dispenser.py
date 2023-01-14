@@ -15,7 +15,7 @@ class TestDispenser(unittest.TestCase):
       
     def testDispenseEmpty(self):
         self.assertIsNone(self.dispenser.item)
-        self.dispenser.dispense()
+        self.dispenser.dispense(1)
         self.assertIsNotNone(self.dispenser.item)
 
     def testDispenseFull(self):
@@ -24,7 +24,7 @@ class TestDispenser(unittest.TestCase):
         same_item = Topping(topping_type=ToppingType.mushrooms, quality=1, worth=GameStats.topping_stats[ToppingType.mushrooms]["score"]) # same item but different reference
         self.assertTrue(stored_item is self.dispenser.item)
         # test to prove that item isn't replaced after dispense method    
-        self.dispenser.dispense()
+        self.dispenser.dispense(1)
         self.assertTrue(stored_item is self.dispenser.item)
         self.assertFalse(same_item is self.dispenser.item) # this case proves that the dispenser item isn't replaced by same topping object
 

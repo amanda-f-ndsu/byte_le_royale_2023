@@ -8,7 +8,7 @@ MAX_TICKS = 500                                     # max number of ticks the se
 TQDM_BAR_FORMAT = "Game running at {rate_fmt} "     # how TQDM displays the bar
 TQDM_UNITS = " turns"                               # units TQDM takes in the bar
 
-MAX_SECONDS_PER_TURN = 10000                         # max number of basic operations clients have for their turns
+MAX_SECONDS_PER_TURN = 0.1                          # max number of basic operations clients have for their turns
 
 MIN_CLIENTS_START = None                            # minimum number of clients required to start running the game; should be None when SET_NUMBER_OF_CLIENTS is used
 MAX_CLIENTS_START = None                            # maximum number of clients required to start running the game; should be None when SET_NUMBER_OF_CLIENTS is used
@@ -23,8 +23,7 @@ SET_NUMBER_OF_CLIENTS_CONTINUE = 2                  # required number of clients
 ALLOWED_MODULES = ["game.client.user_client",       # modules that clients are specifically allowed to access
                    "game.common.enums",
                    "game.common.action",
-                   "game.common.game_board", 
-                   "typing",
+                   "game.common.game_board",
                    "game.common.cook"
                    ]
 
