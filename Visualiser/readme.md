@@ -2,6 +2,13 @@
 - Visualiser with the goal of being able to use it for each year
 - Currently implemented with pygame
 
+# Command Line Controls
+## First adapt the logs into a graphical json
+- python undercooked_adapter.py logsFolder outputFile
+## Then run the bytiser to show the graphical json
+- python bytiser.py config.json inputFromAdapter.json
+- Both bytiser and undercooked_adapter can be passed --help for a help page
+
 ## How to use
 - Create a config.json
 - Use bytiser.run_log(log_path) to visualise a json graphical log
