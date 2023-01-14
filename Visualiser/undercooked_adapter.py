@@ -92,6 +92,8 @@ class UnderCookedAdapter():
                     key = self.tile_key(tile["occupied_by"]["object_type"])
                     if key == "dispenser":
                         dispensers.append([x, y, self.dispenser_key(tile["occupied_by"])])
+                    if key == "oven":
+                        ovens.append([x, y, self.oven_key(tile["occupied_by"])])
         
         return (dispensers, ovens, items)
 
@@ -124,6 +126,16 @@ class UnderCookedAdapter():
     
     def item_key(self, item):
         pass
+
+    def oven_key(self, oven):
+        if oven["is_powered"] == False:
+            return "oven_off"
+        elif oven["is_active"] == True:
+            return "oven_baking"
+        elif oven["timer"] <= 0:
+            return "oven_finished"
+        else:
+            return "oven_empty"
 
     def dispenser_key(self, dispenser):
         if dispenser["item"] == None:
