@@ -32,6 +32,12 @@
             "tile_size": [32, 32],
             "tile_spacing": [0, 0],
             "border_spacing": [0, 0]
+        },
+        "cooks": {
+            "source": "./spritesheets/cookSheet.png",
+            "tile_size": [32, 32],
+            "tile_spacing": [0, 0],
+            "border_spacing": [0, 0]
         }
     },
     "keys": {
@@ -154,6 +160,30 @@
         "item_pepper_3": ["pizza", 2, 6],
         "item_sausage_1": ["pizza", 3, 6],
         "item_sausage_2": ["pizza", 4, 6],
-        "item_sausage_3": ["pizza", 5, 6]
+        "item_sausage_3": ["pizza", 5, 6],
+        "amanda_cook_hold": ["cooks", 0, 0],
+        "amanda_cook": ["cooks", 1, 0],
+        "mitchell_cook": ["cooks", 2, 0],
+        "mitchell_cook_held": ["cooks", 3, 0],
+        "white_cook": ["cooks", 4, 0],
+        "white_cook_held": ["cooks", 5, 0],
+        "purple_cook_held": ["cooks", 6, 0],
+        "purple_cook": ["cooks", 7, 0],
+        "jean_cook": ["cooks", 8, 0],
+        "jean_cook_held": ["cooks", 9, 0],
+        "red_cook": ["cooks", 0, 1],
+        "red_cook_held": ["cooks", 1, 1],
+        "blue_cook": ["cooks", 2, 1],
+        "blue_cook_held": ["cooks", 3, 1],
+        "yellow_cook": ["cooks", 4, 1],
+        "yellow_cook_held": ["cooks", 5, 1],
+        "john_cook_held": ["cooks", 6, 1],
+        "john_cook": ["cooks", 7, 1],
+        "green_cook": ["cooks", 8, 1],
+        "green_cook_held": ["cooks", 9, 1],
+        "brown_cook_held": ["cooks", 0, 2],
+        "brown_cook": ["cooks", 1, 2],
+        "techno_cook": ["cooks", 2, 2],
+        "techno_cook_held": ["cooks", 3, 2]
     }
 }
