@@ -133,8 +133,9 @@ If the id is null then all score objects will update
 "value": [num_id, "Display Text", [x, y]]
 
 # To Do
-- Manually create pizza sprite sheet
-- Add fallback sprite 
+- Test Items in Adapter
+- Held Items in Adapter
+- Pizza and Ingredients in Adapter
 ## Visualiser/Art Polish
 - File chooser
 - Main menu

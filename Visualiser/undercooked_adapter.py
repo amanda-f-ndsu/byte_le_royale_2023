@@ -25,7 +25,7 @@ class UnderCookedAdapter():
         # Update dispensers with items
         self.command(turn_num, "update_layer", ["stations", dispensers])
         # Update ovens with state
-
+        self.command(turn_num, "update_layer", ["items", items])
         # Update items on map
 
         # Update ingredients on map 
@@ -81,6 +81,8 @@ class UnderCookedAdapter():
         # Add the cook layer and set inital cook positions found during station setup
         self.command(0, "add_layer", ["cooks", 10, width, height])
         self.command(0, "set_layer", ["cooks", cooks])
+        # Add item layer
+        self.command(0, "add_layer", ["items", 11, width, height])
 
     def find_items_and_states(self, game_map):
         dispensers = []
@@ -92,8 +94,10 @@ class UnderCookedAdapter():
                     key = self.tile_key(tile["occupied_by"]["object_type"])
                     if key == "dispenser":
                         dispensers.append([x, y, self.dispenser_key(tile["occupied_by"])])
-                    if key == "oven":
+                    elif key == "oven":
                         ovens.append([x, y, self.oven_key(tile["occupied_by"])])
+                    elif key != "cook" and "item" in tile["occupied_by"] and tile["occupied_by"]["item"] != None:
+                        items.append([x, y, self.item_key(tile["occupied_by"]["item"], False)])
         
         return (dispensers, ovens, items)
 
@@ -124,8 +128,34 @@ class UnderCookedAdapter():
         if num == 19: return "saucer"
         return "NoAdapterTileKeyError"
     
-    def item_key(self, item):
-        pass
+    def item_key(self, item, is_held):
+        prefix = "held_" if is_held else "item_"
+        num = item["topping_type"]
+        if num == 0:
+            main = "none"
+        elif num == 1:
+            main = "dough"
+        elif num == 2:
+            main = "cheese"
+        elif num == 3:
+            main = "pepperoni"
+        elif num == 4:
+            main = "sausage"
+        elif num == 5:
+            main = "ham"
+        elif num == 6:
+            main = "mushroom"
+        elif num == 7:
+            main = "pepper"
+        elif num == 8:
+            main = "chicken"
+        elif num == 9:
+            main = "olive"
+        elif num == 10:
+            main = "anchovy"
+        
+        suffix = "_sliced" if item["is_cut"] else ""
+        return prefix + main + suffix
 
     def oven_key(self, oven):
         if oven["is_powered"] == False:
@@ -138,7 +168,7 @@ class UnderCookedAdapter():
             return "oven_empty"
 
     def dispenser_key(self, dispenser):
-        if dispenser["item"] == None:
+        if "item" not in dispenser:
             return "dispenser"
         else:
             num = dispenser["item"]["topping_type"]
