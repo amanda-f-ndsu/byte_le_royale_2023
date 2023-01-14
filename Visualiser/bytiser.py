@@ -351,6 +351,12 @@ def help():
     print("python ./bytiser.py configFile logFile")
     print("python ./bytiser.py --fonts <-- Will display list of system fonts available to pygame")
     print("Zero arguments will default to ./config.json and ./graphical.json")
+    print("Controls:")
+    print("Space - Pause/Play")
+    print("Up/Down Arrow - Speed Up or Slow Down")
+    print("Left/Right Arrow - Go forward/back one turn")
+    print("d - Enable debug stats (go to next turn to update display)")
+    print("r - Restart from beginning")
     
 if(__name__ == "__main__"):
     if(len(sys.argv) == 1):
