@@ -10,7 +10,7 @@ from game.common.stations.delivery import Delivery
 from game.common.stations.dispenser import Dispenser
 from game.common.stations.oven import Oven
 from game.common.stations.roller import Roller
-from game.common.stations.sauce import Sauce
+from game.common.stations.Sauce import Sauce
 from game.common.stations.storage import Storage
 
 
