@@ -44,5 +44,4 @@ Move
 
     actions.chosen_action(ActionType.Move.right) -> None
 
-This will use your action to reload your gun. You have infinite ammo, but a limited magazine.
-This means your gun will run out of ammo in it's magazine, but you can reload as many times as you like.
+This will use your action to move around. It will allow the User to moved their AI up, down, left, and right.
