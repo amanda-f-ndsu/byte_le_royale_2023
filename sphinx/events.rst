@@ -1,6 +1,7 @@
 ======================
 Events
 ======================
+
  
 Events List
 -----------------
@@ -36,3 +37,6 @@ workplace encouragement to help the workers at Pizza World become more extension
 that appears on the floor even if it's just a drop. Due to this mental programming that the company has done, you are not able to enter any tile that has water on the floor, even
 if it is just a tiny tiny little bitsy itsy little bit.
 
+Event timing
+---------------------
+Events happen twice per game, Once when the game is 1/3rd of the way through and another when it is 2/3rd's of the way through
