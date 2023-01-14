@@ -1,5 +1,6 @@
 from game.client.user_client import UserClient
 from game.common.action import Action
+from game.common.cook import Cook
 from game.common.game_board import GameBoard
 from game.common.enums import *
 
@@ -17,7 +18,7 @@ class Client(UserClient):
         return 'Team Name'
 
     # This is where your AI will decide what to do
-    def take_turn(self, turn : int, action : Action, world : GameBoard):
+    def take_turn(self, turn : int, action : Action, world : GameBoard, cook : Cook):
         """
         This is where your AI will decide what to do.
         :param turn:        The current turn of the game.

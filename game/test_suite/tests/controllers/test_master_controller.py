@@ -20,7 +20,7 @@ class TestMasterController(unittest.TestCase):
         listofPlayers = { Player(),  Player()}
         self.masterController.event_active = EventType.electrical 
         self.masterController.current_world_data = self.world
-        self.masterController.handle_events(listofPlayers, 7)
+        self.masterController.handle_events(listofPlayers)
         listOfOvens = self.masterController.current_world_data["game_map"].ovens() 
         self.assertFalse(listOfOvens[0].is_powered)
 
