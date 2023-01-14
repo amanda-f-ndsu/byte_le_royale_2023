@@ -1,10 +1,12 @@
 import unittest
+from game.common.action import Action
+
+from game.common.cook import Cook
+from game.common.enums import *
 from game.common.map.counter import Counter
 from game.common.player import Player
-from game.utils.generate_game import generate_map
-from game.common.cook import Cook
 from game.controllers.movement_controller import MovementController
-from game.common.enums import *
+from game.utils.generate_game import generate_map
 
 
 class TestMovementController(unittest.TestCase):
@@ -22,57 +24,55 @@ class TestMovementController(unittest.TestCase):
         self.assertTrue(isinstance(self.world.game_map[3][3].occupied_by, Cook))
     
     def test_up(self):
-        self.player.cook.chosen_action = ActionType.Move.up
+        self.player.action = Action(ActionType.Move.up)
         self.movementController.handle_actions(self.world,self.player)
-        self.assertTrue(self.player.cook.position == (3,2))
+        self.assertTrue(self.player.cook.position == (2,3))
         self.assertIsNone(self.world.game_map[3][3].occupied_by)
         self.assertTrue(isinstance(self.world.game_map[2][3].occupied_by, Cook))
 
 
     def test_down(self):
-        self.player.cook.chosen_action = ActionType.Move.down
+        self.player.action = Action(ActionType.Move.down)
         self.movementController.handle_actions(self.world,self.player)
-        self.assertTrue(self.player.cook.position == (3,4))
+        self.assertTrue(self.player.cook.position == (4,3))
         self.assertIsNone(self.world.game_map[3][3].occupied_by)
         self.assertTrue(isinstance(self.world.game_map[4][3].occupied_by, Cook))
 
 
     def test_left(self):
-        self.player.cook.chosen_action = ActionType.Move.left
+        self.player.action = Action(ActionType.Move.left)
         self.movementController.handle_actions(self.world,self.player)
-        self.assertTrue(self.player.cook.position == (2,3))
+        self.assertTrue(self.player.cook.position == (3,2))
         self.assertIsNone(self.world.game_map[3][3].occupied_by)
         self.assertTrue(isinstance(self.world.game_map[3][2].occupied_by, Cook))
 
     def test_right(self):
-        self.player.cook.chosen_action = ActionType.Move.right
+        self.player.action = Action(ActionType.Move.right)
         self.movementController.handle_actions(self.world,self.player)
-        self.assertTrue(self.player.cook.position == (4,3))
+        self.assertTrue(self.player.cook.position == (3,4))
         self.assertIsNone(self.world.game_map[3][3].occupied_by)
         self.assertTrue(isinstance(self.world.game_map[3][4].occupied_by, Cook))
 
     def test_move_fail_up(self):
-        self.player.cook.chosen_action = ActionType.Move.up
+        self.player.action = Action(ActionType.Move.up)
         self.world.game_map[2][3].occupied_by = Counter()
         self.movementController.handle_actions(self.world,self.player)
         self.assertTrue(self.player.cook.position == (3,3))
 
     def test_move_fail_down(self):
-        self.player.cook.chosen_action = ActionType.Move.down
+        self.player.action = Action(ActionType.Move.down)
         self.world.game_map[4][3].occupied_by = Counter()
         self.movementController.handle_actions(self.world,self.player)
         self.assertTrue(self.player.cook.position == (3,3))
 
     def test_move_fail_left(self):
-        self.player.cook.chosen_action = ActionType.Move.left
+        self.player.action = Action(ActionType.Move.left)
         self.world.game_map[3][2].occupied_by = Counter()
         self.movementController.handle_actions(self.world,self.player)
         self.assertTrue(self.player.cook.position == (3,3))
 
     def test_move_fail_right(self):
-        self.player.cook.chosen_action = ActionType.Move.right
+        self.player.action = Action(ActionType.Move.right)
         self.world.game_map[3][4].occupied_by = Counter()
         self.movementController.handle_actions(self.world,self.player)
         self.assertTrue(self.player.cook.position == (3,3))
-
-

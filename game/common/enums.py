@@ -7,7 +7,6 @@ class DebugLevel:
     controller = 2
     engine = 3
 
-
 class ObjectType:
     none = 0
     game_board = 1
@@ -34,6 +33,7 @@ class ObjectType:
 class ActionType:
     none = 0
     test = 1
+    interact = 2
     class Move:
         none = 0.5
         up = 1.5

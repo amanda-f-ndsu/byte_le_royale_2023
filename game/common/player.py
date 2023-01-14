@@ -16,6 +16,15 @@ class Player(GameObject):
         self.action = action
         self.cook = cook
 
+    @property
+    def action(self) -> Action:
+        return self.__action
+
+    @action.setter
+    def action(self, action: Action):
+        if isinstance(action, Action) or action is None:
+            self.__action = action
+
     def to_json(self):
         data = super().to_json()
 
