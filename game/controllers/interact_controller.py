@@ -20,6 +20,7 @@ class InteractController(Controller):
     def __init__(self):
         super().__init__()
 
+<<<<<<< HEAD
     def handle_actions(self, cook, world):
         stat = None
         x = 0
@@ -44,3 +45,25 @@ class InteractController(Controller):
             stat = world.game_map[x][y].occupied_by
 >>>>>>> 178d08184c392d29cef9e67c56c5ba54d608436b
             return stat.take_action(cook)
+=======
+    def handle_actions(self, client, world):
+        if client.action.chosen_action is ActionType.interact:
+            stat = None
+            x = None
+            y = None
+            if isinstance(world.game_map[client.cook.position[1] - 1][client.cook.position[0]].occupied_by, Station):
+                x = client.cook.position[0]
+                y = client.cook.position[1] - 1
+            elif isinstance(world.game_map[client.cook.position[1] + 1][client.cook.position[0]].occupied_by, Station):
+                x = client.cook.position[0]
+                y = client.cook.position[1] + 1
+            elif isinstance(world.game_map[client.cook.position[1]][client.cook.position[0] - 1].occupied_by, Station):
+                x = client.cook.position[0] - 1
+                y = client.cook.position[1]
+            elif isinstance(world.game_map[client.cook.position[1]][client.cook.position[0] + 1].occupied_by, Station):
+                x = client.cook.position[0] + 1
+                y = client.cook.position[1]
+            if(x != None and y != None):
+                stat = world.game_map[y][x].occupied_by
+                return stat.take_action(client.cook)
+>>>>>>> 90e5653fc204fed8b6bc87eb355f5d31cbfa1773

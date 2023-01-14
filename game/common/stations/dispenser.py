@@ -24,8 +24,8 @@ class Dispenser(Station):
         
        
 
-    def dispense(self):
-        if not self.item:
+    def dispense(self, turn):
+        if not self.item or turn % GameStats.turns_per_item_turnover_event == 0:
             rand_topping = random.randint(ToppingType.dough, ToppingType.anchovies)
             self.item = Topping(topping_type=rand_topping, worth=GameStats.topping_stats[rand_topping]["score"], quality=1)
 
@@ -33,8 +33,9 @@ class Dispenser(Station):
         dict_data = super().to_json()
         return dict_data
 
-    def from_json(self, data: dict) -> None:
+    def from_json(self, data: dict) -> 'Dispenser':
         super().from_json(data)
+        return self
    
 
     def obfuscate(self) -> None:

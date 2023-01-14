@@ -1,0 +1,62 @@
+==========
+Topping
+==========
+The topping is place onto the pizza after being cut to increase the amount of point you can get. These topping will be found in dispenser occasionally with first come first serve.
+Topping will need to be cut in the cutter station before being added to pizza in combiner station. 
+
+Instance Variables
+---------------------
+
+Instance variables for the Gun object
+
+================  =========================== ===================
+ Name              Type                        Description
+================  =========================== ===================
+ Topping_type       ToppingType enums           An enum that describes what type of topping this is
+ is_cut             bool                        Whether the topping is alreadly cut or not
+================  =========================== ===================
+
+Gun type enum
+---------------
+
+The following are the enums described above
+
+================  =========================== 
+ Topping Type              number            
+================  =========================== 
+   none             0
+   dough            1
+   cheese           2
+   pepperoni        3
+   sausage          4
+   canadian_ham     5
+   mushrooms        6
+   peppers          7
+   chicken          8
+   olives           9
+   anchovies        10
+================  =========================== 
+
+Gun stats
+----------
+
+Below are the point gain from adding this topping to the pizza
+
+Topping point
+==============
+
+================  ========== ========================================================= 
+ Topping           point       Information   
+================  ========== ========================================================= 
+ dough              50          Dough score used as base pizza score and required           
+ cheese             20          Cheese is required and is the first topping of pizza
+ pepperoni          40          n/a             
+ sausage            40          n/a     
+ canadian_ham       40          n/a
+ mushrooms          40          n/a
+ peppers            50          n/a
+ chicken            40          n/a
+ olives             50          n/a
+ anchovies          50          n/a      
+================  ========== =========================================================   
+ 
