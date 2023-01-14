@@ -3,6 +3,8 @@ from game.client.user_client import UserClient
 from game.common.cook import Cook
 from game.common.game_board import GameBoard
 from game.common.action import Action
+from game.common.cook import Cook
+from typing import Tuple
 from game.common.enums import *
 
 
@@ -35,9 +37,22 @@ class Client(UserClient):
                     dist_tup = self.tuple_difference(cook.position, dough_location)
                     direction_to_move = self.decide_move(dist_tup)
                     action.chosen_action = direction_to_move
-                # else:
-                #     #action.chosen_action = ActionType
-                #     print("Here")
+                elif dough_location and self.manhattan_distance(cook.position, dough_location) == 1:
+                    action.chosen_action = ActionType.interact
+                    self.state = "Dough"
+            case "Dough":
+                roller_location = self.scan_board(
+                    world, ObjectType.roller)
+                if roller_location and self.manhattan_distance(cook.position, roller_location) > 1:
+                    dist_tup = self.tuple_difference(cook.position, roller_location)
+                    direction_to_move = self.decide_move(dist_tup)
+                    action.chosen_action = direction_to_move
+                else:
+                    action.chosen_action = ActionType.interact
+                    self.state = "Roller_fetch"
+            case "Roller_fetch":
+                action.chosen_action = ActionType.interact
+                self.state = "Roller_fetch"
 
         pass
 
