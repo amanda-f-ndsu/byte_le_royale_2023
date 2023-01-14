@@ -23,10 +23,16 @@ class DecayController(Controller):
                         continue #Skip ovens that are currently cooking
                     if eventType == EventType.infestation:
                         station.item.quality = max(station.item.quality - GameStats.infested_decay_rate, 0)
+                        if station.item.quality <= 0:
+                            station.item = None
                     else:
                         station.item.quality = max(station.item.quality - GameStats.decay_rate, 0)
+                        if station.item.quality <= 0:
+                            station.item = None
         for cook in playerList:
             if cook.held_item:
                 cook.held_item.quality = max(cook.held_item.quality - GameStats.decay_rate, 0)
+                if cook.held_item.quality <= 0:
+                            cook.held_item = None
 
 
