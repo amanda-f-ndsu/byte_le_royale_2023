@@ -104,6 +104,7 @@ class Bytiser():
         self.speed = 0
         self.turn = 0
         self.index = 0
+        self.shift = False
         # Clear screen
         self.screen.fill(self.black)
         # While game_run ie display should be running
@@ -117,16 +118,24 @@ class Bytiser():
                         game_run = False
                     # Check for forward turn
                     elif event.key == K_RIGHT:
-                        self.next_turn()
+                        if self.shift and self.index+10 < len(self.commands):
+                            self.turn += 9
+                            self.go_to_turn(self.turn)
+                        else:
+                            self.next_turn()
                     # Check for backward turn
                     # Also make sure the current turn is not 0
                     elif event.key == K_LEFT and self.turn > 1:
-                        # If not at the end, sub 2 because self.turn is actually the number of the next turn to display
-                        if self.index < len(self.commands):
-                            self.turn -= 2
-                        # If we are at the end, then self.turn is capped at the end turn so only sub 1
+                        # Check if shift key is pressed
+                        if self.shift and self.index+10 < len(self.commands):
+                            self.turn -= 11
                         else:
-                            self.turn -= 1
+                            # If not at the end, sub 2 because self.turn is actually the number of the next turn to display
+                            if self.index < len(self.commands):
+                                self.turn -= 2
+                            # If we are at the end, then self.turn is capped at the end turn so only sub 1
+                            else:
+                                self.turn -= 1
                         self.go_to_turn(self.turn)
                     elif event.key == K_SPACE:
                         self.paused = not self.paused
@@ -147,11 +156,15 @@ class Bytiser():
                         self.screen.fill(self.black)
                         # Go to next turn to make sure screen is updated
                         self.next_turn()
+                    elif event.key == K_LSHIFT:
+                        self.shift = True
                 elif event.type == KEYUP:
                     if event.key == K_UP:
                         self.speed -= 1
                     elif event.key == K_DOWN:
                         self.speed += 1
+                    elif event.key == K_LSHIFT:
+                        self.shift = False
                 # Check for app quit
                 elif event.type == QUIT:
                     game_run = False
@@ -357,10 +370,11 @@ def help():
     print("Zero arguments will default to ./config.json and ./graphical.json")
     print("Controls:")
     print("Space - Pause/Play")
-    print("Up/Down Arrow - Speed Up or Slow Down")
+    print("Up/Down Arrow(hold) - Speed Up or Slow Down")
     print("Left/Right Arrow - Go forward/back one turn")
     print("d - Enable debug stats (go to next turn to update display)")
     print("r - Restart from beginning")
+    print("left shift(hold) - Left/Right Arrow now does 10 turns instead of 1")
     
 if(__name__ == "__main__"):
     if(len(sys.argv) == 1):
