@@ -6,7 +6,7 @@ import json
 
 class Pizza(Item):
 
-    def __init__(self, worth: int = 0, quality: float = 0, state: int = PizzaState.rolled):
+    def __init__(self, worth: int = 0, quality: float = 1, state: int = PizzaState.rolled):
         super().__init__(worth, quality)
         self.object_type = ObjectType.pizza
         self.state = state
@@ -42,11 +42,13 @@ class Pizza(Item):
     def to_json(self):
         data = super().to_json()
         data['state'] = self.state
-        data['toppings'] = json.dumps(self.__toppings)
+        data['toppings'] = [topping.to_json() for topping in self.__toppings]
         return data
 
     def from_json(self, data: dict) -> 'Pizza':
         super().from_json(data)
         self.state = data['state']
-        self.__toppings = json.loads(data['toppings'])
+        self.__toppings = []
+        for item in data['toppings']:
+            self.__toppings.append(Item(data["worth"], data["quality"]))
         return self
