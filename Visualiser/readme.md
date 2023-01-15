@@ -133,9 +133,8 @@ If the id is null then all score objects will update
 "value": [num_id, "Display Text", [x, y]]
 
 # To Do
-- Test Items in Adapter
-- Held Items in Adapter
-- Pizza and Ingredients in Adapter
+- Test ingredients in adapter
+- Add shift key makes more turns on click in bytiser
 ## Visualiser/Art Polish
 - File chooser
 - Main menu
