@@ -134,7 +134,7 @@ If the id is null then all score objects will update
 
 # To Do
 - Test ingredients in adapter
-- Add shift key makes more turns on click in bytiser
+- Change to different cook sprites (holding is already done)
 ## Visualiser/Art Polish
 - File chooser
 - Main menu
