@@ -90,7 +90,8 @@ class MasterController(Controller):
                     oven.is_powered = False
         # Check if wet tiles event is triggered
         if self.event_active == EventType.wet_tile and self.event_timer == GameStats.event_timer:
-            self.wet_tiles_controller.handle_actions(self.current_world_data["game_map"],self.current_world_data["game_map"].cooks()) 
+            if not self.wet_tiles_controller.handle_actions(self.current_world_data["game_map"],self.current_world_data["game_map"].cooks()):
+               self.event_active = randint(EventType.electrical,EventType.infestation) 
         # Event stops running once timer hits zero, timer is reset
         if self.event_timer == 0:
             if self.event_active == EventType.electrical:
