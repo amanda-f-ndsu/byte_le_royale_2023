@@ -49,7 +49,7 @@ class Client(UserClient):
         match(self.state):
             case None:
                 dough_location = self.scan_board(
-                    world, ObjectType.dispenser, ToppingType.dough)
+                    world, ObjectType.dispenser, lambda x : x.topping_type == ToppingType.dough)
                 if dough_location:
                     man_dist = self.manhattan_distance(
                         cook.position, dough_location)
@@ -97,7 +97,7 @@ class Client(UserClient):
                         self.combiner_location = combiner_location
             case "combiner_pizza":
                 cheese_location = self.scan_board(
-                    world, ObjectType.dispenser, ToppingType.cheese)
+                    world, ObjectType.dispenser, lambda x : x.topping_type == ToppingType.cheese)
                 if cheese_location:
                     man_dist = self.manhattan_distance(
                         cook.position, cheese_location)
@@ -128,6 +128,38 @@ class Client(UserClient):
                     action.chosen_action = ActionType.interact
                     self.state = "combiner_has_cheese"
             case "combiner_has_cheese":
+                item_location = self.scan_board(
+                    world, ObjectType.dispenser,  lambda x : x.topping_type != ToppingType.dough)
+                if item_location:
+                    man_dist = self.manhattan_distance(
+                        cook.position, item_location)
+                    if man_dist > 1:
+                        action.chosen_action = self.move_action(
+                            cook.position, item_location)
+                    elif man_dist == 1:
+                        action.chosen_action = ActionType.interact
+                        self.state = "got_item"
+            case "got_item":
+                cutter = self.scan_board(
+                    world, ObjectType.cutter)
+                if cutter:
+                    man_dist = self.manhattan_distance(cook.position, cutter)
+                    if man_dist > 1:
+                        action.chosen_action = self.move_action(
+                            cook.position, cutter)
+                    elif man_dist == 1:
+                        action.chosen_action = ActionType.interact
+                        self.state = "combiner_needs_item"
+            case "combiner_needs_item":
+                man_dist = self.manhattan_distance(
+                    cook.position, self.combiner_location)
+                if man_dist > 1:
+                    action.chosen_action = self.move_action(
+                        cook.position, self.combiner_location)
+                else:
+                    action.chosen_action = ActionType.interact
+                    self.state = "combiner_has_item"
+            case "combiner_has_item":
                 action.chosen_action = ActionType.interact
                 self.state = "uncooked"
             case "uncooked":
@@ -165,11 +197,11 @@ class Client(UserClient):
         direction_to_move = self.decide_move(dist_tup)
         return direction_to_move
 
-    def scan_board(self, world: GameBoard, object_type: ObjectType, topping_type: ToppingType = None) -> Tuple[int, int]:
+    def scan_board(self, world: GameBoard, object_type: ObjectType, topping_type_eval = None) -> Tuple[int, int]:
         for y in range(0, len(world.game_map)):
             for x in range(self.half, len(world.game_map[y])):
                 if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
-                    if topping_type is None or (world.game_map[y][x].occupied_by.item != None and world.game_map[y][x].occupied_by.item.topping_type == topping_type):
+                    if topping_type_eval is None or (world.game_map[y][x].occupied_by.item != None and topping_type_eval(world.game_map[y][x].occupied_by.item)):
                         return (y, x)
         return None
 
