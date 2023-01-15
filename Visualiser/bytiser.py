@@ -264,7 +264,11 @@ class Bytiser():
                         default_tile = self.get_sprite(tile[2])
                     else:
                         # Get the BSprite based on the key and update the layer tile location
-                        layer.tiles[tile[1]][tile[0]] =  self.get_sprite(tile[2])
+                        try:
+                            layer.tiles[tile[1]][tile[0]] =  self.get_sprite(tile[2])
+                        except:
+                            breakpoint()
+                            print()
 
                 # If there is a default tiles, update all None spots with the default tile
                 if default_tile != None:

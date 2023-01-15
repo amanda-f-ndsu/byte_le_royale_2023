@@ -21,21 +21,24 @@ class UnderCookedAdapter():
         turn = open(self.log_path + "/turn_{:0>4}.json".format(turn_num))
         turn = json.loads(turn.read())
         game_map = turn["game_map"]["game_map"]
-        dispensers, ovens, items, held = self.find_items_and_states(game_map, turn["clients"])
+        dispensers, ovens, items, held, ingOne, ingTwo, ingThree = self.find_items_and_states(game_map, turn["clients"])
         # Update dispensers with items
         self.command(turn_num, "update_layer", ["stations", dispensers])
         # Update ovens with state
-        self.command(turn_num, "update_layer", ["items", items])
+        self.command(turn_num, "update_layer", ["stations", ovens])
         # Update items on map
         self.command(turn_num, "set_layer", ["items", items])
         # Update ingredients on map 
-
+        
         # Update position and icon of cooks
         cooks = []
         clients = turn["clients"]
-        cooks.append([clients[0]["cook"]["position"][1], clients[0]["cook"]["position"][0], "white_cook"])
-        cooks.append([clients[1]["cook"]["position"][1], clients[1]["cook"]["position"][0], "white_cook"])
+        held_one = "_held" if clients[0]["cook"]["held_item"] != None else ""
+        held_two = "_held" if clients[1]["cook"]["held_item"] != None else ""
+        cooks.append([clients[0]["cook"]["position"][1], clients[0]["cook"]["position"][0], "white_cook" + held_one])
+        cooks.append([clients[1]["cook"]["position"][1], clients[1]["cook"]["position"][0], "white_cook" + held_two])
         self.command(turn_num, "set_layer", ["cooks", cooks])
+        self.command(turn_num, "set_layer", ["held", held])
 
 
     def setup_scores(self):
@@ -77,20 +80,25 @@ class UnderCookedAdapter():
         # Update the station layer with the list of station positions
         self.command(0, "set_layer", ["stations", stations])
         # Add the items layer
-        self.command(0, "add_layer", ["items0", 2, width, height])
+        self.command(0, "add_layer", ["items", 2, width, height])
         # Add the cook layer and set inital cook positions found during station setup
         self.command(0, "add_layer", ["cooks", 10, width, height])
         self.command(0, "set_layer", ["cooks", cooks])
-        # Add item layer
-        self.command(0, "add_layer", ["items", 11, width, height])
         # Add held layer
         self.command(0, "add_layer", ["held", 12, width, height])
+        # Add ingredient layers
+        self.command(0, "add_layer", ["ing_1", 13, width, height])
+        self.command(0, "add_layer", ["ing_2", 14, width, height])
+        self.command(0, "add_layer", ["ing_3", 15, width, height])
 
     def find_items_and_states(self, game_map, clients):
         dispensers = []
         ovens = []
         items = []
         held = []
+        ingOne = []
+        ingTwo = []
+        ingThree = []
         # Go through map and look at tiles
         for y, row in enumerate(game_map):
             for x, tile in enumerate(row):
@@ -103,16 +111,29 @@ class UnderCookedAdapter():
                     # Check if item and not being held by cook
                     elif key != "cook" and "item" in tile["occupied_by"] and tile["occupied_by"]["item"] != None:
                         # Check if topping
-                        print(tile)
                         if tile["occupied_by"]["item"]["object_type"] == 9:
                             items.append([x, y, self.item_key(tile["occupied_by"]["item"], False)])
+                        # If a pizza, add pizza and ingredients
+                        elif tile["occupied_by"]["item"]["object_type"] == 11:
+                            item = tile["occupied_by"]["item"]
+                            items.append([x, y, self.item_key(item, False)])
+                            for i, t in enumerate(item["toppings"]):
+                                if i == 0:
+                                    continue
+                                elif i == 1:
+                                    ingOne.append([x, y, self.topping_key(t)])
+                                elif i == 2:
+                                    ingTwo.append([x, y, self.topping_key(t)])
+                                elif i == 3:
+                                    ingThree.append([x, y, self.topping_key(t)])
+
         # Check held items in cooks
         for client in clients:
             cook = client["cook"]
             if cook["held_item"] != None:
-                held.append([cook["position"][0], cook["position"][1], self.item_key(cook["held_item"], True)])
+                held.append([cook["position"][1], cook["position"][0], self.item_key(cook["held_item"], True)])
 
-        return (dispensers, ovens, items, held)
+        return (dispensers, ovens, items, held, ingOne, ingTwo, ingThree)
 
 
 
@@ -131,6 +152,7 @@ class UnderCookedAdapter():
         if num == 2: return "counter"
         if num == 6: return "dispenser"
         if num == 8: return "cook"
+        if num == 11: return "pizza"
         if num == 12: return "roller"
         if num == 13: return "slicer"
         if num == 14: return "oven"
@@ -145,7 +167,40 @@ class UnderCookedAdapter():
         prefix = "held_" if is_held else "item_"
         # Check if topping 
         if item["object_type"] == 9:
+            main = self.topping_key(item)
+        # Check if pizza
+        elif item["object_type"] == 11:
+            main = self.pizza_key(item)
+        # Item enum?
+        elif item["object_type"] == 5:
+            print("Item?: " + str(item))
+            main = "none"
+        else:
+            main = "none"
+        
+        # Check if sliced
+        if "is_cut" in item:
+            suffix = "_sliced" if item["is_cut"] else ""
+        else:
+            suffix = ""
 
+        return prefix + main + suffix
+
+    def pizza_key(self, pizza):
+        toppings = pizza["toppings"]
+        if pizza["state"] == 1:
+            return "pizza_rolled"
+        elif pizza["state"] == 2:
+            if len(toppings) >= 1 and self.topping_key(toppings[0]) == "cheese":
+                return "pizza_cheesed"
+            else:
+                return "pizza_sauced"
+        elif pizza["state"] == 3:
+            return "pizza_baked"
+        else:
+            return "pizza"
+
+    def topping_key(self, item):
         num = item["topping_type"]
         if num == 0:
             main = "none"
@@ -169,10 +224,7 @@ class UnderCookedAdapter():
             main = "olive"
         elif num == 10:
             main = "anchovy"
-        
-        suffix = "_sliced" if item["is_cut"] else ""
-        print(prefix + main + suffix)
-        return prefix + main + suffix
+        return main
 
     def oven_key(self, oven):
         if oven["is_powered"] == False:

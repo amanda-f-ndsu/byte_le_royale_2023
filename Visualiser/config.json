@@ -15,7 +15,7 @@
             "tile_spacing": [0, 0],
             "border_spacing": [0, 0]
         },
-        "item": {
+        "items": {
             "source": "./spritesheets/itemSheet.png",
             "tile_size": [32, 32],
             "tile_spacing": [0, 0],
