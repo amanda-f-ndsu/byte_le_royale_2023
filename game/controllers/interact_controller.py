@@ -35,4 +35,5 @@ class InteractController(Controller):
                 y = client.cook.position[0]
             if(x != None and y != None):
                 stat = world.game_map[y][x].occupied_by
-                return stat.take_action(client.cook)
+                result = stat.take_action(client.cook)
+                client.cook.held_item = result

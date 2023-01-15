@@ -74,9 +74,9 @@ class MasterController(Controller):
         for client in clients:
             self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
             self.interact_controller.handle_actions(client,self.current_world_data["game_map"])
-
-        
         self.dispenser_controller.handle_actions(self.current_world_data["game_map"],turn)
+        for oven in self.current_world_data["game_map"].ovens():
+            self.oven_controller.handle_actions(oven)
         # checks event logic at the end of round
         self.handle_events(clients)
         
