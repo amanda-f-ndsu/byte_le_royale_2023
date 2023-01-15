@@ -104,7 +104,7 @@
         "item_pepperoni_sliced": ["items", 6, 1],
         "floor": ["floor", 0, 0],
         "water": ["floor", 1, 0],
-        "infected": ["floor", 2, 0],
+        "infested": ["floor", 2, 0],
         "item_pizza_rolled": ["pizza", 0, 0],
         "item_pizza_sauced": ["pizza", 1, 0],
         "item_pizza_cheesed": ["pizza", 2, 0],

@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import json
 import sys
+from PIL import Image
 
 # Sprite Class that will load a sprite from a tile map passed as an image
 class BSprite(pygame.sprite.Sprite):
@@ -69,7 +70,7 @@ class Bytiser():
         self.font = pygame.font.SysFont(self.config["font"], self.config["font_size"])
         # Init score dict
         self.scores = {}
-        self.debug = False
+        self.debug = True
         self.text_layer = pygame.Surface((self.config["screen_width"], self.config["screen_height"]), pygame.SRCALPHA)
 
     # Load a sprite from the tile map
@@ -158,6 +159,8 @@ class Bytiser():
                         self.next_turn()
                     elif event.key == K_LSHIFT:
                         self.shift = True
+                    elif event.key == K_s:
+                        self.save_gif()
                 elif event.type == KEYUP:
                     if event.key == K_UP:
                         self.speed -= 1
@@ -182,6 +185,21 @@ class Bytiser():
                 self.clock.tick(self.config["fps"] / 2)
             else:
                 self.clock.tick(self.config["fps"])      
+
+    def save_gif(self):
+        images = []
+        self.turn = 0
+        width = self.config["screen_width"]
+        height = self.config["screen_height"]
+        while self.index < len(self.commands):
+            new_image = pygame.image.tostring(self.screen.copy(), "RGBA", False)
+            new_image = Image.frombytes("RGBA", (width, height), new_image)
+            # Scale image 
+            new_image.thumbnail([400, 400])
+            images.append(new_image)
+            self.next_turn()
+        images[0].save("./out.gif", append_images=images[1:], save_all=True, optimize=True, duration=10)
+        print("Saved gif")
 
     def next_turn(self):
         # Clear the screen
@@ -375,6 +393,7 @@ def help():
     print("d - Enable debug stats (go to next turn to update display)")
     print("r - Restart from beginning")
     print("left shift(hold) - Left/Right Arrow now does 10 turns instead of 1")
+    print("s - Save run as gif to ./out.gif (optimised to ~6mb for discord)")
     
 if(__name__ == "__main__"):
     if(len(sys.argv) == 1):

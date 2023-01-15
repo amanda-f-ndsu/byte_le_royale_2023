@@ -134,8 +134,10 @@ If the id is null then all score objects will update
 
 # To Do
 - Change to different cook sprites (holding is already done)
-- Infection and water tiles
+- Test infestation and water tiles
 ## Visualiser/Art Polish
+- Gif optimization
+- Seperate save GIF as small and as full
 - File chooser
 - Main menu
 - Buttons for pause, play, exit

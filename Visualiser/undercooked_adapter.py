@@ -21,7 +21,7 @@ class UnderCookedAdapter():
         turn = open(self.log_path + "/turn_{:0>4}.json".format(turn_num))
         turn = json.loads(turn.read())
         game_map = turn["game_map"]["game_map"]
-        dispensers, ovens, items, held, ingOne, ingTwo, ingThree = self.find_items_and_states(game_map, turn["clients"])
+        dispensers, ovens, items, held, ingOne, ingTwo, ingThree, wet_tiles, infested = self.find_items_and_states(game_map, turn["clients"])
         # Update dispensers with items
         self.command(turn_num, "update_layer", ["stations", dispensers])
         # Update ovens with state
@@ -41,6 +41,9 @@ class UnderCookedAdapter():
         cooks.append([clients[1]["cook"]["position"][1], clients[1]["cook"]["position"][0], "white_cook" + held_two])
         self.command(turn_num, "set_layer", ["cooks", cooks])
         self.command(turn_num, "set_layer", ["held", held])
+        # Update wet tiles
+        self.command(turn_num, "set_layer", ["water", wet_tiles])
+        self.command(turn_num, "set_layer", ["infested", infested])
 
 
     def setup_scores(self):
@@ -92,6 +95,10 @@ class UnderCookedAdapter():
         self.command(0, "add_layer", ["ing_1", 13, width, height])
         self.command(0, "add_layer", ["ing_2", 14, width, height])
         self.command(0, "add_layer", ["ing_3", 15, width, height])
+        # Add wet tiles layer
+        self.command(0, "add_layer", ["water", 20, width, height])
+        # Add infected tiles layer
+        self.command(0, "add_layer", ["infested", 21, width, height])
 
     def find_items_and_states(self, game_map, clients):
         dispensers = []
@@ -101,10 +108,21 @@ class UnderCookedAdapter():
         ingOne = []
         ingTwo = []
         ingThree = []
+        wet_tiles = []
+        infested = []
         # Go through map and look at tiles
         for y, row in enumerate(game_map):
             for x, tile in enumerate(row):
+                # Check for wet tile
+                if tile["is_wet_tile"]:
+                    wet_tiles.append([x, y, "water"])
+                # Check for stations
                 if tile["occupied_by"] is not None:
+                    # Check if infested
+                    if "is_infested" in tile["occupied_by"]:
+                        if tile["occupied_by"]["is_infested"]:
+                            infested.append([x, y, "infested"])
+                    # Get key and update stations
                     key = self.tile_key(tile["occupied_by"]["object_type"])
                     if key == "dispenser":
                         dispensers.append([x, y, self.dispenser_key(tile["occupied_by"])])
@@ -150,7 +168,7 @@ class UnderCookedAdapter():
                         elif i == 3:
                             ingThree.append([cook["position"][1], cook["position"][0], self.ingredient_key(t, True, 3)])
 
-        return (dispensers, ovens, items, held, ingOne, ingTwo, ingThree)
+        return (dispensers, ovens, items, held, ingOne, ingTwo, ingThree, wet_tiles, infested)
 
 
 
