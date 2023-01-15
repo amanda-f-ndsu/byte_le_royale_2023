@@ -29,7 +29,9 @@ class UnderCookedAdapter():
         # Update items on map
         self.command(turn_num, "set_layer", ["items", items])
         # Update ingredients on map 
-        
+        self.command(turn_num, "set_layer", ["ing_1", ingOne])
+        self.command(turn_num, "set_layer", ["ing_2", ingTwo])
+        self.command(turn_num, "set_layer", ["ing_3", ingThree])
         # Update position and icon of cooks
         cooks = []
         clients = turn["clients"]
@@ -121,17 +123,32 @@ class UnderCookedAdapter():
                                 if i == 0:
                                     continue
                                 elif i == 1:
-                                    ingOne.append([x, y, self.topping_key(t)])
+                                    ingOne.append([x, y, self.ingredient_key(t, False, 1)])
                                 elif i == 2:
-                                    ingTwo.append([x, y, self.topping_key(t)])
+                                    ingTwo.append([x, y, self.ingredient_key(t, False, 2)])
                                 elif i == 3:
-                                    ingThree.append([x, y, self.topping_key(t)])
+                                    ingThree.append([x, y, self.ingredient_key(t, False, 3)])
 
         # Check held items in cooks
         for client in clients:
             cook = client["cook"]
             if cook["held_item"] != None:
-                held.append([cook["position"][1], cook["position"][0], self.item_key(cook["held_item"], True)])
+                item = cook["held_item"]
+                held.append([cook["position"][1], cook["position"][0], self.item_key(item, True)])
+                # If a pizza then also add ingredients
+                if item["object_type"] == 11:
+                    # Go through all toppings
+                    for i, t in enumerate(item["toppings"]):
+                        # Skip cheese
+                        if i == 0:
+                            continue
+                        # Add the ingredient key (slightly different than topping keys)
+                        elif i == 1:
+                            ingOne.append([cook["position"][1], cook["position"][0], self.ingredient_key(t, True, 1)])
+                        elif i == 2:
+                            ingTwo.append([cook["position"][1], cook["position"][0], self.ingredient_key(t, True, 2)])
+                        elif i == 3:
+                            ingThree.append([cook["position"][1], cook["position"][0], self.ingredient_key(t, True, 3)])
 
         return (dispensers, ovens, items, held, ingOne, ingTwo, ingThree)
 
@@ -185,6 +202,13 @@ class UnderCookedAdapter():
             suffix = ""
 
         return prefix + main + suffix
+
+    def ingredient_key(self, item, is_held, num):
+        output = self.item_key(item, is_held)
+        output = output.replace("_sliced", "")
+        output += "_" + str(num)
+        return output
+
 
     def pizza_key(self, pizza):
         toppings = pizza["toppings"]

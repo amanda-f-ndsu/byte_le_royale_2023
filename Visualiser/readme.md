@@ -133,7 +133,6 @@ If the id is null then all score objects will update
 "value": [num_id, "Display Text", [x, y]]
 
 # To Do
-- Test ingredients in adapter
 - Change to different cook sprites (holding is already done)
 - Infection and water tiles
 ## Visualiser/Art Polish
