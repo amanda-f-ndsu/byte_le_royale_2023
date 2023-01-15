@@ -21,13 +21,13 @@ class UnderCookedAdapter():
         turn = open(self.log_path + "/turn_{:0>4}.json".format(turn_num))
         turn = json.loads(turn.read())
         game_map = turn["game_map"]["game_map"]
-        dispensers, ovens, items = self.find_items_and_states(game_map)
+        dispensers, ovens, items, held = self.find_items_and_states(game_map, turn["clients"])
         # Update dispensers with items
         self.command(turn_num, "update_layer", ["stations", dispensers])
         # Update ovens with state
         self.command(turn_num, "update_layer", ["items", items])
         # Update items on map
-
+        self.command(turn_num, "set_layer", ["items", items])
         # Update ingredients on map 
 
         # Update position and icon of cooks
@@ -83,11 +83,15 @@ class UnderCookedAdapter():
         self.command(0, "set_layer", ["cooks", cooks])
         # Add item layer
         self.command(0, "add_layer", ["items", 11, width, height])
+        # Add held layer
+        self.command(0, "add_layer", ["held", 12, width, height])
 
-    def find_items_and_states(self, game_map):
+    def find_items_and_states(self, game_map, clients):
         dispensers = []
         ovens = []
         items = []
+        held = []
+        # Go through map and look at tiles
         for y, row in enumerate(game_map):
             for x, tile in enumerate(row):
                 if tile["occupied_by"] is not None:
@@ -96,10 +100,19 @@ class UnderCookedAdapter():
                         dispensers.append([x, y, self.dispenser_key(tile["occupied_by"])])
                     elif key == "oven":
                         ovens.append([x, y, self.oven_key(tile["occupied_by"])])
+                    # Check if item and not being held by cook
                     elif key != "cook" and "item" in tile["occupied_by"] and tile["occupied_by"]["item"] != None:
-                        items.append([x, y, self.item_key(tile["occupied_by"]["item"], False)])
-        
-        return (dispensers, ovens, items)
+                        # Check if topping
+                        print(tile)
+                        if tile["occupied_by"]["item"]["object_type"] == 9:
+                            items.append([x, y, self.item_key(tile["occupied_by"]["item"], False)])
+        # Check held items in cooks
+        for client in clients:
+            cook = client["cook"]
+            if cook["held_item"] != None:
+                held.append([cook["position"][0], cook["position"][1], self.item_key(cook["held_item"], True)])
+
+        return (dispensers, ovens, items, held)
 
 
 
@@ -130,6 +143,9 @@ class UnderCookedAdapter():
     
     def item_key(self, item, is_held):
         prefix = "held_" if is_held else "item_"
+        # Check if topping 
+        if item["object_type"] == 9:
+
         num = item["topping_type"]
         if num == 0:
             main = "none"
@@ -155,6 +171,7 @@ class UnderCookedAdapter():
             main = "anchovy"
         
         suffix = "_sliced" if item["is_cut"] else ""
+        print(prefix + main + suffix)
         return prefix + main + suffix
 
     def oven_key(self, oven):
