@@ -31,7 +31,7 @@ class WetTilesController(Controller):
 
         # Case no wet_tile map was chosen, don't do anything.
         if not chosen_board and len(self.wet_options) == 0:
-            return
+            return False
 
         # Update current game board to have wet tiles
         for y in range(7):
