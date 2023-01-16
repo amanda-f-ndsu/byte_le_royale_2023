@@ -3,6 +3,9 @@ from pygame.locals import *
 import json
 import sys
 from PIL import Image
+import cv2
+import numpy
+import math
 
 # Sprite Class that will load a sprite from a tile map passed as an image
 class BSprite(pygame.sprite.Sprite):
@@ -160,7 +163,10 @@ class Bytiser():
                     elif event.key == K_LSHIFT:
                         self.shift = True
                     elif event.key == K_s:
-                        self.save_gif()
+                        if self.shift:
+                            self.save_video()
+                        else:
+                            self.save_gif()
                 elif event.type == KEYUP:
                     if event.key == K_UP:
                         self.speed -= 1
@@ -189,6 +195,7 @@ class Bytiser():
     def save_gif(self):
         images = []
         self.turn = 0
+        self.index = 0
         width = self.config["screen_width"]
         height = self.config["screen_height"]
         while self.index < len(self.commands):
@@ -200,6 +207,28 @@ class Bytiser():
             self.next_turn()
         images[0].save("./out.gif", append_images=images[1:], save_all=True, optimize=True, duration=10)
         print("Saved gif")
+
+    def save_video(self):
+        self.turn = 0
+        self.index = 0
+        size = (self.config["screen_width"], self.config["screen_height"])
+        scaled = (math.ceil(size[0]/2), math.ceil(size[1]/2))
+        writer = cv2.VideoWriter("out.mp4", cv2.VideoWriter_fourcc(*'H264'), 10, scaled)
+        
+        while self.index < len(self.commands):
+            # Convert to PIL Image
+            new_image = pygame.image.tostring(self.screen.copy(), "RGBA", False)
+            new_image = Image.frombytes("RGBA", size, new_image)
+            # Scale image 
+            new_image.thumbnail(scaled)
+            # Convert to OpenCV Image with numpty
+            new_image = numpy.array(new_image)
+            new_image = cv2.cvtColor(new_image, cv2.COLOR_RGBA2BGRA)
+            # Write image and go to next turn
+            writer.write(new_image)
+            self.next_turn()
+        writer.release()
+        print("Saved video")
 
     def next_turn(self):
         # Clear the screen
@@ -394,6 +423,7 @@ def help():
     print("r - Restart from beginning")
     print("left shift(hold) - Left/Right Arrow now does 10 turns instead of 1")
     print("s - Save run as gif to ./out.gif (optimised to ~6mb for discord)")
+    print("lshift + s - Save run as mp4 to ./out.mp4 (optimised to ~7mb for discord, might not work on all platforms")
     
 if(__name__ == "__main__"):
     if(len(sys.argv) == 1):
