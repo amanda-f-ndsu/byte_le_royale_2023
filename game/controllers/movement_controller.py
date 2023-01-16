@@ -13,16 +13,16 @@ class MovementController(Controller):
         cook_x = client.cook.position[1]
         cook_y = client.cook.position[0]
         if client.action.chosen_action == ActionType.Move.up:
-            if not world.game_map[cook_y - 1][cook_x].occupied_by:
+            if not world.game_map[cook_y - 1][cook_x].occupied_by and not world.game_map[cook_y - 1][cook_x].is_wet_tile:
                new_position = (cook_y-1,cook_x)
         if client.action.chosen_action == ActionType.Move.down:
-            if not world.game_map[cook_y+1][cook_x].occupied_by:
+            if not world.game_map[cook_y+1][cook_x].occupied_by and not world.game_map[cook_y+1][cook_x].is_wet_tile:
                new_position = (cook_y+1,cook_x)
         if client.action.chosen_action == ActionType.Move.left:
-            if not world.game_map[cook_y][cook_x-1].occupied_by:
+            if not world.game_map[cook_y][cook_x-1].occupied_by and not world.game_map[cook_y][cook_x-1].is_wet_tile:
                new_position = (cook_y,cook_x-1)
         if client.action.chosen_action == ActionType.Move.right:
-            if not world.game_map[cook_y][cook_x+1].occupied_by:
+            if not world.game_map[cook_y][cook_x+1].occupied_by and not world.game_map[cook_y][cook_x+1].is_wet_tile:
                new_position = (cook_y,cook_x+1)
         if new_position:
             world.game_map[cook_y][cook_x].occupied_by = None
