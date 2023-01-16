@@ -45,8 +45,8 @@ class TestInteractController(unittest.TestCase):
         self.movementController.handle_actions(self.world,self.player)
         self.player.cook.held_item = Topping(topping_type=ToppingType.pepperoni)
         self.player.action.chosen_action = ActionType.interact
-        temp: Topping = self.interactController.handle_actions(self.player, self.world)
-        self.assertEqual(temp, None)
+        self.interactController.handle_actions(self.player, self.world)
+        self.assertEqual(self.player.cook.held_item, None)
 
     def test_interact_storage(self):
         self.player.action.chosen_action = ActionType.Move.left
@@ -57,8 +57,8 @@ class TestInteractController(unittest.TestCase):
         self.movementController.handle_actions(self.world,self.player)
         self.player.cook.held_item = Topping(topping_type=ToppingType.pepperoni)
         self.player.action.chosen_action = ActionType.interact
-        temp: Topping = self.interactController.handle_actions(self.player, self.world)
-        self.assertEqual(temp, None)
+        self.interactController.handle_actions(self.player, self.world)
+        self.assertEqual(self.player.cook.held_item, None)
         
 
     def test_interact_oven(self):
@@ -69,7 +69,7 @@ class TestInteractController(unittest.TestCase):
        self.player.cook.held_item = Pizza(PizzaState.sauced)
        self.player.cook.held_item.add_topping(Topping(topping_type=ToppingType.cheese))
        self.player.action.chosen_action = ActionType.interact
-       self.player.cook.held_item = self.interactController.handle_actions(self.player, self.world)
+       self.interactController.handle_actions(self.player, self.world)
        self.assertIsNotNone(self.player.cook.held_item.state, Pizza(PizzaState.sauced))
     
     def test_interact_combiner(self):
@@ -82,8 +82,8 @@ class TestInteractController(unittest.TestCase):
        self.player.cook.held_item = self.interactController.handle_actions(self.player, self.world)
        self.assertIsNone(self.player.cook.held_item, Pizza)
        self.player.cook.held_item = Topping(topping_type=ToppingType.cheese, is_cut=True)
-       self.player.cook.held_item = self.interactController.handle_actions(self.player, self.world)
-       self.player.cook.held_item = self.interactController.handle_actions(self.player, self.world)
+       self.interactController.handle_actions(self.player, self.world)
+       self.interactController.handle_actions(self.player, self.world)
        self.assertIsInstance(self.player.cook.held_item, Pizza)
 
     def test_interact_down_delivery(self):
@@ -93,7 +93,7 @@ class TestInteractController(unittest.TestCase):
         self.movementController.handle_actions(self.world,self.player)
         self.player.cook.held_item = Pizza(state=PizzaState.baked)
         self.player.action.chosen_action = ActionType.interact
-        self.player.cook.held_item = self.interactController.handle_actions(self.player, self.world)
+        self.interactController.handle_actions(self.player, self.world)
         self.assertIsNone(self.player.cook.held_item)
 
     def test_interact_dispenser(self):
@@ -105,5 +105,5 @@ class TestInteractController(unittest.TestCase):
         self.movementController.handle_actions(self.world,self.player)
         self.player.cook.held_item = Pizza()
         self.player.action.chosen_action = ActionType.interact
-        self.player.cook.held_item = self.interactController.handle_actions(self.player, self.world)
+        self.interactController.handle_actions(self.player, self.world)
         self.assertIsNotNone(self.player.cook.held_item)
