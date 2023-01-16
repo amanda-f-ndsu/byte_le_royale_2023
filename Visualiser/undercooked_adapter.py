@@ -21,7 +21,7 @@ class UnderCookedAdapter():
         turn = open(self.log_path + "/turn_{:0>4}.json".format(turn_num))
         turn = json.loads(turn.read())
         game_map = turn["game_map"]["game_map"]
-        dispensers, ovens, items, held, ingOne, ingTwo, ingThree, wet_tiles, infested = self.find_items_and_states(game_map, turn["clients"])
+        dispensers, ovens, items, held, ingOne, ingTwo, ingThree, wet_tiles, infested, scores = self.find_items_and_states(game_map, turn["clients"])
         # Update dispensers with items
         self.command(turn_num, "update_layer", ["stations", dispensers])
         # Update ovens with state
@@ -44,6 +44,9 @@ class UnderCookedAdapter():
         # Update wet tiles
         self.command(turn_num, "set_layer", ["water", wet_tiles])
         self.command(turn_num, "set_layer", ["infested", infested])
+        # Update scores
+        self.command(turn_num, "set_score", [0, clients[0]["team_name"] + ": ", scores[0], [500, 10]])
+        self.command(turn_num, "set_score", [1, clients[1]["team_name"] + ": ", scores[1], [500, 30]])
 
 
     def setup_scores(self):
@@ -110,6 +113,7 @@ class UnderCookedAdapter():
         ingThree = []
         wet_tiles = []
         infested = []
+        scores = []
         # Go through map and look at tiles
         for y, row in enumerate(game_map):
             for x, tile in enumerate(row):
@@ -147,9 +151,10 @@ class UnderCookedAdapter():
                                 elif i == 3:
                                     ingThree.append([x, y, self.ingredient_key(t, False, 3)])
 
-        # Check held items in cooks
+        # Check held items in cooks and also grab scores
         for client in clients:
             cook = client["cook"]
+            scores.append(cook["score"])
             if cook["held_item"] != None:
                 item = cook["held_item"]
                 held.append([cook["position"][1], cook["position"][0], self.item_key(item, True)])
@@ -168,7 +173,7 @@ class UnderCookedAdapter():
                         elif i == 3:
                             ingThree.append([cook["position"][1], cook["position"][0], self.ingredient_key(t, True, 3)])
 
-        return (dispensers, ovens, items, held, ingOne, ingTwo, ingThree, wet_tiles, infested)
+        return (dispensers, ovens, items, held, ingOne, ingTwo, ingThree, wet_tiles, infested, scores)
 
 
 

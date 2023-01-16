@@ -423,7 +423,7 @@ def help():
     print("r - Restart from beginning")
     print("left shift(hold) - Left/Right Arrow now does 10 turns instead of 1")
     print("s - Save run as gif to ./out.gif (optimised to ~6mb for discord)")
-    print("lshift + s - Save run as mp4 to ./out.mp4 (optimised to ~7mb for discord, might not work on all platforms")
+    print("left shift + s - Save run as mp4 to ./out.mp4 (optimised to ~7mb for discord, might not work on all platforms")
     
 if(__name__ == "__main__"):
     if(len(sys.argv) == 1):
