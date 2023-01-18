@@ -6,6 +6,7 @@ from PIL import Image
 import cv2
 import numpy
 import math
+import pygame_gui
 
 # Sprite Class that will load a sprite from a tile map passed as an image
 class BSprite(pygame.sprite.Sprite):
@@ -59,6 +60,10 @@ class Bytiser():
         # Init pygame
         pygame.init()
         pygame.font.init()
+        self.ui_manager = pygame_gui.UIManager((self.config["screen_width"], self.config["screen_height"]))
+        # Placeholder for a file dialog
+        self.file_dialog = None
+        # Create final screen for display
         self.screen = pygame.display.set_mode((self.config["screen_width"], self.config["screen_height"]))
         # Load tile map images
         self.tile_maps = {}
@@ -109,6 +114,7 @@ class Bytiser():
         self.turn = 0
         self.index = 0
         self.shift = False
+        self.time_delta = 0
         # Clear screen
         self.screen.fill(self.black)
         # While game_run ie display should be running
@@ -177,6 +183,8 @@ class Bytiser():
                 # Check for app quit
                 elif event.type == QUIT:
                     game_run = False
+                # Checked for all events, now pass to ui manager
+                self.ui_manager.process_events(event)
             # If not paused, default to going to the next turn
             if not self.paused:
                 self.next_turn()
@@ -184,15 +192,19 @@ class Bytiser():
             if self.index >= len(self.commands):
                 self.paused = True
 
-            # Frames per second based on up and down arrows
+            # Frames per second based on up and down arrows and also save time delta
             if self.speed == 1:
-                self.clock.tick(self.config["fps"] * 2)
+                self.time_delta = self.clock.tick(self.config["fps"] * 2) / 1000.0
             elif self.speed == -1:
-                self.clock.tick(self.config["fps"] / 2)
+                self.time_delta = self.clock.tick(self.config["fps"] / 2) / 1000.0
             else:
-                self.clock.tick(self.config["fps"])      
+                self.time_delta = self.clock.tick(self.config["fps"])   / 1000.0
+
+            # Update the ui manager
+            self.ui_manager.update(self.time_delta)    
 
     def save_gif(self):
+        self.choose_file_name()
         images = []
         self.turn = 0
         self.index = 0
@@ -209,6 +221,7 @@ class Bytiser():
         print("Saved gif")
 
     def save_video(self):
+        self.choose_file_name()
         self.turn = 0
         self.index = 0
         size = (self.config["screen_width"], self.config["screen_height"])
@@ -230,6 +243,14 @@ class Bytiser():
         writer.release()
         print("Saved video")
 
+    def choose_file_name(self):
+        dialog = pgu.gui.FileDialog(path="./")
+        dialog.connect(pgu.gui.CHANGE, self.handle_file_choose_close, dialog)
+        dialog.open()
+
+    def handle_file_choose_close(self, value):
+        print(value)
+
     def next_turn(self):
         # Clear the screen
         self.screen.fill(self.black)
@@ -247,6 +268,7 @@ class Bytiser():
         self.draw_scores()
 
         # Update display and wait for frames per second calc
+        self.ui_manager.draw_ui(self.screen)
         pygame.display.flip()
         # Make sure we are not going past the amount of turns in the log file
         if self.index < len(self.commands):

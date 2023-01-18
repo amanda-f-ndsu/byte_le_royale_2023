@@ -149,3 +149,10 @@ If the id is null then all score objects will update
 - Now that the visualiser is mostly done and gamelogs have been generated for us, we can work on a adapter
 - The adapter uses a game log and turns it into a log of graphical commands 
 - The visualiser uses the graphical commands which means only the adapter needs to be rewritten every year
+
+# Packages installed by pip
+opencv-python
+pillow
+pygame
+pygame_gui
+numpy
