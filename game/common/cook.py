@@ -52,7 +52,7 @@ class Cook(GameObject):
         super().from_json(data)
         self.score = data['score']
         self.position = data['position']
-        temp = data['held_item']
+        temp: Item = data['held_item']
         if temp is None:
             self.held_item = None
         elif temp.object_type == ObjectType.pizza:
