@@ -75,7 +75,7 @@
         "held_sausage_sliced": ["items", 7, 0],
         "held_pepper": ["items", 8, 0],
         "held_mushroom": ["items", 9, 0],
-        "held_olvie": ["items", 0, 1],
+        "held_olive": ["items", 0, 1],
         "held_mushroom_sliced": ["items", 1, 1],
         "held_sausage": ["items", 2, 1],
         "held_pepper_sliced": ["items", 3, 1],
