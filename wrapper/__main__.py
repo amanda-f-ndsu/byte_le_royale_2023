@@ -1,4 +1,6 @@
 import sys
+import subprocess
+import os
 
 from game.engine import Engine
 from game.utils.generate_game import generate
@@ -18,6 +20,10 @@ if __name__ == '__main__':
     # Run Subparser and optionals
     run_subpar = spar.add_parser('run', aliases=['r'],
                                  help='Runs your bot against the last generated map! "r -h" shows more options')
+    
+    # Visualize Subparser and optionals
+    vis_subpar = spar.add_parser('visualize', aliases=['v'],
+                                 help='Visualizes your bot against the last set of game logs! "v -h" shows more options')
 
     run_subpar.add_argument('-debug', '-d', action='store', type=int, nargs='?', const=-1, 
                             default=None, dest='debug', help='Allows for debugging when running your code')
@@ -51,6 +57,19 @@ if __name__ == '__main__':
 
         engine = Engine(quiet)
         engine.loop()
+
+    # Run visualizer
+    elif action in ['visualize', 'v']:
+        # Get path to launcher
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        # Get path right above launcher
+        dir_path = os.path.dirname(dir_path)
+        # Go into Visualizer folder and get needed paths
+        vis_path = os.path.join(dir_path, "Visualiser")
+        # Run the logs adaption
+        subprocess.run(["python" , "undercooked_adapter.py", "../logs/", "graphical.json"], cwd=vis_path)
+        # Open the graphical log with Bytiser
+        subprocess.run(["python", "bytiser.py", "config.json", "graphical.json"], cwd=vis_path)
 
     # Print help if no arguments are passed
     if len(sys.argv) == 1:
