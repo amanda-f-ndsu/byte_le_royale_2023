@@ -32,8 +32,9 @@ class TestDispenser(unittest.TestCase):
         self.dispenser.item = Topping(topping_type=ToppingType.chicken, quality=1, worth=GameStats.topping_stats[ToppingType.chicken]["score"])
         stored_item = self.dispenser.item # actual item stored in dispenser
         self.cook.held_item = self.dispenser.take_action(self.cook)
+        self.dispenser.dispense(3)
         self.assertTrue(stored_item is self.cook.held_item)
-        self.assertIsNone(self.dispenser.item)
+        self.assertTrue(stored_item is not self.dispenser.item)
 
 
     def testCookHandsFull(self):

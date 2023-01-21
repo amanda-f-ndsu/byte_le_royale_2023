@@ -13,21 +13,24 @@ class Dispenser(Station):
     def __init__(self, item: Item = None, is_infested : bool = False):
         super().__init__(item,is_infested)
         self.object_type: ObjectType = ObjectType.dispenser
+        self._dirty = False
 
    
     def take_action(self, cook: Cook):
        rtn_item = cook.held_item
        if not rtn_item and self.item:
           rtn_item = self.item
-          self.item = None
+          self._dirty = True
        return rtn_item
         
        
 
     def dispense(self, turn):
-        if not self.item or turn % GameStats.turns_per_item_turnover_event == 0:
+        if self._dirty or (not self.item or turn % GameStats.turns_per_item_turnover_event == 0):
             rand_topping = random.choices(list(range(ToppingType.dough, ToppingType.anchovies + 1)), GameStats.topping_types_weights_array)[0]
             self.item = Topping(topping_type=rand_topping, worth=GameStats.topping_stats[rand_topping]["score"], quality=1)
+            self._dirty = False            
+            
 
     def to_json(self) -> dict:
         dict_data = super().to_json()
