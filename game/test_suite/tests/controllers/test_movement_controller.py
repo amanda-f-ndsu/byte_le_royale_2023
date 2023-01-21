@@ -76,3 +76,9 @@ class TestMovementController(unittest.TestCase):
         self.world.game_map[3][4].occupied_by = Counter()
         self.movementController.handle_actions(self.world,self.player)
         self.assertTrue(self.player.cook.position == (3,3))
+
+    def test_wet_tile(self):
+        self.player.action = Action(ActionType.Move.right)
+        self.world.game_map[3][4].is_wet_tile = True
+        self.movementController.handle_actions(self.world,self.player)
+        self.assertTrue(self.player.cook.position == (3,3))

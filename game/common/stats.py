@@ -14,7 +14,7 @@ class GameStats:
         ToppingType.peppers: {'score': 50},
         ToppingType.chicken: {'score': 40},
         ToppingType.olives: {'score': 50},
-        ToppingType.anchovies: {'score': 50}
+        ToppingType.anchovies: {'score': 60}
     }
 
     oven_timer = {
@@ -26,4 +26,6 @@ class GameStats:
     infested_decay_rate = 0.05
     event_timer = 50
     turns_per_item_turnover_event = 5
+
+    topping_types_weights_array = [.2, .2, .09, .09, .09, .09, .05, .09, .05, .05]
 
