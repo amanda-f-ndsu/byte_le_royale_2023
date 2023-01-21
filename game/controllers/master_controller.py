@@ -119,6 +119,7 @@ class MasterController(Controller):
     def create_turn_log(self, clients, turn):
         data = dict()
         data['tick'] = turn
+        data['event_active'] = self.event_active
         data['clients'] = [client.to_json() for client in clients]
         # Add things that should be thrown into the turn logs here
         data['game_map'] = self.current_world_data["game_map"].to_json()
