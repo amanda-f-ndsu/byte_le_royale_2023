@@ -1,7 +1,10 @@
+from typing import Tuple
 from game.client.user_client import UserClient
 from game.common.cook import Cook
 from game.common.game_board import GameBoard
 from game.common.action import Action
+from game.common.cook import Cook
+from typing import Tuple
 from game.common.enums import *
 
 
@@ -9,14 +12,19 @@ class Client(UserClient):
     # Variables and info you want to save between turns go here
     def __init__(self):
         super().__init__()
-        self.moves_to_take = []
+        self.state = None
+        self.half = None
+        self.x_min = None
+        self.y_min = 1
+        self.x_max = None
+        self.y_max = 5
 
     def team_name(self):
         """
         Allows the team to set a team name.
         :return: Your team name
         """
-        return 'Mitchell\'s Client'
+        return 'Base client 1'
 
     # This is where your AI will decide what to do
     def take_turn(self, turn: int, action: Action, world: GameBoard, cook: Cook):
@@ -26,128 +34,80 @@ class Client(UserClient):
         :param actions:     This is the actions object that you will add effort allocations or decrees to.
         :param world:       Generic world information
         """
-        self.setup_turn(cook, world)
-        if len(self.moves_to_take) != 0:
-            action.chosen_action = self.moves_to_take.pop(0)
+        if self.half == None:
+            # Determines which half of the board you're on
+            self.half = 0
+            self.x_min = 1
+            self.x_max = 5
+            if cook.position[1] >= 6:
+                self.half = 6
+                self.x_min = 7
+                self.x_max = 12
 
-        self.get_move_list(cook.position, self.ovens[0])
-
-
-    def setup_turn(self, cook, world):
-        self.get_cook_side(cook)
-        self.get_cooking_stations(world)
-        self.get_dispensers()
-
-    def get_move_list(self, origin, destination):
-        origin_y = origin[0]
-        origin_x = origin[1]
-        destination_y = destination[0]
-        destination_x = destination[1]
-
-        while (origin_y, origin_x) != (destination_y, destination_x):
-            if origin_y < destination_y:
-                self.moves_to_take.append(ActionType.Move.down)
-                origin_y += 1
-            elif origin_y > destination_y:
-                self.moves_to_take.append(ActionType.Move.up)
-                origin_y -= 1
-            elif origin_x < destination_x:
-                self.moves_to_take.append(ActionType.Move.right)
-                origin_x += 1
-            elif origin_x > destination_x:
-                self.moves_to_take.append(ActionType.Move.left)
-                origin_x -= 1
-
-    def get_cooking_stations(self, world: GameBoard):
-        self.ovens_goto = []
-        self.ovens_actual = []
-        self.cutter_goto = []
-        self.cutter_actual = []
-        self.roller_goto = []
-        self.roller_actual = []
-        self.sauce_goto = []
-        self.sauce_actual = []
-        self.combiner_goto = []
-        self.combiner_actual = []
-        if self.is_left_side:
-            # Top row
-            for x in range(2, 5):
-                if world.game_map[0][x].occupied_by.object_type == ObjectType.oven:
-                    self.ovens_goto.append((1, x))
-                    self.ovens_actual.append((0, x))
-                elif world.game_map[0][x].occupied_by.object_type == ObjectType.cutter:
-                    self.cutter_goto.append((1, x))
-                    self.cutter_actual.append((0, x))
-                elif world.game_map[0][x].occupied_by.object_type == ObjectType.roller:
-                    self.roller_goto.append((1, x))
-                    self.roller_actual.append((0, x))
-                elif world.game_map[0][x].occupied_by.object_type == ObjectType.sauce:
-                    self.sauce_goto.append((1, x))
-                    self.sauce_actual.append((0, x))
-                elif world.game_map[0][x].occupied_by.object_type == ObjectType.combiner:
-                    self.combiner_goto.append((1, x))
-                    self.combiner_actual.append((0, x))
-            # Bottom row
-                if world.game_map[6][x].occupied_by.object_type == ObjectType.oven:
-                    self.ovens_goto.append((5, x))
-                    self.ovens_actual.append((6, x))
-                elif world.game_map[6][x].occupied_by.object_type == ObjectType.cutter:
-                    self.cutter_goto.append((5, x))
-                    self.cutter_actual.append((6, x))
-                elif world.game_map[6][x].occupied_by.object_type == ObjectType.roller:
-                    self.roller_goto.append((5, x))
-                    self.roller_actual.append((6, x))
-                elif world.game_map[6][x].occupied_by.object_type == ObjectType.sauce:
-                    self.sauce_goto.append((5, x))
-                    self.sauce_actual.append((6, x))
-                elif world.game_map[6][x].occupied_by.object_type == ObjectType.combiner:
-                    self.combiner_goto.append((5, x))
-                    self.combiner_actual.append((6, x))
+        if self.state == None:
+            dough_location = self.scan_board(
+                world, ObjectType.dispenser, lambda x: x.topping_type == ToppingType.dough)
+            if dough_location:
+                man_dist = self.manhattan_distance(
+                    cook.position, dough_location)
+                if man_dist > 1:
+                    action.chosen_action = self.move_action(
+                        cook.position, dough_location)
+                elif man_dist == 1:
+                    action.chosen_action = ActionType.interact
+                    self.state = "Dough"
         else:
-            # Player on Right Side
-            # Top row
-            for x in range(2, 5):
-                if world.game_map[0][x].occupied_by.object_type == ObjectType.oven:
-                    self.ovens_goto.append((1, x))
-                    self.ovens_actual.append((0, x))
-                elif world.game_map[0][x].occupied_by.object_type == ObjectType.cutter:
-                    self.cutter_goto.append((1, x))
-                    self.cutter_actual.append((0, x))
-                elif world.game_map[0][x].occupied_by.object_type == ObjectType.roller:
-                    self.roller_goto.append((1, x))
-                    self.roller_actual.append((0, x))
-                elif world.game_map[0][x].occupied_by.object_type == ObjectType.sauce:
-                    self.sauce_goto.append((1, x))
-                    self.sauce_actual.append((0, x))
-                elif world.game_map[0][x].occupied_by.object_type == ObjectType.combiner:
-                    self.combiner_goto.append((1, x))
-                    self.combiner_actual.append((0, x))
-            # Bottom row
-                if world.game_map[6][x].occupied_by.object_type == ObjectType.oven:
-                    self.ovens_goto.append((5, x))
-                    self.ovens_actual.append((6, x))
-                elif world.game_map[6][x].occupied_by.object_type == ObjectType.cutter:
-                    self.cutter_goto.append((5, x))
-                    self.cutter_actual.append((6, x))
-                elif world.game_map[6][x].occupied_by.object_type == ObjectType.roller:
-                    self.roller_goto.append((5, x))
-                    self.roller_actual.append((6, x))
-                elif world.game_map[6][x].occupied_by.object_type == ObjectType.sauce:
-                    self.sauce_goto.append((5, x))
-                    self.sauce_actual.append((6, x))
-                elif world.game_map[6][x].occupied_by.object_type == ObjectType.combiner:
-                    self.combiner_goto.append((5, x))
-                    self.combiner_actual.append((6, x))
+            action.chosen_action = ActionType.interact
 
-    def get_dispensers(self):
-        self.dispensers_actual = [(1, 6), (2, 6), (4, 6), (5, 6)]
-        if self.is_left_side:
-            self.dispensers_goto = [(1, 5), (2, 5), (4, 5), (5, 5)]
-        else:
-            self.dispensers_goto = [(1, 7), (2, 7), (4, 7), (5, 7)]
+        pass
 
-    def get_cook_side(self, cook: Cook):
-        if cook.position[1] < 6:
-            self.is_left_side = True
-        else:
-            self.is_left_side = False
+    def move_action(self, cook_position: Tuple[int, int], station_location: Tuple[int, int]) -> ActionType.Move:
+        """
+        Determines which direction to move, and returns that ActionType
+        """
+        dist_tup = self.tuple_difference(cook_position, station_location)
+        direction_to_move = self.decide_move(dist_tup)
+        return direction_to_move
+
+    def scan_board(self, world: GameBoard, object_type: ObjectType, item_type_eval_func=None) -> Tuple[int, int]:
+        """
+        Scans every tile on your clients half of the gameboard for a certain ObjectType enum
+        topping_type_eval_func is a function that takes an item and returns True if you want that item
+        If topping_type_eval_func isn't provided, it will just return the first Object found 
+        """
+        for y in range(0, len(world.game_map)):
+            for x in range(self.half, len(world.game_map[y])):
+                if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
+                    if item_type_eval_func is None or (world.game_map[y][x].occupied_by.item != None and item_type_eval_func(world.game_map[y][x].occupied_by.item)):
+                        return (y, x)
+        return None
+
+    def manhattan_distance(self, int_tuple_one: Tuple[int, int], int_tuple_two: Tuple[int, int]) -> int:
+        """
+        See https://en.wikipedia.org/wiki/Taxicab_geometry
+        """
+        return abs(int_tuple_one[0] - int_tuple_two[0]) + abs(int_tuple_one[1] - int_tuple_two[1])
+
+    def tuple_difference(self, int_tuple_one: Tuple[int, int], int_tuple_two: Tuple[int, int]) -> int:
+        """
+        Returns the difference between two tuples
+        Pinned to your side of the gameboard
+        """
+        y_diff = (
+            int_tuple_one[0] - max(min(int_tuple_two[0], self.y_max), self.y_min))
+        x_diff = (
+            int_tuple_one[1] - max(min(int_tuple_two[1], self.x_max), self.x_min))
+        return (y_diff, x_diff)
+
+    def decide_move(self, tuple_diff: Tuple[int, int]) -> ActionType.Move:
+        """
+        Decides which direction to move in, based on a tuple difference
+        """
+        if tuple_diff[1] > 0:
+            return ActionType.Move.left
+        elif tuple_diff[1] < 0:
+            return ActionType.Move.right
+        elif tuple_diff[0] > 0:
+            return ActionType.Move.up
+        elif tuple_diff[0] < 0:
+            return ActionType.Move.down

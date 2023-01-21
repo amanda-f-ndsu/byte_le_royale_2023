@@ -1,5 +1,5 @@
 from copy import deepcopy
-from random import randint
+import random
 
 from game.common.action import Action
 from game.common.cook import Cook
@@ -55,6 +55,7 @@ class MasterController(Controller):
     # Receives world data from the generated game log and is responsible for interpreting it
     def interpret_current_turn_data(self, clients, world, turn):
         self.current_world_data = world
+        random.seed(world["seed"])
 
     # Receive a specific client and send them what they get per turn. Also obfuscates necessary objects.
     def client_turn_arguments(self, client, turn):
@@ -74,9 +75,9 @@ class MasterController(Controller):
         for client in clients:
             self.movement_controller.handle_actions(self.current_world_data["game_map"], client)
             self.interact_controller.handle_actions(client,self.current_world_data["game_map"])
-
-        
         self.dispenser_controller.handle_actions(self.current_world_data["game_map"],turn)
+        for oven in self.current_world_data["game_map"].ovens():
+            self.oven_controller.handle_actions(oven)
         # checks event logic at the end of round
         self.handle_events(clients)
         
@@ -84,7 +85,7 @@ class MasterController(Controller):
     def handle_events(self, clients):
         # If it is time to run an event, master controller picks an event to run
         if(self.turn == self.event_times[0] or self.turn == self.event_times[1]):
-            self.event_active = randint(EventType.electrical,EventType.wet_tile)
+            self.event_active = random.randint(EventType.electrical,EventType.wet_tile)
         # Check if electrical event is triggered 
         listOfOvens = self.current_world_data["game_map"].ovens() 
         if self.event_active == EventType.electrical and self.event_timer == GameStats.event_timer:
@@ -92,7 +93,8 @@ class MasterController(Controller):
                     oven.is_powered = False
         # Check if wet tiles event is triggered
         if self.event_active == EventType.wet_tile and self.event_timer == GameStats.event_timer:
-            self.wet_tiles_controller.handle_actions(self.current_world_data["game_map"],self.current_world_data["game_map"].cooks()) 
+            if not self.wet_tiles_controller.handle_actions(self.current_world_data["game_map"],self.current_world_data["game_map"].cooks()):
+               self.event_active = random.randint(EventType.electrical,EventType.infestation) 
         # Event stops running once timer hits zero, timer is reset
         if self.event_timer == 0:
             if self.event_active == EventType.electrical:
