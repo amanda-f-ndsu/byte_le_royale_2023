@@ -1,3 +1,4 @@
+tqdm
 pygame
 pillow
 opencv-python
