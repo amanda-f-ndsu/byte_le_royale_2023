@@ -1,20 +1,16 @@
 from game.config import *
 from game.utils.helpers import write_json_file
-from game.common.dispenser import Dispenser
-from game.common.cook import Cook
-from game.common.stations.bin import Bin
-from game.common.stations.combiner import Combiner
-from game.common.stations.oven import Oven
 from game.common.game_board import GameBoard
+import random
 
 
-def generate(seed: int = None):
+def generate(seed: int = random.randint(0,1000000000)):
     print('Generating game map...')
 
     data = dict()
 
-    for x in range(1, MAX_TICKS + 1):
-        data[x] = 'data'
+    # for x in range(1, MAX_TICKS + 1):
+    #     data[x] = 'data'
 
     # Verify logs location exists
     if not os.path.exists(GAME_MAP_DIR):
@@ -27,5 +23,5 @@ def generate(seed: int = None):
 
 
 def generate_map(seed: int = None):
-    game_board: GameBoard = GameBoard(seed)
-    return game_board
+    return GameBoard(seed)
+

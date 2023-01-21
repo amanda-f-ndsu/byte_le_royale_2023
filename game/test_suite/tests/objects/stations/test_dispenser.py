@@ -15,7 +15,7 @@ class TestDispenser(unittest.TestCase):
       
     def testDispenseEmpty(self):
         self.assertIsNone(self.dispenser.item)
-        self.dispenser.dispense()
+        self.dispenser.dispense(1)
         self.assertIsNotNone(self.dispenser.item)
 
     def testDispenseFull(self):
@@ -24,14 +24,14 @@ class TestDispenser(unittest.TestCase):
         same_item = Topping(topping_type=ToppingType.mushrooms, quality=1, worth=GameStats.topping_stats[ToppingType.mushrooms]["score"]) # same item but different reference
         self.assertTrue(stored_item is self.dispenser.item)
         # test to prove that item isn't replaced after dispense method    
-        self.dispenser.dispense()
+        self.dispenser.dispense(1)
         self.assertTrue(stored_item is self.dispenser.item)
         self.assertFalse(same_item is self.dispenser.item) # this case proves that the dispenser item isn't replaced by same topping object
 
     def testCookHandsEmpty(self):
         self.dispenser.item = Topping(topping_type=ToppingType.chicken, quality=1, worth=GameStats.topping_stats[ToppingType.chicken]["score"])
         stored_item = self.dispenser.item # actual item stored in dispenser
-        self.cook.held_item = self.dispenser.take_action(self.cook.held_item)
+        self.cook.held_item = self.dispenser.take_action(self.cook)
         self.assertTrue(stored_item is self.cook.held_item)
         self.assertIsNone(self.dispenser.item)
 
@@ -41,7 +41,7 @@ class TestDispenser(unittest.TestCase):
         self.cook.held_item = Topping(topping_type=ToppingType.cheese, quality=1, worth=GameStats.topping_stats[ToppingType.cheese]["score"])
         stored_item = self.dispenser.item # actual item stored in dispenser
         cook_item = self.cook.held_item
-        self.cook.held_item = self.dispenser.take_action(self.cook.held_item)
+        self.cook.held_item = self.dispenser.take_action(self.cook)
         self.assertTrue(cook_item is self.cook.held_item)
         self.assertTrue(stored_item is self.dispenser.item)
     

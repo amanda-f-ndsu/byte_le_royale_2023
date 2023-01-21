@@ -4,10 +4,9 @@ from game.common.enums import ObjectType
 from game.common.items.item import Item
 from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
-from abc import abstractmethod, ABCMeta
 
 
-class Station(GameObject, metaclass=ABCMeta):
+class Station(GameObject):
     def __init__(self, item: Item = None, is_infested: bool = False):
         super().__init__()
         self.object_type = ObjectType.station
@@ -30,7 +29,6 @@ class Station(GameObject, metaclass=ABCMeta):
     def is_infested(self, is_infested: bool):
         self.__is_infested = is_infested
 
-    @abstractmethod
     def take_action(self, cook: Cook = None):
         return
 
@@ -46,9 +44,9 @@ class Station(GameObject, metaclass=ABCMeta):
         self.is_infested = data['is_infested']
         if not data['item']:
             self.item = None
-        if data['item'].object_type == ObjectType.pizza:
+        elif data['item']["object_type"] == ObjectType.pizza:
             self.item = Pizza().from_json(data['item'])
-        elif data['item'].object_type == ObjectType.topping:
+        elif data['item']["object_type"] == ObjectType.topping:
             self.item = Topping().from_json(data['item'])
 
         return self

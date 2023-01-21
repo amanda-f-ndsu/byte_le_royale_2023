@@ -7,7 +7,6 @@ class DebugLevel:
     controller = 2
     engine = 3
 
-
 class ObjectType:
     none = 0
     game_board = 1
@@ -31,17 +30,28 @@ class ObjectType:
     sauce = 19
 
 
-
 class ActionType:
     none = 0
     test = 1
-
+    interact = 2
+    class Move:
+        none = 0.5
+        up = 1.5
+        down = 2.5
+        left = 3.5
+        right = 4.5
 
 class PizzaState:
     none = 0
     rolled = 1
     sauced = 2
     baked = 3
+
+class EventType:
+    none = 0
+    electrical = 1
+    infestation = 2
+    wet_tile = 3
 
 
 class ToppingType(int, Enum):

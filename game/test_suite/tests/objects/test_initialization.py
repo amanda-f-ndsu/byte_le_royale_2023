@@ -3,7 +3,7 @@ from game.common.cook import Cook
 from game.common.enums import *
 from game.common.items.item import Item
 from game.common.stations.dispenser import Dispenser
-from game.common.stations.Sauce import Sauce
+from game.common.stations.sauce import Sauce
 from game.common.stations.roller import Roller
 from game.common.stations.cutter import Cutter
 from game.common.stations.combiner import Combiner
@@ -14,6 +14,9 @@ from game.common.items.pizza import Pizza
 from game.common.items.topping import Topping
 from game.common.stations.bin import Bin
 from game.common.stations.delivery import Delivery
+from game.common.game_board import GameBoard
+from game.common.map.counter import Counter
+from game.utils.generate_game import generate
 
 
 class TestInitialization(unittest.TestCase):
@@ -22,7 +25,7 @@ class TestInitialization(unittest.TestCase):
         self.topping = Topping(quality=1, worth=20, topping_type=ToppingType.canadian_ham, is_cut=False)
         self.pizza = Pizza(state=PizzaState.rolled)
         self.dispenser = Dispenser()
-        self.cook = Cook(action=ActionType.test, item=self.item)
+        self.cook = Cook(item=self.item)
         self.tile = Tile(occupied_by= self.dispenser, is_wet_tile=True)
         self.sauce = Sauce(self.topping)
         self.tile = Tile(occupied_by=self.dispenser)
@@ -52,7 +55,6 @@ class TestInitialization(unittest.TestCase):
         self.assertEqual(self.delivery.object_type, ObjectType.delivery)
 
     def testCookInit(self):
-        self.assertEqual(self.cook.chosen_action, ActionType.test)
         self.assertEqual(self.cook.object_type, ObjectType.cook)
         self.assertEqual(self.cook.held_item, self.item)
 
@@ -69,6 +71,137 @@ class TestInitialization(unittest.TestCase):
         self.tile.is_wet_tile = False
         self.assertFalse(self.tile.is_wet_tile)
 
+    def testGameBoard(self):
+        self.game_board = GameBoard(seed=1)
+        temp = [
+            [
+                Counter(),
+                Counter(),
+                Oven(),
+                Sauce(),
+                Combiner(),
+                Counter(),
+                Counter(),
+                Counter(),
+                Combiner(),
+                Sauce(),
+                Oven(),
+                Counter(),
+                Counter()
+            ],
+            [
+                Storage(),
+                None,
+                None,
+                None,
+                None,
+                None,
+                Dispenser(),
+                None,
+                None,
+                None,
+                None,
+                None,
+                Storage(),
+            ],
+            [
+                Storage(),
+                None,
+                None,
+                None,
+                None,
+                None,
+                Dispenser(),
+                None,
+                None,
+                None,
+                None,
+                None,
+                Storage(),
+            ],
+            [
+                Bin(),
+                None,
+                None,
+                Cook(position=(3, 3)),
+                None,
+                None,
+                Delivery(),
+                None,
+                None,
+                Cook(position=(9, 3)),
+                None,
+                None,
+                Bin(),
+            ],
+            [
+                Storage(),
+                None,
+                None,
+                None,
+                None,
+                None,
+                Dispenser(),
+                None,
+                None,
+                None,
+                None,
+                None,
+                Storage(),
+            ],
+            [
+                Storage(),
+                None,
+                None,
+                None,
+                None,
+                None,
+                Dispenser(),
+                None,
+                None,
+                None,
+                None,
+                None,
+                Storage(),
+            ],
+            [
+                Counter(),
+                Counter(),
+                Cutter(),
+                Oven(),
+                Roller(),
+                Counter(),
+                Counter(),
+                Counter(),
+                Roller(),
+                Oven(),
+                Cutter(),
+                Counter(),
+                Counter()
+            ]
+        ]
+        temp = [list(zip(map(lambda x: x.occupied_by, self.game_board.game_map[i]), temp[i])) for i in range(7)]
+        for y in temp:
+            for game_board_tile_occupied_by, temp_item in y:
+                if not game_board_tile_occupied_by and not temp_item:
+                    continue
+                assert(isinstance(game_board_tile_occupied_by, temp_item.__class__))
+
+        for i in self.game_board.cooks():
+            assert (isinstance(i, Cook))
+
+        t = self.game_board.cooks()
+        t = t[0]
+        if isinstance(t, Cook):
+            t.held_item = self.topping
+
+        t = self.game_board.cooks()
+        t = t[0]
+        if isinstance(t, Cook):
+            assert(t.held_item.worth, self.topping.worth)
+
+        for i in self.game_board.ovens():
+            assert (isinstance(i, Oven))
 
 if __name__ == '__main__':
     unittest.main()

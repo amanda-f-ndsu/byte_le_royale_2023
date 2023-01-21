@@ -9,7 +9,7 @@ class TestBin(unittest.TestCase):
     def setUp(self) -> None:
         self.bin = Bin()
         self.item = Item(worth=2, quality=1)
-        self.cook = Cook(action=ActionType.none, item=self.item)
+        self.cook = Cook(item=self.item)
 
     def test_bin_deletion(self):
         self.assertIsNotNone(self.cook.held_item)

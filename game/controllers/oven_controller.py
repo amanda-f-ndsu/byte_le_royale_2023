@@ -10,14 +10,14 @@ class OvenController(Controller):
      
     def handle_actions(self, oven):
         if oven.is_active and oven.is_powered:
-                if not oven.item:
-                    oven.timer = GameStats.oven_timer['start']
-                    oven.is_active = False
-                    return
-                if oven.item.state == PizzaState.baked and oven.timer == 0:
-                    oven.item = None
-                if oven.timer == GameStats.oven_timer['baked']:
-                    oven.item.state = PizzaState.baked
-            
-                oven.timer = oven.timer - 1
+            if not oven.item:
+                oven.timer = GameStats.oven_timer['start']
+                oven.is_active = False
+                return
+            if oven.item.state == PizzaState.baked and oven.timer == 0:
+                oven.item = None
+            if oven.timer == GameStats.oven_timer['baked']:
+                oven.item.state = PizzaState.baked
+        
+            oven.timer = oven.timer - 1
                          

@@ -1,5 +1,4 @@
 import random
-
 from game.common.stations.dispenser import Dispenser
 from game.common.cook import Cook
 from game.common.stations.bin import Bin
@@ -7,12 +6,13 @@ from game.common.stations.combiner import Combiner
 from game.common.stations.oven import Oven
 from game.common.stations.cutter import Cutter
 from game.common.stations.roller import Roller
-from game.common.stations.Sauce import Sauce
+from game.common.stations.sauce import Sauce
 from game.common.stations.storage import Storage
 from game.common.game_object import GameObject
 from game.common.map.tile import Tile
 from game.common.map.counter import Counter
-from game.common.enums import ObjectType
+from game.common.enums import *
+from game.common.stations.delivery import Delivery
 
 
 class GameBoard(GameObject):
@@ -20,6 +20,7 @@ class GameBoard(GameObject):
         random.seed(seed)
         super().__init__()
         self.object_type = ObjectType.game_board
+        self.event_active = None
         # generate list of stations
         station_hold = [
             Combiner(),
@@ -29,13 +30,12 @@ class GameBoard(GameObject):
             Roller(),
             Sauce()
         ]
-
         # generate map
         self.game_map = [[Tile() for x in range(13)] for y in range(7)]
         # populate map
         temp_hold = []
         while len(station_hold) > 0:
-            temp_hold.append(station_hold.pop(random.randint(0, len(station_hold))))
+            temp_hold.append(station_hold.pop(random.randint(0, len(station_hold)-1)))
 
         temp_pop_data = [
             [
@@ -87,13 +87,13 @@ class GameBoard(GameObject):
                 Bin(),
                 None,
                 None,
-                Cook(),
+                Cook(position=(3, 3)),
                 None,
                 None,
-                GameObject(),
+                Delivery(),
                 None,
                 None,
-                Cook(),
+                Cook(position=(9, 3)),
                 None,
                 None,
                 Bin(),
@@ -144,23 +144,43 @@ class GameBoard(GameObject):
                 Counter()
             ]
         ]
-        for y in range(7):
-            for x in range(13):
-                assert(isinstance(self.game_map[y][x], Tile), True)
-                self.game_map[y][x].occupied_by = temp_pop_data[y][x]
+
+        # i = row index, y is row in 2d array
+        for i, y in enumerate(temp_pop_data):
+            # j = column index, x is item in 2d array
+            # set item to game_map[y][x].occupied_by
+            for j, x in enumerate(y):
+                self.game_map[i][j].occupied_by = x
 
     def ovens(self):
-        to_return: set = set()
-        to_return.add(i.occupied_by for i in self.game_map[0] if isinstance(i.occupied_by, Oven))
-        to_return.add(i.occupied_by for i in self.game_map[len(self.game_map)-1] if isinstance(i.occupied_by, Oven))
+        to_return: list = list()
+        for row in self.game_map:
+            for col in row:
+                if isinstance(col.occupied_by, Oven):
+                    to_return.append(col.occupied_by)
+        return to_return
+    
+    def cooks(self):
+        to_return: list = list()
+        for row in self.game_map:
+            for col in row:
+                if isinstance(col.occupied_by, Cook):
+                    to_return.append(col.occupied_by)
         return to_return
 
     def to_json(self):
-        data = super(self).to_json()
-        temp = map(lambda tile: tile.to_json(), self.game_map)
+        data = super().to_json()
+        temp = list([list(map(lambda tile: tile.to_json(), y)) for y in self.game_map])
         data["game_map"] = temp
+        data['event_active'] = self.event_active
+        return data
+    
+    def generate_event(self, start, end):
+        self.event_active = random.randint(start,end)
 
     def from_json(self, data):
         super().from_json(data)
         temp = data["game_map"]
-        self.game_map = map(lambda tile: Tile().from_json(tile), temp)
+        self.game_map = list([list(map(lambda tile: Tile().from_json(tile), y)) for y in temp])
+        self.event_active = data['event_active'] 
+        return self
