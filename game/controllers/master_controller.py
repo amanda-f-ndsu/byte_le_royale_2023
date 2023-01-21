@@ -21,7 +21,7 @@ class MasterController(Controller):
         super().__init__()
         self.game_over = False
         self.event_timer = GameStats.event_timer
-        self.event_times = (5,100)
+        self.event_times = (167,334)
         self.turn = None
         self.current_world_data = None
         self.movement_controller = MovementController()
