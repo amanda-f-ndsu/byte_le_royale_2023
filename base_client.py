@@ -12,13 +12,14 @@ class Client(UserClient):
     # Variables and info you want to save between turns go here
     def __init__(self):
         super().__init__()
-        self.state = None
         self.half = None
         self.x_min = None
         self.y_min = 1
         self.x_max = None
         self.y_max = 5
         self.tick = None
+        self.pizza_states = []
+        self.index_offset = 0
 
     def team_name(self):
         """
@@ -43,61 +44,65 @@ class Client(UserClient):
                 self.half = 6
                 self.x_min = 7
                 self.x_max = 12
-        self.decide_action(action, world, cook)
+        for state_index in range(len(self.pizza_states)):
+            if state_index - self.index_offset < len(self.pizza_states):
+                self.decide_action(action, world, cook, state_index - self.index_offset)
+            if action.chosen_action != 0:
+                break
+        if len(self.pizza_states) == 0 or (self.pizza_states[0] == "wait" and len(self.pizza_states) < 2):
+            self.pizza_states.append(None)
+            self.decide_action(action, world, cook, len(self.pizza_states) - 1)
+        if action.chosen_action == 0 and len(self.pizza_states) < 2:
+            dist_tup = self.tuple_difference(cook.position, (3,6))
+            direction_to_move = self.decide_move(dist_tup)
+            action.chosen_action = direction_to_move
+        self.index_offset = 0
         pass
 
-    def decide_action(self, action: Action, world: GameBoard, cook: Cook):
-        if self.state == None:
+    def decide_action(self, action: Action, world: GameBoard, cook: Cook, state_index):
+        pizza_state = self.pizza_states[state_index]
+        if pizza_state == None and cook.held_item == None:
             self.attempt_move_to_next_state(
-                action, world, cook, "Dough", ObjectType.dispenser, lambda x: x.item != None and x.item.topping_type == ToppingType.dough)
-        elif self.state == "Dough":
+                action, world, cook, "Dough",state_index, ObjectType.dispenser, lambda x: x.item != None and x.item.topping_type == ToppingType.dough)
+        elif pizza_state == "Dough" and cook.held_item.topping_type == ToppingType.dough:
             self.attempt_move_to_next_state(
-                action, world, cook, "Pizza_bare", ObjectType.roller)
-        elif self.state == "Pizza_bare":
+                action, world, cook, "Pizza_bare",state_index, ObjectType.roller)
+        elif pizza_state == "Pizza_bare" and cook.held_item.state == PizzaState.rolled:
             self.attempt_move_to_next_state(
-                action, world, cook, "Sauced", ObjectType.sauce)
-        elif self.state == "Sauced":
+                action, world, cook, "Sauced",state_index, ObjectType.sauce)
+        elif pizza_state == "Sauced" and cook.held_item.state == PizzaState.sauced:
             self.attempt_move_to_next_state(
-                action, world, cook, "combiner_pizza", ObjectType.combiner)
-        elif self.state == "combiner_pizza":
-            self.attempt_move_to_next_state(action, world, cook, "cut", ObjectType.dispenser,
+                action, world, cook, "combiner_pizza",state_index, ObjectType.combiner, lambda x: x.item == None)
+        elif pizza_state == "combiner_pizza" and cook.held_item == None:
+            self.attempt_move_to_next_state(action, world, cook, "cut",state_index, ObjectType.dispenser,
                                             lambda x: x.item != None and x.item.topping_type == ToppingType.cheese)
-        elif self.state == "cut":
+        elif pizza_state == "cut" and cook.held_item is not None and cook.held_item.topping_type == ToppingType.cheese:
             self.attempt_move_to_next_state(
-                action, world, cook, "combiner_needs_cheese", ObjectType.cutter)
-        elif self.state == "combiner_needs_cheese":
-            self.attempt_move_to_next_state(action, world, cook, "combiner_has_cheese",
-                                            ObjectType.combiner, lambda x: ToppingType.cheese not in x.item.toppings)
-        elif self.state == "combiner_has_cheese":
-            self.attempt_move_to_next_state(action, world, cook, "got_item", ObjectType.dispenser,
-                                            lambda x: x.item != None and x.item.topping_type != ToppingType.dough)
-        elif self.state == "got_item":
-            self.attempt_move_to_next_state(
-                action, world, cook, "combiner_needs_item", ObjectType.cutter)
-        elif self.state == "combiner_needs_item":
-            self.attempt_move_to_next_state(
-                action, world, cook, "combiner_has_item", ObjectType.combiner, lambda x: x is not None)
-        elif self.state == "combiner_has_item":
+                action, world, cook, "combiner_needs_cheese",state_index, ObjectType.cutter)
+        elif pizza_state == "combiner_needs_cheese" and cook.held_item is not None and cook.held_item.topping_type == ToppingType.cheese:
+            self.attempt_move_to_next_state(action, world, cook, "combiner_complete",state_index,
+                                            ObjectType.combiner, lambda x: x.item != None and ToppingType.cheese not in x.item.toppings)
+        elif pizza_state == "combiner_complete" and cook.held_item == None:
             action.chosen_action = ActionType.interact
-            self.state = "uncooked"
-        elif self.state == "uncooked":
+            self.pizza_states[state_index] = "uncooked"
+        elif pizza_state == "uncooked" and cook.held_item.object_type == ObjectType.pizza:
             self.attempt_move_to_next_state(
-                action, world, cook, "wait", ObjectType.oven, lambda x: x.item is None)
-        elif self.state == "wait":
-            for oven in world.ovens():
-                if oven.item is not None and oven.item.state == PizzaState.baked:
-                    self.state = "move_to_oven"
-        elif self.state == "move_to_oven":
-            for oven in world.ovens():
+                action, world, cook, "wait",state_index, ObjectType.oven, lambda x: x.item is None)
+        elif pizza_state == "wait":
+            for oven in self.scan_board_list(world, ObjectType.oven, lambda x: x.item != None):
+                if oven.item is not None and oven.item.state == PizzaState.baked and cook.held_item == None:
+                    self.pizza_states[state_index] = "move_to_oven"
+        elif pizza_state == "move_to_oven" and cook.held_item == None:
+            for oven in self.scan_board_list(world, ObjectType.oven, lambda x: x.item != None):
                 if oven.item is not None and oven.item.state == PizzaState.baked:
                     self.attempt_move_to_next_state(
-                        action, world, cook, "finished_pizza", ObjectType.oven, lambda x: x.id == oven.id)
-        elif self.state == "finished_pizza":
+                        action, world, cook, "finished_pizza",state_index, ObjectType.oven, lambda x: x.id == oven.id)
+        elif pizza_state == "finished_pizza" and cook.held_item.object_type == ObjectType.pizza:
             self.attempt_move_to_next_state(
-                action, world, cook, None, ObjectType.delivery)
+                action, world, cook, None, state_index, ObjectType.delivery)
 
     def attempt_move_to_next_state(self, action: Action, world: GameBoard, cook: Cook,
-                                   next_state: str, obj_type: ObjectType, top_type_eval=None):
+                                   next_state: str, state_index: int, obj_type: ObjectType, top_type_eval=None):
         item_location = self.scan_board(
             world, obj_type, top_type_eval)
         if item_location:
@@ -108,7 +113,11 @@ class Client(UserClient):
                     cook.position, item_location)
             elif man_dist == 1:
                 action.chosen_action = ActionType.interact
-                self.state = next_state
+                if next_state != None:
+                    self.pizza_states[state_index] = next_state
+                else:
+                    self.pizza_states.pop(state_index)
+                    self.index_offset += 1
 
     def move_action(self, cook_position, station_location) -> ActionType.Move:
         dist_tup = self.tuple_difference(cook_position, station_location)
@@ -116,12 +125,21 @@ class Client(UserClient):
         return direction_to_move
 
     def scan_board(self, world: GameBoard, object_type: ObjectType, obj_eval_func=None) -> Tuple[int, int]:
-        for y in range(0, len(world.game_map)):
-            for x in range(self.half, len(world.game_map[y])):
+        for y in range(0, self.y_max + 2):
+            for x in range(self.half, self.x_max + 2):
                 if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
                     if obj_eval_func is None or (world.game_map[y][x].occupied_by != None and obj_eval_func(world.game_map[y][x].occupied_by)):
                         return (y, x)
         return None
+
+    def scan_board_list(self, world: GameBoard, object_type: ObjectType, obj_eval_func=None):
+        rtn = []
+        for y in range(0, self.y_max + 2):
+            for x in range(self.x_min, self.x_max + 2):
+                if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
+                    if obj_eval_func is None or (world.game_map[y][x].occupied_by != None and obj_eval_func(world.game_map[y][x].occupied_by)):
+                        rtn.append(world.game_map[y][x].occupied_by)
+        return rtn
 
     def manhattan_distance(self, int_tuple_one: Tuple[int, int], int_tuple_two: Tuple[int, int]) -> int:
         return abs(int_tuple_one[0] - int_tuple_two[0]) + abs(int_tuple_one[1] - int_tuple_two[1])
