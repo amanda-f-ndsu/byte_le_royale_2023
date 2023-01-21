@@ -7,7 +7,7 @@ import os
 class ClientUtils:
     def __init__(self, csv_bool):
         urllib3.disable_warnings()
-        self.IP = 'https://134.129.91.223:8000/api/'
+        self.IP = 'http://134.129.91.175:8000/api/'
         self.PORT = 8000
         self.path_to_public = False
         self.use_csv = csv_bool

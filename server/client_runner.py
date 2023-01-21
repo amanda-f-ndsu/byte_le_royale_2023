@@ -40,8 +40,7 @@ class client_runner:
         )
         self.loop = asyncio.get_event_loop()
 
-        # The group run ID. will be set by insert_new_group_run
-        self.group_id = 0
+        # The group run ID. will be set by insert_new_group_runlauncher.pyz
 
         self.NUMBER_OF_GAMES_AGAINST_SAME_TEAM = 4
 
@@ -154,12 +153,15 @@ class client_runner:
 
             # CHANGE THIS LINE TO GET CORRECT SCORE FOR GAME
             winner = -1
-            if len(results['players_alive']) == 1:
-                # Submission ID of player who won, otherwise it was a tie
-                winner = results['players_alive'][0].split("_")[-1]
+            max_score = -1
             for player in results["players"]:
                 if player["error"]:
                     errors[player["team_name"].split("_")[-1]] = player["error"]
+                elif player["cook"]["score"] == max_score:
+                    winner = -1
+                elif player["cook"]["score"] > max_score:
+                    winner = player["team_name"].split("_")[-1]
+                    max_score = player["cook"]["score"]
         finally:
             player_sub_ids = [x["team_name"].split("_")[-1] for x in results["players"]]
             run_id = self.insert_run(
@@ -342,7 +344,7 @@ class client_runner:
         '''
         cur = self.conn.cursor(cursor_factory=RealDictCursor)
         cur.execute("SELECT update_group_run_to_finished(%s)",
-                    (self.group_id))
+                    (self.group_id,))
         self.conn.commit()
 
 

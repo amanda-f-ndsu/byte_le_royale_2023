@@ -1,1 +1,1 @@
-python3 launcher.pyz version
+python3.11 launcher.pyz version

@@ -70,14 +70,6 @@ class visualizer_runner:
 
             shutil.copy('launcher.pyz', id_dir)
 
-            shutil.copy('visualizer.x86_64', id_dir)
-
-            shutil.copy('visualizer.pck', id_dir)
-
-            shutil.copytree('Visualizer/Assets', id_dir + "/visualizer")
-
-            shutil.copy('server/runners/vis_runner.sh', id_dir)
-
     def get_latest_group(self):
         print("Getting Latest Group Run")
         cur = self.conn.cursor(cursor_factory=RealDictCursor)
