@@ -55,7 +55,8 @@ class MasterController(Controller):
     # Receives world data from the generated game log and is responsible for interpreting it
     def interpret_current_turn_data(self, clients, world, turn):
         self.current_world_data = world
-        random.seed(world["seed"])
+        if(turn == 1):
+            random.seed(world["seed"])
 
     # Receive a specific client and send them what they get per turn. Also obfuscates necessary objects.
     def client_turn_arguments(self, client, turn):
