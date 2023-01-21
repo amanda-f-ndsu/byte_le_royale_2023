@@ -26,7 +26,7 @@ class Dispenser(Station):
 
     def dispense(self, turn):
         if not self.item or turn % GameStats.turns_per_item_turnover_event == 0:
-            rand_topping = random.randint(ToppingType.dough, ToppingType.anchovies)
+            rand_topping = random.choices(list(range(ToppingType.dough, ToppingType.anchovies + 1)), GameStats.topping_types_weights_array)[0]
             self.item = Topping(topping_type=rand_topping, worth=GameStats.topping_stats[rand_topping]["score"], quality=1)
 
     def to_json(self) -> dict:
