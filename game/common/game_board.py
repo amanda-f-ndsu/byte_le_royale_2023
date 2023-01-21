@@ -11,7 +11,7 @@ from game.common.stations.storage import Storage
 from game.common.game_object import GameObject
 from game.common.map.tile import Tile
 from game.common.map.counter import Counter
-from game.common.enums import ObjectType
+from game.common.enums import *
 from game.common.stations.delivery import Delivery
 
 
@@ -20,6 +20,7 @@ class GameBoard(GameObject):
         random.seed(seed)
         super().__init__()
         self.object_type = ObjectType.game_board
+        self.event_active = None
         # generate list of stations
         station_hold = [
             Combiner(),
@@ -171,10 +172,15 @@ class GameBoard(GameObject):
         data = super().to_json()
         temp = list([list(map(lambda tile: tile.to_json(), y)) for y in self.game_map])
         data["game_map"] = temp
+        data['event_active'] = self.event_active
         return data
+    
+    def generate_event(self, start, end):
+        self.event_active = random.randint(start,end)
 
     def from_json(self, data):
         super().from_json(data)
         temp = data["game_map"]
         self.game_map = list([list(map(lambda tile: Tile().from_json(tile), y)) for y in temp])
+        self.event_active = data['event_active'] 
         return self

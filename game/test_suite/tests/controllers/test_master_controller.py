@@ -11,6 +11,7 @@ class TestMasterController(unittest.TestCase):
     def setUp(self):
         self.masterController = MasterController()
         temp = generate_game.generate_map()
+        temp.event_active = EventType.electrical
         self.world = {
             "game_map": temp
         }
@@ -18,7 +19,6 @@ class TestMasterController(unittest.TestCase):
     
     def testElectrical(self):
         listofPlayers = { Player(),  Player()}
-        self.masterController.event_active = EventType.electrical 
         self.masterController.current_world_data = self.world
         self.masterController.handle_events(listofPlayers)
         listOfOvens = self.masterController.current_world_data["game_map"].ovens() 
