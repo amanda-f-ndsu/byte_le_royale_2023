@@ -45,7 +45,7 @@ class Client(UserClient):
                 self.x_min = 7
                 self.x_max = 12
         for state_index in range(len(self.pizza_states)):
-            if state_index - self.index_offset < len(self.pizza_states):
+            if 0 <= state_index - self.index_offset < len(self.pizza_states):
                 self.decide_action(action, world, cook, state_index - self.index_offset)
             if action.chosen_action != 0:
                 break
@@ -61,16 +61,16 @@ class Client(UserClient):
 
     def decide_action(self, action: Action, world: GameBoard, cook: Cook, state_index):
         pizza_state = self.pizza_states[state_index]
-        if pizza_state == None and  cook.held_item == None:
+        if pizza_state == None and cook.held_item == None:
             self.attempt_move_to_next_state(
                 action, world, cook, "Dough",state_index, ObjectType.dispenser, lambda x: x.item != None and x.item.topping_type == ToppingType.dough)
         elif pizza_state == "Dough" and cook.held_item is not None and cook.held_item.topping_type == ToppingType.dough:
             self.attempt_move_to_next_state(
                 action, world, cook, "Pizza_bare",state_index, ObjectType.roller)
-        elif pizza_state == "Pizza_bare" and cook.held_item.state == PizzaState.rolled:
+        elif pizza_state == "Pizza_bare" and cook.held_item is not None and cook.held_item.state == PizzaState.rolled:
             self.attempt_move_to_next_state(
                 action, world, cook, "Sauced",state_index, ObjectType.sauce)
-        elif pizza_state == "Sauced" and cook.held_item.state == PizzaState.sauced:
+        elif pizza_state == "Sauced" and cook.held_item is not None and cook.held_item.state == PizzaState.sauced:
             self.attempt_move_to_next_state(
                 action, world, cook, "combiner_pizza",state_index, ObjectType.combiner, lambda x: x.item == None)
         elif pizza_state == "combiner_pizza" and cook.held_item == None:
@@ -85,7 +85,7 @@ class Client(UserClient):
         elif pizza_state == "combiner_complete" and cook.held_item == None:
             action.chosen_action = ActionType.interact
             self.pizza_states[state_index] = "uncooked"
-        elif pizza_state == "uncooked" and cook.held_item.object_type == ObjectType.pizza:
+        elif pizza_state == "uncooked" and cook.held_item is not None and cook.held_item.object_type == ObjectType.pizza:
             self.attempt_move_to_next_state(
                 action, world, cook, "wait",state_index, ObjectType.oven, lambda x: x.item is None)
         elif pizza_state == "wait":
@@ -97,7 +97,7 @@ class Client(UserClient):
                 if oven.item is not None and oven.item.state == PizzaState.baked:
                     self.attempt_move_to_next_state(
                         action, world, cook, "finished_pizza",state_index, ObjectType.oven, lambda x: x.id == oven.id)
-        elif pizza_state == "finished_pizza" and cook.held_item.object_type == ObjectType.pizza:
+        elif pizza_state == "finished_pizza" and cook.held_item is not None and cook.held_item.object_type == ObjectType.pizza:
             self.attempt_move_to_next_state(
                 action, world, cook, None, state_index, ObjectType.delivery)
 
@@ -125,8 +125,8 @@ class Client(UserClient):
         return direction_to_move
 
     def scan_board(self, world: GameBoard, object_type: ObjectType, obj_eval_func=None) -> Tuple[int, int]:
-        for y in range(self.y_min - 1, self.y_max + 1):
-            for x in range(self.x_min -1, self.x_max + 1):
+        for y in range(self.y_min - 1, self.y_max + 2):
+            for x in range(self.half, self.x_max + 1):
                 if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
                     if obj_eval_func is None or (world.game_map[y][x].occupied_by != None and obj_eval_func(world.game_map[y][x].occupied_by)):
                         return (y, x)
@@ -134,8 +134,8 @@ class Client(UserClient):
 
     def scan_board_list(self, world: GameBoard, object_type: ObjectType, obj_eval_func=None):
         rtn = []
-        for y in range(0, self.y_max + 2):
-            for x in range(self.x_min, self.x_max + 2):
+        for y in range(self.y_min -1, self.y_max + 1):
+            for x in range(self.x_min -1, self.x_max + 1):
                 if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
                     if obj_eval_func is None or (world.game_map[y][x].occupied_by != None and obj_eval_func(world.game_map[y][x].occupied_by)):
                         rtn.append(world.game_map[y][x].occupied_by)

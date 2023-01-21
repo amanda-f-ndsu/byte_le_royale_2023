@@ -64,10 +64,10 @@ class Client(UserClient):
         if pizza_state == None and cook.held_item == None:
             self.attempt_move_to_next_state(
                 action, world, cook, "Dough",state_index, ObjectType.dispenser, lambda x: x.item != None and x.item.topping_type == ToppingType.dough)
-        elif pizza_state == "Dough" and cook.held_item.topping_type == ToppingType.dough:
+        elif pizza_state == "Dough" and cook.held_item is not None and cook.held_item.topping_type == ToppingType.dough:
             self.attempt_move_to_next_state(
                 action, world, cook, "Pizza_bare",state_index, ObjectType.roller)
-        elif pizza_state == "Pizza_bare" and cook.held_item.state == PizzaState.rolled:
+        elif pizza_state == "Pizza_bare" and cook.held_item is not None and cook.held_item.state == PizzaState.rolled:
             self.attempt_move_to_next_state(
                 action, world, cook, "Sauced",state_index, ObjectType.sauce)
         elif pizza_state == "Sauced" and cook.held_item.state == PizzaState.sauced:
@@ -85,7 +85,7 @@ class Client(UserClient):
         elif pizza_state == "combiner_complete" and cook.held_item == None:
             action.chosen_action = ActionType.interact
             self.pizza_states[state_index] = "uncooked"
-        elif pizza_state == "uncooked" and cook.held_item.object_type == ObjectType.pizza:
+        elif pizza_state == "uncooked" and cook.held_item is not None and cook.held_item.object_type == ObjectType.pizza:
             self.attempt_move_to_next_state(
                 action, world, cook, "wait",state_index, ObjectType.oven, lambda x: x.item is None)
         elif pizza_state == "wait":
@@ -97,7 +97,7 @@ class Client(UserClient):
                 if oven.item is not None and oven.item.state == PizzaState.baked:
                     self.attempt_move_to_next_state(
                         action, world, cook, "finished_pizza",state_index, ObjectType.oven, lambda x: x.id == oven.id)
-        elif pizza_state == "finished_pizza" and cook.held_item.object_type == ObjectType.pizza:
+        elif pizza_state == "finished_pizza" and cook.held_item is not None and cook.held_item.object_type == ObjectType.pizza:
             self.attempt_move_to_next_state(
                 action, world, cook, None, state_index, ObjectType.delivery)
 
