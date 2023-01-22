@@ -55,7 +55,7 @@ leaderboard_on = {"state": True}
 
 # Read db config information from file, set up connection
 db_conn = {}
-with open('./server/conn_info.json') as fl:
+with open('C:\\Users\\sean\\Documents\\Code\\byte_le_royale_2023\\server\\conn_info.json') as fl:
     db_conn = json.load(fl)
 
 try:

@@ -168,6 +168,10 @@ Then to run the server on Gunicorn, run the command
 
 gunicorn -b 134.129.91.175:8000 server.Server:app -w 1 --threads 12
 
+#### Windows
+
+https://thilinamad.medium.com/flask-app-deployment-in-windows-apache-server-mod-wsgi-82e1cfeeb2ed
+
 ### Endpoints
 
 The following endpoints exist on the API. Most are somewhat self explanitory. Note that 'get' doesn't refer to the HTTP action but the action of "getting" something.
