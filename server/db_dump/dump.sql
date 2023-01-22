@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.12 (Ubuntu 12.12-0ubuntu0.20.04.1)
+-- Dumped from database version 12.13 (Ubuntu 12.13-0ubuntu0.20.04.1)
 -- Dumped by pg_dump version 14.1 (Ubuntu 14.1-2.pgdg20.04+1)
 
--- Started on 2022-11-10 18:49:36 CST
+-- Started on 2023-01-21 20:06:54 CST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -138,7 +138,7 @@ $$;
 ALTER FUNCTION public.get_file_from_submission(teamid uuid, submissionid integer) OWNER TO postgres;
 
 --
--- TOC entry 249 (class 1255 OID 33555)
+-- TOC entry 248 (class 1255 OID 33555)
 -- Name: get_group_run_details(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -171,7 +171,7 @@ $$;
 ALTER FUNCTION public.get_group_run_details(groupid integer) OWNER TO postgres;
 
 --
--- TOC entry 248 (class 1255 OID 33556)
+-- TOC entry 247 (class 1255 OID 33556)
 -- Name: get_group_runs(uuid); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -197,7 +197,7 @@ $$;
 ALTER FUNCTION public.get_group_runs(teamid uuid) OWNER TO postgres;
 
 --
--- TOC entry 252 (class 1255 OID 33557)
+-- TOC entry 251 (class 1255 OID 33557)
 -- Name: get_latest_group_id(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -216,7 +216,7 @@ $$;
 ALTER FUNCTION public.get_latest_group_id() OWNER TO postgres;
 
 --
--- TOC entry 250 (class 1255 OID 33558)
+-- TOC entry 249 (class 1255 OID 33558)
 -- Name: get_latest_submission(uuid); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -252,7 +252,7 @@ $$;
 ALTER FUNCTION public.get_latest_submission(teamid uuid) OWNER TO postgres;
 
 --
--- TOC entry 251 (class 1255 OID 33559)
+-- TOC entry 270 (class 1255 OID 33559)
 -- Name: get_leaderboard(boolean, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -275,7 +275,7 @@ FROM (
             COALESCE(cnts.total_wins, 0) as total_wins
         FROM (
 				-- Should not matter if joined on player_1 or player_2
-                SELECT MAX(submission.submission_id), team_id FROM submission
+                SELECT MAX(submission.submission_id) as submission_id , team_id FROM submission
 				JOIN run ON run.player_1=submission.submission_id
 				WHERE run.group_run_id=grouprun
 				GROUP BY submission.team_id
@@ -303,7 +303,7 @@ $$;
 ALTER FUNCTION public.get_leaderboard(include_inelligible boolean, grouprun integer) OWNER TO postgres;
 
 --
--- TOC entry 253 (class 1255 OID 33560)
+-- TOC entry 252 (class 1255 OID 33560)
 -- Name: get_logs_for_group_run(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -334,7 +334,7 @@ $$;
 ALTER FUNCTION public.get_logs_for_group_run(grouprun integer) OWNER TO postgres;
 
 --
--- TOC entry 254 (class 1255 OID 33561)
+-- TOC entry 253 (class 1255 OID 33561)
 -- Name: get_runs_for_group(integer); Type: FUNCTION; Schema: public; Owner: byte_admin
 --
 
@@ -367,7 +367,7 @@ $$;
 ALTER FUNCTION public.get_runs_for_group(groupid integer) OWNER TO byte_admin;
 
 --
--- TOC entry 255 (class 1255 OID 33562)
+-- TOC entry 254 (class 1255 OID 33562)
 -- Name: get_runs_for_submission(uuid, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -402,7 +402,7 @@ $$;
 ALTER FUNCTION public.get_runs_for_submission(teamid uuid, submissionid integer) OWNER TO postgres;
 
 --
--- TOC entry 256 (class 1255 OID 33563)
+-- TOC entry 255 (class 1255 OID 33563)
 -- Name: get_runs_for_submission_and_group(integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -434,7 +434,7 @@ $$;
 ALTER FUNCTION public.get_runs_for_submission_and_group(submissionid integer, groupid integer) OWNER TO postgres;
 
 --
--- TOC entry 257 (class 1255 OID 33564)
+-- TOC entry 256 (class 1255 OID 33564)
 -- Name: get_seed_for_run(uuid, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -462,7 +462,7 @@ $$;
 ALTER FUNCTION public.get_seed_for_run(teamid uuid, runid integer) OWNER TO postgres;
 
 --
--- TOC entry 258 (class 1255 OID 33565)
+-- TOC entry 257 (class 1255 OID 33565)
 -- Name: get_submissions_for_team(uuid); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -484,7 +484,7 @@ $$;
 ALTER FUNCTION public.get_submissions_for_team(teamid uuid) OWNER TO postgres;
 
 --
--- TOC entry 260 (class 1255 OID 33566)
+-- TOC entry 259 (class 1255 OID 33566)
 -- Name: get_team_runs_for_group_run(uuid, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -518,7 +518,7 @@ $$;
 ALTER FUNCTION public.get_team_runs_for_group_run(teamid uuid, grouprunid integer) OWNER TO postgres;
 
 --
--- TOC entry 261 (class 1255 OID 33567)
+-- TOC entry 260 (class 1255 OID 33567)
 -- Name: get_team_score_over_time(uuid); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -555,7 +555,7 @@ $$;
 ALTER FUNCTION public.get_team_score_over_time(teamid uuid) OWNER TO postgres;
 
 --
--- TOC entry 262 (class 1255 OID 33568)
+-- TOC entry 261 (class 1255 OID 33568)
 -- Name: get_team_types(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -575,7 +575,7 @@ $$;
 ALTER FUNCTION public.get_team_types() OWNER TO postgres;
 
 --
--- TOC entry 263 (class 1255 OID 33569)
+-- TOC entry 262 (class 1255 OID 33569)
 -- Name: get_teams(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -597,7 +597,7 @@ $$;
 ALTER FUNCTION public.get_teams() OWNER TO postgres;
 
 --
--- TOC entry 264 (class 1255 OID 33570)
+-- TOC entry 263 (class 1255 OID 33570)
 -- Name: get_universities(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -615,7 +615,7 @@ $$;
 ALTER FUNCTION public.get_universities() OWNER TO postgres;
 
 --
--- TOC entry 265 (class 1255 OID 33571)
+-- TOC entry 264 (class 1255 OID 33571)
 -- Name: insert_error(integer, integer, character varying); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -634,7 +634,7 @@ $$;
 ALTER FUNCTION public.insert_error(subid integer, runid integer, err character varying) OWNER TO postgres;
 
 --
--- TOC entry 266 (class 1255 OID 33572)
+-- TOC entry 265 (class 1255 OID 33572)
 -- Name: insert_group_run(character varying, integer); Type: FUNCTION; Schema: public; Owner: byte_api
 --
 
@@ -655,7 +655,7 @@ $$;
 ALTER FUNCTION public.insert_group_run(launcherversion character varying, runsperclient integer) OWNER TO byte_api;
 
 --
--- TOC entry 267 (class 1255 OID 33573)
+-- TOC entry 266 (class 1255 OID 33573)
 -- Name: insert_log(character varying, integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -674,7 +674,7 @@ $$;
 ALTER FUNCTION public.insert_log(logfl character varying, runid integer, grouprunid integer) OWNER TO postgres;
 
 --
--- TOC entry 268 (class 1255 OID 33574)
+-- TOC entry 267 (class 1255 OID 33574)
 -- Name: insert_run(integer, integer, integer, integer); Type: FUNCTION; Schema: public; Owner: byte_admin
 --
 
@@ -695,7 +695,7 @@ $$;
 ALTER FUNCTION public.insert_run(sub_id integer, score integer, group_run_id integer, seedid integer) OWNER TO byte_admin;
 
 --
--- TOC entry 269 (class 1255 OID 33575)
+-- TOC entry 268 (class 1255 OID 33575)
 -- Name: insert_run(integer, integer, integer, integer, integer); Type: FUNCTION; Schema: public; Owner: byte_admin
 --
 
@@ -716,7 +716,7 @@ $$;
 ALTER FUNCTION public.insert_run(winn integer, player1 integer, player2 integer, grouprunid integer, seedid integer) OWNER TO byte_admin;
 
 --
--- TOC entry 270 (class 1255 OID 33576)
+-- TOC entry 269 (class 1255 OID 33576)
 -- Name: insert_run(integer, integer, integer, integer, character varying, integer); Type: FUNCTION; Schema: public; Owner: byte_api
 --
 
@@ -740,7 +740,7 @@ $$;
 ALTER FUNCTION public.insert_run(winn integer, player1 integer, player2 integer, grouprunid integer, err character varying, seedid integer) OWNER TO byte_api;
 
 --
--- TOC entry 259 (class 1255 OID 33577)
+-- TOC entry 258 (class 1255 OID 33577)
 -- Name: insert_seed(character varying, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -803,11 +803,11 @@ $$;
 ALTER PROCEDURE public.submit_code_file(file character varying, vid uuid) OWNER TO postgres;
 
 --
--- TOC entry 235 (class 1255 OID 41734)
+-- TOC entry 250 (class 1255 OID 49984)
 -- Name: update_group_run_to_finished(integer); Type: FUNCTION; Schema: public; Owner: byte_api
 --
 
-CREATE FUNCTION public.update_group_run_to_finished(group_run_id integer) RETURNS integer
+CREATE FUNCTION public.update_group_run_to_finished(group_runid integer) RETURNS integer
     LANGUAGE plpgsql
     AS $$
 DECLARE rtnid integer;
@@ -815,13 +815,13 @@ BEGIN
 -- Created by: Jonathan Hagen
 -- Written on: 10/8/22
 -- Updates is finished to true
-	update group_run set is_finished = true where group_run_id = group_run.group_run_id returning group_run_id into rtnid;
+	update group_run set is_finished = true where group_runid = group_run.group_run_id returning group_run_id into rtnid;
 	return rtnid;
 end;
 $$;
 
 
-ALTER FUNCTION public.update_group_run_to_finished(group_run_id integer) OWNER TO byte_api;
+ALTER FUNCTION public.update_group_run_to_finished(group_runid integer) OWNER TO byte_api;
 
 SET default_tablespace = '';
 
@@ -1387,7 +1387,7 @@ ALTER TABLE ONLY public.run
     ADD CONSTRAINT winner_fk FOREIGN KEY (winner) REFERENCES public.submission(submission_id) ON DELETE CASCADE;
 
 
--- Completed on 2022-11-10 18:49:37 CST
+-- Completed on 2023-01-21 20:06:59 CST
 
 --
 -- PostgreSQL database dump complete
