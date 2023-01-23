@@ -1,5 +1,5 @@
 from copy import deepcopy
-from random import randint
+import random
 
 from game.common.action import Action
 from game.common.cook import Cook
@@ -20,9 +20,8 @@ class MasterController(Controller):
     def __init__(self):
         super().__init__()
         self.game_over = False
-        self.event_active = None
         self.event_timer = GameStats.event_timer
-        self.event_times = (5,100)
+        self.event_times = (167,334)
         self.turn = None
         self.current_world_data = None
         self.movement_controller = MovementController()
@@ -55,6 +54,8 @@ class MasterController(Controller):
     # Receives world data from the generated game log and is responsible for interpreting it
     def interpret_current_turn_data(self, clients, world, turn):
         self.current_world_data = world
+        if(turn == 1):
+            random.seed(world["seed"])
 
     # Receive a specific client and send them what they get per turn. Also obfuscates necessary objects.
     def client_turn_arguments(self, client, turn):
@@ -84,32 +85,32 @@ class MasterController(Controller):
     def handle_events(self, clients):
         # If it is time to run an event, master controller picks an event to run
         if(self.turn == self.event_times[0] or self.turn == self.event_times[1]):
-            self.event_active = randint(EventType.electrical,EventType.wet_tile)
+            self.current_world_data["game_map"].generate_event(EventType.electrical,EventType.wet_tile)
         # Check if electrical event is triggered 
         listOfOvens = self.current_world_data["game_map"].ovens() 
-        if self.event_active == EventType.electrical and self.event_timer == GameStats.event_timer:
+        if self.current_world_data["game_map"].event_active == EventType.electrical and self.event_timer == GameStats.event_timer:
                 for oven in listOfOvens:
                     oven.is_powered = False
         # Check if wet tiles event is triggered
-        if self.event_active == EventType.wet_tile and self.event_timer == GameStats.event_timer:
+        if self.current_world_data["game_map"].event_active == EventType.wet_tile and self.event_timer == GameStats.event_timer:
             if not self.wet_tiles_controller.handle_actions(self.current_world_data["game_map"],self.current_world_data["game_map"].cooks()):
-               self.event_active = randint(EventType.electrical,EventType.infestation) 
+               self.current_world_data["game_map"].generate_event(EventType.electrical,EventType.infestation)
         # Event stops running once timer hits zero, timer is reset
         if self.event_timer == 0:
-            if self.event_active == EventType.electrical:
+            if self.current_world_data["game_map"].event_active == EventType.electrical:
                     for oven in listOfOvens:
                         oven.is_powered = True
-            if self.event_active == EventType.wet_tile:
+            if self.current_world_data["game_map"].event_active == EventType.wet_tile:
                 for y in range(7):
                     for x in range(13):
                         self.current_world_data["game_map"].game_map[y][x].is_wet_tile = False 
-            self.event_active = EventType.none
+            self.current_world_data["game_map"].event_active = EventType.none
             self.event_timer = GameStats.event_timer
         # timer counts down when event is running
-        if self.event_active != EventType.none:
+        if self.current_world_data["game_map"].event_active != EventType.none:
             self.event_timer = self.event_timer -1
         #Decay always occurs end of turn
-        self.decay_controller.handle_actions(self.event_active,self.current_world_data["game_map"].game_map,self.current_world_data["game_map"].cooks())
+        self.decay_controller.handle_actions(self.current_world_data["game_map"].event_active,self.current_world_data["game_map"].game_map,self.current_world_data["game_map"].cooks())
             
         
 

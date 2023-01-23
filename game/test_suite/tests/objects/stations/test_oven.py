@@ -38,6 +38,19 @@ class TestOven(unittest.TestCase):
         item_false = Item(quality=1, worth=20)
         self.pizza = self.oven.take_action(Cook(item=item_false))
         self.assertIsNone(self.oven.item)
+    
+    def test_double_pizza(self):
+        self.pizza.add_topping(Topping(topping_type=ToppingType.cheese))
+        self.pizza.add_topping(Topping(topping_type=ToppingType.anchovies))
+        self.pizza = self.oven.take_action(Cook(item=self.pizza))
+        # accepts first pizza
+        self.assertIsNone(self.pizza)
+        self.pizza = Pizza(state=PizzaState.sauced)
+        self.pizza.add_topping(Topping(topping_type=ToppingType.cheese))
+        self.pizza = self.oven.take_action(Cook(item=self.pizza))
+        # makes sure pizzas didn't change in oven or in cook's hand
+        self.assertTrue(len(self.oven.item.toppings) == 2)
+        self.assertTrue(len(self.pizza.toppings) == 1)
 
 
 if __name__ == '__main__':
