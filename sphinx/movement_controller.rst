@@ -1,0 +1,35 @@
+=====================
+Movement Controller
+=====================
+
+Important Notes
+---------------
+
+The Movement controller will move the cooks around the kitchen. 
+The cooks can only move one tile at a time.
+
+Example
+-------
+.. code-block:: python
+    # Moving up
+    # cook current position is (3,3)
+    action.chosen_action = ActionType.Move.up
+    # cook current position is (4,3)
+
+.. code-block:: python
+    # Moving down
+    # cook current position is (3,3)
+    action.chosen_action = ActionType.Move.down
+    # cook current position is (2,3)
+
+.. code-block:: python
+    # Moving left
+    # cook current position is (3,3)
+    action.chosen_action = ActionType.Move.left
+    # cook current position is (3,2)
+
+.. code-block:: python
+    # Moving right
+    # cook current position is (3,3)
+    action.chosen_action = ActionType.Move.right
+    # cook current position is (3,2)

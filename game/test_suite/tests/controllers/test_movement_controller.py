@@ -29,7 +29,7 @@ class TestMovementController(unittest.TestCase):
     def test_up(self):
         self.player.action = Action(ActionType.Move.up)
         self.movementController.handle_actions(self.world,self.player)
-        self.assertTrue(self.player.cook.position == (3,2))
+        self.assertTrue(self.player.cook.position == (2,3))
         self.assertIsNone(self.world.game_map[3][3].occupied_by)
         self.assertTrue(isinstance(self.world.game_map[2][3].occupied_by, Cook))
 
@@ -37,7 +37,7 @@ class TestMovementController(unittest.TestCase):
     def test_down(self):
         self.player.action = Action(ActionType.Move.down)
         self.movementController.handle_actions(self.world,self.player)
-        self.assertTrue(self.player.cook.position == (3,4))
+        self.assertTrue(self.player.cook.position == (4,3))
         self.assertIsNone(self.world.game_map[3][3].occupied_by)
         self.assertTrue(isinstance(self.world.game_map[4][3].occupied_by, Cook))
 
@@ -45,14 +45,14 @@ class TestMovementController(unittest.TestCase):
     def test_left(self):
         self.player.action = Action(ActionType.Move.left)
         self.movementController.handle_actions(self.world,self.player)
-        self.assertTrue(self.player.cook.position == (2,3))
+        self.assertTrue(self.player.cook.position == (3,2))
         self.assertIsNone(self.world.game_map[3][3].occupied_by)
         self.assertTrue(isinstance(self.world.game_map[3][2].occupied_by, Cook))
 
     def test_right(self):
         self.player.action = Action(ActionType.Move.right)
         self.movementController.handle_actions(self.world,self.player)
-        self.assertTrue(self.player.cook.position == (4,3))
+        self.assertTrue(self.player.cook.position == (3,4))
         self.assertIsNone(self.world.game_map[3][3].occupied_by)
         self.assertTrue(isinstance(self.world.game_map[3][4].occupied_by, Cook))
 
@@ -78,4 +78,11 @@ class TestMovementController(unittest.TestCase):
         self.player.action = Action(ActionType.Move.right)
         self.world.game_map[3][4].occupied_by = Counter()
         self.movementController.handle_actions(self.world,self.player)
+        self.assertTrue(self.player.cook.position == (3,3))
+
+    def test_wet_tile(self):
+        self.player.action = Action(ActionType.Move.right)
+        self.world.game_map[3][4].is_wet_tile = True
+        self.movementController.handle_actions(self.world,self.player)
+        print(self.player.cook.position)
         self.assertTrue(self.player.cook.position == (3,3))

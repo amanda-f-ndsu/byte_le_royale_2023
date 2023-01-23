@@ -51,19 +51,24 @@ class InteractController(Controller):
             stat = None
             x = None
             y = None
-            if isinstance(world.game_map[client.cook.position[1] - 1][client.cook.position[0]].occupied_by, Station):
-                x = client.cook.position[0]
-                y = client.cook.position[1] - 1
-            elif isinstance(world.game_map[client.cook.position[1] + 1][client.cook.position[0]].occupied_by, Station):
-                x = client.cook.position[0]
-                y = client.cook.position[1] + 1
-            elif isinstance(world.game_map[client.cook.position[1]][client.cook.position[0] - 1].occupied_by, Station):
-                x = client.cook.position[0] - 1
-                y = client.cook.position[1]
-            elif isinstance(world.game_map[client.cook.position[1]][client.cook.position[0] + 1].occupied_by, Station):
-                x = client.cook.position[0] + 1
-                y = client.cook.position[1]
+            if isinstance(world.game_map[client.cook.position[0] - 1][client.cook.position[1]].occupied_by, Station):
+                x = client.cook.position[1]
+                y = client.cook.position[0] - 1
+            elif isinstance(world.game_map[client.cook.position[0] + 1][client.cook.position[1]].occupied_by, Station):
+                x = client.cook.position[1]
+                y = client.cook.position[0] + 1
+            elif isinstance(world.game_map[client.cook.position[0]][client.cook.position[1] - 1].occupied_by, Station):
+                x = client.cook.position[1] - 1
+                y = client.cook.position[0]
+            elif isinstance(world.game_map[client.cook.position[0]][client.cook.position[1] + 1].occupied_by, Station):
+                x = client.cook.position[1] + 1
+                y = client.cook.position[0]
             if(x != None and y != None):
                 stat = world.game_map[y][x].occupied_by
+<<<<<<< HEAD
                 return stat.take_action(client.cook)
 >>>>>>> 90e5653fc204fed8b6bc87eb355f5d31cbfa1773
+=======
+                result = stat.take_action(client.cook)
+                client.cook.held_item = result
+>>>>>>> 95696f9e6a05dc44a2416663155ad9787eabfde6
