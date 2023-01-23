@@ -14,13 +14,10 @@ class Cook(GameObject):
         self.score = 0
         self.position = position
 
-<<<<<<< HEAD
 
     @property
     def chosen_action(self) -> ActionType:
         return self.__chosen_action
-=======
->>>>>>> 178d08184c392d29cef9e67c56c5ba54d608436b
 
     @property
     def held_item(self) -> Item:

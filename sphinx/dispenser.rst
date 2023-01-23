@@ -14,5 +14,5 @@ Instance Variables
 ================  =========================== ===================
  Name              Type                        Description
 ================  =========================== ===================
-Item               PizzaState enums            Topping that is display to cooks for them to take it
+Item               Topping enums               Topping that is display to cooks for them to take it
 ================  =========================== ===================
