@@ -16,7 +16,7 @@ Instance variables for the Gun object
  is_cut             bool                        Whether the topping is alreadly cut or not
 ================  =========================== ===================
 
-Gun type enum
+Topping type enum
 ---------------
 
 The following are the enums described above
@@ -36,9 +36,6 @@ The following are the enums described above
    olives           9
    anchovies        10
 ================  =========================== 
-
-Gun stats
-----------
 
 Below are the point gain from adding this topping to the pizza
 

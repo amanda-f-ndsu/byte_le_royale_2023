@@ -22,7 +22,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="My Title" href="test.html" /> 
+    <link rel="next" title="Events" href="events.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,19 +45,33 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="test.html">My Title</a></li>
-<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
-<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cook.html">Cook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GameBoard.html">The Game Board</a></li>
+<li class="toctree-l1"><a class="reference internal" href="player.html">Player Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="item.html">Item</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pizza.html">Pizza</a></li>
 <li class="toctree-l1"><a class="reference internal" href="topping.html">Topping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="counter.html">Counter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tile.html">Tile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="station.html">Station</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bin.html">Bin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="combiner.html">Combiner</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cutter.html">Cutter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delivery.html">Delivery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oven.html">Oven</a></li>
+<li class="toctree-l1"><a class="reference internal" href="roller.html">Roller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sauce.html">Sauce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="station.html">Station</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decay_controller.html">Decay Controller</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dispenser_controller.html">Dispenser Controller</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interact_controller.html">Interact Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="movement_controller.html">Movement Controller</a></li>
 <li class="toctree-l1"><a class="reference internal" href="oven_controller.html">Oven Controller</a></li>
 </ul>
 
@@ -90,20 +104,6 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="test.html">My Title</a></li>
-<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="enums.html#objecttype">ObjectType</a></li>
-<li class="toctree-l2"><a class="reference internal" href="enums.html#actiontype">ActionType</a></li>
-<li class="toctree-l2"><a class="reference internal" href="enums.html#pizzastate">PizzaState</a></li>
-<li class="toctree-l2"><a class="reference internal" href="enums.html#eventtype">EventType</a></li>
-<li class="toctree-l2"><a class="reference internal" href="enums.html#toppingtype">ToppingType</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="action.html#the-action-object">The Action Object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="action.html#available-actions">Available Actions</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="events.html#events-list">Events List</a></li>
 <li class="toctree-l2"><a class="reference internal" href="events.html#infestation">Infestation</a></li>
@@ -112,8 +112,54 @@
 <li class="toctree-l2"><a class="reference internal" href="events.html#event-timing">Event timing</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="server.html#the-important-commands-that-you-need-to-know">The Important commands that you need to know!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#other-fun-commands">Other Fun Commands!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#client-runner">Client Runner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#visualizer">Visualizer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#database-schema">Database Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="action.html#the-action-object">The Action Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="action.html#available-actions">Available Actions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cook.html">Cook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cook.html#what-your-player-can-see-their-location">What your player can see their location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cook.html#held-item">held item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cook.html#score">Score</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="GameBoard.html">The Game Board</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="GameBoard.html#general-layout">General Layout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="player.html">Player Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="player.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player.html#function-list">Function List</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#topping-point">Topping point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#oven-timer">Oven Timer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#decay-rate">Decay Rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stats.html#other">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="enums.html#objecttype">ObjectType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enums.html#actiontype">ActionType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enums.html#pizzastate">PizzaState</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enums.html#eventtype">EventType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enums.html#toppingtype">ToppingType</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="item.html">Item</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="item.html#important-information">Important information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="item.html#instance-variables">Instance Variables</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pizza.html">Pizza</a><ul>
@@ -125,8 +171,21 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="topping.html">Topping</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="topping.html#instance-variables">Instance Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="topping.html#gun-type-enum">Gun type enum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="topping.html#gun-stats">Gun stats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topping.html#topping-type-enum">Topping type enum</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="counter.html">Counter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="counter.html#important-information">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tile.html">Tile</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tile.html#important-information">Important information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tile.html#instance-variables">Instance Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="station.html">Station</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="station.html#important-information">Important information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="station.html#instance-variables">Instance Variables</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="bin.html">Bin</a><ul>
@@ -142,6 +201,33 @@
 <li class="toctree-l2"><a class="reference internal" href="cutter.html#important-information">Important information</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="delivery.html">Delivery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="delivery.html#important-information">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oven.html">Oven</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="oven.html#important-information">Important information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oven.html#instance-variables">Instance Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="roller.html">Roller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="roller.html#important-information">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sauce.html">Sauce</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sauce.html#important-information">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="station.html">Station</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="station.html#important-information">Important information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="station.html#instance-variables">Instance Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#important-information">Important information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#instance-variables">Instance Variables</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="decay_controller.html">Decay Controller</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="decay_controller.html#lore">Lore</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decay_controller.html#note">Note</a></li>
@@ -149,7 +235,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dispenser_controller.html">Dispenser Controller</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dispenser_controller.html#important-notes">Important Notes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dispenser_controller.html#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="interact_controller.html">Interact Controller</a><ul>
@@ -157,9 +242,13 @@
 <li class="toctree-l2"><a class="reference internal" href="interact_controller.html#example">Example</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="movement_controller.html">Movement Controller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="movement_controller.html#important-notes">Important Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="movement_controller.html#example">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="oven_controller.html">Oven Controller</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="oven_controller.html#important-notes">Important Notes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="oven_controller.html#example">Example</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +267,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="test.html" class="btn btn-neutral float-right" title="My Title" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="events.html" class="btn btn-neutral float-right" title="Events" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

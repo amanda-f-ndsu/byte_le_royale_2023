@@ -10,21 +10,36 @@ Welcome to Placeholder's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   test
-   enums
-   action
+   How to run
    events
+   server
+   action
+   cook
    GameBoard
+   player
+   stats
+   enums
+   item
    pizza
    topping
+   counter
+   tile
+   station
    bin
    combiner
    cutter
+   delivery
+   oven
+   roller
+   sauce
+   station
+   storage
    decay_controller
    dispenser_controller
    interact_controller
+   movement_controller
    oven_controller
-   wet_tiles_controller   
+   wet_tiles_controller  
 
 
 
