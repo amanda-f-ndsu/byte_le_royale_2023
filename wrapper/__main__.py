@@ -27,6 +27,8 @@ if __name__ == '__main__':
                                  help='Visualizes your bot against the last set of game logs! "v -h" shows more options')
 
     vis_subpar.add_argument('-log', action='store', type=str, nargs='?', const=-1, default="../logs/", dest="logpath", help="Specify a log path")
+    vis_subpar.add_argument('-skip-pause', action='store_true', default=False,
+                            dest='skip', help='Skips visualizer pause')
 
     run_subpar.add_argument('-debug', '-d', action='store', type=int, nargs='?', const=-1, 
                             default=None, dest='debug', help='Allows for debugging when running your code')
@@ -153,7 +155,7 @@ if __name__ == '__main__':
         # Run the logs adaption
         subprocess.run(["python3" , "undercooked_adapter.py", par_args.logpath, "graphical.json"], cwd=vis_path)
         # Open the graphical log with Bytiser
-        subprocess.run(["python3", "bytiser.py", "config.json", "graphical.json"], cwd=vis_path)
+        subprocess.run(["python3", "bytiser.py", "config.json", "graphical.json", str(not par_args.skip)], cwd=vis_path)
 
      # Boot up the scrimmage server client
     elif action in ['client', 'c', 'scrimmage', 's']:
