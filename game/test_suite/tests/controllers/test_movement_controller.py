@@ -1,9 +1,5 @@
 import unittest
-<<<<<<< HEAD
-=======
 from game.common.action import Action
->>>>>>> 178d08184c392d29cef9e67c56c5ba54d608436b
-
 from game.common.cook import Cook
 from game.common.enums import *
 from game.common.map.counter import Counter
