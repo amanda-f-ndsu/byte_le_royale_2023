@@ -18,10 +18,10 @@ class WetTilesController(Controller):
         cook2_pos = cooks[1].position
         # Find distance to middle, then subtract that from middle to get position
         # the cook on right side would be on the left. In other words, reflection.
-        cook2_superimposed = (6 - (cook2_pos[0] - 6), cook2_pos[1])
+        cook2_superimposed = (cook2_pos[0], 6 - (cook2_pos[1] - 6))
 
-        cook1_calc_pos = cook1_pos[0] + cook1_pos[1] * 10
-        cook2_calc_pos = cook2_superimposed[0] + cook2_superimposed[1] * 10
+        cook1_calc_pos = cook1_pos[1] + cook1_pos[0] * 10
+        cook2_calc_pos = cook2_superimposed[1] + cook2_superimposed[0] * 10
 
         # Determine which of the wet_tile boards to choose
         chosen_board = False
@@ -44,7 +44,7 @@ class WetTilesController(Controller):
         for y in range(7):
             for x in range(1, 6):
                 tile_calc_pos = x + (y * 10)
-                if trial_map.game_map[y][x].is_wet_tile and tile_calc_pos == cook1_calc_pos or tile_calc_pos == cook2_calc_pos:
+                if trial_map.game_map[y][x].is_wet_tile and (tile_calc_pos == cook1_calc_pos or tile_calc_pos == cook2_calc_pos):         
                     # Player standing on wet_tile already, cannot use map
                     return False
         return trial_map
