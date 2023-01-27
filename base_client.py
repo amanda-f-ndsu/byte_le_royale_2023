@@ -84,7 +84,7 @@ class Client(UserClient):
                                             ObjectType.combiner, lambda x: x.item != None and ToppingType.cheese not in x.item.toppings)
         elif pizza_state == "combiner_cheese" and cook.held_item == None:
             self.attempt_move_to_next_state(action, world, cook, "cut_item",state_index, ObjectType.dispenser,
-                                            lambda x: x.item != None and x.item.topping_type not in [ToppingType.cheese, ToppingType.dough])
+                                            lambda x: x.item != None and x.item.topping_type in [ToppingType.canadian_ham, ToppingType.mushrooms, ToppingType.peppers, ToppingType.olives, ToppingType.anchovies])
         elif pizza_state == "cut_item" and cook.held_item is not None and cook.held_item.topping_type != None:
             self.attempt_move_to_next_state(
                 action, world, cook, "combiner_needs_item",state_index, ObjectType.cutter)
@@ -149,6 +149,18 @@ class Client(UserClient):
                     if obj_eval_func is None or (world.game_map[y][x].occupied_by != None and obj_eval_func(world.game_map[y][x].occupied_by)):
                         rtn.append(world.game_map[y][x].occupied_by)
         return rtn
+
+    def scan_val_item(self, check_y, x, world) -> bool:
+        max_item_val = 0
+        max_item_y = 0
+        for y in range(0, self.y_max + 2):
+            if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == ObjectType.dispenser:
+                disp = world.game_map[y][x].occupied_by
+                if disp.item is not None and max_item_val < disp.item.worth:
+                    max_item_val = disp.item.worth
+                    max_item_y = y
+        return max_item_y == check_y
+
 
     def manhattan_distance(self, int_tuple_one: Tuple[int, int], int_tuple_two: Tuple[int, int]) -> int:
         return abs(int_tuple_one[0] - int_tuple_two[0]) + abs(int_tuple_one[1] - int_tuple_two[1])
