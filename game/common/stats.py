@@ -38,4 +38,4 @@ class GameStats:
                                  ToppingType.olives,
                                  ToppingType.anchovies]
     topping_types_weights_array = [
-        .2, .2, .09, .09, .09, .09, .05, .09, .05, .01]
+        .3, .24, .1, .1, .05, .03, .02, .1, .05, .01]
