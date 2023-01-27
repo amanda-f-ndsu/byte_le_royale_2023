@@ -57,6 +57,7 @@ class Bytiser():
         config_file = open(config_path)
         self.config = json.loads(config_file.read())
         self.paused = paused
+        self.quits = not paused
         # Init pygame
         pygame.init()
         pygame.font.init()
@@ -183,6 +184,9 @@ class Bytiser():
             # Check if at end of commands, if so then pause
             if self.index >= len(self.commands):
                 self.paused = True
+                # If we want to quit at the end of play, then mark game end
+                if self.quits:
+                    game_run = False
 
             # Frames per second based on up and down arrows
             if self.speed == 1:
