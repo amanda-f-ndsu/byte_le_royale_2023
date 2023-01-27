@@ -22,6 +22,11 @@ class visualizer_runner:
             password=db_conn["password"]
         )
 
+        # Get path to runner
+        self.launcher_path = os.path.dirname(os.path.realpath(__file__))
+        # Get path right above launcher
+        self.launcher_path = os.path.dirname(self.launcher_path)
+
         # Current group run ID of logs
         self.group_id = 0
 
@@ -40,7 +45,8 @@ class visualizer_runner:
         except (KeyboardInterrupt, Exception) as e:
             print("Ending visualizer due to {0}".format(e))
         finally:
-            self.delete_vis_temp()
+            # self.delete_vis_temp()
+            print()
 
     def get_latest_log_files(self, group_id):
         self.delete_vis_temp()
@@ -64,10 +70,6 @@ class visualizer_runner:
                 with open(f"{logs_dir}/{key}", "w") as fl:
                     fl.write(files[key])
 
-            shutil.copy('launcher.pyz', id_dir)
-            shutil.copy('server/runners/vis_runner.sh', id_dir)
-            shutil.copytree('Visualiser', id_dir + '/Visualiser')
-
     def get_latest_group(self):
         print("Getting Latest Group Run")
         cur = self.conn.cursor(cursor_factory=RealDictCursor)
@@ -88,10 +90,8 @@ class visualizer_runner:
                 f = open(os.devnull, 'w')
                 path = f"{self.logs_path}/{team_dir}"
                 for id in os.listdir(path):
-                    idpath = f"{path}/{id}"
-                    p = subprocess.Popen('bash vis_runner.sh', stdout=f, cwd=idpath, shell=True)
-                    stdout, stderr = p.communicate()
-
+                    idpath = f"../{path}/{id}/logs"
+                    subprocess.run(["python3" , "launcher.pyz", "v", "-log", idpath, "-server"], cwd=self.launcher_path)
             except PermissionError:
                 print("Whoops")
 
