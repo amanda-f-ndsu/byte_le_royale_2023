@@ -27,7 +27,7 @@ class Dispenser(Station):
 
     def dispense(self, turn):
         if self._dirty or (not self.item or turn % GameStats.turns_per_item_turnover_event == 0):
-            rand_topping = random.choices(list(range(ToppingType.dough, ToppingType.anchovies + 1)), GameStats.topping_types_weights_array)[0]
+            rand_topping = random.choices(GameStats.topping_types_synced_list, GameStats.topping_types_weights_array)[0]
             self.item = Topping(topping_type=rand_topping, worth=GameStats.topping_stats[rand_topping]["score"], quality=1)
             self._dirty = False            
             
