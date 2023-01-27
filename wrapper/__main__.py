@@ -153,9 +153,9 @@ if __name__ == '__main__':
         # Go into Visualizer folder and get needed paths
         vis_path = os.path.join(dir_path, "Visualiser")
         # Run the logs adaption
-        subprocess.run(["python3" , "undercooked_adapter.py", par_args.logpath, "graphical.json"], cwd=vis_path)
+        subprocess.run(["python" , "undercooked_adapter.py", par_args.logpath, "graphical.json"], cwd=vis_path)
         # Open the graphical log with Bytiser
-        subprocess.run(["python3", "bytiser.py", "config.json", "graphical.json", str(not par_args.skip)], cwd=vis_path)
+        subprocess.run(["python", "bytiser.py", "config.json", "graphical.json", str(not par_args.skip)], cwd=vis_path)
 
      # Boot up the scrimmage server client
     elif action in ['client', 'c', 'scrimmage', 's']:
