@@ -80,6 +80,15 @@ class Client(UserClient):
             self.attempt_move_to_next_state(
                 action, world, cook, "combiner_needs_cheese",state_index, ObjectType.cutter)
         elif pizza_state == "combiner_needs_cheese" and cook.held_item is not None and cook.held_item.topping_type == ToppingType.cheese:
+            self.attempt_move_to_next_state(action, world, cook, "combiner_cheese",state_index,
+                                            ObjectType.combiner, lambda x: x.item != None and ToppingType.cheese not in x.item.toppings)
+        elif pizza_state == "combiner_cheese" and cook.held_item == None:
+            self.attempt_move_to_next_state(action, world, cook, "cut_item",state_index, ObjectType.dispenser,
+                                            lambda x: x.item != None and x.item.topping_type not in [ToppingType.cheese, ToppingType.dough])
+        elif pizza_state == "cut_item" and cook.held_item is not None and cook.held_item.topping_type != None:
+            self.attempt_move_to_next_state(
+                action, world, cook, "combiner_needs_item",state_index, ObjectType.cutter)
+        elif pizza_state == "combiner_needs_item" and cook.held_item is not None and cook.held_item.topping_type != None:
             self.attempt_move_to_next_state(action, world, cook, "combiner_complete",state_index,
                                             ObjectType.combiner, lambda x: x.item != None and ToppingType.cheese not in x.item.toppings)
         elif pizza_state == "combiner_complete" and cook.held_item == None:
