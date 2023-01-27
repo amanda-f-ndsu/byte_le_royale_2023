@@ -5,7 +5,7 @@
 -- Dumped from database version 12.13 (Ubuntu 12.13-0ubuntu0.20.04.1)
 -- Dumped by pg_dump version 14.1 (Ubuntu 14.1-2.pgdg20.04+1)
 
--- Started on 2023-01-21 20:06:54 CST
+-- Started on 2023-01-26 20:25:07 CST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -27,7 +27,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 
 
 --
--- TOC entry 3098 (class 0 OID 0)
+-- TOC entry 3099 (class 0 OID 0)
 -- Dependencies: 2
 -- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
 --
@@ -252,7 +252,7 @@ $$;
 ALTER FUNCTION public.get_latest_submission(teamid uuid) OWNER TO postgres;
 
 --
--- TOC entry 270 (class 1255 OID 33559)
+-- TOC entry 271 (class 1255 OID 33559)
 -- Name: get_leaderboard(boolean, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -803,6 +803,28 @@ $$;
 ALTER PROCEDURE public.submit_code_file(file character varying, vid uuid) OWNER TO postgres;
 
 --
+-- TOC entry 270 (class 1255 OID 50030)
+-- Name: truncate_tables(character varying); Type: FUNCTION; Schema: public; Owner: byte_api
+--
+
+CREATE FUNCTION public.truncate_tables(username character varying) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    statements CURSOR FOR
+        SELECT tablename FROM pg_tables
+        WHERE tableowner = username AND schemaname = 'public';
+BEGIN
+    FOR stmt IN statements LOOP
+        EXECUTE 'TRUNCATE TABLE ' || quote_ident(stmt.tablename) || ' CASCADE;';
+    END LOOP;
+END;
+$$;
+
+
+ALTER FUNCTION public.truncate_tables(username character varying) OWNER TO byte_api;
+
+--
 -- TOC entry 250 (class 1255 OID 49984)
 -- Name: update_group_run_to_finished(integer); Type: FUNCTION; Schema: public; Owner: byte_api
 --
@@ -887,7 +909,7 @@ CREATE SEQUENCE public.group_run_group_run_id_seq
 ALTER TABLE public.group_run_group_run_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3099 (class 0 OID 0)
+-- TOC entry 3100 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: group_run_group_run_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -944,7 +966,7 @@ CREATE SEQUENCE public.run_runid_seq
 ALTER TABLE public.run_runid_seq OWNER TO postgres;
 
 --
--- TOC entry 3100 (class 0 OID 0)
+-- TOC entry 3101 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: run_runid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -983,7 +1005,7 @@ CREATE SEQUENCE public.seed_seed_id_seq
 ALTER TABLE public.seed_seed_id_seq OWNER TO postgres;
 
 --
--- TOC entry 3101 (class 0 OID 0)
+-- TOC entry 3102 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: seed_seed_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1022,7 +1044,7 @@ CREATE SEQUENCE public.submission_submissionid_seq
 ALTER TABLE public.submission_submissionid_seq OWNER TO postgres;
 
 --
--- TOC entry 3102 (class 0 OID 0)
+-- TOC entry 3103 (class 0 OID 0)
 -- Dependencies: 213
 -- Name: submission_submissionid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1078,7 +1100,7 @@ CREATE SEQUENCE public.teamtype_teamtypeid_seq
 ALTER TABLE public.teamtype_teamtypeid_seq OWNER TO postgres;
 
 --
--- TOC entry 3103 (class 0 OID 0)
+-- TOC entry 3104 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: teamtype_teamtypeid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1117,7 +1139,7 @@ CREATE SEQUENCE public.university_uniid_seq
 ALTER TABLE public.university_uniid_seq OWNER TO postgres;
 
 --
--- TOC entry 3104 (class 0 OID 0)
+-- TOC entry 3105 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: university_uniid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1126,7 +1148,7 @@ ALTER SEQUENCE public.university_uniid_seq OWNED BY public.university.uni_id;
 
 
 --
--- TOC entry 2922 (class 2604 OID 33641)
+-- TOC entry 2923 (class 2604 OID 33641)
 -- Name: group_run group_run_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1134,7 +1156,7 @@ ALTER TABLE ONLY public.group_run ALTER COLUMN group_run_id SET DEFAULT nextval(
 
 
 --
--- TOC entry 2925 (class 2604 OID 33642)
+-- TOC entry 2926 (class 2604 OID 33642)
 -- Name: run run_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1142,7 +1164,7 @@ ALTER TABLE ONLY public.run ALTER COLUMN run_id SET DEFAULT nextval('public.run_
 
 
 --
--- TOC entry 2926 (class 2604 OID 33643)
+-- TOC entry 2927 (class 2604 OID 33643)
 -- Name: seed seed_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1150,7 +1172,7 @@ ALTER TABLE ONLY public.seed ALTER COLUMN seed_id SET DEFAULT nextval('public.se
 
 
 --
--- TOC entry 2928 (class 2604 OID 33644)
+-- TOC entry 2929 (class 2604 OID 33644)
 -- Name: submission submission_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1158,7 +1180,7 @@ ALTER TABLE ONLY public.submission ALTER COLUMN submission_id SET DEFAULT nextva
 
 
 --
--- TOC entry 2931 (class 2604 OID 33645)
+-- TOC entry 2932 (class 2604 OID 33645)
 -- Name: team_type team_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1166,7 +1188,7 @@ ALTER TABLE ONLY public.team_type ALTER COLUMN team_type_id SET DEFAULT nextval(
 
 
 --
--- TOC entry 2933 (class 2604 OID 33646)
+-- TOC entry 2934 (class 2604 OID 33646)
 -- Name: university uni_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1174,7 +1196,7 @@ ALTER TABLE ONLY public.university ALTER COLUMN uni_id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 2936 (class 2606 OID 33648)
+-- TOC entry 2937 (class 2606 OID 33648)
 -- Name: group_run group_run_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1183,7 +1205,7 @@ ALTER TABLE ONLY public.group_run
 
 
 --
--- TOC entry 2939 (class 2606 OID 33650)
+-- TOC entry 2940 (class 2606 OID 33650)
 -- Name: run run_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1192,7 +1214,7 @@ ALTER TABLE ONLY public.run
 
 
 --
--- TOC entry 2942 (class 2606 OID 33652)
+-- TOC entry 2943 (class 2606 OID 33652)
 -- Name: seed seed_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1201,7 +1223,7 @@ ALTER TABLE ONLY public.seed
 
 
 --
--- TOC entry 2944 (class 2606 OID 33654)
+-- TOC entry 2945 (class 2606 OID 33654)
 -- Name: submission submission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1210,7 +1232,7 @@ ALTER TABLE ONLY public.submission
 
 
 --
--- TOC entry 2946 (class 2606 OID 33656)
+-- TOC entry 2947 (class 2606 OID 33656)
 -- Name: team team_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1219,7 +1241,7 @@ ALTER TABLE ONLY public.team
 
 
 --
--- TOC entry 2948 (class 2606 OID 33658)
+-- TOC entry 2949 (class 2606 OID 33658)
 -- Name: team team_teamname_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1228,7 +1250,7 @@ ALTER TABLE ONLY public.team
 
 
 --
--- TOC entry 2950 (class 2606 OID 33660)
+-- TOC entry 2951 (class 2606 OID 33660)
 -- Name: team_type teamtype_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1237,7 +1259,7 @@ ALTER TABLE ONLY public.team_type
 
 
 --
--- TOC entry 2952 (class 2606 OID 33662)
+-- TOC entry 2953 (class 2606 OID 33662)
 -- Name: university university_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1246,7 +1268,7 @@ ALTER TABLE ONLY public.university
 
 
 --
--- TOC entry 2937 (class 1259 OID 33663)
+-- TOC entry 2938 (class 1259 OID 33663)
 -- Name: fki_fk_run_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1254,7 +1276,7 @@ CREATE INDEX fki_fk_run_id ON public.logs USING btree (run_id);
 
 
 --
--- TOC entry 2940 (class 1259 OID 33664)
+-- TOC entry 2941 (class 1259 OID 33664)
 -- Name: fki_group_run_id_fk; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1262,7 +1284,7 @@ CREATE INDEX fki_group_run_id_fk ON public.seed USING btree (group_run_id);
 
 
 --
--- TOC entry 2953 (class 2606 OID 33665)
+-- TOC entry 2954 (class 2606 OID 33665)
 -- Name: code_file codefile_submissionid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1271,7 +1293,7 @@ ALTER TABLE ONLY public.code_file
 
 
 --
--- TOC entry 2954 (class 2606 OID 33670)
+-- TOC entry 2955 (class 2606 OID 33670)
 -- Name: errors errors_run_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1280,7 +1302,7 @@ ALTER TABLE ONLY public.errors
 
 
 --
--- TOC entry 2956 (class 2606 OID 33675)
+-- TOC entry 2957 (class 2606 OID 33675)
 -- Name: logs fk_group_run_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1289,7 +1311,7 @@ ALTER TABLE ONLY public.logs
 
 
 --
--- TOC entry 2957 (class 2606 OID 33680)
+-- TOC entry 2958 (class 2606 OID 33680)
 -- Name: logs fk_run_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1298,7 +1320,7 @@ ALTER TABLE ONLY public.logs
 
 
 --
--- TOC entry 2963 (class 2606 OID 33685)
+-- TOC entry 2964 (class 2606 OID 33685)
 -- Name: seed group_run_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1307,7 +1329,7 @@ ALTER TABLE ONLY public.seed
 
 
 --
--- TOC entry 2958 (class 2606 OID 33690)
+-- TOC entry 2959 (class 2606 OID 33690)
 -- Name: run player_1_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1316,7 +1338,7 @@ ALTER TABLE ONLY public.run
 
 
 --
--- TOC entry 2959 (class 2606 OID 33695)
+-- TOC entry 2960 (class 2606 OID 33695)
 -- Name: run player_2_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1325,7 +1347,7 @@ ALTER TABLE ONLY public.run
 
 
 --
--- TOC entry 2960 (class 2606 OID 33700)
+-- TOC entry 2961 (class 2606 OID 33700)
 -- Name: run run_group_run_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1334,7 +1356,7 @@ ALTER TABLE ONLY public.run
 
 
 --
--- TOC entry 2961 (class 2606 OID 33705)
+-- TOC entry 2962 (class 2606 OID 33705)
 -- Name: run seed_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1343,7 +1365,7 @@ ALTER TABLE ONLY public.run
 
 
 --
--- TOC entry 2955 (class 2606 OID 33710)
+-- TOC entry 2956 (class 2606 OID 33710)
 -- Name: errors subidfk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1352,7 +1374,7 @@ ALTER TABLE ONLY public.errors
 
 
 --
--- TOC entry 2964 (class 2606 OID 33715)
+-- TOC entry 2965 (class 2606 OID 33715)
 -- Name: submission submission_teamid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1361,7 +1383,7 @@ ALTER TABLE ONLY public.submission
 
 
 --
--- TOC entry 2965 (class 2606 OID 33720)
+-- TOC entry 2966 (class 2606 OID 33720)
 -- Name: team team_teamtypeid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1370,7 +1392,7 @@ ALTER TABLE ONLY public.team
 
 
 --
--- TOC entry 2966 (class 2606 OID 33725)
+-- TOC entry 2967 (class 2606 OID 33725)
 -- Name: team team_uniid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1379,7 +1401,7 @@ ALTER TABLE ONLY public.team
 
 
 --
--- TOC entry 2962 (class 2606 OID 33730)
+-- TOC entry 2963 (class 2606 OID 33730)
 -- Name: run winner_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1387,7 +1409,7 @@ ALTER TABLE ONLY public.run
     ADD CONSTRAINT winner_fk FOREIGN KEY (winner) REFERENCES public.submission(submission_id) ON DELETE CASCADE;
 
 
--- Completed on 2023-01-21 20:06:59 CST
+-- Completed on 2023-01-26 20:25:07 CST
 
 --
 -- PostgreSQL database dump complete

@@ -1,6 +1,6 @@
 import json
 import sys
-
+import os
 class UnderCookedAdapter():
     def __init__(self, log_path):
         self.log_path = log_path
@@ -50,11 +50,16 @@ class UnderCookedAdapter():
 
 
     def setup_scores(self):
-        clients = open(self.log_path + "/turn_0001.json")
-        clients = json.loads(clients.read())
-        clients = clients["clients"]
-        self.command(0, "add_score", [0, clients[0]["team_name"] + ": ", 0, [500, 10]])
-        self.command(0, "add_score", [1, clients[1]["team_name"] + ": ", 0, [500, 30]])
+        try:
+            print(self.log_path + "/turn_0001.json")
+            clients = open(self.log_path + "/turn_0001.json")
+            clients = json.loads(clients.read())
+            clients = clients["clients"]
+            self.command(0, "add_score", [0, clients[0]["team_name"] + ": ", 0, [500, 10]])
+            self.command(0, "add_score", [1, clients[1]["team_name"] + ": ", 0, [500, 30]])
+        except:
+            curdur = os.getcwd()
+            raise Exception(f"No path " + curdur)
 
     def setup_gamemap(self):
         # Load just the gamemap from game_map.json
