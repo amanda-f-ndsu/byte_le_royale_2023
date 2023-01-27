@@ -52,10 +52,12 @@ class Bytiser():
 
     # Init object with a config path
     # Will set up pygame and check config
-    def __init__(self, config_path):
+    def __init__(self, config_path, paused = True):
         # Load config
         config_file = open(config_path)
         self.config = json.loads(config_file.read())
+        self.paused = paused
+        self.quits = not paused
         # Init pygame
         pygame.init()
         pygame.font.init()
@@ -104,7 +106,6 @@ class Bytiser():
 
         # Init function scope variables to track log progress
         game_run = True
-        self.paused = True
         self.speed = 0
         self.turn = 0
         self.index = 0
@@ -183,6 +184,9 @@ class Bytiser():
             # Check if at end of commands, if so then pause
             if self.index >= len(self.commands):
                 self.paused = True
+                # If we want to quit at the end of play, then mark game end
+                if self.quits:
+                    game_run = False
 
             # Frames per second based on up and down arrows
             if self.speed == 1:
@@ -431,6 +435,9 @@ if(__name__ == "__main__"):
         bytiser.run_log("./graphical.json")
     elif (len(sys.argv) == 3):
         bytiser = Bytiser(sys.argv[1])
+        bytiser.run_log(sys.argv[2])
+    elif (len(sys.argv) == 4):
+        bytiser = Bytiser(sys.argv[1], True if sys.argv[3] == "True" else False)
         bytiser.run_log(sys.argv[2])
     elif (len(sys.argv) == 2 and sys.argv[1] == "--help"):
         help()
