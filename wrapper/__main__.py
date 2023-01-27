@@ -146,6 +146,18 @@ if __name__ == '__main__':
 
     # Run visualizer
     elif action in ['visualize', 'v']:
+        pythoncall = "python"
+        plat = sys.platform
+        # Check operating system and run corresponding visualizer
+        if plat == "win32":
+            print("You're running Windows")
+        elif plat == "linux":
+            print("You're a linux man I see.")
+            pythoncall = "python3.10"
+        elif plat == "darwin":
+            print("Mac is a great choice king")
+            pythoncall = "python3.10"
+
         # Get path to launcher
         dir_path = os.path.dirname(os.path.realpath(__file__))
         # Get path right above launcher
@@ -153,9 +165,9 @@ if __name__ == '__main__':
         # Go into Visualizer folder and get needed paths
         vis_path = os.path.join(dir_path, "Visualiser")
         # Run the logs adaption
-        subprocess.run(["python3" , "undercooked_adapter.py", par_args.logpath, "graphical.json"], cwd=vis_path)
+        subprocess.run([pythoncall , "undercooked_adapter.py", par_args.logpath, "graphical.json"], cwd=vis_path)
         # Open the graphical log with Bytiser
-        subprocess.run(["python3", "bytiser.py", "config.json", "graphical.json", str(not par_args.skip)], cwd=vis_path)
+        subprocess.run([pythoncall, "bytiser.py", "config.json", "graphical.json", str(not par_args.skip)], cwd=vis_path)
 
      # Boot up the scrimmage server client
     elif action in ['client', 'c', 'scrimmage', 's']:
