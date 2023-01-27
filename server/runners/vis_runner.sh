@@ -1,1 +1,1 @@
-python3.10 launcher.pyz v -log logs -skip-pause
+python3.10 launcher.pyz v -log logs -server

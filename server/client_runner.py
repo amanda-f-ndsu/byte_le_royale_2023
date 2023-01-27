@@ -167,8 +167,8 @@ class client_runner:
             for sub_id in errors:
                 self.insert_error(sub_id, run_id, errors[sub_id])
             # Update information in best run dict
-            if winner != -1 and len(self.best_run_for_client) < 10:
-                if winner not in self.best_run_for_client :
+            if winner != -1 or len(self.best_run_for_client) < 10:
+                if winner not in self.best_run_for_client:
                     self.best_run_for_client[row["submission_id"]] = {}
                     self.best_run_for_client[row["submission_id"]]["log_path"] = end_path + "/logs"
                     self.best_run_for_client[row["submission_id"]]["run_id"] = run_id
