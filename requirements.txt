@@ -2,3 +2,4 @@ tqdm
 pygame
 pillow
 opencv-python
+requests
