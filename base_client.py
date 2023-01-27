@@ -12,7 +12,7 @@ class Client(UserClient):
     # Variables and info you want to save between turns go here
     def __init__(self):
         super().__init__()
-        self.half = None
+        self.left_side = None
         self.x_min = None
         self.y_min = 1
         self.x_max = None
@@ -26,7 +26,22 @@ class Client(UserClient):
         Allows the team to set a team name.
         :return: Your team name
         """
-        return 'Sean\'s client'
+        return 'John Client'
+
+    def find_side(self, cook: Cook):
+        # If we already found our side
+        if self.left_side != None:
+            return
+        # Find our side and update x max and min
+        if cook.position[1] < 6:
+            self.left_side = True
+            self.x_min = 1
+            self.x_max = 5
+        else:
+            self.left_side = False
+            self.x_min = 7
+            self.x_max = 11
+                
 
     # This is where your AI will decide what to do
     def take_turn(self, turn: int, action: Action, world: GameBoard, cook: Cook):
@@ -36,14 +51,11 @@ class Client(UserClient):
         :param actions:     This is the actions object that you will add effort allocations or decrees to.
         :param world:       Generic world information
         """
-        if self.half == None:
-            self.half = 0
-            self.x_min = 1
-            self.x_max = 5
-            if cook.position[1] >= 6:
-                self.half = 6
-                self.x_min = 7
-                self.x_max = 12
+        
+        self.find_side()
+
+        
+
         for state_index in range(len(self.pizza_states)):
             if state_index - self.index_offset < len(self.pizza_states):
                 self.decide_action(action, world, cook, state_index - self.index_offset)
@@ -127,6 +139,8 @@ class Client(UserClient):
     def scan_board(self, world: GameBoard, object_type: ObjectType, obj_eval_func=None) -> Tuple[int, int]:
         for y in range(0, self.y_max + 2):
             for x in range(self.half, self.x_max + 2):
+                print(x)
+                print(world.game_map[y][x])
                 if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
                     if obj_eval_func is None or (world.game_map[y][x].occupied_by != None and obj_eval_func(world.game_map[y][x].occupied_by)):
                         return (y, x)
