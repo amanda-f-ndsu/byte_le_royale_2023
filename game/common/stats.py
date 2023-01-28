@@ -22,8 +22,8 @@ class GameStats:
         'baked': 20
     }
 
-    decay_rate = 0.02
-    infested_decay_rate = 0.05
+    decay_rate = 0.005
+    infested_decay_rate = 0.01
     event_timer = 50
     turns_per_item_turnover_event = 15
 
