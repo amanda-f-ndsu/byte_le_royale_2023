@@ -33,7 +33,7 @@ class Client(UserClient):
 
         :returns:       Your team name, your cook skin
         """
-        return ('Base client 1', "red")
+        return ('Base client 1', "purple")
 
     def start(self, action: Action, world: GameBoard, cook: Cook):
         """
