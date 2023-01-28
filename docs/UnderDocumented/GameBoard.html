@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Game Board &mdash; Byte-le-Royale 2023 9 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/accordion.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/accordion.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Stations" href="stations.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Byte-le-Royale 2023
+          </a>
+              <div class="version">
+                Version 1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The Game Board</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-layout">General Layout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tile">Tile</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#important-information">Important information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instance-variables">Instance Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#counter">Counter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Important information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="stations.html">Stations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizer.html">Visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">objects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Byte-le-Royale 2023</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">The Game Board</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/GameBoard.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="the-game-board">
+<h1>The Game Board<a class="headerlink" href="#the-game-board" title="Permalink to this heading"></a></h1>
+<section id="general-layout">
+<h2>General Layout<a class="headerlink" href="#general-layout" title="Permalink to this heading"></a></h2>
+<p>The map is a grid with two players that are separated by their side. The Combiner, Cutter, Oven, Roller, Sauce that are randomly place
+on the top and bottom row on the map. The player has to program their AI to go any station that they need.</p>
+<p>Note that the gird is a two dimensional array of Tile objects where the first index is Y and the second is X. So in your client</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">world</span><span class="o">.</span><span class="n">game_map</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="tile">
+<h2>Tile<a class="headerlink" href="#tile" title="Permalink to this heading"></a></h2>
+<section id="important-information">
+<h3>Important information<a class="headerlink" href="#important-information" title="Permalink to this heading"></a></h3>
+<p>Tiles are an object that make up the gameboard two dimensional array.</p>
+</section>
+<section id="instance-variables">
+<h3>Instance Variables<a class="headerlink" href="#instance-variables" title="Permalink to this heading"></a></h3>
+<p>Instance variables for the Tile object</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 32%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>is_wet_tile</p></td>
+<td><p>bool</p></td>
+<td><p>Determines whether the tile is wet or not</p></td>
+</tr>
+<tr class="row-odd"><td><p>occupied_by</p></td>
+<td><p>GameObject</p></td>
+<td><p>The object that occupies the tile</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="counter">
+<h2>Counter<a class="headerlink" href="#counter" title="Permalink to this heading"></a></h2>
+<section id="id1">
+<h3>Important information<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>Counters seperate the cooks in the kitchen. This is to create two kitchens, in order to prevent the “Too many cooks” problem.</p>
+<p>You do not recognize the tiles in the kitchen. Due to this, it is imperative that all cooks accessing this file be certified as
+having a Cognitive Resistance Value (CRV) of no less than 14.5. Should you fail an automated CRV verification, please remain calm
+and do not move. A member of your resturaunt’s medical staff will be with you shortly.</p>
+<p>The counters are not useable and do not need to be considerd at all, do not bother interacting with them. You do not recognize the tiles.
+The tiles never existed.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="stations.html" class="btn btn-neutral float-right" title="Stations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1970-2023, NDSU ACM.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

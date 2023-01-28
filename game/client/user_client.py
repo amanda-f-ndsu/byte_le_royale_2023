@@ -14,7 +14,7 @@ class UserClient:
             print(*args)
 
     def team_name(self):
-        return "No_Team_Name_Available"
+        return "The Worst"
 
     def take_turn(self, turn, actions, world):
         raise NotImplementedError("Implement this in subclass")
