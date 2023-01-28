@@ -75,8 +75,8 @@ class Client(UserClient):
         topping_type_eval_func is a function that takes an item and returns True if you want that item
         If topping_type_eval_func isn't provided, it will just return the first Object found 
         """
-        for y in range(0, len(world.game_map)):
-            for x in range(self.half, len(world.game_map[y])):
+        for y in range(self.y_min, self.y_max + 2):
+            for x in range(self.x_min, self.x_max + 2):
                 if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
                     if item_type_eval_func is None or (world.game_map[y][x].occupied_by.item != None and item_type_eval_func(world.game_map[y][x].occupied_by.item)):
                         return (y, x)
