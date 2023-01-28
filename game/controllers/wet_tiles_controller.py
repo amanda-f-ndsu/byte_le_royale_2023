@@ -334,8 +334,12 @@ class WetTilesController(Controller):
 
         smart_choices = generate_map(1)
         smart_choices.game_map[3][1].is_wet_tile = True
+        smart_choices.game_map[3][3].is_wet_tile = True
+        smart_choices.game_map[3][4].is_wet_tile = True
 
         smart_choices.game_map[3][11].is_wet_tile = True
+        smart_choices.game_map[3][9].is_wet_tile = True
+        smart_choices.game_map[3][8].is_wet_tile = True
         wet_option_list.append(smart_choices)
 
         ring_of_fire = generate_map(1)
@@ -438,8 +442,8 @@ class WetTilesController(Controller):
         diagonal.game_map[2][4].is_wet_tile = True
         diagonal.game_map[4][2].is_wet_tile = True
 
-        diagonal.game_map[2][10].is_wet_tile = True
-        diagonal.game_map[4][8].is_wet_tile = True
+        diagonal.game_map[2][8].is_wet_tile = True
+        diagonal.game_map[4][10].is_wet_tile = True
         wet_option_list.append(diagonal)
 
         small_four_corners = generate_map()
