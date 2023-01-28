@@ -1,0 +1,11 @@
+Open up a powershell in the Sphinx folder and type:
+
+pip install sphinx
+pip install recommonmark
+pip install sphinx_rtd_theme
+sphinx-build -b html . ../docs/UnderDocumented
+
+--------------------------------------
+To build for github pages run:
+
+make github

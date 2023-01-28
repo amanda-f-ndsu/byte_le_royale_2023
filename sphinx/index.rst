@@ -1,0 +1,51 @@
+.. Placeholder documentation master file, created by
+   sphinx-quickstart on Tue Jan 19 18:18:11 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to Placeholder's documentation!
+=======================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   How to run
+   events
+   server
+   action
+   cook
+   GameBoard
+   player
+   stats
+   enums
+   item
+   pizza
+   topping
+   counter
+   tile
+   station
+   bin
+   combiner
+   cutter
+   delivery
+   oven
+   roller
+   sauce
+   station
+   storage
+   decay_controller
+   dispenser_controller
+   interact_controller
+   movement_controller
+   oven_controller
+   wet_tiles_controller  
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

@@ -16,10 +16,6 @@ class Cook(GameObject):
 
 
     @property
-    def chosen_action(self) -> ActionType:
-        return self.__chosen_action
-
-    @property
     def held_item(self) -> Item:
         return self.__held_item
 
