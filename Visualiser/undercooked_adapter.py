@@ -261,9 +261,9 @@ class UnderCookedAdapter():
         elif skin == "white":
             return "white_cook"
         elif skin == "amanda":
-            return "white_cook"
-        elif skin == "mitchell":
             return "amanda_cook"
+        elif skin == "mitchell":
+            return "mitchell_cook"
         elif skin == "purple":
             return "purple_cook"
         elif skin == "jean":
