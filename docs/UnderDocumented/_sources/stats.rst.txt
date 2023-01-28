@@ -41,8 +41,8 @@ Decay Rate
 =====================  ========== ========================================================= 
  State                  point       Information   
 =====================  ========== ========================================================= 
- decay_rate             .02         The average decay rate of an item           
- infested_decay_rate    .05         The decay rate during the Infestation event
+ decay_rate             .005         The average decay rate of an item           
+ infested_decay_rate    .01         The decay rate during the Infestation event
 =====================  ========== ========================================================= 
 
 Other
