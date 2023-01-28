@@ -103,6 +103,7 @@ class Engine:
                 except Exception:
                     player.functional = False
                     player.error = str(traceback.format_exc())
+                    continue
 
                 player.code = obj
                 thr = None
@@ -296,7 +297,11 @@ class Engine:
 
         # Exit game
         if source:
-            print(f'\nGame has ended due to {source}.')
+            output = "\n"
+            for client in self.clients:
+                if client.error != None:
+                    output += client.error + "\n"
+            print(f'\nGame has ended due to {source}: [{output}].')
 
             # Flush standard out
             sys.stdout.flush()

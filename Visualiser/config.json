@@ -1,8 +1,8 @@
 {
-    "fps": 12,
+    "fps": 8,
     "font": "arial",
     "font_size": 20,
-    "font_color": [0, 255, 0],
+    "font_color": [0, 0, 255],
     "screen_width": 1366,
     "screen_height": 768,
     "global_tile_size": [32, 32],
