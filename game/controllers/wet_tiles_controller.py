@@ -38,8 +38,8 @@ class WetTilesController(Controller):
             for x in range(13):
                 if chosen_board.game_map[y][x].is_wet_tile:
                     game_board.game_map[y][x].is_wet_tile = True
-
-
+        return True
+        
     def determine_game_board(self, trial_map: GameBoard, cook1_calc_pos: int, cook2_calc_pos: int):
         for y in range(7):
             for x in range(1, 6):
