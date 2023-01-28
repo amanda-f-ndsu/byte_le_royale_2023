@@ -20,4 +20,11 @@ class OvenController(Controller):
                 oven.item.state = PizzaState.baked
         
             oven.timer = oven.timer - 1
+        
+        if not oven.is_powered:
+            oven.item = None
+            oven.is_active = False
+            oven.timer = GameStats.oven_timer['start']
+
+
                          
