@@ -135,6 +135,225 @@ class WetTilesController(Controller):
         pillar.game_map[3][9].is_wet_tile = True
         wet_option_list.append(pillar)
 
+        rainbow = generate_map(1)
+        rainbow.game_map[1][5].is_wet_tile = True
+        rainbow.game_map[3][3].is_wet_tile = True
+        rainbow.game_map[5][1].is_wet_tile = True
+        rainbow.game_map[2][3].is_wet_tile = True
+        rainbow.game_map[4][3].is_wet_tile = True
+
+        rainbow.game_map[1][7].is_wet_tile = True
+        rainbow.game_map[3][9].is_wet_tile = True
+        rainbow.game_map[5][11].is_wet_tile = True
+        rainbow.game_map[2][9].is_wet_tile = True
+        rainbow.game_map[4][9].is_wet_tile = True
+        wet_option_list.append(rainbow)
+
+        waluigi = generate_map(1)
+        waluigi.game_map[4][4].is_wet_tile = True
+        waluigi.game_map[4][3].is_wet_tile = True
+        waluigi.game_map[4][2].is_wet_tile = True
+        waluigi.game_map[4][1].is_wet_tile = True
+        waluigi.game_map[3][1].is_wet_tile = True
+        waluigi.game_map[2][1].is_wet_tile = True
+
+        waluigi.game_map[4][8].is_wet_tile = True
+        waluigi.game_map[4][9].is_wet_tile = True
+        waluigi.game_map[4][10].is_wet_tile = True
+        waluigi.game_map[4][11].is_wet_tile = True
+        waluigi.game_map[3][11].is_wet_tile = True
+        waluigi.game_map[2][11].is_wet_tile = True
+        wet_option_list.append(waluigi)
+
+        luigi = generate_map(1)
+        luigi.game_map[4][4].is_wet_tile = True
+        luigi.game_map[4][3].is_wet_tile = True
+        luigi.game_map[4][2].is_wet_tile = True
+        luigi.game_map[4][1].is_wet_tile = True
+        luigi.game_map[3][1].is_wet_tile = True
+        luigi.game_map[2][1].is_wet_tile = True
+
+        luigi.game_map[4][8].is_wet_tile = True
+        luigi.game_map[4][9].is_wet_tile = True
+        luigi.game_map[4][10].is_wet_tile = True
+        luigi.game_map[4][11].is_wet_tile = True
+        luigi.game_map[3][11].is_wet_tile = True
+        luigi.game_map[2][11].is_wet_tile = True
+        wet_option_list.append(luigi)
+
+        path = generate_map(1)
+        path.game_map[1][1].is_wet_tile = True
+        path.game_map[2][1].is_wet_tile = True
+        path.game_map[3][1].is_wet_tile = True
+        path.game_map[4][1].is_wet_tile = True
+        path.game_map[5][1].is_wet_tile = True
+        path.game_map[2][2].is_wet_tile = True
+        path.game_map[3][2].is_wet_tile = True
+        path.game_map[4][2].is_wet_tile = True
+        path.game_map[2][3].is_wet_tile = True
+        path.game_map[3][3].is_wet_tile = True
+        path.game_map[4][3].is_wet_tile = True
+        path.game_map[2][4].is_wet_tile = True
+        path.game_map[3][4].is_wet_tile = True
+        path.game_map[4][4].is_wet_tile = True
+
+        path.game_map[1][11].is_wet_tile = True
+        path.game_map[2][11].is_wet_tile = True
+        path.game_map[3][11].is_wet_tile = True
+        path.game_map[4][11].is_wet_tile = True
+        path.game_map[5][11].is_wet_tile = True
+        path.game_map[2][10].is_wet_tile = True
+        path.game_map[3][10].is_wet_tile = True
+        path.game_map[4][10].is_wet_tile = True
+        path.game_map[2][9].is_wet_tile = True
+        path.game_map[3][9].is_wet_tile = True
+        path.game_map[4][9].is_wet_tile = True
+        path.game_map[2][8].is_wet_tile = True
+        path.game_map[3][8].is_wet_tile = True
+        path.game_map[4][8].is_wet_tile = True
+        wet_option_list.append(path)
+
+        line = generate_map(1)
+        line.game_map[2][1].is_wet_tile = True
+        line.game_map[3][1].is_wet_tile = True
+        line.game_map[4][1].is_wet_tile = True
+        line.game_map[2][2].is_wet_tile = True
+        line.game_map[3][2].is_wet_tile = True
+        line.game_map[4][2].is_wet_tile = True
+        line.game_map[2][3].is_wet_tile = True
+        line.game_map[4][3].is_wet_tile = True
+        line.game_map[2][4].is_wet_tile = True
+        line.game_map[4][4].is_wet_tile = True
+        line.game_map[2][5].is_wet_tile = True
+        line.game_map[4][5].is_wet_tile = True
+
+        line.game_map[2][11].is_wet_tile = True
+        line.game_map[3][11].is_wet_tile = True
+        line.game_map[4][11].is_wet_tile = True
+        line.game_map[2][10].is_wet_tile = True
+        line.game_map[3][10].is_wet_tile = True
+        line.game_map[4][10].is_wet_tile = True
+        line.game_map[2][9].is_wet_tile = True
+        line.game_map[4][9].is_wet_tile = True
+        line.game_map[2][8].is_wet_tile = True
+        line.game_map[4][8].is_wet_tile = True
+        line.game_map[2][7].is_wet_tile = True
+        line.game_map[4][7].is_wet_tile = True
+        wet_option_list.append(line)
+
+        snake = generate_map(1)
+        snake.game_map[4][1].is_wet_tile = True
+        snake.game_map[2][2].is_wet_tile = True
+        snake.game_map[4][2].is_wet_tile = True
+        snake.game_map[2][3].is_wet_tile = True
+        snake.game_map[4][3].is_wet_tile = True
+        snake.game_map[2][4].is_wet_tile = True
+        snake.game_map[4][4].is_wet_tile = True
+        snake.game_map[2][5].is_wet_tile = True
+
+        snake.game_map[4][11].is_wet_tile = True
+        snake.game_map[2][10].is_wet_tile = True
+        snake.game_map[4][10].is_wet_tile = True
+        snake.game_map[2][9].is_wet_tile = True
+        snake.game_map[4][9].is_wet_tile = True
+        snake.game_map[2][8].is_wet_tile = True
+        snake.game_map[4][8].is_wet_tile = True
+        snake.game_map[2][7].is_wet_tile = True
+        wet_option_list.append(snake)
+
+        revsnake = generate_map(1)
+        revsnake.game_map[2][1].is_wet_tile = True
+        revsnake.game_map[2][2].is_wet_tile = True
+        revsnake.game_map[4][2].is_wet_tile = True
+        revsnake.game_map[2][3].is_wet_tile = True
+        revsnake.game_map[4][3].is_wet_tile = True
+        revsnake.game_map[2][4].is_wet_tile = True
+        revsnake.game_map[4][4].is_wet_tile = True
+        revsnake.game_map[4][5].is_wet_tile = True
+
+        revsnake.game_map[2][11].is_wet_tile = True
+        revsnake.game_map[2][10].is_wet_tile = True
+        revsnake.game_map[4][10].is_wet_tile = True
+        revsnake.game_map[2][9].is_wet_tile = True
+        revsnake.game_map[4][9].is_wet_tile = True
+        revsnake.game_map[2][8].is_wet_tile = True
+        revsnake.game_map[4][8].is_wet_tile = True
+        revsnake.game_map[4][7].is_wet_tile = True
+        wet_option_list.append(revsnake)
+
+        smsnake = generate_map(1)
+        smsnake.game_map[4][1].is_wet_tile = True
+        smsnake.game_map[3][1].is_wet_tile = True
+        smsnake.game_map[2][1].is_wet_tile = True
+        smsnake.game_map[4][2].is_wet_tile = True
+        smsnake.game_map[2][3].is_wet_tile = True
+        smsnake.game_map[4][3].is_wet_tile = True
+        smsnake.game_map[2][4].is_wet_tile = True
+        smsnake.game_map[2][5].is_wet_tile = True
+        smsnake.game_map[4][5].is_wet_tile = True
+
+        smsnake.game_map[4][11].is_wet_tile = True
+        smsnake.game_map[3][11].is_wet_tile = True
+        smsnake.game_map[2][11].is_wet_tile = True
+        smsnake.game_map[4][10].is_wet_tile = True
+        smsnake.game_map[2][9].is_wet_tile = True
+        smsnake.game_map[4][9].is_wet_tile = True
+        smsnake.game_map[2][8].is_wet_tile = True
+        smsnake.game_map[2][7].is_wet_tile = True
+        smsnake.game_map[4][7].is_wet_tile = True
+        wet_option_list.append(smsnake)
+
+        revsmsnake = generate_map(1)
+        revsmsnake.game_map[4][1].is_wet_tile = True
+        revsmsnake.game_map[3][1].is_wet_tile = True
+        revsmsnake.game_map[2][1].is_wet_tile = True
+        revsmsnake.game_map[2][2].is_wet_tile = True
+        revsmsnake.game_map[2][3].is_wet_tile = True
+        revsmsnake.game_map[4][3].is_wet_tile = True
+        revsmsnake.game_map[4][4].is_wet_tile = True
+        revsmsnake.game_map[2][5].is_wet_tile = True
+        revsmsnake.game_map[4][5].is_wet_tile = True
+
+        revsmsnake.game_map[4][11].is_wet_tile = True
+        revsmsnake.game_map[3][11].is_wet_tile = True
+        revsmsnake.game_map[2][11].is_wet_tile = True
+        revsmsnake.game_map[2][10].is_wet_tile = True
+        revsmsnake.game_map[2][9].is_wet_tile = True
+        revsmsnake.game_map[4][9].is_wet_tile = True
+        revsmsnake.game_map[4][8].is_wet_tile = True
+        revsmsnake.game_map[2][7].is_wet_tile = True
+        revsmsnake.game_map[4][7].is_wet_tile = True
+        wet_option_list.append(revsmsnake)
+
+        patha = generate_map(1)
+        patha.game_map[2][1].is_wet_tile = True
+        patha.game_map[3][1].is_wet_tile = True
+        patha.game_map[4][1].is_wet_tile = True
+        patha.game_map[2][2].is_wet_tile = True
+        patha.game_map[3][2].is_wet_tile = True
+        patha.game_map[4][2].is_wet_tile = True
+        patha.game_map[2][3].is_wet_tile = True
+        patha.game_map[3][3].is_wet_tile = True
+        patha.game_map[4][3].is_wet_tile = True
+        patha.game_map[2][4].is_wet_tile = True
+        patha.game_map[3][4].is_wet_tile = True
+        patha.game_map[4][4].is_wet_tile = True
+
+        patha.game_map[2][11].is_wet_tile = True
+        patha.game_map[3][11].is_wet_tile = True
+        patha.game_map[4][11].is_wet_tile = True
+        patha.game_map[2][10].is_wet_tile = True
+        patha.game_map[3][10].is_wet_tile = True
+        patha.game_map[4][10].is_wet_tile = True
+        patha.game_map[2][9].is_wet_tile = True
+        patha.game_map[3][9].is_wet_tile = True
+        patha.game_map[4][9].is_wet_tile = True
+        patha.game_map[2][8].is_wet_tile = True
+        patha.game_map[3][8].is_wet_tile = True
+        patha.game_map[4][8].is_wet_tile = True
+        wet_option_list.append(patha)
+
+
         return wet_option_list
 
 
