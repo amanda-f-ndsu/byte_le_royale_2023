@@ -126,11 +126,9 @@ class Engine:
                         if self.use_filenames:
                             player.team_name = filename
                             val = thr.retrieve_value()
-                            print(val)
                             player.cook_skin = val[1]
                         else:
                             val = thr.retrieve_value()
-                            print(val)
                             player.team_name = val[0]
                             player.cook_skin = val[1]
                     except Exception as e:
