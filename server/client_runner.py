@@ -57,6 +57,7 @@ class client_runner:
         self.seed_path = f"{self.runner_temp_dir}/seeds"
 
         self.sub_id_to_team_id = {}
+        self.team_id_to_sub_id = {}
         self.team_id_to_team_name = self.get_team_ids_to_names()
 
 
@@ -106,7 +107,7 @@ class client_runner:
             self.index_to_seed_id[index] = self.insert_seed_file(fldict)
 
         # then run them in paralell using their index as a unique identifier
-        res = Parallel(n_jobs=1, backend="threading")(
+        res = Parallel(n_jobs=6, backend="threading")(
             map(delayed(self.internal_runner), games, [i for i in range(self.total_number_of_games)]))
 
     def internal_runner(self, row_tuple, index):
@@ -128,6 +129,7 @@ class client_runner:
                 # runner will run -fn argument, which makes the team name the file name
                 # So we can grab the submission_id out of the results later
                 self.sub_id_to_team_id[row['submission_id']] = row["team_id"]
+                self.team_id_to_sub_id[row["team_id"]] = row['submission_id']
                 with open(f"{end_path}/client_{index_2}_{row['submission_id']}.py", 'w') as f:
                     f.write(row['file_text'])
                 index_2 += 1
@@ -151,15 +153,13 @@ class client_runner:
 
             # CHANGE THIS LINE TO GET CORRECT SCORE FOR GAME
             for player in results["players"]:
-                if player["error"]:
-                    errors[player["team_name"].split("_")[-1]] = player["error"]
-                elif player["cook"]["score"] == max_score:
+                if player["cook"] and player["cook"]["score"] == max_score:
                     winner = -1
-                elif player["cook"]["score"] > max_score:
+                elif player["cook"] and player["cook"]["score"] > max_score:
                     winner = player["team_name"].split("_")[-1]
                     max_score = player["cook"]["score"]
         finally:
-            player_sub_ids = [x["team_name"].split("_")[-1] for x in results["players"]]
+            player_sub_ids = [x["submission_id"] for x in row_tuple]
             run_id = self.insert_run(
                 winner,
                 player_sub_ids[0],

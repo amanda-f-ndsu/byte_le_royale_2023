@@ -166,12 +166,12 @@ openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 5
 
 Then to run the server on Gunicorn, run the command
 
-gunicorn -b 134.129.91.175:8000 server.Server:app -w 1 --threads 12
+gunicorn -b 134.129.91.211:8000 server.Server:app -w 1 --threads 12
 
 ### Endpoints
 
 The following endpoints exist on the API. Most are somewhat self explanitory. Note that 'get' doesn't refer to the HTTP action but the action of "getting" something.
-
+ gunicorn -b 134.129.91.211:8000 server.Server:app -w 1 --threads 12
 #### /api/get_unis
 #### body: none
 Returns the universities a player can be from or N/A. 

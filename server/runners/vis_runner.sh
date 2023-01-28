@@ -1,1 +1,1 @@
-python3.10 launcher.pyz v -log logs -server
+python3 launcher.pyz v -log logs -server

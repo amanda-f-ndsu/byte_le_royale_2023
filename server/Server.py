@@ -37,7 +37,7 @@ dictConfig({
     }
 })
 
-MAX_FILE_CHARACTER_COUNT = 14000
+MAX_FILE_CHARACTER_COUNT = 28000
 
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
