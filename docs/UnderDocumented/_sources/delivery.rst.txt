@@ -1,9 +1,0 @@
-==========
-Delivery
-==========
-
-Important information
-------------------------
-The delivery allow you place a finish pizza onto the delivery then you gains point on the pizza and it topping.
-Delivery is end point where all pizza go to be score.
-This state of the art contraption that will teleport the pizza to a random customer home and gain point for a good pizza.

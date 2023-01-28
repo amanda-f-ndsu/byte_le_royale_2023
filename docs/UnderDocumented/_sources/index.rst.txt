@@ -23,6 +23,7 @@ to keep your job ( and your life ). Don't worry, all you have to do is move and 
    action
    stats
    server
+   visualizer
    controllers
    enums
    objects

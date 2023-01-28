@@ -52,6 +52,5 @@ Other
 Other Stat                        number     Information   
 ===============================  ========== ========================================================= 
  event_timer                      50                   
- turns_per_item_turnover_event    5         
- Topping_types_weights_array
+ turns_per_item_turnover_event    10         
 ===============================  ========== =========================================================

@@ -48,8 +48,25 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#goal">Goal</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cook-options-during-turns">Cook options during turns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#other-logic">Other Logic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-game">Running the game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-version">Python version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getting-the-code">Getting the code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#submitting-issues">Submitting Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#release-of-top-clients">Release of top clients</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-launcher">Running the launcher</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generating-the-map">Generating the map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Running the game</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-visualizer">Running the visualizer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#improving-the-bot">Improving the bot</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cook-options-during-turns">Cook options during turns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-logic">Other Logic</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scrimmage">Scrimmage!</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="GameBoard.html">The Game Board</a></li>
@@ -58,6 +75,7 @@
 <li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="server.html">Server Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizer.html">Visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="controllers.html">Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
 <li class="toctree-l1"><a class="reference internal" href="objects.html">objects</a></li>
@@ -95,16 +113,88 @@
 games against other players in a “group run” after the competition has ended will win the competition.</p>
 <p>More specifically, this game is about making pizzas</p>
 </section>
+<section id="running-the-game">
+<h2>Running the game<a class="headerlink" href="#running-the-game" title="Permalink to this heading"></a></h2>
+<section id="python-version">
+<h3>Python version<a class="headerlink" href="#python-version" title="Permalink to this heading"></a></h3>
+<p>Make sure to uninstall the visual studio version of python if you have visual studio installed.
+You can do this by re-running the installer and unselecting the python development kit then clicking update.</p>
+<p>We recommend running a python version between 3.10 and 3.11</p>
+<p>You can use any text editor for this competition, but we recommend visual studio code.</p>
+</section>
+<section id="getting-the-code">
+<h3>Getting the code<a class="headerlink" href="#getting-the-code" title="Permalink to this heading"></a></h3>
+<p>Please download all of the assets you need from <a class="reference external" href="https://drive.google.com/drive/folders/1eC-kjPyY-Z7ZZYpovCg8WJvAwfnGAZbp?usp=sharing">https://drive.google.com/drive/folders/1eC-kjPyY-Z7ZZYpovCg8WJvAwfnGAZbp?usp=sharing</a></p>
+<p>This drive will contain the launcher.pyz file, two base clients, the visualizer and the requirements.txt</p>
+</section>
+<section id="submitting-issues">
+<h3>Submitting Issues<a class="headerlink" href="#submitting-issues" title="Permalink to this heading"></a></h3>
+<p>If you run into issues with the game, please submit an issue to the discord in the bugs channel</p>
+</section>
+<section id="release-of-top-clients">
+<h3>Release of top clients<a class="headerlink" href="#release-of-top-clients" title="Permalink to this heading"></a></h3>
+<p>The top three clients at the end of the competition will be made public ( with censorship at the board’s discretion (Association for Censorship Mmmmmmmmmmmmm))</p>
+</section>
+</section>
+<section id="running-the-launcher">
+<h2>Running the launcher<a class="headerlink" href="#running-the-launcher" title="Permalink to this heading"></a></h2>
+<p>NOTE: There are some packages requires for running this year’s game. You can run the command</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m pip install -r requirements.txt</span>
+</pre></div>
+</div>
+<p>(To view the packages to be installed, simply open the requirements.txt file)</p>
+<p>If you have problems installing the pygame package, try running the command</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m pip install pygame --pre</span>
+</pre></div>
+</div>
+<section id="generating-the-map">
+<h3>Generating the map<a class="headerlink" href="#generating-the-map" title="Permalink to this heading"></a></h3>
+<p>You can generate a new game map by calling</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">launcher</span><span class="o">.</span><span class="n">pyz</span> <span class="n">g</span>
+</pre></div>
+</div>
+<p>within a terminal in the byte-le folder. You can keep the same game map by just not running the above command.
+With the same map and same clients, the end results should be the same.</p>
+</section>
+<section id="id1">
+<h3>Running the game<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>You can run the bot by calling</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">launcher</span><span class="o">.</span><span class="n">pyz</span> <span class="n">r</span>
+</pre></div>
+</div>
+<p>within the terminal. Print statements within your client will print if you wish to use them for debugging purposes. Alternatively, you can view
+the turn logs that are produced within the logs folder.</p>
+</section>
+<section id="running-the-visualizer">
+<h3>Running the visualizer<a class="headerlink" href="#running-the-visualizer" title="Permalink to this heading"></a></h3>
+<p>As a third option for debugging, we have built a visualizer! The visualizer visually depicts the logs that are produced, so you can more easily decipher what went wrong.
+The visualizer can be run with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">launcher</span><span class="o">.</span><span class="n">pyz</span> <span class="n">v</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="visualizer.html"><span class="doc">Visualizer</span></a> for more commands</p>
+</section>
+</section>
+<section id="improving-the-bot">
+<h2>Improving the bot<a class="headerlink" href="#improving-the-bot" title="Permalink to this heading"></a></h2>
+<p>All improvements should be made within the client. We provide a base client but you are welcome to rename the file or create multiple client files.
+Note that if you make multiple files, there can only be two client in the root folder. Place the other clients in the test_clients folder. Make sure to check the
+documentation for hints on how to improve!</p>
 <section id="cook-options-during-turns">
-<h2>Cook options during turns<a class="headerlink" href="#cook-options-during-turns" title="Permalink to this heading"></a></h2>
+<h3>Cook options during turns<a class="headerlink" href="#cook-options-during-turns" title="Permalink to this heading"></a></h3>
 <p>Each turn, a cook can do one of two things. You can choose to move the cook or choose if you want to interact with an adjacent station
 in that order. See <a class="reference internal" href="action.html"><span class="doc">Taking Action</span></a> and <a class="reference internal" href="stations.html"><span class="doc">Stations</span></a></p>
 </section>
 <section id="other-logic">
-<h2>Other Logic<a class="headerlink" href="#other-logic" title="Permalink to this heading"></a></h2>
+<h3>Other Logic<a class="headerlink" href="#other-logic" title="Permalink to this heading"></a></h3>
 <p>After the cook has been given the chance to move and interact, dispensers may dispense a new topping and ovens will cook a pizza for
 another turn. After this, event logic will take place. This means that a new event will start if one is meant to start during that turn.
 Events can be seen at <a class="reference internal" href="events.html"><span class="doc">Events</span></a> and stats at <a class="reference internal" href="stats.html"><span class="doc">Stats</span></a></p>
+</section>
+</section>
+<section id="scrimmage">
+<h2>Scrimmage!<a class="headerlink" href="#scrimmage" title="Permalink to this heading"></a></h2>
+<p>The actual competition occurs on the server! View the <a class="reference internal" href="server.html"><span class="doc">Server Documentation</span></a> documentation for more info.</p>
 </section>
 </section>
 

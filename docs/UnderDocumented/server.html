@@ -22,7 +22,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Controllers" href="controllers.html" />
+    <link rel="next" title="Visualizer" href="visualizer.html" />
     <link rel="prev" title="Stats" href="stats.html" /> 
 </head>
 
@@ -57,9 +57,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#registering">Registering</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#submiting-clients">submiting clients</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#leaderboard">leaderboard</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#view-stats">view stats</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#view-stats">view stats</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#other-fun-commands">Other Fun Commands!</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#note-on-output">Note on output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#runs-for-group-run">runs for group run</a></li>
@@ -75,12 +75,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#client-runner">Client Runner</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#visualizer">Visualizer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#database-schema">Database Schema</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#import-whitelist">Import Whitelist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#import-whitelist">Import Whitelist</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="visualizer.html">Visualizer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="controllers.html">Controllers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
 <li class="toctree-l1"><a class="reference internal" href="objects.html">objects</a></li>
@@ -149,15 +148,15 @@ then run against other clients to determine placing. Feel free to submit as many
 </pre></div>
 </div>
 </section>
+</section>
 <section id="view-stats">
-<h3>view stats<a class="headerlink" href="#view-stats" title="Permalink to this heading"></a></h3>
+<h2>view stats<a class="headerlink" href="#view-stats" title="Permalink to this heading"></a></h2>
 <p><strong>Rate Limit: 5/minute</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">launcher</span><span class="o">.</span><span class="n">pyz</span> <span class="n">client</span> <span class="n">stats</span>
 </pre></div>
 </div>
 <p>Returns stats relating to your submissions(s). All stats relate to your most recent submission. Please note that the stats will continue to change until all
 runs are completed.</p>
-</section>
 </section>
 <section id="other-fun-commands">
 <h2>Other Fun Commands!<a class="headerlink" href="#other-fun-commands" title="Permalink to this heading"></a></h2>
@@ -287,8 +286,9 @@ restart the program so the most recent logs are played.</p>
 <li><p>using the keyword ‘open’</p></li>
 <li><p>using an uncommented ‘print’ keyword</p></li>
 </ol>
+</section>
 <section id="import-whitelist">
-<h3>Import Whitelist<a class="headerlink" href="#import-whitelist" title="Permalink to this heading"></a></h3>
+<h2>Import Whitelist<a class="headerlink" href="#import-whitelist" title="Permalink to this heading"></a></h2>
 <p>The current import white list is</p>
 <p>“game.client.user_client”,
 “game.common.enums”,
@@ -299,14 +299,13 @@ restart the program so the most recent logs are played.</p>
 “enum”</p>
 </section>
 </section>
-</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="stats.html" class="btn btn-neutral float-left" title="Stats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="controllers.html" class="btn btn-neutral float-right" title="Controllers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="visualizer.html" class="btn btn-neutral float-right" title="Visualizer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

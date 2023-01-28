@@ -3,10 +3,10 @@ Server Documentation
 ======================
 
 The Important commands that you need to know!
-================================================
+----------------------------------------------
 
 Registering
-------------
+============
 
 **Rate Limit: 10 / hour**
 
@@ -21,7 +21,7 @@ you will then be prompted to enter information
 
 
 submiting clients
---------------------
+==================
 
 **Rate Limit: 1/minute**
 
@@ -34,7 +34,7 @@ root directory that contain the word 'client'. Otherwise, you can manually selec
 then run against other clients to determine placing. Feel free to submit as many times as you like, but please refrain from excessive uploads.
 
 leaderboard
---------------
+=============
 
 **Rate Limit: 5/minute**
 
@@ -56,7 +56,7 @@ Also note you can retrieve the leaderboard for previous group runs using
 
 
 view stats
-------------
+-----------
 
 **Rate Limit: 5/minute**
 
@@ -69,11 +69,11 @@ runs are completed.
 
 
 Other Fun Commands!
-=====================
+--------------------
 
 
 Note on output
------------------
+================
 
 Some of the tables from the commands can be quite large. You can write these large results to a file using the > opperator. EX:
 
@@ -89,7 +89,7 @@ You can also specify csv output if desired by passing the -csv flag to the serve
 
 
 runs for group run
--------------------
+===================
 
 **Rate Limit: 5/minute**
 
@@ -100,7 +100,7 @@ runs for group run
 Returns all of a team's runs for a given group run
 
 runs for submission
----------------------
+====================
 
 **Rate Limit: 5/minute**
 
@@ -111,7 +111,7 @@ runs for submission
 Returns all of the runs for a given submission
 
 get submissions
------------------
+================
 
 **Rate Limit: 5/minute**
 
@@ -122,7 +122,7 @@ get submissions
 Returns all of the submissions for a team
 
 get group runs
------------------
+===============
 
 **Rate Limit: 5/minute**
 
@@ -133,7 +133,7 @@ get group runs
 Returns all of the group runs a team participated in
 
 get code for submission
--------------------------
+========================
 
 **Rate Limit: 1/minute**
 
@@ -144,7 +144,7 @@ get code for submission
 Returns code for a given submission
 
 get errors for submission
--------------------------
+==========================
 
 **Rate Limit: 1/minute**
 
@@ -155,7 +155,7 @@ get errors for submission
 Returns errors for a given submission
 
 View score over time
--------------------------
+=====================
 
 **Rate Limit: 5/minute**
 
@@ -166,7 +166,7 @@ View score over time
 Returns your team's placing and total wins for each group run
 
 Get a seed
--------------------------
+===========
 
 **Rate Limit: 1/minute**
 
@@ -180,7 +180,7 @@ possibilities in a PvE competition!
 
 
 Client Runner
-===============
+---------------
 
 After your client has been uploaded to the server, it will be periodically ran against other clients to determine who has the best client.
 This is done by the Client Runner, Which has the following flow:
@@ -198,7 +198,7 @@ This is done by the Client Runner, Which has the following flow:
 The deterministic behavior of the game has been confirmed. IE if every team uploads the same client, they all tie with the same number of wins.
 
 Visualizer
-===========
+-------------
 
 To allow participants to have an idea of what stratagies teams are persuing, Logs from the client runner will be played on the twitch stream.
 It follows the following flow:
@@ -213,7 +213,7 @@ restart the program so the most recent logs are played.
 
 
 Database Schema
-=================
+----------------
 
 If you're confused about the schema of the database, the below ERD diagram is provided. Note that all foriegn keys have cascading deletes.
 (It's a bit ugly, but this is what the auto format likes and I can't do it better)
@@ -224,7 +224,7 @@ If you're confused about the schema of the database, the below ERD diagram is pr
 
 
 Validation
-===========
+-----------
 
 There are some forbidden actions your client can't take. These are
 
