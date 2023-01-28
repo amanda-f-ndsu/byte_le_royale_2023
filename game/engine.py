@@ -5,14 +5,13 @@ import os
 import sys
 import traceback
 from game.common.game_board import GameBoard
-
+from typing import Tuple
 from game.common.player import Player
 from game.config import *
 from game.controllers.master_controller import MasterController
 from game.utils.helpers import write_json_file
 from game.utils.thread import Thread, CommunicationThread
 from game.utils.validation import verify_code, verify_num_clients
-
 from tqdm import tqdm
 
 
@@ -109,7 +108,7 @@ class Engine:
                 thr = None
                 try:
                     # Retrieve team name
-                    thr = CommunicationThread(player.code.team_name, list(), str)
+                    thr = CommunicationThread(player.code.team_data, list(), tuple)
                     thr.start()
                     thr.join(0.01)  # Shouldn't take long to get a string
 
@@ -126,9 +125,14 @@ class Engine:
                     try:
                         if self.use_filenames:
                             player.team_name = filename
-                            thr.retrieve_value()
+                            val = thr.retrieve_value()
+                            print(val)
+                            player.cook_skin = val[1]
                         else:
-                            player.team_name = thr.retrieve_value()
+                            val = thr.retrieve_value()
+                            print(val)
+                            player.team_name = val[0]
+                            player.cook_skin = val[1]
                     except Exception as e:
                         player.functional = False
                         player.error = f"{str(e)}\n{traceback.print_exc()}"
