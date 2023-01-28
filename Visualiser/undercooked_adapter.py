@@ -37,8 +37,8 @@ class UnderCookedAdapter():
         clients = turn["clients"]
         held_one = "_held" if clients[0]["cook"]["held_item"] != None else ""
         held_two = "_held" if clients[1]["cook"]["held_item"] != None else ""
-        cooks.append([clients[0]["cook"]["position"][1], clients[0]["cook"]["position"][0], "white_cook" + held_one])
-        cooks.append([clients[1]["cook"]["position"][1], clients[1]["cook"]["position"][0], "white_cook" + held_two])
+        cooks.append([clients[0]["cook"]["position"][1], clients[0]["cook"]["position"][0], self.check_cook_skin(clients[0]) + held_one])
+        cooks.append([clients[1]["cook"]["position"][1], clients[1]["cook"]["position"][0], self.check_cook_skin(clients[1]) + held_two])
         self.command(turn_num, "set_layer", ["cooks", cooks])
         self.command(turn_num, "set_layer", ["held", held])
         # Update wet tiles
@@ -57,6 +57,10 @@ class UnderCookedAdapter():
         self.command(0, "add_score", [1, clients[1]["team_name"] + ": ", 0, [500, 30]])
 
     def setup_gamemap(self):
+        # Load the clients from turn 1
+        clients = open(self.log_path + "/turn_0001.json")
+        clients = json.loads(clients.read())
+        clients = clients["clients"]
         # Load just the gamemap from game_map.json
         game_map = open(self.log_path + "/game_map.json")
         game_map = json.loads(game_map.read())
@@ -85,6 +89,9 @@ class UnderCookedAdapter():
                             stations.append([x, y, key])
                     else:
                         cooks.append([x, y, "white_cook"])
+        # Add cooks
+        cooks.append([3, 3, self.check_cook_skin(clients[0])])
+        cooks.append([9, 3, self.check_cook_skin(clients[1])])
         # Update the station layer with the list of station positions
         self.command(0, "set_layer", ["stations", stations])
         # Add the items layer
@@ -247,6 +254,38 @@ class UnderCookedAdapter():
         else:
             return "pizza"
 
+    def check_cook_skin(self, client):
+        skin = client["cook_skin"]
+        if skin == None:
+            return "white_cook"
+        elif skin == "white":
+            return "white_cook"
+        elif skin == "amanda":
+            return "amanda_cook"
+        elif skin == "mitchell":
+            return "mitchell_cook"
+        elif skin == "purple":
+            return "purple_cook"
+        elif skin == "jean":
+            return "jean_cook"
+        elif skin == "red":
+            return "red_cook"
+        elif skin == "blue":
+            return "blue_cook"
+        elif skin == "yellow":
+            return "yellow_cook"
+        elif skin == "john":
+            return "john_cook"
+        elif skin == "green":
+            return "green_cook"
+        elif skin == "brown":
+            return "brown_cook"
+        elif skin == "techno":
+            return "techno_cook"
+        else:
+            return "white_cook"
+        
+
     def topping_key(self, item):
         num = item["topping_type"]
         if num == 0:
@@ -284,7 +323,7 @@ class UnderCookedAdapter():
             return "oven_empty"
 
     def dispenser_key(self, dispenser):
-        if "item" not in dispenser:
+        if "item" not in dispenser or not dispenser["item"]:
             return "dispenser"
         else:
             num = dispenser["item"]["topping_type"]

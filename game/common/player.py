@@ -12,6 +12,7 @@ class Player(GameObject):
         self.functional = True
         self.error = None
         self.team_name = team_name
+        self.cook_skin = "white"
         self.code = code
         self.action = action
         self.cook = cook
@@ -31,6 +32,7 @@ class Player(GameObject):
         data['functional'] = self.functional
         data['error'] = self.error
         data['team_name'] = self.team_name
+        data['cook_skin'] = self.cook_skin
         data['action'] = self.action.to_json() if self.action else None
         data['cook'] = self.cook.to_json() if self.cook else None
 
@@ -42,6 +44,7 @@ class Player(GameObject):
         self.functional = data['functional']
         self.error = data['error']
         self.team_name = data['team_name']
+        self.cook_skin = data['cook_skin']
         act = Action()
         self.action = act.from_json(data['action']) if data['action'] else None
         ck = Cook()
