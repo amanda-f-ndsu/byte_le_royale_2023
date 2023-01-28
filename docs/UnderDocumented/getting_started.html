@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Logic &mdash; Byte-le-Royale 20XX 9 documentation</title>
+  <title>Getting Started &mdash; Byte-le-Royale 2023 9 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/accordion.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="objects" href="objects_and_enums.html" />
-    <link rel="prev" title="Controllers" href="controllers.html" /> 
+    <link rel="next" title="The Game Board" href="GameBoard.html" />
+    <link rel="prev" title="Welcome to Undercooked’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Byte-le-Royale 20XX
+            <a href="index.html" class="icon icon-home"> Byte-le-Royale 2023
           </a>
               <div class="version">
                 Version 1.0
@@ -46,21 +46,21 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">Server Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GameBoard.html">The Game Board</a></li>
-<li class="toctree-l1"><a class="reference internal" href="player.html">Player Utilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stations.html">Stations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="controllers.html">Controllers</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Game Logic</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#goal">Goal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cook-options-during-turns">Cook options during turns</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#other-logic">Other Logic</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="objects_and_enums.html">objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GameBoard.html">The Game Board</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stations.html">Stations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">objects</a></li>
 </ul>
 
         </div>
@@ -69,7 +69,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Byte-le-Royale 20XX</a>
+          <a href="index.html">Byte-le-Royale 2023</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -77,9 +77,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Game Logic</li>
+      <li class="breadcrumb-item active">Getting Started</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/game_logic.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -87,15 +87,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="game-logic">
-<h1>Game Logic<a class="headerlink" href="#game-logic" title="Permalink to this heading"></a></h1>
+  <section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
+<section id="goal">
+<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this heading"></a></h2>
+<p>The goal of this game is to win games against opponents. You do this by scoring more points than your opponent. The player who wins the most
+games against other players in a “group run” after the competition has ended will win the competition.</p>
+<p>More specifically, this game is about making pizzas</p>
+</section>
 <section id="cook-options-during-turns">
 <h2>Cook options during turns<a class="headerlink" href="#cook-options-during-turns" title="Permalink to this heading"></a></h2>
-<p>Each turn, a cook can do two things. You can choose to move the cook and then choose if you want to interact with an adjacent station in that order.</p>
+<p>Each turn, a cook can do one of two things. You can choose to move the cook or choose if you want to interact with an adjacent station
+in that order. See <a class="reference internal" href="action.html"><span class="doc">Taking Action</span></a> and <a class="reference internal" href="stations.html"><span class="doc">Stations</span></a></p>
 </section>
 <section id="other-logic">
 <h2>Other Logic<a class="headerlink" href="#other-logic" title="Permalink to this heading"></a></h2>
-<p>After the cook has been given the chance to move and interact, dispenser will dispense a new topping. After this, event logic will take place. This means that a new event will start if one is meant to start during that turn.</p>
+<p>After the cook has been given the chance to move and interact, dispensers may dispense a new topping and ovens will cook a pizza for
+another turn. After this, event logic will take place. This means that a new event will start if one is meant to start during that turn.
+Events can be seen at <a class="reference internal" href="events.html"><span class="doc">Events</span></a> and stats at <a class="reference internal" href="stats.html"><span class="doc">Stats</span></a></p>
 </section>
 </section>
 
@@ -103,14 +112,14 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="controllers.html" class="btn btn-neutral float-left" title="Controllers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="objects_and_enums.html" class="btn btn-neutral float-right" title="objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Undercooked’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="GameBoard.html" class="btn btn-neutral float-right" title="The Game Board" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 20XX-20XX, NDSU ACM.</p>
+    <p>&#169; Copyright 1970-2023, NDSU ACM.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

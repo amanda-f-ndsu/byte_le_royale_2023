@@ -3,29 +3,29 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Placeholder's documentation!
-=======================================
+Welcome to Undercooked's documentation!
+========================================
+
+Your corporate overlords have determined that there are too many cooks in the kitchen. Out pizza your competitors in a cooking competition
+to keep your job ( and your life ). Don't worry, all you have to do is move and interact, surely you can beat the other cooks.
+
+.. image:: ./_static/imgs/TopChef.png
+   :width: 800
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   events
-   server
-   action
-   cook
+   getting_started
    GameBoard
-   player
-   stats
-   enums
-   item
-   pizza
-   topping
-   counter
-   tile
    stations
+   events
+   action
+   stats
+   server
    controllers
-   game_logic
+   enums
+   objects
    
 
 

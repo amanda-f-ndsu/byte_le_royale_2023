@@ -1,11 +1,13 @@
 ==========
 Pizza
 ==========
+
 The pizza is the food that the cook are making. The cook have multiple stage include  rolled, sauced, and baked. Once it get baked turn the pizza in to delivery point to gain point.
 Cheese topping must be added to the Pizza to count.
 
 Quality of Pizza
 ---------------------
+
 Pizza quality is something that people care about, and sadly, if a quality of a pizza is not fit for human consumption, you are unlikely to receive repeating customers. 
 The quality float of a pizza can be from 1.0 to 0.0 and uses the formula **score += (base + sum(toppings))* quality**
 

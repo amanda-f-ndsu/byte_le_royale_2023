@@ -237,13 +237,10 @@ Import Whitelist
 
 The current import white list is 
 
-"game.client.user_client", 
+"game.client.user_client",
 "game.common.enums",
-"math",
 "game.common.action",
-"game.common.moving.shooter",
-"game.utils.partition_grid",
-"game.utils.collision_detection",
-"game.utils.player_utils",
-"random",
-"numpy"
+"game.common.game_board",
+"game.common.cook",
+"typing",
+"enum"

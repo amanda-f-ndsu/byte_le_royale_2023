@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>objects &mdash; Byte-le-Royale 2023 9 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/accordion.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/accordion.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="List of Enums" href="enums.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Byte-le-Royale 2023
+          </a>
+              <div class="version">
+                Version 1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GameBoard.html">The Game Board</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stations.html">Stations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cook">Cook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pizza">Pizza</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quality-of-pizza">Quality of Pizza</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instance-variables">Instance Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#topping">Topping</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Instance Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#item">Item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#important-information">Important information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Instance Variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Byte-le-Royale 2023</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">objects</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/objects.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="objects">
+<h1>objects<a class="headerlink" href="#objects" title="Permalink to this heading"></a></h1>
+<p>Below are the definitions for objects that you may run into.</p>
+<section id="cook">
+<h2>Cook<a class="headerlink" href="#cook" title="Permalink to this heading"></a></h2>
+<p>The cook object represents your character in the game.
+In contains information on position, held item, and score.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>held_item</p></td>
+<td><p>Item</p></td>
+<td><p>The item the cook is currently holding</p></td>
+</tr>
+<tr class="row-odd"><td><p>score</p></td>
+<td><p>int</p></td>
+<td><p>The Score you are currently have</p></td>
+</tr>
+<tr class="row-even"><td><p>position</p></td>
+<td><p>tuple</p></td>
+<td><p>The position your cook is currently in, (y,x)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The cook starts in the middle of your kitchen.</p>
+</section>
+<section id="pizza">
+<h2>Pizza<a class="headerlink" href="#pizza" title="Permalink to this heading"></a></h2>
+<p>In the nation-state of Dominoes-TacoBell-Corpo-State, the only food allowed are pizza and tacos. A pizza can have the states rolled, sauced,
+and baked. Once it gets baked you can turn the pizza in to delivery station to gain points. The Cheese topping must be added to the Pizza to count.</p>
+<section id="quality-of-pizza">
+<h3>Quality of Pizza<a class="headerlink" href="#quality-of-pizza" title="Permalink to this heading"></a></h3>
+<p>Pizza quality is something that people care about, and sadly, if a quality of a pizza is not fit for human consumption, you are unlikely
+to receive repeating customers. The quality float of a pizza can be from 1.0 to 0.0 and uses the formula</p>
+<p><strong>score += (base + sum(toppings))* quality</strong></p>
+</section>
+<section id="instance-variables">
+<h3>Instance Variables<a class="headerlink" href="#instance-variables" title="Permalink to this heading"></a></h3>
+<p>Instance variables for the Pizza object</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 14%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>state</p></td>
+<td><p>PizzaState enums</p></td>
+<td><p>An enum that describes what type of state the pizza is in</p></td>
+</tr>
+<tr class="row-odd"><td><p>__topping</p></td>
+<td><p>ToppingType enums</p></td>
+<td><p>An enum that describes the topping on the pizza there can only be a maximum of 3 topping per pizza with the first topping is cheese and it required.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="topping">
+<h2>Topping<a class="headerlink" href="#topping" title="Permalink to this heading"></a></h2>
+<p>Toppings can be placed onto a pizza after they’ve been cut.</p>
+<section id="id1">
+<h3>Instance Variables<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>Instance variables for the Topping object</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 28%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Topping_type</p></td>
+<td><p>ToppingType enums</p></td>
+<td><p>An enum that describes what type of topping this is</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_cut</p></td>
+<td><p>bool</p></td>
+<td><p>Whether the topping is alreadly cut or not</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="item">
+<h2>Item<a class="headerlink" href="#item" title="Permalink to this heading"></a></h2>
+<section id="important-information">
+<h3>Important information<a class="headerlink" href="#important-information" title="Permalink to this heading"></a></h3>
+<p>Item this is the parent class for pizza and topping.</p>
+</section>
+<section id="id2">
+<h3>Instance Variables<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 35%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>worth</p></td>
+<td><p>int</p></td>
+<td><p>How many point is it worth</p></td>
+</tr>
+<tr class="row-odd"><td><p>quality</p></td>
+<td><p>float</p></td>
+<td><p>The quality of the item currently</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="enums.html" class="btn btn-neutral float-left" title="List of Enums" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1970-2023, NDSU ACM.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

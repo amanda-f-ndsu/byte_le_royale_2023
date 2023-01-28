@@ -48,8 +48,8 @@ source_suffix = [ '.rst', '.md' ]
 master_doc = 'index'
 
 # General information about the project.
-project = 'Byte-le-Royale 20XX'
-copyright = '20XX-20XX, NDSU ACM'
+project = 'Byte-le-Royale 2023'
+copyright = '1970-2023, NDSU ACM'
 author = 'NDSU ACM'
 
 # The version info for the project you're documenting, acts as replacement for

@@ -1,6 +1,7 @@
 ==========
 Topping
 ==========
+
 The topping is place onto the pizza after being cut to increase the amount of point you can get. These topping will be found in dispenser occasionally with first come first serve.
 Topping will need to be cut in the cutter station before being added to pizza in combiner station. 
 

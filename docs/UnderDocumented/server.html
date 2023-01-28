@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Server Documentation &mdash; Byte-le-Royale 20XX 9 documentation</title>
+  <title>Server Documentation &mdash; Byte-le-Royale 2023 9 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/accordion.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Taking Action" href="action.html" />
-    <link rel="prev" title="Events" href="events.html" /> 
+    <link rel="next" title="Controllers" href="controllers.html" />
+    <link rel="prev" title="Stats" href="stats.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,7 +31,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Byte-le-Royale 20XX
+            <a href="index.html" class="icon icon-home"> Byte-le-Royale 2023
           </a>
               <div class="version">
                 Version 1.0
@@ -46,7 +46,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GameBoard.html">The Game Board</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stations.html">Stations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Server Documentation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#the-important-commands-that-you-need-to-know">The Important commands that you need to know!</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#registering">Registering</a></li>
@@ -76,20 +81,9 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cook.html">Cook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="GameBoard.html">The Game Board</a></li>
-<li class="toctree-l1"><a class="reference internal" href="player.html">Player Utilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
-<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
-<li class="toctree-l1"><a class="reference internal" href="item.html">Item</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pizza.html">Pizza</a></li>
-<li class="toctree-l1"><a class="reference internal" href="topping.html">Topping</a></li>
-<li class="toctree-l1"><a class="reference internal" href="counter.html">Counter</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tile.html">Tile</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stations.html">Stations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="controllers.html">Controllers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="game_logic.html">Game Logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">objects</a></li>
 </ul>
 
         </div>
@@ -98,7 +92,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Byte-le-Royale 20XX</a>
+          <a href="index.html">Byte-le-Royale 2023</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -298,14 +292,11 @@ restart the program so the most recent logs are played.</p>
 <p>The current import white list is</p>
 <p>“game.client.user_client”,
 “game.common.enums”,
-“math”,
 “game.common.action”,
-“game.common.moving.shooter”,
-“game.utils.partition_grid”,
-“game.utils.collision_detection”,
-“game.utils.player_utils”,
-“random”,
-“numpy”</p>
+“game.common.game_board”,
+“game.common.cook”,
+“typing”,
+“enum”</p>
 </section>
 </section>
 </section>
@@ -314,14 +305,14 @@ restart the program so the most recent logs are played.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="events.html" class="btn btn-neutral float-left" title="Events" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="action.html" class="btn btn-neutral float-right" title="Taking Action" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="stats.html" class="btn btn-neutral float-left" title="Stats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="controllers.html" class="btn btn-neutral float-right" title="Controllers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 20XX-20XX, NDSU ACM.</p>
+    <p>&#169; Copyright 1970-2023, NDSU ACM.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

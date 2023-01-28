@@ -4,7 +4,7 @@ List of Enums
 
 
 ObjectType
-============
+-----------
 
 =================  ============
  variable name     int value
@@ -34,7 +34,7 @@ ObjectType
 
 
 ActionType
-============
+-----------
 
 ================  ============
  variable name     int value
@@ -50,7 +50,7 @@ ActionType
 ================  ============
 
 PizzaState
-============
+-----------
 
 ==================  ============
  variable name       int value
@@ -63,7 +63,7 @@ PizzaState
 
 
 EventType
-===========
+----------
 
 =================  ============
  variable name     int value
@@ -75,7 +75,7 @@ EventType
 =================  ============
 
 ToppingType
-============
+------------
 
 ================  ============
  variable name     int value

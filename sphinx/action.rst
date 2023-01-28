@@ -19,29 +19,27 @@ Interact
 
 .. code-block:: python
 
-    actions.chosen_action(ActionType.interact) -> None
+    actions.chosen_action = ActionType.interact 
 
-This will set your intent to interact with items on the map, including all station dispenser, storage, delivery, and bin.
-Remember that ActionType.interact is an enum!
-(So you need to make sure you leave in the import for enums in the given client)
+This will set your intent to interact with stations on the map, see :doc:`stations`
 
 Move
 ======
 
 .. code-block:: python
 
-    actions.chosen_action(ActionType.Move.up) -> None
+    actions.chosen_action = ActionType.Move.up
 
 .. code-block:: python
 
-    actions.chosen_action(ActionType.Move.down) -> None
+    actions.chosen_action = ActionType.Move.down
 
 .. code-block:: python
 
-    actions.chosen_action(ActionType.Move.left) -> None
+    actions.chosen_action = ActionType.Move.left
 
 .. code-block:: python
 
-    actions.chosen_action(ActionType.Move.right) -> None
+    actions.chosen_action = ActionType.Move.right
 
 This will use your action to move around. It will allow the User to moved their AI up, down, left, and right.

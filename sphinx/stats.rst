@@ -10,20 +10,20 @@ Stats is the value within certain thing, which include point on topping, oven_ti
 Topping point
 ==============
 
-================  ========== ========================================================= 
- Topping           point       Information   
-================  ========== ========================================================= 
- dough              50          Dough score used as base pizza score and required           
- cheese             20          Cheese is required and is the first topping of pizza
- pepperoni          40          n/a             
- sausage            40          n/a     
- canadian_ham       40          n/a
- mushrooms          40          n/a
- peppers            50          n/a
- chicken            40          n/a
- olives             50          n/a
- anchovies          50          n/a      
-================  ========== =========================================================   
+================  ========== ============= ========================================================= 
+ Topping           point       Spawn rate             Information   
+================  ========== ============= ========================================================= 
+ dough              50           30%           Dough score used as base pizza score and required           
+ cheese             55           24%           Cheese is required and is the first topping of pizza
+ pepperoni          65           10%           n/a             
+ sausage            60           10%           n/a     
+ canadian_ham       70            5%           n/a
+ mushrooms          70            3%           n/a
+ peppers            75            2%           n/a
+ chicken            60           10%           n/a
+ olives             65            5%           n/a
+ anchovies          100           1%           n/a      
+================  ========== ============= =========================================================   
  
 Oven Timer
 ==============
