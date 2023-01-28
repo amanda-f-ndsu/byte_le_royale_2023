@@ -43,9 +43,9 @@ Important information
 
 Counters seperate the cooks in the kitchen. This is to create two kitchens, in order to prevent the "Too many cooks" problem.
 
-You do not recognize the tiles in the kitchen. Due to this, it is imperative that all cooks accessing this file be certified as
+You do not recognize the counters in the kitchen. Due to this, it is imperative that all cooks accessing this file be certified as
 having a Cognitive Resistance Value (CRV) of no less than 14.5. Should you fail an automated CRV verification, please remain calm 
 and do not move. A member of your resturaunt's medical staff will be with you shortly.
 
-The counters are not useable and do not need to be considerd at all, do not bother interacting with them. You do not recognize the tiles.
-The tiles never existed.
+The counters are not useable and do not need to be considerd at all, do not bother interacting with them. You do not recognize the counters.
+The counters never existed.
