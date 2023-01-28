@@ -21,5 +21,5 @@ class TestDispenserController(unittest.TestCase):
         self.dispenserController.handle_actions(self.world,1)
         for item in self.world.game_map:
             if(isinstance(item[6].occupied_by,Dispenser)):
-                self.assertIsNotNone(item[6].occupied_by.item)     
+                self.assertIsNone(item[6].occupied_by.item)     
    

@@ -323,7 +323,7 @@ class UnderCookedAdapter():
             return "oven_empty"
 
     def dispenser_key(self, dispenser):
-        if "item" not in dispenser:
+        if "item" not in dispenser or not dispenser["item"]:
             return "dispenser"
         else:
             num = dispenser["item"]["topping_type"]
