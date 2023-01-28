@@ -15,7 +15,7 @@ class TestDispenser(unittest.TestCase):
       
     def testDispenseEmpty(self):
         self.assertIsNone(self.dispenser.item)
-        self.dispenser.dispense(1)
+        self.dispenser.dispense(2)
         self.assertIsNotNone(self.dispenser.item)
 
     def testDispenseFull(self):

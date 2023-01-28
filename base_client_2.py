@@ -28,13 +28,13 @@ class Client(UserClient):
         self.x_max = None
         self.y_max = 5
 
-    def team_name(self):
+    def team_data(self):
         """
-        Return your team name for the engine
+        Return your team name and selected cook skin for the engine
 
-        :returns:       Your team name
+        :returns:       Your team name, your cook skin
         """
-        return 'Base client 2'
+        return ('Base client 2', "red")
 
     def start(self, action: Action, world: GameBoard, cook: Cook):
         """
