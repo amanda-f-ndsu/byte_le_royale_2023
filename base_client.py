@@ -3,7 +3,6 @@ from game.client.user_client import UserClient
 from game.common.cook import Cook
 from game.common.game_board import GameBoard
 from game.common.action import Action
-from game.common.cook import Cook
 from typing import Tuple
 from game.common.enums import *
 
@@ -28,13 +27,13 @@ class Client(UserClient):
         self.x_max = None
         self.y_max = 5
 
-    def team_name(self):
+    def team_data(self):
         """
-        Return your team name for the engine
+        Return your team name and selected cook skin for the engine
 
-        :returns:       Your team name
+        :returns:       Your team name, your cook skin
         """
-        return 'Base client 1'
+        return ('Base client 1', "purple")
 
     def start(self, action: Action, world: GameBoard, cook: Cook):
         """
