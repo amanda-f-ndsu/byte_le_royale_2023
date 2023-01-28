@@ -167,7 +167,7 @@
         "item_cheese_1": ["pizza", 6, 6],
         "item_cheese_2": ["pizza", 7, 6],
         "item_cheese_3": ["pizza", 8, 6],
-        "amanda_cook_hold": ["cooks", 0, 0],
+        "amanda_cook_held": ["cooks", 0, 0],
         "amanda_cook": ["cooks", 1, 0],
         "mitchell_cook": ["cooks", 2, 0],
         "mitchell_cook_held": ["cooks", 3, 0],
