@@ -438,8 +438,8 @@ class WetTilesController(Controller):
         diagonal.game_map[2][4].is_wet_tile = True
         diagonal.game_map[4][2].is_wet_tile = True
 
-        diagonal.game_map[2][10].is_wet_tile = True
-        diagonal.game_map[4][8].is_wet_tile = True
+        diagonal.game_map[2][8].is_wet_tile = True
+        diagonal.game_map[4][10].is_wet_tile = True
         wet_option_list.append(diagonal)
 
         small_four_corners = generate_map()
