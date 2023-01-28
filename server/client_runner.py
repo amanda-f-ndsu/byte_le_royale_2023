@@ -12,7 +12,7 @@ import platform
 from psycopg2.extras import RealDictCursor
 from joblib import Parallel, delayed, logger
 import logging
-
+import re
 from tqdm import std
 import time
 
@@ -56,6 +56,10 @@ class client_runner:
         self.runner_temp_dir = 'server/runner_temp'
         self.seed_path = f"{self.runner_temp_dir}/seeds"
 
+        self.sub_id_to_team_id = {}
+        self.team_id_to_team_name = self.get_team_ids_to_names()
+
+
         # self.loop.run_in_executor(None, self.await_input)
         # self.loop.call_later(5, self.external_runner())
         today930pm = datetime.datetime.now().replace(hour=21, minute=30, second=0, microsecond=0)
@@ -71,8 +75,6 @@ class client_runner:
                 self.group_id = -1
                 time.sleep(self.SLEEP_TIME_SECONDS_BETWEEN_RUNS)
         except (KeyboardInterrupt, Exception) as e:
-            logging.warning("Ending runner due to {0}".format(e))
-        finally:
             self.close_server()
 
     def external_runner(self):
@@ -104,7 +106,7 @@ class client_runner:
             self.index_to_seed_id[index] = self.insert_seed_file(fldict)
 
         # then run them in paralell using their index as a unique identifier
-        res = Parallel(n_jobs=6, backend="threading")(
+        res = Parallel(n_jobs=1, backend="threading")(
             map(delayed(self.internal_runner), games, [i for i in range(self.total_number_of_games)]))
 
     def internal_runner(self, row_tuple, index):
@@ -125,6 +127,7 @@ class client_runner:
             for index_2, row in enumerate(row_tuple):
                 # runner will run -fn argument, which makes the team name the file name
                 # So we can grab the submission_id out of the results later
+                self.sub_id_to_team_id[row['submission_id']] = row["team_id"]
                 with open(f"{end_path}/client_{index_2}_{row['submission_id']}.py", 'w') as f:
                     f.write(row['file_text'])
                 index_2 += 1
@@ -267,6 +270,19 @@ class client_runner:
         self.conn.commit()
         return run_id
 
+    def get_team_ids_to_names(self):
+        '''
+        Get teams to ids
+        '''
+        cur = self.conn.cursor()
+        cur.execute("SELECT team.team_name, team.team_id FROM team;")
+        res = cur.fetchall()
+        self.conn.commit()
+        rtn = {}
+        for row in res:
+            rtn[row[1]] = row[0]
+        return rtn
+
     def delete_group_run_cascade(self, groupid):
         '''
         Inserts a run into the DB
@@ -285,8 +301,11 @@ class client_runner:
                 with open(f"{path}/{file}") as fl:
                     # It would probably be better to store each file in it's own row
                     # But I'm lazy and I'm just going to denote the split with the delimiter below
-                    dict_logs[file] = fl.read()
-
+                    filestr = fl.read()
+                    for oldKey, oldValue in self.sub_id_to_team_id.items():
+                        filestr = re.sub(f"client_\d_{oldKey}", self.team_id_to_team_name[oldValue], filestr)
+                    dict_logs[file] = filestr
+            # self.id_name_to_team_name[]
             self.insert_log(json.dumps(dict_logs),
                             self.best_run_for_client[submission_id]["run_id"])
 
