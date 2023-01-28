@@ -14,7 +14,6 @@ class WetTilesController(Controller):
 
     # Assumed cook[0] is left cook[1] is right side of board
     def handle_actions(self, game_board, cooks):
-        print(len(self.wet_options))
         cook1_pos = cooks[0].position
         cook2_pos = cooks[1].position
         # Find distance to middle, then subtract that from middle to get position
