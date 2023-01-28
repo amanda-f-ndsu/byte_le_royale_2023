@@ -23,22 +23,13 @@ Welcome to Placeholder's documentation!
    topping
    counter
    tile
-   station
-   bin
-   combiner
-   cutter
-   delivery
-   oven
-   roller
-   sauce
-   storage
+   stations
    decay_controller
    dispenser_controller
    interact_controller
    movement_controller
    oven_controller
    wet_tile_controller  
-   dispenser
    game_logic
    
 
