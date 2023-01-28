@@ -25,7 +25,8 @@ ALLOWED_MODULES = ["game.client.user_client",       # modules that clients are s
                    "game.common.action",
                    "game.common.game_board",
                    "game.common.cook",
-                   "typing"
+                   "typing",
+                   "enum"
                    ]
 
 RESULTS_FILE_NAME = "results.json"                                  # Name and extension of results file

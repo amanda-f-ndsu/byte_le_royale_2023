@@ -9,12 +9,9 @@ import psycopg2
 import subprocess
 import json
 import platform
-import zipfile
 from psycopg2.extras import RealDictCursor
 from joblib import Parallel, delayed, logger
-import asyncio
 import logging
-import sys
 
 from tqdm import std
 import time
@@ -38,7 +35,6 @@ class client_runner:
             user=db_conn["user"],
             password=db_conn["password"]
         )
-        self.loop = asyncio.get_event_loop()
 
         # The group run ID. will be set by insert_new_group_runlauncher.pyz
 
@@ -53,8 +49,6 @@ class client_runner:
 
         # Maps a seed_index to a database seed_id
         self.index_to_seed_id = {}
-
-        self.tick = True
 
         self.version = self.get_version_number()
 
@@ -115,6 +109,7 @@ class client_runner:
 
     def internal_runner(self, row_tuple, index):
         winner = -1
+        max_score = -1
         errors = {}
         results = dict()
         try:
@@ -152,8 +147,6 @@ class client_runner:
                     results = json.load(f)
 
             # CHANGE THIS LINE TO GET CORRECT SCORE FOR GAME
-            winner = -1
-            max_score = -1
             for player in results["players"]:
                 if player["error"]:
                     errors[player["team_name"].split("_")[-1]] = player["error"]
@@ -174,12 +167,17 @@ class client_runner:
             for sub_id in errors:
                 self.insert_error(sub_id, run_id, errors[sub_id])
             # Update information in best run dict
-            if winner != -1 or self.tick:
-                if winner not in self.best_run_for_client or len(self.best_run_for_client) < 21:
+            if winner != -1 or len(self.best_run_for_client) < 10:
+                if winner not in self.best_run_for_client:
                     self.best_run_for_client[row["submission_id"]] = {}
                     self.best_run_for_client[row["submission_id"]]["log_path"] = end_path + "/logs"
                     self.best_run_for_client[row["submission_id"]]["run_id"] = run_id
-            self.tick = not self.tick
+                    self.best_run_for_client[row["submission_id"]]["score"] = max_score
+                elif winner in self.best_run_for_client and max_score > self.best_run_for_client[row["submission_id"]]["score"]:
+                    self.best_run_for_client[row["submission_id"]] = {}
+                    self.best_run_for_client[row["submission_id"]]["log_path"] = end_path + "/logs"
+                    self.best_run_for_client[row["submission_id"]]["run_id"] = run_id
+                    self.best_run_for_client[row["submission_id"]]["score"] = max_score
 
     def fetch_clients(self):
         '''

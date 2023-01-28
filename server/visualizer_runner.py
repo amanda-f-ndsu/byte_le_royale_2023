@@ -8,6 +8,12 @@ import shutil
 import subprocess
 import platform
 import zipfile
+import datetime
+import time
+import json
+import os
+import shutil
+import subprocess
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
@@ -69,6 +75,8 @@ class visualizer_runner:
                     fl.write(files[key])
 
             shutil.copy('launcher.pyz', id_dir)
+            shutil.copy('server/runners/vis_runner.sh', id_dir)
+            shutil.copytree('Visualiser', id_dir + '/Visualiser')
 
     def get_latest_group(self):
         print("Getting Latest Group Run")
@@ -85,8 +93,6 @@ class visualizer_runner:
             os.mkdir(self.logs_path)
 
     def visualizer_loop(self):
-
-        previous_team = None
         for team_dir in os.listdir(self.logs_path):
             try:
                 f = open(os.devnull, 'w')

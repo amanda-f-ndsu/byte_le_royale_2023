@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stations &mdash; Byte-le-Royale 2023 9 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/accordion.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/accordion.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Events" href="events.html" />
+    <link rel="prev" title="The Game Board" href="GameBoard.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Byte-le-Royale 2023
+          </a>
+              <div class="version">
+                Version 1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GameBoard.html">The Game Board</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Stations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#station">Station</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#important-information">Important information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instance-variables">Instance Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#methods">methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dispenser">Dispenser</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bin">Bin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cutter">Cutter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#storage">Storage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#roller">Roller</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sauce">Sauce</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#combiner">Combiner</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Important information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#oven">Oven</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Important information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Instance Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#delivery">Delivery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Important information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="action.html">Taking Action</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stats.html">Stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizer.html">Visualizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controllers.html">Controllers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html">List of Enums</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">objects</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Byte-le-Royale 2023</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Stations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/stations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="stations">
+<h1>Stations<a class="headerlink" href="#stations" title="Permalink to this heading"></a></h1>
+<section id="station">
+<h2>Station<a class="headerlink" href="#station" title="Permalink to this heading"></a></h2>
+<section id="important-information">
+<h3>Important information<a class="headerlink" href="#important-information" title="Permalink to this heading"></a></h3>
+<p>Their are multiple stations with different functions. These stations help you transform the homely dough item into
+a fully fledged pizza. Note that this is the parent class for the other stations.</p>
+</section>
+<section id="instance-variables">
+<h3>Instance Variables<a class="headerlink" href="#instance-variables" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 32%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Item</p></td>
+<td><p>An Item object or None</p></td>
+<td><p>A topping the station holds</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_infested</p></td>
+<td><p>bool</p></td>
+<td><p>if true, the item held will decay faster</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="methods">
+<h3>methods<a class="headerlink" href="#methods" title="Permalink to this heading"></a></h3>
+<p>To interact with a station, simply set your chosen action to the interact action while standing infront of it</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">action</span><span class="o">.</span><span class="n">chosen_action</span> <span class="o">=</span> <span class="n">ActionType</span><span class="o">.</span><span class="n">interact</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="dispenser">
+<h2>Dispenser<a class="headerlink" href="#dispenser" title="Permalink to this heading"></a></h2>
+<section id="id1">
+<h3>Important information<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>The dispenser dispenses Toppings. You can take a topping by calling the interact action near a dispenser. The items that the dispenser
+holds will refresh in a given interval. See <a class="reference internal" href="stats.html"><span class="doc">Stats</span></a> for this interval</p>
+</section>
+</section>
+<section id="bin">
+<h2>Bin<a class="headerlink" href="#bin" title="Permalink to this heading"></a></h2>
+<section id="id2">
+<h3>Important information<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>The bin allow you throw way topping or pizza that have not expired. This is used when the AI want to get rid of it and does not
+want to storage the item in the storage station.</p>
+</section>
+</section>
+<section id="cutter">
+<h2>Cutter<a class="headerlink" href="#cutter" title="Permalink to this heading"></a></h2>
+<section id="id3">
+<h3>Important information<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<p>The cutter will cut an uncut topping and return it to you immediatly. All toppings must be cut before they can be placed on a pizza.</p>
+</section>
+</section>
+<section id="storage">
+<h2>Storage<a class="headerlink" href="#storage" title="Permalink to this heading"></a></h2>
+<section id="id4">
+<h3>Important information<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<p>The storage allow you place an item inside to be use later on. The storage containers are outdated and it can only hold one item at a time.
+Calling interact on the storage station while you’re holding an item and the storage container has an item will cause the items to swap.</p>
+</section>
+</section>
+<section id="roller">
+<h2>Roller<a class="headerlink" href="#roller" title="Permalink to this heading"></a></h2>
+<section id="id5">
+<h3>Important information<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<p>The roller allow you to roll down the dough, so it could later to be use for the sauce station. This rolling process converts your
+topping object witha toppingtype of dough into a pizza object. Roller is the only non state of the are contraption as it just the
+cook rolling the dough. The employees are so fast it only take them micro-seconds.</p>
+</section>
+</section>
+<section id="sauce">
+<h2>Sauce<a class="headerlink" href="#sauce" title="Permalink to this heading"></a></h2>
+<section id="id6">
+<h3>Important information<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<p>The sauce station allow you place the sauce on a rolled out dough. It will be returned immediatly.</p>
+<p>At this station the cooks simply pour the sauce on top of rolled dough as these cooks are master of pouring sauce evenly.
+These pour so well due to going to PSU (Pizza State University).</p>
+</section>
+</section>
+<section id="combiner">
+<h2>Combiner<a class="headerlink" href="#combiner" title="Permalink to this heading"></a></h2>
+<section id="id7">
+<h3>Important information<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<p>The combiner takes a rolled pizza object. After it has the pizza, you can add toppings by holding a cut topping and calling the interact
+action infront of the combiner. Pizzas can have up to 3 toppings. Calling interact infront of the Combiner without an item will take the
+pizza off of it. The first topping must always be cheese.</p>
+<p>This state of the art contraption was made by the amazing scientists at the highest “Pizza League” colleges throughout
+the Dominoes-TacoBell-Corpo-State. Instead of picking up items and placing them on pizzas, the combiner allows for an efficient way
+to astrally project the idea of a topping onto a pizza by using life energy from the companies very willing and consentual employees.
+Willing employees <em>(for a 5% discount on purchases from Pizza World franchises)</em> sit in a booth overnight and are sucked of life energy to fuel the
+super duper combiner.</p>
+</section>
+</section>
+<section id="oven">
+<h2>Oven<a class="headerlink" href="#oven" title="Permalink to this heading"></a></h2>
+<section id="id8">
+<h3>Important information<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<p>The oven will cook a pizza object that has PizzaState.sauced and at least one topping. Calling interact with a pizza of this state
+will place it in the oven and begin cooking it. Calling interact again when the pizza reaches it’s baked state will remove the pizza from
+the oven. See <a class="reference internal" href="stats.html"><span class="doc">Stats</span></a> for how many turns the pizza needs to bake.</p>
+</section>
+<section id="id9">
+<h3>Instance Variables<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>is_powered</p></td>
+<td><p>Boolean</p></td>
+<td><p>True if the oven has power</p></td>
+</tr>
+<tr class="row-odd"><td><p>is_active</p></td>
+<td><p>Boolean</p></td>
+<td><p>True if there is a pizza cooking in there</p></td>
+</tr>
+<tr class="row-even"><td><p>timer</p></td>
+<td><p>int</p></td>
+<td><p>How many turns the pizza needs to cook</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="delivery">
+<h2>Delivery<a class="headerlink" href="#delivery" title="Permalink to this heading"></a></h2>
+<section id="id10">
+<h3>Important information<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<p>Turn in a baked pizza at this station.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="GameBoard.html" class="btn btn-neutral float-left" title="The Game Board" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="events.html" class="btn btn-neutral float-right" title="Events" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1970-2023, NDSU ACM.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
