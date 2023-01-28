@@ -24,12 +24,7 @@ Welcome to Placeholder's documentation!
    counter
    tile
    stations
-   decay_controller
-   dispenser_controller
-   interact_controller
-   movement_controller
-   oven_controller
-   wet_tile_controller  
+   controllers
    game_logic
    
 
