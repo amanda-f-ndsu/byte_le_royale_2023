@@ -21,7 +21,7 @@ class MasterController(Controller):
         super().__init__()
         self.game_over = False
         self.event_timer = GameStats.event_timer
-        self.event_times = (167,334)
+        self.event_times = (0,0)
         self.turn = None
         self.current_world_data = None
         self.movement_controller = MovementController()
@@ -56,6 +56,8 @@ class MasterController(Controller):
         self.current_world_data = world
         if(turn == 1):
             random.seed(world["seed"])
+            self.event_times= random.randrange(162,172),random.randrange(329,339)
+   
 
     # Receive a specific client and send them what they get per turn. Also obfuscates necessary objects.
     def client_turn_arguments(self, client, turn):
@@ -95,6 +97,7 @@ class MasterController(Controller):
         if self.current_world_data["game_map"].event_active == EventType.wet_tile and self.event_timer == GameStats.event_timer:
             if not self.wet_tiles_controller.handle_actions(self.current_world_data["game_map"],self.current_world_data["game_map"].cooks()):
                self.current_world_data["game_map"].generate_event(EventType.electrical,EventType.infestation)
+
         # Event stops running once timer hits zero, timer is reset
         if self.event_timer == 0:
             if self.current_world_data["game_map"].event_active == EventType.electrical:

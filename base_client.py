@@ -7,10 +7,18 @@ from game.common.cook import Cook
 from typing import Tuple
 from game.common.enums import *
 
+# Different states for state machine
+class State:
+    WAITING_FOR_DOUGH = 0
+    HAS_DOUGH = 1
+    HAS_ROLLED = 2
 
+# Main client class
 class Client(UserClient):
-    # Variables and info you want to save between turns go here
     def __init__(self):
+        """
+        Variables and info you want to save between turns go here
+        """
         super().__init__()
         self.half = None
         self.x_min = None
@@ -23,15 +31,25 @@ class Client(UserClient):
 
     def team_name(self):
         """
-        Allows the team to set a team name.
-        :return: Your team name
+        Return your team name for the engine
+
+        :returns:       Your team name
         """
         return 'Sean\'s client'
 
-    # This is where your AI will decide what to do
+    def start(self, action: Action, world: GameBoard, cook: Cook):
+        """
+        Run on the first turn by the take_turn() function
+
+        :param actions:     This is the actions object that you will add effort allocations or decrees to.
+        :param world:       Generic world information
+        """
+        self.check_side(cook)
+
     def take_turn(self, turn: int, action: Action, world: GameBoard, cook: Cook):
         """
-        This is where your AI will decide what to do.
+        This is where your bot will decide what to do.
+
         :param turn:        The current turn of the game.
         :param actions:     This is the actions object that you will add effort allocations or decrees to.
         :param world:       Generic world information
@@ -139,6 +157,10 @@ class Client(UserClient):
                 if world.game_map[y][x].occupied_by != None and world.game_map[y][x].occupied_by.object_type == object_type:
                     if obj_eval_func is None or (world.game_map[y][x].occupied_by != None and obj_eval_func(world.game_map[y][x].occupied_by)):
                         return (y, x)
+                    # Check eval function on item
+                    elif eval_func(station):
+                        return (y, x)
+        # Didn't find anything that matched our criteria
         return None
 
     def scan_board_list(self, world: GameBoard, object_type: ObjectType, obj_eval_func=None):

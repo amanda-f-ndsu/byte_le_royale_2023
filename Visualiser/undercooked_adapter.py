@@ -6,11 +6,11 @@ class UnderCookedAdapter():
         self.log_path = log_path
         self.output = []
 
-    def test(self, output_path):
+    def run(self, output_path):
         # Setup
         self.setup_scores()
         self.setup_gamemap()
-        # Test some turns
+        # Run turns 1 to 500
         for i in range(1, 501):
             self.process_turn(i)
         # Save output
@@ -284,7 +284,7 @@ class UnderCookedAdapter():
             return "oven_empty"
 
     def dispenser_key(self, dispenser):
-        if "item" not in dispenser:
+        if "item" not in dispenser or not dispenser["item"]:
             return "dispenser"
         else:
             num = dispenser["item"]["topping_type"]
@@ -323,10 +323,10 @@ def help():
 if(__name__ == "__main__"):
     if(len(sys.argv) == 1):
         adapter = UnderCookedAdapter("./logs")
-        adapter.test("graphical.json")
+        adapter.run("graphical.json")
     elif (len(sys.argv) == 3):
         adapter = UnderCookedAdapter(sys.argv[1])
-        adapter.test(sys.argv[2])
+        adapter.run(sys.argv[2])
     elif (len(sys.argv) == 2 and sys.argv[1] == "--help"):
         help()
     else:
