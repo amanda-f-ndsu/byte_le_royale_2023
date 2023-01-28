@@ -26,10 +26,12 @@ class Dispenser(Station):
        
 
     def dispense(self, turn):
-        if self._dirty or (not self.item or turn % GameStats.turns_per_item_turnover_event == 0):
+        if turn % GameStats.turns_per_item_turnover_event == 0 or turn == 2:
             rand_topping = random.choices(GameStats.topping_types_synced_list, GameStats.topping_types_weights_array)[0]
             self.item = Topping(topping_type=rand_topping, worth=GameStats.topping_stats[rand_topping]["score"], quality=1)
-            self._dirty = False            
+            self._dirty = False
+        elif self._dirty:
+            self.item = None
             
 
     def to_json(self) -> dict:

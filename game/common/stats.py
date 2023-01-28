@@ -25,7 +25,7 @@ class GameStats:
     decay_rate = 0.02
     infested_decay_rate = 0.05
     event_timer = 50
-    turns_per_item_turnover_event = 10
+    turns_per_item_turnover_event = 15
 
     topping_types_synced_list = [ToppingType.dough,
                                  ToppingType.cheese,
