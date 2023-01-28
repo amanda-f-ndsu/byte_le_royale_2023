@@ -17,6 +17,8 @@ Events List
 Infestation
 ---------------------
 
+(Decays items stored in combiners and storage faster)
+
 Oh my! The computer mice have attacked! These fiends are dastardly hungry,
 and will decay your toppings faster. So put on your running shoes, and hop
 to it. Hurry up and bake bake bake before it's too late late late!
@@ -25,16 +27,19 @@ to it. Hurry up and bake bake bake before it's too late late late!
 Electrical
 ---------------------
 
+(Ovens are turned off for a time, pizzas in the oven at the time are destroyed)
+
 Pizza World, also known as "Papa John's Day of Reckoning" has hired a complete doofus for their electrician. The management's
 love for creating pizza has made them blind to all practical limitations in the world. You could say that they look at life
 through pizza-tinted glasses. Little would they know, their pizza-tinted glasses would hamper the cooks ability to make pizza!
 In the 22nd century BC-BCE-AC-ACE, electricity is needed to make pizza! At this point in human history, society has completely
 forgot how to cook anything with natural fire or flame, and same goes for the wonderful Pizza World. Whenever our dummy
 electrician messes up, it could be time to shift attention to something else (use your big brain to figure this out). 
-NOTE: Any pizza that is an oven that loses power will be destroyed.
  
 Wet floors
 ---------------------
+
+(Cook cannot move through wet tiles)
 
 If there is one thing the big elites at Pizza World do not want, and that's a big lawsuit. Through the use of mental subliminal torture machines, that spurt daily affirmations of
 workplace encouragement to help the workers at Pizza World become more extensions of the company than they are humans, the cooks are terrified of any little bit of water
