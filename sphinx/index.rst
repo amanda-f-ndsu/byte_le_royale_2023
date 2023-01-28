@@ -36,3 +36,8 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Cooks used to pray for times like this, to rhyme like this
+So they had to grind like that to shine like this
+Seen their dreams unfold, nightmares come true
+It was time to marry the game and they said, "Yeah, I do."
