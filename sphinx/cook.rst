@@ -15,7 +15,7 @@ position          tuple            The position your cook is currently in
 The cook start at the middle of kitchen
 
 What your player can see their location
----------------------------
+----------------------------------------
 When you use the position in the cook class it will give your character current position.
 
 .. code-block:: python
@@ -24,7 +24,7 @@ When you use the position in the cook class it will give your character current 
 
 
 held item
----------
+----------
 
 The player held item none or one topping type that the cook currently have.
 

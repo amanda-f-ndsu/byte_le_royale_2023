@@ -38,7 +38,8 @@ At Pizza World Incorporated, pizza is looked at as a representation of life. Eve
 
 
 Pizza State enum
----------------
+------------------
+
 These enums can be used to check on the state of your pizza baby. Its like going to parent-teacher conferences without the nonsense!!
 
 ================  =========================== 

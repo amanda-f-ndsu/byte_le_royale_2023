@@ -17,7 +17,7 @@ Instance variables for the Gun object
 ================  =========================== ===================
 
 Topping type enum
----------------
+------------------
 
 The following are the enums described above
 

@@ -10,7 +10,6 @@ Welcome to Placeholder's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   How to run
    events
    server
    action
@@ -32,15 +31,16 @@ Welcome to Placeholder's documentation!
    oven
    roller
    sauce
-   station
    storage
    decay_controller
    dispenser_controller
    interact_controller
    movement_controller
    oven_controller
-   wet_tiles_controller  
-
+   wet_tile_controller  
+   dispenser
+   game_logic
+   
 
 
 Indices and tables
