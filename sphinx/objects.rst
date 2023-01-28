@@ -32,7 +32,7 @@ Quality of Pizza
 Pizza quality is something that people care about, and sadly, if a quality of a pizza is not fit for human consumption, you are unlikely 
 to receive repeating customers. The quality float of a pizza can be from 1.0 to 0.0 and uses the formula 
 
-**score of pizza = (base + SUM(ToppingQuality * ToppingBaseWorth)) x (quality of pizza)**
+**score += (base + sum(toppings))* quality**
 
 
 Instance Variables
